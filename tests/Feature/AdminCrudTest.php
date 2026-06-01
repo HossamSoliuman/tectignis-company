@@ -163,28 +163,6 @@ it('deletes uploaded files when a record is deleted', function () {
     expect(is_file(public_path('uploads/doomed-icon.png')))->toBeFalse();
 });
 
-it('uploads an image from the dashboard into public/uploads', function () {
-    $this->actingAs(adminUser())
-        ->post(route('admin.uploads.store'), [
-            'image' => UploadedFile::fake()->image('dashboard-upload.png'),
-        ])
-        ->assertRedirect()
-        ->assertSessionHas('status');
-
-    $files = glob(public_path('uploads/dashboard-upload-*.png'));
-    expect($files)->not->toBeEmpty();
-
-    array_map('unlink', $files);
-});
-
-it('rejects a non-image dashboard upload', function () {
-    $this->actingAs(adminUser())
-        ->post(route('admin.uploads.store'), [
-            'image' => UploadedFile::fake()->create('document.pdf', 100, 'application/pdf'),
-        ])
-        ->assertSessionHasErrors('image');
-});
-
 it('orders blog posts by sort order then newest', function () {
     $second = BlogPost::factory()->create(['sort_order' => 5, 'published_at' => now()->subDay()]);
     $first = BlogPost::factory()->create(['sort_order' => 1, 'published_at' => now()->subWeek()]);

@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\CaseStudy;
 use App\Models\Lead;
+use App\Models\PageVisit;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class DashboardController extends Controller
 {
-    use UploadsFiles;
+    /**
+     * Number of days of history shown in the dashboard charts.
+     */
+    private const TREND_DAYS = 30;
 
     public function __invoke(): View
     {
@@ -25,49 +28,59 @@ class DashboardController extends Controller
             'Case Studies' => CaseStudy::count(),
         ];
 
+        $since = now()->startOfDay()->subDays(self::TREND_DAYS - 1);
+
         return view('admin.dashboard', [
             'stats' => $stats,
-            'uploads' => $this->recentUploads(),
+            'visitsTrend' => $this->dailyTrend(PageVisit::query()->where('created_at', '>=', $since)->pluck('created_at')),
+            'leadsTrend' => $this->dailyTrend(Lead::query()->where('created_at', '>=', $since)->pluck('created_at')),
+            'topPages' => $this->topPages($since),
+            'visitsTotal' => PageVisit::where('created_at', '>=', $since)->count(),
+            'leadsTotal' => Lead::where('created_at', '>=', $since)->count(),
         ]);
     }
 
     /**
-     * Store an uploaded image into public/uploads and report back the public URL.
-     */
-    public function upload(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp,svg,gif', 'max:5120'],
-        ]);
-
-        $filename = $this->storeUpload($request->file('image'));
-
-        return back()->with('status', 'Image uploaded successfully: '.asset('uploads/'.$filename));
-    }
-
-    /**
-     * The most recently uploaded files in public/uploads, newest first.
+     * Build a continuous day-by-day count over the trend window, oldest first.
      *
-     * @return array<int, array{name: string, url: string}>
+     * @param  Collection<int, Carbon>  $timestamps
+     * @return array<int, array{label: string, date: string, value: int}>
      */
-    protected function recentUploads(int $limit = 8): array
+    private function dailyTrend(Collection $timestamps): array
     {
-        $directory = public_path('uploads');
+        $counts = $timestamps
+            ->groupBy(fn (Carbon $timestamp): string => $timestamp->toDateString())
+            ->map(fn (Collection $group): int => $group->count());
 
-        if (! is_dir($directory)) {
-            return [];
-        }
+        return Collection::times(self::TREND_DAYS, function (int $offset) use ($counts): array {
+            $day = now()->startOfDay()->subDays(self::TREND_DAYS - $offset);
 
-        $files = glob($directory.'/*.{jpg,jpeg,png,webp,svg,gif}', GLOB_BRACE) ?: [];
+            return [
+                'label' => $day->format('M j'),
+                'date' => $day->toDateString(),
+                'value' => $counts->get($day->toDateString(), 0),
+            ];
+        })->all();
+    }
 
-        usort($files, fn (string $a, string $b): int => filemtime($b) <=> filemtime($a));
-
-        return array_map(
-            fn (string $path): array => [
-                'name' => basename($path),
-                'url' => asset('uploads/'.basename($path)),
-            ],
-            array_slice($files, 0, $limit),
-        );
+    /**
+     * Most visited paths within the trend window.
+     *
+     * @return array<int, array{path: string, value: int}>
+     */
+    private function topPages(Carbon $since): array
+    {
+        return PageVisit::query()
+            ->where('created_at', '>=', $since)
+            ->selectRaw('path, count(*) as visits')
+            ->groupBy('path')
+            ->orderByDesc('visits')
+            ->limit(6)
+            ->get()
+            ->map(fn (PageVisit $visit): array => [
+                'path' => $visit->path,
+                'value' => (int) $visit->visits,
+            ])
+            ->all();
     }
 }
