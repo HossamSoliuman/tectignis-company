@@ -2,11 +2,13 @@
     'name',
     'label' => 'Image',
     'current' => null,
+    'currentUrl' => null,
     'hint' => 'PNG, JPG, WEBP or SVG',
 ])
 
 @php
-    $previewId = 'preview_'.$name;
+    $previewId = 'preview_'.preg_replace('/[^A-Za-z0-9_]/', '_', $name);
+    $currentSrc = $current ? ($currentUrl ?? asset('uploads/'.$current)) : '';
 @endphp
 
 <div data-image-field>
@@ -19,7 +21,7 @@
         {{-- Current / preview thumbnail --}}
         <div class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
             <img id="{{ $previewId }}"
-                src="{{ $current ? asset('uploads/'.$current) : '' }}"
+                src="{{ $currentSrc }}"
                 alt="{{ $label }} preview"
                 class="h-full w-full object-contain {{ $current ? '' : 'hidden' }}"
                 data-preview-img>

@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="software-innovation-hero-image animation_images three mt-30">
-                        <img src="<?php echo e(asset('assets/images/hero/'.($settings['hero_image'] ?? 'custom-software-solution-pan-india.webp'))); ?>" class="img-fluid" alt="Software AI Smart Technology Solutions">
+                        <img src="<?php echo e(\App\Models\Setting::imageUrl($settings['hero_image'] ?? 'custom-software-solution-pan-india.webp', 'hero_image')); ?>" class="img-fluid" alt="Software AI Smart Technology Solutions">
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="image-inner-video-section">
-                        <img class="img-fluid border-radus-5" src="<?php echo e(asset('assets/images/banners/'.($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp'))); ?>" alt="Why Choose Tectignis IT Solutions" loading="lazy">
+                        <img class="img-fluid border-radus-5" src="<?php echo e(\App\Models\Setting::imageUrl($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp', 'what_we_offer_image')); ?>" alt="Why Choose Tectignis IT Solutions" loading="lazy">
                     </div>
                 </div>
                 <div class="col-lg-6 ms-auto mt-30">
@@ -357,7 +357,7 @@
                     <a href="<?php echo e(route('capabilities.show', $service->slug)); ?>" class="projects-wrap style-04 d-block">
                         <div class="projects-image-box">
                             <div class="box-image text-center">
-                                <img class="img-fulid" src="<?php echo e(asset('assets/images/icons/'.$service->icon)); ?>" alt="<?php echo e($service->title); ?>" loading="lazy">
+                                <img class="img-fulid" src="<?php echo e(asset('uploads/'.$service->icon)); ?>" alt="<?php echo e($service->title); ?>" loading="lazy">
                             </div>
                             <div class="content text-center">
                                 <h5 class="heading"><?php echo e($service->title); ?></h5>
@@ -437,7 +437,7 @@
                                     <div class="image-wrap">
                                         <div class="image">
                                             <?php if($caseStudy->image): ?>
-                                                <img class="img-fluid" src="<?php echo e(asset('assets/images/features/'.$caseStudy->image)); ?>" alt="<?php echo e($caseStudy->title); ?>" loading="lazy">
+                                                <img class="img-fluid" src="<?php echo e(asset('uploads/'.$caseStudy->image)); ?>" alt="<?php echo e($caseStudy->title); ?>" loading="lazy">
                                             <?php endif; ?>
                                         </div>
                                     </div>
@@ -510,7 +510,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="banner-image section-space--pt_60">
-                        <img src="<?php echo e(asset('assets/images/banners/Networking-Solutions-India.webp')); ?>" class="img-fluid" alt="Global IT Solutions Delivery" loading="lazy">
+                        <img src="<?php echo e(\App\Models\Setting::imageUrl($settings['tech_service_image'] ?? 'Networking-Solutions-India.webp', 'tech_service_image')); ?>" class="img-fluid" alt="Global IT Solutions Delivery" loading="lazy">
                     </div>
                 </div>
             </div>

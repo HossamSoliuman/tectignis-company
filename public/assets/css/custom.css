@@ -170,6 +170,77 @@
     color: #6b6b7b;
 }
 
+/* =========================================================
+   Navbar dropdowns – stable hover + content-sized panels
+   Replaces the old translate/slide reveal that jittered and
+   the fixed-width slab that left big empty gaps.
+   ========================================================= */
+
+/* A wide panel that extends past the viewport edge used to spawn a
+   horizontal scrollbar; the scrollbar flipping on/off reflowed the page
+   and made the menu flicker. Clip the overflow so that can never happen.
+   (The sticky header is JS `position: fixed`, so clip does not affect it.) */
+html,
+body {
+    overflow-x: clip;
+}
+
+/* Anchor each compact dropdown under its own menu item. The wide mega panel
+   is excluded so it keeps the full-width header as its positioning context
+   and can be centered on the page (see the .megamenu--five rule below). */
+.navigation-menu > ul > li.has-children:not(:has(.megamenu--five)) {
+    position: relative;
+}
+
+/* Base panel: instant, opacity-only reveal — no sliding transform and no
+   transition-delay (those were the source of the "lag then snap" feel). */
+.navigation-menu > ul > li .megamenu {
+    top: 100%;
+    left: 0;
+    transform: none;
+    width: auto;
+    min-width: 0;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    transition-delay: 0s;
+}
+
+.navigation-menu > ul > li.has-children:hover .megamenu {
+    transform: none;
+    width: auto;
+}
+
+/* Compact single-column menus (Solutions, Industries, Resources):
+   sized to their content instead of a 980px slab. */
+.navigation-menu > ul > li .megamenu--mega:not(.megamenu--five) {
+    display: block;
+    min-width: 230px;
+    padding: 16px 12px;
+}
+
+.navigation-menu > ul > li .megamenu--mega:not(.megamenu--five) > li {
+    flex-basis: auto;
+    max-width: none;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* Wide Capabilities mega panel: keep the multi-column grid but center it
+   under the bar and clamp it inside the viewport so it cannot overflow. */
+.navigation-menu > ul > li .megamenu.megamenu--five,
+.navigation-menu > ul > li.has-children:hover .megamenu.megamenu--five {
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 0;
+    width: min(1120px, calc(100vw - 40px));
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1499px) {
+    .navigation-menu > ul > li .megamenu.megamenu--five,
+    .navigation-menu > ul > li.has-children:hover .megamenu.megamenu--five {
+        width: min(980px, calc(100vw - 40px));
+    }
+}
+
 /* ---------- Hero fix (was a broken 120px heading) ---------- */
 .software-innovation-hero-wrapper {
     background: linear-gradient(120deg, #f6f1fb 0%, #fdf3f9 100%);

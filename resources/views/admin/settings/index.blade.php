@@ -8,7 +8,7 @@
         <h2 class="text-lg font-semibold text-slate-900">Site Settings</h2>
     </div>
 
-    <form action="{{ route('admin.settings.update') }}" method="POST">
+    <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -24,7 +24,13 @@
                                 {{ ucwords(str_replace('_', ' ', $setting->key)) }}
                             </label>
                             <div class="flex-1">
-                                @if (str_contains($setting->key, 'content') || str_contains($setting->key, 'legal_') || str_contains($setting->key, 'description'))
+                                @if (\App\Models\Setting::isImageKey($setting->key))
+                                    <x-admin.image-field
+                                        name="images[{{ $setting->key }}]"
+                                        label=""
+                                        :current="$setting->value"
+                                        :current-url="\App\Models\Setting::imageUrl($setting->value, $setting->key)" />
+                                @elseif (str_contains($setting->key, 'content') || str_contains($setting->key, 'legal_') || str_contains($setting->key, 'description'))
                                     <textarea name="settings[{{ $setting->key }}]" rows="6"
                                         class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ $setting->value }}</textarea>
                                 @else

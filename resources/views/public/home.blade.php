@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="software-innovation-hero-image animation_images three mt-30">
-                        <img src="{{ asset('assets/images/hero/'.($settings['hero_image'] ?? 'custom-software-solution-pan-india.webp')) }}" class="img-fluid" alt="Software AI Smart Technology Solutions">
+                        <img src="{{ \App\Models\Setting::imageUrl($settings['hero_image'] ?? 'custom-software-solution-pan-india.webp', 'hero_image') }}" class="img-fluid" alt="Software AI Smart Technology Solutions">
                     </div>
                 </div>
             </div>
@@ -205,7 +205,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="image-inner-video-section">
-                        <img class="img-fluid border-radus-5" src="{{ asset('assets/images/banners/'.($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp')) }}" alt="Why Choose Tectignis IT Solutions" loading="lazy">
+                        <img class="img-fluid border-radus-5" src="{{ \App\Models\Setting::imageUrl($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp', 'what_we_offer_image') }}" alt="Why Choose Tectignis IT Solutions" loading="lazy">
                     </div>
                 </div>
                 <div class="col-lg-6 ms-auto mt-30">
@@ -474,7 +474,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="banner-image section-space--pt_60">
-                        <img src="{{ asset('assets/images/banners/Networking-Solutions-India.webp') }}" class="img-fluid" alt="Global IT Solutions Delivery" loading="lazy">
+                        <img src="{{ \App\Models\Setting::imageUrl($settings['tech_service_image'] ?? 'Networking-Solutions-India.webp', 'tech_service_image') }}" class="img-fluid" alt="Global IT Solutions Delivery" loading="lazy">
                     </div>
                 </div>
             </div>

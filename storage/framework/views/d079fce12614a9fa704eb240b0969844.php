@@ -43,7 +43,7 @@ unset($__defined_vars, $__key, $__value); ?>
                             <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="swiper-slide brand-logo brand-logo--slider">
                                 <div class="brand-logo__image">
-                                    <img src="<?php echo e(asset('assets/images/brand/'.$brand->logo)); ?>" class="img-fluid" loading="lazy" alt="<?php echo e($brand->name); ?>-tectignis">
+                                    <img src="<?php echo e(asset('uploads/'.$brand->logo)); ?>" class="img-fluid" loading="lazy" alt="<?php echo e($brand->name); ?>-tectignis">
                                 </div>
                             </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
