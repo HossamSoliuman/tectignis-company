@@ -1,12 +1,12 @@
 @extends('layouts.public')
 
-@section('title', 'Top IT Services & Solutions in Navi Mumbai | Serving PAN India')
+@section('title', 'Software, AI & IT Solutions Company | Navi Mumbai, Mumbai, Pune, India | Tectignis')
 
 @section('seo')
-    <meta name="description" content="Discover expert website design, digital marketing, and IT infrastructure solutions in Navi Mumbai. Tectignis IT Solutions offers cutting-edge services for startups, businesses, and entrepreneurs. Get a Free Quote!">
-    <meta name="keywords" content="IT Services, Software Development, Networking Solutions, CCTV Systems, Mobile App Development, Web Design & Development, IT Services in Navi Mumbai, Software Development in Mumbai, CCTV Solutions Navi Mumbai, IT Services PAN India, Networking Solutions India, Custom Software Solutions PAN India">
-    <meta property="og:title" content="Top IT Services & Solutions in Navi Mumbai | Serving PAN India">
-    <meta property="og:description" content="Discover expert website design, digital marketing, and IT infrastructure solutions in Navi Mumbai. Tectignis IT Solutions offers cutting-edge services for startups, businesses, and entrepreneurs. Get a Free Quote!">
+    <meta name="description" content="Tectignis IT Solutions – Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems. Serving Navi Mumbai, Mumbai, Thane, Pune, Maharashtra & Worldwide.">
+    <meta name="keywords" content="software development company Navi Mumbai, IT solutions Mumbai, AI development India, cloud services Pune, cybersecurity company Thane, ERP development, CRM solutions, CCTV installation Mumbai">
+    <meta property="og:title" content="Software, AI & IT Solutions Company | Navi Mumbai | Tectignis">
+    <meta property="og:description" content="Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems. Serving Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/') }}">
     <link rel="canonical" href="{{ url('/') }}">
@@ -14,436 +14,391 @@
 
 @section('content')
 
-    <!--============ Infotechno Hero Start ============-->
+    <!--============ Hero Banner Start ============-->
     <div class="software-innovation-hero-wrapper section-space--pt_10">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">
                     <div class="software-innovation-hero-wrap wow move-up">
                         <div class="software-innovation-hero-text">
-                            <p class="sub-heading">{{ $settings['hero_sub_heading'] ?? 'Innovation across Pan India.' }}</p>
-                            <h3>{{ $settings['hero_heading_line1'] ?? 'Secure future with our' }} </h3>
-                            <h1 class="font-weight--reguler mb-30">{{ $settings['hero_heading_line2'] ?? 'Software' }} </h1>
-                            <h6 class="info-heading">{{ $settings['hero_info_heading'] ?? 'And IT solutions engineered for precision, performance, & peace of mind.' }}</h6>
-                            <div class="hero-button  mt-30">
-                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">Connect with us</a>
+                            <p class="sub-heading">Serving Clients Across Navi Mumbai, Mumbai, Thane, Pune, India &amp; Worldwide.</p>
+                            <h1 class="font-weight--reguler mb-20">Transforming Businesses Through <span class="text-color-primary">Software, AI &amp; Smart Technology</span> Solutions</h1>
+                            <h6 class="info-heading">Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity &amp; Smart Security Systems.</h6>
+                            <div class="hero-button mt-30">
+                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">Request Consultation</a>
+                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline ms-3">Get a Quote</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="software-innovation-hero-image animation_images three mt-30">
-                        <img src="{{ asset('assets/images/hero/'.($settings['hero_image'] ?? 'custom-software-solution-pan-india.webp')) }}" class="img-fluid" alt="Custom Software Solution Pan India">
+                        <img src="{{ asset('assets/images/hero/'.($settings['hero_image'] ?? 'custom-software-solution-pan-india.webp')) }}" class="img-fluid" alt="Software AI Smart Technology Solutions">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--============ Infotechno Hero End ============-->
+    <!--============ Hero Banner End ============-->
 
-    <!--====================  brand logo slider area ====================-->
+    <!--====================  Brand Logo Slider ====================-->
     <x-public.brands :brands="$brands" />
-    <!--====================  End of brand logo slider area  ====================-->
+    <!--====================  End of Brand Logo Slider ====================-->
 
-    <!--===========  feature-images-wrapper  Start =============-->
+    <!--=========== Trusted Technology Partner Stats Start ==========-->
+    <div class="fun-fact-wrapper bg-theme-default section-space--pb_60 section-space--pt_60">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-30">
+                    <h6 class="section-sub-title">Trusted Technology Partner</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 wow move-up">
+                    <div class="fun-fact--two text-center">
+                        <div class="fun-fact__count counter">100</div>
+                        <h6 class="fun-fact__text">+ Projects Delivered</h6>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow move-up">
+                    <div class="fun-fact--two text-center">
+                        <div class="fun-fact__count counter">50</div>
+                        <h6 class="fun-fact__text">+ Clients Served</h6>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow move-up">
+                    <div class="fun-fact--two text-center">
+                        <div class="fun-fact__count counter">5</div>
+                        <h6 class="fun-fact__text">+ Years Experience</h6>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow move-up">
+                    <div class="fun-fact--two text-center">
+                        <div class="fun-fact__count">24/7</div>
+                        <h6 class="fun-fact__text">Support</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=========== Trusted Technology Partner Stats End ==========-->
+
+    <!--===========  Our Capabilities Start =============-->
     <div class="feature-images-wrapper bg-gray section-space--ptb_100">
         <div class="container">
-
             <div class="row">
                 <div class="col-lg-12">
-                    <!-- section-title-wrap Start -->
-                    <div class="section-title-wrap text-center">
-                        <h6 class="section-sub-title mb-20">Our services</h6>
-                        <h3 class="heading mb-40"><span class="text-color-primary"> Services </span>We Provide</h3>
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h6 class="section-sub-title mb-20">What We Do</h6>
+                        <h3 class="heading">Our <span class="text-color-primary">Capabilities</span></h3>
                     </div>
-                    <!-- section-title-wrap Start -->
                 </div>
             </div>
-
             <div class="row">
-                <div class="col-12">
-                    <div class="projects-wrap">
-
-                        <div class="row">
-                            @foreach ($services->take(6) as $service)
-                            <div class="col-lg-4 col-md-6">
-                                <!-- Projects Wrap Start -->
-                                <a href="{{ route('capabilities.show', $service->slug) }}" class="projects-wrap style-04 wow move-up">
-                                    <div class="projects-image-box">
-
-                                        <div class="box-image text-center">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
-                                        </div>
-
-                                        <div class="content text-center">
-                                            <h5 class="heading">{{ $service->title }}</h5>
-                                            <div class="text">{{ $service->short_description }}</div>
-                                            <div class="box-projects-arrow">
-                                                <span class="button-text">Discover Now</span>
-                                                <i class="fas fa-arrow-right ml-1"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- Projects Wrap End -->
+                <div class="col-lg-4 col-md-6 wow move-up">
+                    <div class="projects-wrap style-04">
+                        <div class="projects-image-box">
+                            <div class="box-image text-center">
+                                <img class="img-fulid" src="{{ asset('assets/images/icons/Software-Development.webp') }}" alt="Software Development" loading="lazy">
                             </div>
-                            @endforeach
+                            <div class="content text-center">
+                                <h5 class="heading">Software Development</h5>
+                                <div class="text">Web Apps · Mobile Apps · ERP · CRM · SaaS</div>
+                                <div class="box-projects-arrow">
+                                    <a href="{{ route('capabilities.show', 'custom-software-development') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="button-group-wrap text-center">
-                        <a href="{{ route('capabilities.index') }}" class="btn">View More Services</a>
-                    </div>
-
                 </div>
+                <div class="col-lg-4 col-md-6 wow move-up">
+                    <div class="projects-wrap style-04">
+                        <div class="projects-image-box">
+                            <div class="box-image text-center">
+                                <img class="img-fulid" src="{{ asset('assets/images/icons/Custom-Software.webp') }}" alt="AI & Automation" loading="lazy">
+                            </div>
+                            <div class="content text-center">
+                                <h5 class="heading">AI &amp; Automation</h5>
+                                <div class="text">AI Chatbots · WhatsApp Automation · OCR · ML · Voice Bots</div>
+                                <div class="box-projects-arrow">
+                                    <a href="{{ route('capabilities.show', 'ai-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow move-up">
+                    <div class="projects-wrap style-04">
+                        <div class="projects-image-box">
+                            <div class="box-image text-center">
+                                <img class="img-fulid" src="{{ asset('assets/images/icons/Networking-Solutions.webp') }}" alt="Cloud & Infrastructure" loading="lazy">
+                            </div>
+                            <div class="content text-center">
+                                <h5 class="heading">Cloud &amp; Infrastructure</h5>
+                                <div class="text">AWS · Azure · Google Cloud · Migration · Hosting</div>
+                                <div class="box-projects-arrow">
+                                    <a href="{{ route('capabilities.show', 'cloud-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow move-up">
+                    <div class="projects-wrap style-04">
+                        <div class="projects-image-box">
+                            <div class="box-image text-center">
+                                <img class="img-fulid" src="{{ asset('assets/images/icons/CCTV-Systems.webp') }}" alt="Cybersecurity" loading="lazy">
+                            </div>
+                            <div class="content text-center">
+                                <h5 class="heading">Cybersecurity</h5>
+                                <div class="text">VAPT · Firewall · Security SOC · Support · Compliance</div>
+                                <div class="box-projects-arrow">
+                                    <a href="{{ route('capabilities.show', 'cybersecurity-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow move-up">
+                    <div class="projects-wrap style-04">
+                        <div class="projects-image-box">
+                            <div class="box-image text-center">
+                                <img class="img-fulid" src="{{ asset('assets/images/icons/Web-Design-and-Development.webp') }}" alt="Networking & Hardware" loading="lazy">
+                            </div>
+                            <div class="content text-center">
+                                <h5 class="heading">Networking &amp; Hardware</h5>
+                                <div class="text">Networking · Servers · Storage · Workstations · AMC</div>
+                                <div class="box-projects-arrow">
+                                    <a href="{{ route('capabilities.show', 'networking-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow move-up">
+                    <div class="projects-wrap style-04">
+                        <div class="projects-image-box">
+                            <div class="box-image text-center">
+                                <img class="img-fulid" src="{{ asset('assets/images/icons/MobileApp-Development.webp') }}" alt="Smart Security" loading="lazy">
+                            </div>
+                            <div class="content text-center">
+                                <h5 class="heading">Smart Security</h5>
+                                <div class="text">CCTV · Access Control · Visitor Management · Biometrics</div>
+                                <div class="box-projects-arrow">
+                                    <a href="{{ route('capabilities.show', 'cctv-security') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group-wrap text-center mt-40">
+                <a href="{{ route('capabilities.index') }}" class="btn">View All Capabilities</a>
             </div>
         </div>
     </div>
-    <!--===========  feature-images-wrapper  End =============-->
+    <!--===========  Our Capabilities End =============-->
 
-    <!--=========== fun fact Wrapper Start ==========-->
-    <div class="fun-fact-wrapper bg-theme-default section-space--pb_30 section-space--pt_60">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6 wow move-up">
-                    <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count counter">{{ $settings['stat_happy_clients'] ?? '500' }}</div>
-                        <h6 class="fun-fact__text">Happy clients</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 wow move-up">
-                    <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count counter">{{ $settings['stat_projects'] ?? '350' }}</div>
-                        <h6 class="fun-fact__text">Projects Delivered</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 wow move-up">
-                    <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count">{{ $settings['stat_growth'] ?? '1M' }}</div>
-                        <h6 class="fun-fact__text">Growth</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 wow move-up">
-                    <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count">{{ $settings['stat_users'] ?? '1K' }}</div>
-                        <h6 class="fun-fact__text">Active Users</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--=========== fun fact Wrapper End ==========-->
-
+    <!--===========  Why Choose Tectignis Start =============-->
     <div class="software-innovation-about-company-area software-innovation-about-bg section-space--ptb_120">
         <div class="container">
-
-            <div class="row">
-
+            <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="image-inner-video-section">
-                        <img class="img-fluid border-radus-5" src="{{ asset('assets/images/banners/'.($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp')) }}" alt="IT Services PAN India" loading="lazy">
+                        <img class="img-fluid border-radus-5" src="{{ asset('assets/images/banners/'.($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp')) }}" alt="Why Choose Tectignis IT Solutions" loading="lazy">
                     </div>
                 </div>
                 <div class="col-lg-6 ms-auto mt-30">
                     <div class="machine-learning-about-content">
                         <div class="section-title mb-20">
-                            <!-- section-title-wrap Start -->
                             <div class="section-title-wrap text-left section-space--mb_30">
-                                <h6 class="section-sub-title mb-20">{{ $settings['what_we_offer_sub'] ?? 'OVER 500+ CLIENT' }}</h6>
-                                <h3 class="heading">What We <span class="text-color-primary">Offer</span>
-                                </h3>
+                                <h6 class="section-sub-title mb-20">Strategic Delivery Network</h6>
+                                <h3 class="heading">Why Choose <span class="text-color-primary">Tectignis</span>?</h3>
                             </div>
-                            <!-- section-title-wrap Start -->
-                            <div class="list-group-wrap section-space--mb_60">
-                                <p class="dec-text mt-20">Boost your business with cutting-edge website design, e-commerce, SEO, and security solutions. Tectignis IT Solutions serves startups, businesses, and enterprises in Navi Mumbai with expert IT services.</p>
-                                <ul class="check-list">
-                                    <li class="list-item"><strong>Proven expertise</strong> and years of experience delivering results-driven solutions.</li>
-                                    <li class="list-item"><strong>Tailored Approach </strong> for customized services to meet your unique business needs.</li>
-                                    <li class="list-item"><strong> End-to-End Support </strong> from installation to maintenance, we've got you covered.</li>
-                                    <li class="list-item"><strong>Strategic Location </strong> based in Navi Mumbai, ensuring quick and reliable service.</li>
-                                </ul>
-                                <div class="button-group-wrap mt-3">
-                                    <a href="{{ route('about') }}" class="btn">About Us</a>
-                                </div>
+                            <p class="dec-text mt-20">We collaborate with experienced technology professionals and implementation partners to assemble the right expertise for each project — delivering enterprise-grade solutions while maintaining competitive pricing and agility.</p>
+                            <ul class="check-list mt-20">
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Global Delivery Model</strong></li>
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Cost-Effective Solutions</strong></li>
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Dedicated Project Management</strong></li>
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Scalable Resources</strong></li>
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Quality Assurance &amp; Testing</strong></li>
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>On-Time Delivery</strong></li>
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Single Point of Contact</strong></li>
+                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Multi-Domain Expertise</strong></li>
+                            </ul>
+                            <div class="button-group-wrap mt-30">
+                                <a href="{{ route('about') }}" class="btn">About Us</a>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!--===========  Why Choose Tectignis End =============-->
 
-    <!--===========  feature-images-wrapper  Start =============-->
+    <!--===========  Solutions We Deliver Start =============-->
     <div class="feature-images-wrapper bg-gray section-space--ptb_100">
         <div class="container">
-
             <div class="row">
                 <div class="col-lg-12">
-                    <!-- section-title-wrap Start -->
-                    <div class="section-title-wrap text-center section-space--mb_10">
-                        <h3 class="heading">For your very specific industry, <br> we have <span class="text-color-primary"> highly-tailored IT solutions.</span></h3>
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h6 class="section-sub-title mb-20">Business-Focused</h6>
+                        <h3 class="heading">Solutions We <span class="text-color-primary">Deliver</span></h3>
                     </div>
-                    <!-- section-title-wrap Start -->
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="feature-images__two small-mt__10">
-                        <div class="modern-grid-image-box row row--30">
-
-                            <div class="single-item wow move-up col-lg-4 col-md-6 section-space--mt_60  small-mt__40">
-                                <!-- ht-box-icon Start -->
-                                <div class="ht-box-images style-02">
-                                    <div class="image-box-wrap">
-                                        <div class="box-image">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/Custom-Software.webp') }}" alt="Custom Software" loading="lazy">
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="heading">Understanding Your Needs</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ht-box-icon End -->
+            <div class="row row--30">
+                @php
+                    $solutions = [
+                        ['icon' => 'fas fa-database', 'title' => 'ERP Solutions', 'slug' => 'erp-solutions'],
+                        ['icon' => 'fas fa-handshake', 'title' => 'CRM Solutions', 'slug' => 'crm-solutions'],
+                        ['icon' => 'fas fa-users', 'title' => 'HRMS Solutions', 'slug' => 'hrms-solutions'],
+                        ['icon' => 'fas fa-robot', 'title' => 'AI Solutions', 'slug' => 'ai-solutions'],
+                        ['icon' => 'fas fa-cloud', 'title' => 'Cloud Solutions', 'slug' => 'cloud-solutions'],
+                        ['icon' => 'fas fa-shield-alt', 'title' => 'Cybersecurity Solutions', 'slug' => 'cybersecurity-solutions'],
+                        ['icon' => 'fas fa-cogs', 'title' => 'Automation Solutions', 'slug' => 'custom-software-development'],
+                        ['icon' => 'fas fa-video', 'title' => 'Smart Security Solutions', 'slug' => 'cctv-security'],
+                    ];
+                @endphp
+                @foreach ($solutions as $solution)
+                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
+                    <a href="{{ route('capabilities.show', $solution['slug']) }}" class="ht-box-images style-04 d-block text-center p-4 h-100">
+                        <div class="image-box-wrap">
+                            <div class="box-image mb-20">
+                                <i class="{{ $solution['icon'] }} fa-3x text-color-primary"></i>
                             </div>
-
-                            <div class="single-item wow move-up col-lg-4 col-md-6 section-space--mt_60">
-                                <!-- ht-box-icon Start -->
-                                <div class="ht-box-images style-02">
-                                    <div class="image-box-wrap">
-                                        <div class="box-image">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/Web-Design-and-Development.webp') }}" alt="Web Design and Development" loading="lazy">
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="heading">Customized Planning</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ht-box-icon End -->
+                            <div class="content">
+                                <h6 class="heading">{{ $solution['title'] }}</h6>
                             </div>
-
-                            <div class="single-item wow move-up col-lg-4 col-md-6 section-space--mt_60">
-                                <!-- ht-box-icon Start -->
-                                <div class="ht-box-images style-02">
-                                    <div class="image-box-wrap">
-                                        <div class="box-image">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/Software-Development.webp') }}" alt="Software Development" loading="lazy">
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="heading">Seamless Implementation</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ht-box-icon End -->
-                            </div>
-
-                            <div class="single-item wow move-up col-lg-4 col-md-6 section-space--mt_60">
-                                <!-- ht-box-icon Start -->
-                                <div class="ht-box-images style-02">
-                                    <div class="image-box-wrap">
-                                        <div class="box-image">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/CCTV-Systems.webp') }}" alt="CCTV Systems" loading="lazy">
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="heading">Cutting-Edge Technology</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ht-box-icon End -->
-                            </div>
-
-                            <div class="single-item wow move-up col-lg-4 col-md-6 section-space--mt_60">
-                                <!-- ht-box-icon Start -->
-                                <div class="ht-box-images style-02">
-                                    <div class="image-box-wrap">
-                                        <div class="box-image">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/Networking-Solutions.webp') }}" alt="Networking Solutions" loading="lazy">
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="heading">Proactive Support and Maintenance</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ht-box-icon End -->
-                            </div>
-
-                            <div class="single-item wow move-up col-lg-4 col-md-6 section-space--mt_60">
-                                <!-- ht-box-icon Start -->
-                                <div class="ht-box-images style-02">
-                                    <div class="image-box-wrap">
-                                        <div class="box-image">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/MobileApp-Development.webp') }}" alt="MobileApp Development" loading="lazy">
-                                        </div>
-                                        <div class="content">
-                                            <h6 class="heading">Continuous Improvement</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ht-box-icon End -->
-                            </div>
-
                         </div>
-                    </div>
-
-                    <div class="section-under-heading text-center section-space--mt_60">Challenges are just opportunities in disguise. <a href="{{ route('contact') }}">Take the challenge!</a></div>
-
+                    </a>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>
-    <!--===========  feature-images-wrapper  End =============-->
+    <!--===========  Solutions We Deliver End =============-->
 
-    <div class="technology-service-area technology-service-bg">
+    <!--===========  Industries We Serve Start =============-->
+    <div class="feature-images-wrapper section-space--ptb_100">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="section-title section-space--pt_60">
-                        <p class="text-white font-weight--bold">Our Expertise Digital Transformation</p>
-                        <h3 class="text-white"><span class="text-color-secondary">Tectignis </span> – Best IT Services in navi mumbai</h3>
-                        <p class="text-infos text-white mt-30"><strong>Tectignis IT Solutions in Navi Mumbai empowers businesses with cutting-edge digital solutions.</strong> We specialize in creating visually captivating and user-friendly websites, including e-commerce platforms, and implementing robust online marketing strategies to drive organic growth. Our expertise extends to advanced security systems, including CCTV, access control, and comprehensive IT infrastructure management, ensuring the safety and smooth operation of your business.</p>
-                        <p class="text-infos text-white mt-30">We are committed to delivering results-driven solutions that help you achieve your business goals and thrive in the competitive digital landscape.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="banner-image section-space--pt_60">
-                        <img src="{{ asset('assets/images/banners/Networking-Solutions-India.webp') }}" class="img-fluid" alt="Networking Solutions India" loading="lazy">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h6 class="section-sub-title mb-20">Sector Expertise</h6>
+                        <h3 class="heading">Industries We <span class="text-color-primary">Serve</span></h3>
                     </div>
                 </div>
             </div>
+            <div class="row row--30">
+                @php
+                    $industries = [
+                        ['icon' => 'fas fa-industry', 'name' => 'Manufacturing'],
+                        ['icon' => 'fas fa-heartbeat', 'name' => 'Healthcare'],
+                        ['icon' => 'fas fa-graduation-cap', 'name' => 'Education'],
+                        ['icon' => 'fas fa-shopping-cart', 'name' => 'Retail'],
+                        ['icon' => 'fas fa-building', 'name' => 'Real Estate'],
+                        ['icon' => 'fas fa-truck', 'name' => 'Logistics'],
+                        ['icon' => 'fas fa-concierge-bell', 'name' => 'Hospitality'],
+                        ['icon' => 'fas fa-briefcase', 'name' => 'Corporate Offices'],
+                    ];
+                @endphp
+                @foreach ($industries as $industry)
+                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
+                    <div class="ht-box-images style-03 text-center p-4">
+                        <div class="image-box-wrap">
+                            <div class="box-image mb-20">
+                                <i class="{{ $industry['icon'] }} fa-2x text-color-primary"></i>
+                            </div>
+                            <div class="content">
+                                <h6 class="heading">{{ $industry['name'] }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
+    <!--===========  Industries We Serve End =============-->
 
-    <!--====================  gradation process area ====================-->
-    <div class="gradation-process-area section-space--ptb_100">
+    <!--=========== Featured Services Start ===========-->
+    <div class="feature-images-wrapper bg-gray section-space--ptb_100">
         <div class="container">
-
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="gradation-title-wrapper section-space--mb_60">
-                        <div class="gradation-title-wrap ">
-                            <h6 class="section-sub-title text-black mb-20">How we works</h6>
-                            <h4 class="heading">How it helps <span class="text-color-primary">your <br> business succeed</span></h4>
-                        </div>
-
-
-                        <div class="gradation-sub-heading">
-                            <h3 class="heading"><mark>04</mark> Steps</h3>
-                        </div>
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h6 class="section-sub-title mb-20">Premium Expertise</h6>
+                        <h3 class="heading">Featured <span class="text-color-primary">Services</span></h3>
                     </div>
-
                 </div>
             </div>
-
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="ht-gradation style-01">
-                        <!-- Single item gradation Start -->
-                        <div class="item item-1 animate  wow fadeInRight" data-wow-delay="0.1s">
-                            <div class="line"></div>
-                            <div class="circle-wrap">
-                                <div class="mask">
-                                    <div class="wave-pulse wave-pulse-1"></div>
-                                    <div class="wave-pulse wave-pulse-2"></div>
-                                    <div class="wave-pulse wave-pulse-3"></div>
-                                </div>
-
-                                <h6 class="circle">1</h6>
+                @foreach ($services->take(8) as $service)
+                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
+                    <a href="{{ route('capabilities.show', $service->slug) }}" class="projects-wrap style-04 d-block">
+                        <div class="projects-image-box">
+                            <div class="box-image text-center">
+                                <img class="img-fulid" src="{{ asset('assets/images/icons/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
                             </div>
-
-                            <div class="content-wrap">
-
-                                <h6 class="heading">01. Discussion</h6>
-
-                                <div class="text">We conduct in-person consultations with clients at a designated location to thoroughly understand their specific needs and requirements before developing a customized proposal.</div>
-
+                            <div class="content text-center">
+                                <h5 class="heading">{{ $service->title }}</h5>
+                                <div class="box-projects-arrow">
+                                    <span class="button-text">Learn More</span>
+                                    <i class="fas fa-arrow-right ml-1"></i>
+                                </div>
                             </div>
                         </div>
-                        <!-- Single item gradation End -->
-
-                        <!-- Single item gradation Start -->
-                        <div class="item item-1 animate  wow fadeInRight" data-wow-delay="0.15s">
-                            <div class="line"></div>
-                            <div class="circle-wrap">
-                                <div class="mask">
-                                    <div class="wave-pulse wave-pulse-1"></div>
-                                    <div class="wave-pulse wave-pulse-2"></div>
-                                    <div class="wave-pulse wave-pulse-3"></div>
-                                </div>
-
-                                <h6 class="circle">2</h6>
-                            </div>
-
-                            <div class="content-wrap">
-
-                                <h6 class="heading">02. Concepts &amp; Initatives</h6>
-
-                                <div class="text">Leveraging our expert knowledge, we develop a wide range of ideas and initiatives to ensure the delivery of top-tier IT service solutions.</div>
-
-                            </div>
-                        </div>
-                        <!-- Single item gradation End -->
-
-                        <!-- Single item gradation Start -->
-                        <div class="item item-1 animate  wow fadeInRight" data-wow-delay="0.20s">
-                            <div class="line"></div>
-                            <div class="circle-wrap">
-                                <div class="mask">
-                                    <div class="wave-pulse wave-pulse-1"></div>
-                                    <div class="wave-pulse wave-pulse-2"></div>
-                                    <div class="wave-pulse wave-pulse-3"></div>
-                                </div>
-
-                                <h6 class="circle">3</h6>
-                            </div>
-
-                            <div class="content-wrap">
-
-                                <h6 class="heading">03. Testing &amp; Trying</h6>
-
-                                <div class="text">Following the confirmation of ideas and plans, we will proceed as scheduled and provide feedback on the outcomes and necessary adjustments.</div>
-
-                            </div>
-                        </div>
-                        <!-- Single item gradation End -->
-
-                        <!-- Single item gradation Start -->
-                        <div class="item item-1 animate wow fadeInRight" data-wow-delay="0.25s">
-                            <div class="line"></div>
-                            <div class="circle-wrap">
-                                <div class="mask">
-                                    <div class="wave-pulse wave-pulse-1"></div>
-                                    <div class="wave-pulse wave-pulse-2"></div>
-                                    <div class="wave-pulse wave-pulse-3"></div>
-                                </div>
-
-                                <h6 class="circle">4</h6>
-                            </div>
-
-                            <div class="content-wrap">
-
-                                <h6 class="heading">04. Execute &amp; install</h6>
-
-                                <div class="text">Subsequent to final plan approval, all operations will be executed in accordance with the contractual agreement.</div>
-
-                            </div>
-                        </div>
-                        <!-- Single item gradation End -->
-                    </div>
+                    </a>
                 </div>
+                @endforeach
+            </div>
+            <div class="button-group-wrap text-center mt-40">
+                <a href="{{ route('capabilities.index') }}" class="btn">View All Services</a>
             </div>
         </div>
     </div>
-    <!--====================  End of gradation process area  ====================-->
+    <!--=========== Featured Services End ===========-->
 
-    <!--=========== Service Projects Wrapper Start =============-->
-    <div class="service-projects-wrapper section-space--pt_100 mb-20">
+    <!--=========== Technology Stack Start ===========-->
+    <div class="section-space--ptb_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h6 class="section-sub-title mb-20">Tools &amp; Platforms</h6>
+                        <h3 class="heading">Technology <span class="text-color-primary">Stack</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-center">
+                @php
+                    $techStack = [
+                        'React', 'Flutter', 'Node.js', 'PHP', 'Python', 'Laravel',
+                        'AWS', 'Azure', 'Google Cloud', 'MySQL', 'PostgreSQL', 'MongoDB',
+                    ];
+                @endphp
+                @foreach ($techStack as $tech)
+                <div class="col-lg-2 col-md-3 col-4 wow move-up section-space--mt_30">
+                    <div class="ht-box-images style-03 text-center p-3">
+                        <p class="font-weight--bold text-color-primary mb-0">{{ $tech }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!--=========== Technology Stack End ===========-->
+
+    <!--=========== Case Studies Start =============-->
+    <div class="service-projects-wrapper bg-gray section-space--pt_100 mb-20">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_60">
-                        <h6 class="section-sub-title mb-20">Case studies</h6>
-                        <h3 class="heading">Proud projects that <span class="text-color-primary">make us stand
-                                out</span></h3>
+                        <h6 class="section-sub-title mb-20">Case Studies</h6>
+                        <h3 class="heading">Proud projects that <span class="text-color-primary">make us stand out</span></h3>
                     </div>
                 </div>
             </div>
@@ -457,10 +412,9 @@
                                     <h4 class="heading font-weight--reguler mb-10">{{ $caseStudy->title }}</h4>
                                     <p class="sub-text text-color-primary">{{ $caseStudy->category }}</p>
                                     <div class="text">{{ $caseStudy->short_description }}</div>
-                                    <div class="section-under-heading"><a href="{{ route('case-studies.index') }}">View More</a></div>
+                                    <div class="section-under-heading"><a href="{{ route('case-studies.index') }}">View All Case Studies</a></div>
                                 </div>
                             </div>
-
                             <div class="col-lg-6 col-xl-7 order-1 order-lg-2">
                                 <div class="slide-image">
                                     <div class="image-wrap">
@@ -478,43 +432,169 @@
                 </div>
             </div>
         </div>
-        <!--=========== Service Projects Wrapper End =============-->
-
     </div>
-    <!--=========== Service Projects Wrapper End =============-->
+    <!--=========== Case Studies End =============-->
 
-    <!--====================  testimonial section ====================-->
+    <!--====================  Testimonials ====================-->
     <x-public.testimonials :testimonials="$testimonials" />
-    <!--====================  End of testimonial section  ====================-->
+    <!--====================  End of Testimonials ====================-->
 
-    <!--====================  Conact us Section Start ====================-->
+    <!--=========== Service Coverage Start ===========-->
+    <div class="technology-service-area technology-service-bg section-space--ptb_80">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section-title section-space--pt_60">
+                        <h6 class="text-white section-sub-title mb-20">Local &amp; Global Reach</h6>
+                        <h3 class="text-white">Serving Businesses <span class="text-color-secondary">Across India &amp; Worldwide</span></h3>
+                        <div class="row mt-30">
+                            <div class="col-6">
+                                <h6 class="text-white font-weight--bold mb-15">India</h6>
+                                <ul class="list-unstyled text-white">
+                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Navi Mumbai</li>
+                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Mumbai</li>
+                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Thane</li>
+                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Pune</li>
+                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Panvel</li>
+                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Maharashtra &amp; PAN India</li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <h6 class="text-white font-weight--bold mb-15">Global Delivery</h6>
+                                <ul class="list-unstyled text-white">
+                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>UAE &amp; Saudi Arabia</li>
+                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>UK &amp; USA</li>
+                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>Canada</li>
+                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>Australia</li>
+                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>Singapore</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="banner-image section-space--pt_60">
+                        <img src="{{ asset('assets/images/banners/Networking-Solutions-India.webp') }}" class="img-fluid" alt="Global IT Solutions Delivery" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=========== Service Coverage End ===========-->
+
+    <!--=========== Resources & Insights Start ===========-->
+    @if ($recentPosts->isNotEmpty())
+    <div class="feature-images-wrapper bg-gray section-space--ptb_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h6 class="section-sub-title mb-20">Stay Informed</h6>
+                        <h3 class="heading">Resources &amp; <span class="text-color-primary">Insights</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row row--30">
+                @foreach ($recentPosts->take(3) as $post)
+                <div class="col-lg-4 col-md-6 wow move-up section-space--mt_30">
+                    <div class="blog-wrap-layout3">
+                        <div class="content">
+                            @if ($post->category)
+                            <div class="post-meta mb-10">
+                                <span class="text-color-primary">{{ $post->category }}</span>
+                            </div>
+                            @endif
+                            <h5 class="heading">
+                                <a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a>
+                            </h5>
+                            <p class="text mt-10">{{ Str::limit($post->excerpt ?? $post->short_description ?? '', 120) }}</p>
+                            <div class="post-meta mt-20">
+                                <a href="{{ route('blog.show', $post->slug) }}" class="button-text">Read More <i class="fas fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <div class="button-group-wrap text-center mt-40">
+                <a href="{{ route('blog.index') }}" class="btn">View All Posts</a>
+            </div>
+        </div>
+    </div>
+    @endif
+    <!--=========== Resources & Insights End ===========-->
+
+    <!--====================  Final CTA Start ====================-->
     <div class="contact-us-section-wrappaer infotechno-contact-us-bg section-space--ptb_120">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 col-lg-6">
+                <div class="col-lg-7 col-md-6">
                     <div class="conact-us-wrap-one">
-                        <h3 class="heading">Obtaining further information by <span class="text-color-primary">make a contact</span> with our experienced IT staffs. </h3>
-
-                        <div class="sub-heading">Customized IT Solutions for your Business.</div>
-
+                        <h3 class="heading">Ready to <span class="text-color-primary">Transform</span> Your Business?</h3>
+                        <div class="sub-heading mt-20">Let's discuss your software, AI, cloud, cybersecurity, or infrastructure requirements.</div>
                     </div>
                 </div>
-
-                <div class="col-lg-6 col-lg-6">
+                <div class="col-lg-5 col-md-6 mt-30 mt-md-0">
                     <div class="contact-info-one text-center">
-                        <div class="icon">
-                            <span class="fas fa-phone"></span>
+                        <div class="contact-us-button d-flex flex-wrap justify-content-center gap-3">
+                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">Request Consultation</a>
+                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline">Get a Quote</a>
                         </div>
-                        <h6 class="heading font-weight--reguler">let's grow your business together!</h6>
-                        <h2 class="call-us"><a href="tel:+919987705688">+91 9987705688</a></h2>
-                        <div class="contact-us-button mt-20">
-                            <a href="{{ route('contact') }}" class="btn btn--secondary">Contact Us Now</a>
+                        <div class="mt-20">
+                            <h2 class="call-us"><a href="tel:+919987705688">+91 9987705688</a></h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--====================  Conact us Section End  ====================-->
+    <!--====================  Final CTA End ====================-->
+
+    <!--====================  Contact Section Start ====================-->
+    <div class="contact-form-section section-space--ptb_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 wow move-up">
+                    <div class="section-title-wrap text-left section-space--mb_30">
+                        <h6 class="section-sub-title mb-20">Get In Touch</h6>
+                        <h3 class="heading">Tectignis IT Solutions <span class="text-color-primary">Pvt. Ltd.</span></h3>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="mb-15"><i class="fas fa-map-marker-alt text-color-primary me-3"></i>Navi Mumbai, Maharashtra, India</li>
+                        <li class="mb-15"><i class="fas fa-phone text-color-primary me-3"></i><a href="tel:+919987705688">+91 9987705688</a></li>
+                        <li class="mb-15"><i class="fas fa-envelope text-color-primary me-3"></i><a href="mailto:info@tectignis.in">info@tectignis.in</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 wow move-up">
+                    <div class="contact-form">
+                        <form action="{{ route('contact.submit') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 mb-20">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                </div>
+                                <div class="col-md-6 mb-20">
+                                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                </div>
+                                <div class="col-md-6 mb-20">
+                                    <input type="tel" name="phone" class="form-control" placeholder="Phone Number">
+                                </div>
+                                <div class="col-md-6 mb-20">
+                                    <input type="text" name="subject" class="form-control" placeholder="Service Required">
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <textarea name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="ht-btn ht-btn-md">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====================  Contact Section End ====================-->
 
 @endsection

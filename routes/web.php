@@ -26,6 +26,10 @@ Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-s
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+Route::get('/technology-insights', [PageController::class, 'technologyInsights'])->name('technology-insights');
+Route::get('/downloads', [PageController::class, 'downloads'])->name('downloads');
+Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
+
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 

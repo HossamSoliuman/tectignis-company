@@ -18,6 +18,21 @@ class PageController extends Controller
         return view('public.careers');
     }
 
+    public function technologyInsights(): View
+    {
+        return view('public.technology-insights');
+    }
+
+    public function downloads(): View
+    {
+        return view('public.downloads');
+    }
+
+    public function faqs(): View
+    {
+        return view('public.faqs');
+    }
+
     public function legal(string $slug): View
     {
         $titles = [

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogPost;
 use App\Models\Brand;
 use App\Models\CaseStudy;
 use App\Models\Service;
@@ -20,6 +21,7 @@ class HomeController extends Controller
             'testimonials' => Testimonial::active()->ordered()->get(),
             'brands' => Brand::active()->ordered()->get(),
             'settings' => Setting::pluck('value', 'key'),
+            'recentPosts' => BlogPost::published()->latest('published_at')->limit(3)->get(),
         ]);
     }
 }

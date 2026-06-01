@@ -3,9 +3,19 @@
     <!-- Header Top Wrap Start -->
     <div class="header-top-wrap border-bottom">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="text-center top-message"> Leading Provider of IT Solutions in Navi Mumbai: <a href="<?php echo e(route('contact')); ?>">Expert Support</a></p>
+            <div class="header-top-inner">
+                <div class="header-top-left">
+                    <ul class="header-top-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Navi Mumbai, Maharashtra, India</li>
+                        <li class="d-sm-hide"><i class="fas fa-globe"></i> Serving Clients Worldwide</li>
+                    </ul>
+                </div>
+                <div class="header-top-right">
+                    <ul class="header-top-info">
+                        <li><a href="tel:+919987705688"><i class="fas fa-phone-alt"></i> +91 9987705688</a></li>
+                        <li><a href="mailto:info@tectignis.in"><i class="fas fa-envelope"></i> info@tectignis.in</a></li>
+                    </ul>
+                    <a href="<?php echo e(route('contact')); ?>" class="header-top-btn">Request Consultation</a>
                 </div>
             </div>
         </div>
@@ -40,48 +50,154 @@
                                                         <a href="<?php echo e(route('home')); ?>"><span>Home</span></a>
                                                     </li>
                                                     <li>
-                                                        <a href="<?php echo e(route('about')); ?>"><span>About</span></a>
+                                                        <a href="<?php echo e(route('about')); ?>"><span>Company</span></a>
                                                     </li>
 
                                                     <li class="has-children">
-                                                        <a href="<?php echo e(route('capabilities.index')); ?>"><span>Expertise</span></a>
-                                                        <ul class="megamenu megamenu--mega">
+                                                        <a href="<?php echo e(route('capabilities.index')); ?>"><span>Capabilities</span></a>
+                                                        <ul class="megamenu megamenu--mega megamenu--five">
 
                                                             <li>
-                                                                <h2 class="page-list-title">IT Services</h2>
+                                                                <h2 class="page-list-title">Software Development</h2>
                                                                 <ul>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'cctv-security')); ?>">CCTV &amp; Security Solutions</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'access-control')); ?>">Access Control Systems</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'amc')); ?>">Annual Maintenance Contracts (AMC)</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'software-licensing')); ?>">Software Licensing</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'network-storage')); ?>">Network Storage Solutions</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'workstation-solutions')); ?>">Workstation Solutions</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'networking-solutions')); ?>">Networking Solutions</a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'website-design-development')); ?>"><span>Website Design &amp; Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'web-application-development')); ?>"><span>Web Application Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'ecommerce-development')); ?>"><span>E-commerce Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'mobile-app-development')); ?>"><span>Mobile Application Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'custom-software-development')); ?>"><span>Custom Software Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>CRM Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>ERP Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>SaaS Product Development</span></a></li>
                                                                 </ul>
                                                             </li>
                                                             <li>
-                                                                <h2 class="page-list-title">Digital Services</h2>
+                                                                <h2 class="page-list-title">Business Applications</h2>
                                                                 <ul>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'website-design-development')); ?>">Website design &amp; development</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'web-application-development')); ?>">Web Application Development</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'ecommerce-development')); ?>">Ecommerce Development</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'mobile-app-development')); ?>">Mobile App Development (Android &amp; iOS)</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'hybrid-app-development')); ?>">Hybrid App Development</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'custom-software-development')); ?>">Customised Software Development</a></li>
-                                                                    <li><a href="<?php echo e(route('capabilities.show', 'digital-marketing')); ?>">Digital Marketing Services</a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>HRMS Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>LMS Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Inventory Management Software</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Hospital Management Software</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>School / College Management</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Real Estate Management Software</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Visitor Management Software</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>POS (Point of Sale) Software</span></a></li>
                                                                 </ul>
+                                                            </li>
+                                                            <li>
+                                                                <h2 class="page-list-title">AI &amp; Automation</h2>
+                                                                <ul>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>AI Integration</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>AI Chatbot Development</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>WhatsApp Business Automation</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>OCR &amp; Document Digitization</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Voice Bot Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Machine Learning Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Generative AI Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Business Process Automation</span></a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <h2 class="page-list-title">Cloud &amp; Security</h2>
+                                                                <ul>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Cloud Migration Services</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>AWS Consulting</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Microsoft Azure Consulting</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Google Cloud Services</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Cybersecurity Consulting</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>VAPT Services</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Firewall Configuration &amp; Mgmt</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>SOC Support</span></a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <h2 class="page-list-title">Infrastructure &amp; Surveillance</h2>
+                                                                <ul>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'networking-solutions')); ?>"><span>Networking Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Structured Cabling</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'workstation-solutions')); ?>"><span>Server Setup &amp; Management</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'network-storage')); ?>"><span>Storage Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'workstation-solutions')); ?>"><span>Workstation Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'cctv-security')); ?>"><span>CCTV &amp; Security Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'access-control')); ?>"><span>Access Control Systems</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.show', 'amc')); ?>"><span>AMC Services</span></a></li>
+                                                                </ul>
+                                                            </li>
+
+                                                            <li class="megamenu-cta-row">
+                                                                <div class="megamenu-cta">
+                                                                    <a href="<?php echo e(route('contact')); ?>" class="megamenu-cta-box">
+                                                                        <span class="cta-icon"><i class="fas fa-headset"></i></span>
+                                                                        <span>
+                                                                            <h6>Talk To Our Expert</h6>
+                                                                            <span>Get expert guidance for your business needs.</span>
+                                                                        </span>
+                                                                    </a>
+                                                                    <a href="<?php echo e(route('contact')); ?>" class="megamenu-cta-box">
+                                                                        <span class="cta-icon"><i class="fas fa-file-invoice"></i></span>
+                                                                        <span>
+                                                                            <h6>Request A Quote</h6>
+                                                                            <span>Get a tailored quote for your project.</span>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
                                                             </li>
 
                                                         </ul>
                                                     </li>
-                                                    <li>
-                                                        <a href="<?php echo e(route('careers')); ?>"><span>Careers</span></a>
+                                                    <li class="has-children">
+                                                        <a href="<?php echo e(route('capabilities.index')); ?>"><span>Solutions</span></a>
+                                                        <ul class="megamenu megamenu--mega">
+                                                            <li>
+                                                                <h2 class="page-list-title">Business Solutions</h2>
+                                                                <ul>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>ERP Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>CRM Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>HRMS Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>AI Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Cloud Solutions</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Security Solutions</span></a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="has-children">
+                                                        <a href="#"><span>Industries</span></a>
+                                                        <ul class="megamenu megamenu--mega">
+                                                            <li>
+                                                                <h2 class="page-list-title">Industries We Serve</h2>
+                                                                <ul>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Manufacturing</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Healthcare</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Education</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Retail</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Real Estate</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Logistics</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Hospitality</span></a></li>
+                                                                    <li><a href="<?php echo e(route('capabilities.index')); ?>"><span>Corporate Offices</span></a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
                                                     </li>
                                                     <li>
                                                         <a href="<?php echo e(route('case-studies.index')); ?>"><span>Case Studies</span></a>
                                                     </li>
+                                                    <li class="has-children">
+                                                        <a href="#"><span>Resources</span></a>
+                                                        <ul class="megamenu megamenu--mega">
+                                                            <li>
+                                                                <h2 class="page-list-title">Resources</h2>
+                                                                <ul>
+                                                                    <li><a href="<?php echo e(route('blog.index')); ?>"><span>Blog</span></a></li>
+                                                                    <li><a href="<?php echo e(route('technology-insights')); ?>"><span>Technology Insights</span></a></li>
+                                                                    <li><a href="<?php echo e(route('downloads')); ?>"><span>Downloads</span></a></li>
+                                                                    <li><a href="<?php echo e(route('faqs')); ?>"><span>FAQs</span></a></li>
+                                                                    <li><a href="<?php echo e(route('careers')); ?>"><span>Careers</span></a></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
                                                     <li>
-                                                        <a href="<?php echo e(route('contact')); ?>"><span>Contact</span></a>
+                                                        <a href="<?php echo e(route('contact')); ?>"><span>Contact Us</span></a>
                                                     </li>
                                                 </ul>
                                             </nav>
@@ -144,22 +260,37 @@
                         <a href="<?php echo e(route('about')); ?>">About</a>
                     </li>
                     <li class="has-children">
-                        <a href="<?php echo e(route('capabilities.index')); ?>">Expertise</a>
+                        <a href="<?php echo e(route('capabilities.index')); ?>">Capabilities</a>
                         <ul class="sub-menu">
+                            <li><a href="<?php echo e(route('capabilities.show', 'custom-software-development')); ?>"><span>Custom Software Development</span></a></li>
                             <li><a href="<?php echo e(route('capabilities.show', 'website-design-development')); ?>"><span>Website Design &amp; Development</span></a></li>
                             <li><a href="<?php echo e(route('capabilities.show', 'web-application-development')); ?>"><span>Web Application Development</span></a></li>
+                            <li><a href="<?php echo e(route('capabilities.show', 'mobile-app-development')); ?>"><span>Mobile App Development</span></a></li>
                             <li><a href="<?php echo e(route('capabilities.show', 'ecommerce-development')); ?>"><span>E-commerce Development</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'mobile-app-development')); ?>"><span>Mobile App Development (Android &amp; iOS)</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'hybrid-app-development')); ?>"><span>Hybrid App Development</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'custom-software-development')); ?>"><span>Customize Software Development</span></a></li>
                             <li><a href="<?php echo e(route('capabilities.show', 'cctv-security')); ?>"><span>CCTV &amp; Security Solutions</span></a></li>
                             <li><a href="<?php echo e(route('capabilities.show', 'access-control')); ?>"><span>Access Control Systems</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'amc')); ?>"><span>Annual Maintenance Contracts (AMC)</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'software-licensing')); ?>"><span>Software Licensing</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'network-storage')); ?>"><span>Network Storage Solutions</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'workstation-solutions')); ?>"><span>Workstation Solutions</span></a></li>
                             <li><a href="<?php echo e(route('capabilities.show', 'networking-solutions')); ?>"><span>Networking Solutions</span></a></li>
-                            <li><a href="<?php echo e(route('capabilities.show', 'digital-marketing')); ?>"><span>Digital Marketing Services</span></a></li>
+                            <li><a href="<?php echo e(route('capabilities.show', 'amc')); ?>"><span>Annual Maintenance (AMC)</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="<?php echo e(route('capabilities.index')); ?>">Solutions</a>
+                        <ul class="sub-menu">
+                            <li><a href="<?php echo e(route('capabilities.show', 'erp-solutions')); ?>"><span>ERP Solutions</span></a></li>
+                            <li><a href="<?php echo e(route('capabilities.show', 'crm-solutions')); ?>"><span>CRM Solutions</span></a></li>
+                            <li><a href="<?php echo e(route('capabilities.show', 'hrms-solutions')); ?>"><span>HRMS Solutions</span></a></li>
+                            <li><a href="<?php echo e(route('capabilities.show', 'ai-solutions')); ?>"><span>AI Solutions</span></a></li>
+                            <li><a href="<?php echo e(route('capabilities.show', 'cloud-solutions')); ?>"><span>Cloud Solutions</span></a></li>
+                            <li><a href="<?php echo e(route('capabilities.show', 'cybersecurity-solutions')); ?>"><span>Security Solutions</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="#">Resources</a>
+                        <ul class="sub-menu">
+                            <li><a href="<?php echo e(route('blog.index')); ?>"><span>Blog</span></a></li>
+                            <li><a href="<?php echo e(route('technology-insights')); ?>"><span>Technology Insights</span></a></li>
+                            <li><a href="<?php echo e(route('downloads')); ?>"><span>Downloads</span></a></li>
+                            <li><a href="<?php echo e(route('faqs')); ?>"><span>FAQs</span></a></li>
                         </ul>
                     </li>
                     <li>

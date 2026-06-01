@@ -39,9 +39,18 @@
                 <h6 class="footer-widget__title mb-20">Company</h6>
                 <ul class="footer-widget__list">
                     <li><a href="<?php echo e(route('about')); ?>" class="hover-style-link">About Us</a></li>
-                    <li><a href="<?php echo e(route('blog.index')); ?>" class="hover-style-link">Blog</a></li>
                     <li><a href="<?php echo e(route('case-studies.index')); ?>" class="hover-style-link">Case Studies</a></li>
+                    <li><a href="<?php echo e(route('careers')); ?>" class="hover-style-link">Careers</a></li>
                     <li><a href="<?php echo e(route('contact')); ?>" class="hover-style-link">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 footer-widget">
+                <h6 class="footer-widget__title mb-20">Resources</h6>
+                <ul class="footer-widget__list">
+                    <li><a href="<?php echo e(route('blog.index')); ?>" class="hover-style-link">Blog</a></li>
+                    <li><a href="<?php echo e(route('technology-insights')); ?>" class="hover-style-link">Technology Insights</a></li>
+                    <li><a href="<?php echo e(route('downloads')); ?>" class="hover-style-link">Downloads</a></li>
+                    <li><a href="<?php echo e(route('faqs')); ?>" class="hover-style-link">FAQs</a></li>
                 </ul>
             </div>
         </div>
