@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\ContactRequest;
+use App\Models\Lead;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
@@ -14,14 +16,21 @@ class ContactController extends Controller
         return view('public.contact');
     }
 
-    /**
-     * Validate the enquiry. Lead persistence + mail are wired in a later phase
-     * once the leads table exists; for now we validate and confirm to the user.
-     */
     public function submit(ContactRequest $request): RedirectResponse
     {
-        $request->validated();
+        $data = $request->validated();
 
-        return back()->with('status', "Thank you! Your message has been received. We'll get back to you shortly.");
+        Lead::create([
+            'name' => $data['con_name'],
+            'email' => $data['con_email'],
+            'phone' => $data['con_phone'] ?? null,
+            'subject' => $data['con_subject'] ?? null,
+            'message' => $data['con_message'],
+            'source' => 'contact',
+        ]);
+
+        Log::info('New lead from contact form', ['email' => $data['con_email']]);
+
+        return back()->with('status', 'Thank you! We will be in touch shortly.');
     }
 }

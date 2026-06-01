@@ -20,7 +20,15 @@
             <nav class="space-y-1 px-3 py-4 text-sm">
                 @php
                     $nav = [
-                        ['admin.dashboard', 'Dashboard'],
+                        ['admin.dashboard', 'Dashboard', 'grid'],
+                        ['admin.settings.index', 'Settings', 'cog'],
+                        ['admin.services.index', 'Services', 'briefcase'],
+                        ['admin.blog.index', 'Blog Posts', 'document-text'],
+                        ['admin.case-studies.index', 'Case Studies', 'photograph'],
+                        ['admin.testimonials.index', 'Testimonials', 'chat-alt'],
+                        ['admin.brands.index', 'Brands', 'tag'],
+                        ['admin.leads.index', 'Leads (Inbox)', 'inbox'],
+                        ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
                     ];
                 @endphp
                 @foreach ($nav as [$route, $label])
@@ -29,25 +37,28 @@
                         {{ $label }}
                     </a>
                 @endforeach
-                <p class="px-3 pt-4 text-xs uppercase tracking-wide text-slate-500">More modules arrive as content
-                    management is built.</p>
             </nav>
         </aside>
 
         {{-- Main --}}
         <div class="lg:pl-64">
-            <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-8">
-                <button data-sidebar-toggle class="rounded-lg p-2 hover:bg-slate-100 lg:hidden" aria-label="Toggle menu">
+            <header
+                class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-8">
+                <button data-sidebar-toggle class="rounded-lg p-2 hover:bg-slate-100 lg:hidden"
+                    aria-label="Toggle menu">
                     <span class="block h-0.5 w-5 bg-slate-700"></span>
                     <span class="mt-1 block h-0.5 w-5 bg-slate-700"></span>
                     <span class="mt-1 block h-0.5 w-5 bg-slate-700"></span>
                 </button>
                 <h1 class="text-base font-semibold">@yield('title', 'Dashboard')</h1>
                 <div class="flex items-center gap-3">
+                    <a href="{{ url('/') }}" target="_blank"
+                        class="text-sm text-slate-500 hover:text-slate-700">View site</a>
                     <span class="text-sm text-slate-500">{{ auth()->user()?->name }}</span>
                     <form method="post" action="{{ route('admin.logout') }}">
                         @csrf
-                        <button class="rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-700">
+                        <button
+                            class="rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-700">
                             Logout
                         </button>
                     </form>
@@ -56,8 +67,18 @@
 
             <main class="p-4 lg:p-8">
                 @if (session('status'))
-                    <div class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+                    <div
+                        class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
                         {{ session('status') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+                        <ul class="list-disc list-inside space-y-1">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 @endif
                 @yield('content')

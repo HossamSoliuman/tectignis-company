@@ -24,25 +24,20 @@
 
             <div class="projects-case-wrap">
                 <div class="row mesonry-list">
-                    @php
-                        $projects = [
-                            ['Perfect Packaging Solution', 'Modern Website Redesign', 'perfect-packaging-solution.webp', 'A modern, visually appealing website redesign for Perfect Packers.'],
-                            ['Shree Vakratunda Saree Collection', 'Seamless E-Commerce Solution', 'shree-vakratunda.webp', 'A robust online platform to showcase and sell products effectively.'],
-                            ['Mangosteen Homestays', 'A Digital Success Story', 'mangosteen.webp', 'A strong online presence to attract travelers and streamline bookings.'],
-                        ];
-                    @endphp
-                    @foreach ($projects as [$title, $category, $image, $text])
+                    @foreach ($caseStudies as $caseStudy)
                         <div class="col-lg-4 col-md-6 cat--2">
                             <a href="{{ route('case-studies.index') }}" class="projects-wrap style-01">
                                 <div class="projects-image-box">
                                     <div class="projects-image">
-                                        <img class="img-fluid" src="{{ asset('assets/images/projects/' . $image) }}"
-                                            alt="{{ $title }}" loading="lazy">
+                                        @if ($caseStudy->image)
+                                            <img class="img-fluid" src="{{ asset('assets/images/features/'.$caseStudy->image) }}"
+                                                alt="{{ $caseStudy->title }}" loading="lazy">
+                                        @endif
                                     </div>
                                     <div class="content">
-                                        <h6 class="heading">{{ $title }}</h6>
-                                        <div class="post-categories">{{ $category }}</div>
-                                        <div class="text">{{ $text }}</div>
+                                        <h6 class="heading">{{ $caseStudy->title }}</h6>
+                                        <div class="post-categories">{{ $caseStudy->category }}</div>
+                                        <div class="text">{{ $caseStudy->short_description }}</div>
                                         <div class="box-projects-arrow">
                                             <span class="button-text">View case study</span>
                                             <i class="fas fa-arrow-right ml-1"></i>

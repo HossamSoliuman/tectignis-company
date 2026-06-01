@@ -17,10 +17,10 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'con_name' => ['required', 'string', 'max:150'],
-            'con_email' => ['required', 'email', 'max:190'],
-            'con_phone' => ['required', 'string', 'max:20'],
-            'con_subject' => ['required', 'string', 'max:200'],
+            'con_name' => ['required', 'string', 'max:255'],
+            'con_email' => ['required', 'email', 'max:255'],
+            'con_phone' => ['nullable', 'string', 'max:20'],
+            'con_subject' => ['nullable', 'string', 'max:255'],
             'con_message' => ['required', 'string', 'max:5000'],
         ];
     }

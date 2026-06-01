@@ -24,6 +24,18 @@
     @yield('seo')
     @stack('head')
 
+    {{-- GA4 --}}
+    @php $ga4Id = \App\Models\Setting::get('ga4_id'); @endphp
+    @if ($ga4Id)
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga4Id }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ $ga4Id }}');
+        </script>
+    @endif
+
     {{-- Favicon --}}
     <link rel="icon" href="{{ asset('assets/images/favicon.webp') }}">
 
@@ -40,6 +52,10 @@
 </head>
 
 <body>
+
+    {{-- JSON-LD (per-page override possible via stack) --}}
+    @stack('json-ld')
+    <x-seo.json-ld />
 
     {{-- Header --}}
     <x-public.header />

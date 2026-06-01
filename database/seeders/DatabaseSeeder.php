@@ -18,5 +18,14 @@ class DatabaseSeeder extends Seeder
                 'role' => 'admin',
             ],
         );
+
+        $this->call([
+            SettingsSeeder::class,
+            ServiceSeeder::class,
+            BlogPostSeeder::class,
+            CaseStudySeeder::class,
+            TestimonialSeeder::class,
+            BrandSeeder::class,
+        ]);
     }
 }
