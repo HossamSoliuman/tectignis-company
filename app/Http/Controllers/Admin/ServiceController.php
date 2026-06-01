@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreServiceRequest;
 use App\Http\Requests\Admin\UpdateServiceRequest;
@@ -11,6 +12,8 @@ use Illuminate\Http\RedirectResponse;
 
 class ServiceController extends Controller
 {
+    use UploadsFiles;
+
     public function index(): View
     {
         $services = Service::ordered()->get();
@@ -28,13 +31,11 @@ class ServiceController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('icon')) {
-            $data['icon'] = $request->file('icon')->getClientOriginalName();
-            $request->file('icon')->move(public_path('assets/images/icons'), $data['icon']);
+            $data['icon'] = $this->storeUpload($request->file('icon'));
         }
 
         if ($request->hasFile('banner_image')) {
-            $data['banner_image'] = $request->file('banner_image')->getClientOriginalName();
-            $request->file('banner_image')->move(public_path('assets/images/banners'), $data['banner_image']);
+            $data['banner_image'] = $this->storeUpload($request->file('banner_image'));
         }
 
         Service::create($data);
@@ -52,13 +53,11 @@ class ServiceController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('icon')) {
-            $data['icon'] = $request->file('icon')->getClientOriginalName();
-            $request->file('icon')->move(public_path('assets/images/icons'), $data['icon']);
+            $data['icon'] = $this->storeUpload($request->file('icon'));
         }
 
         if ($request->hasFile('banner_image')) {
-            $data['banner_image'] = $request->file('banner_image')->getClientOriginalName();
-            $request->file('banner_image')->move(public_path('assets/images/banners'), $data['banner_image']);
+            $data['banner_image'] = $this->storeUpload($request->file('banner_image'));
         }
 
         $service->update($data);

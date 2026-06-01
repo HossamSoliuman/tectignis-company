@@ -37,7 +37,7 @@
                                 <div class="ht-box-images style-01">
                                     <div class="image-box-wrap">
                                         <div class="box-image">
-                                            <img class="img-fulid" src="{{ asset('assets/images/icons/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
+                                            <img class="img-fulid" src="{{ asset('uploads/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
                                         </div>
                                         <div class="content">
                                             <h5 class="heading">{{ $service->title }}</h5>

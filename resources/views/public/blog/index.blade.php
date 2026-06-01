@@ -21,7 +21,7 @@
                             <div class="post-feature blog-thumbnail">
                                 <a href="{{ route('blog.show', $post->slug) }}">
                                     @if ($post->image)
-                                        <img class="img-fluid" src="{{ asset('assets/images/blog/'.$post->image) }}" alt="{{ $post->title }}">
+                                        <img class="img-fluid" src="{{ asset('uploads/'.$post->image) }}" alt="{{ $post->title }}">
                                     @endif
                                 </a>
                             </div>

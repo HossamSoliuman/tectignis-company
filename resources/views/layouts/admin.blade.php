@@ -13,11 +13,12 @@
     <div class="min-h-full">
         {{-- Sidebar --}}
         <aside data-sidebar
-            class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full transform bg-slate-900 text-slate-200 transition lg:translate-x-0">
-            <div class="flex h-16 items-center gap-2 px-6 text-lg font-semibold text-white">
-                <span class="inline-block h-3 w-3 rounded-full bg-fuchsia-500"></span> Tectignis
+            class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full transform flex-col bg-slate-900 text-slate-300 shadow-xl transition-transform duration-200 lg:translate-x-0">
+            <div class="flex h-16 items-center gap-2.5 border-b border-white/5 px-6 text-lg font-semibold text-white">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-purple-600 text-sm font-bold shadow-lg shadow-fuchsia-500/30">T</span>
+                Tectignis
             </div>
-            <nav class="space-y-1 px-3 py-4 text-sm">
+            <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4 text-sm">
                 @php
                     $nav = [
                         ['admin.dashboard', 'Dashboard', 'grid'],
@@ -31,35 +32,57 @@
                         ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
                     ];
                 @endphp
-                @foreach ($nav as [$route, $label])
+                @foreach ($nav as [$route, $label, $icon])
+                    @php $active = request()->routeIs(Str::endsWith($route, '.index') ? Str::beforeLast($route, '.').'.*' : $route); @endphp
                     <a href="{{ route($route) }}"
-                        class="block rounded-lg px-3 py-2 {{ request()->routeIs($route) ? 'bg-slate-800 text-white' : 'hover:bg-slate-800' }}">
-                        {{ $label }}
+                        class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-gradient-to-r from-fuchsia-600/90 to-purple-600/80 text-white shadow-sm' : 'text-slate-400 hover:bg-white/5 hover:text-white' }}">
+                        <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-white' : 'text-slate-500 group-hover:text-fuchsia-300' }}" />
+                        <span>{{ $label }}</span>
                     </a>
                 @endforeach
             </nav>
+            <div class="border-t border-white/5 px-3 py-4">
+                <a href="{{ url('/') }}" target="_blank"
+                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition hover:bg-white/5 hover:text-white">
+                    <x-admin.icon name="external-link" class="h-5 w-5 shrink-0 text-slate-500" />
+                    View live site
+                </a>
+            </div>
         </aside>
+
+        {{-- Mobile backdrop --}}
+        <div data-sidebar-backdrop class="fixed inset-0 z-30 hidden bg-slate-900/50 backdrop-blur-sm lg:hidden"></div>
 
         {{-- Main --}}
         <div class="lg:pl-64">
             <header
-                class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-8">
-                <button data-sidebar-toggle class="rounded-lg p-2 hover:bg-slate-100 lg:hidden"
-                    aria-label="Toggle menu">
-                    <span class="block h-0.5 w-5 bg-slate-700"></span>
-                    <span class="mt-1 block h-0.5 w-5 bg-slate-700"></span>
-                    <span class="mt-1 block h-0.5 w-5 bg-slate-700"></span>
-                </button>
-                <h1 class="text-base font-semibold">@yield('title', 'Dashboard')</h1>
+                class="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur lg:px-8">
+                <div class="flex items-center gap-3">
+                    <button data-sidebar-toggle class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
+                        aria-label="Toggle menu">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                    <h1 class="text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
+                </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ url('/') }}" target="_blank"
-                        class="text-sm text-slate-500 hover:text-slate-700">View site</a>
-                    <span class="text-sm text-slate-500">{{ auth()->user()?->name }}</span>
+                        class="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-700 sm:inline-flex">
+                        <x-admin.icon name="external-link" class="h-4 w-4" /> View site
+                    </a>
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-xs font-semibold text-white">
+                            {{ Str::upper(Str::substr(auth()->user()?->name ?? 'A', 0, 1)) }}
+                        </span>
+                        <span class="hidden text-sm font-medium text-slate-700 sm:inline">{{ auth()->user()?->name }}</span>
+                    </div>
                     <form method="post" action="{{ route('admin.logout') }}">
                         @csrf
                         <button
-                            class="rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-700">
-                            Logout
+                            class="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-slate-700">
+                            <x-admin.icon name="logout" class="h-4 w-4" />
+                            <span class="hidden sm:inline">Logout</span>
                         </button>
                     </form>
                 </div>
@@ -68,13 +91,15 @@
             <main class="p-4 lg:p-8">
                 @if (session('status'))
                     <div
-                        class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+                        class="mb-4 flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+                        <x-admin.icon name="check-circle" class="h-5 w-5 shrink-0 text-emerald-500" />
                         {{ session('status') }}
                     </div>
                 @endif
                 @if ($errors->any())
-                    <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
-                        <ul class="list-disc list-inside space-y-1">
+                    <div class="mb-4 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+                        <x-admin.icon name="default" class="h-5 w-5 shrink-0 text-red-500" />
+                        <ul class="list-inside list-disc space-y-1">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach

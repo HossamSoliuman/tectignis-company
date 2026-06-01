@@ -62,7 +62,7 @@
                         <div class="col-lg-6">
                             <div class="image-inner-video-section">
                                 <img class="img-fluid border-radus-5"
-                                    src="{{ asset('assets/images/banners/'.$service->banner_image) }}"
+                                    src="{{ asset('uploads/'.$service->banner_image) }}"
                                     alt="{{ $service->title }}" loading="lazy">
                             </div>
                         </div>

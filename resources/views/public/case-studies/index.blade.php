@@ -30,7 +30,7 @@
                                 <div class="projects-image-box">
                                     <div class="projects-image">
                                         @if ($caseStudy->image)
-                                            <img class="img-fluid" src="{{ asset('assets/images/features/'.$caseStudy->image) }}"
+                                            <img class="img-fluid" src="{{ asset('uploads/'.$caseStudy->image) }}"
                                                 alt="{{ $caseStudy->title }}" loading="lazy">
                                         @endif
                                     </div>

@@ -11,7 +11,7 @@
     <meta property="og:title" content="{{ $post->seo_title ?: $post->title }}">
     <meta property="og:description" content="{{ $post->seo_description ?: $post->excerpt }}">
     @if ($post->image)
-        <meta property="og:image" content="{{ asset('assets/images/blog/'.$post->image) }}">
+        <meta property="og:image" content="{{ asset('uploads/'.$post->image) }}">
     @endif
     <meta property="og:url" content="{{ route('blog.show', $post->slug) }}">
     <meta property="og:type" content="article">

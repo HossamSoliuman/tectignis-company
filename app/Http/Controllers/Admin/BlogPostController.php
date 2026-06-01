@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogPostRequest;
 use App\Http\Requests\Admin\UpdateBlogPostRequest;
@@ -12,6 +13,8 @@ use Illuminate\Support\Str;
 
 class BlogPostController extends Controller
 {
+    use UploadsFiles;
+
     public function index(): View
     {
         $posts = BlogPost::latest('published_at')->get();
@@ -30,8 +33,7 @@ class BlogPostController extends Controller
         $data['slug'] = ($data['slug'] ?? null) ?: Str::slug($data['title']);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('assets/images/blog'), $data['image']);
+            $data['image'] = $this->storeUpload($request->file('image'));
         }
 
         BlogPost::create($data);
@@ -50,8 +52,7 @@ class BlogPostController extends Controller
         $data['slug'] = ($data['slug'] ?? null) ?: Str::slug($data['title']);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('assets/images/blog'), $data['image']);
+            $data['image'] = $this->storeUpload($request->file('image'));
         }
 
         $blog->update($data);

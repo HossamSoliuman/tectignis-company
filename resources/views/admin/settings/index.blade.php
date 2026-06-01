@@ -1,15 +1,22 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Settings')
 
 @section('content')
+    <div class="mb-5 flex items-center gap-2">
+        <x-admin.icon name="cog" class="h-5 w-5 text-fuchsia-600" />
+        <h2 class="text-lg font-semibold text-slate-900">Site Settings</h2>
+    </div>
+
     <form action="{{ route('admin.settings.update') }}" method="POST">
         @csrf
         @method('PUT')
 
         @foreach ($settings as $group => $items)
             <div class="mb-8">
-                <h2 class="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ ucfirst($group) }}</h2>
+                <h3 class="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <span class="h-1.5 w-1.5 rounded-full bg-fuchsia-500"></span>{{ ucfirst($group) }}
+                </h3>
                 <div class="rounded-xl border border-slate-200 bg-white divide-y divide-slate-100">
                     @foreach ($items as $setting)
                         <div class="flex items-start gap-4 p-4">
@@ -34,7 +41,7 @@
 
         <div class="flex justify-end">
             <button type="submit"
-                class="rounded-lg bg-fuchsia-600 px-5 py-2 text-sm font-medium text-white hover:bg-fuchsia-700">
+                class="inline-flex items-center gap-1.5 rounded-lg bg-fuchsia-600 px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-fuchsia-700">
                 Save Settings
             </button>
         </div>

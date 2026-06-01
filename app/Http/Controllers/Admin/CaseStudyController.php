@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCaseStudyRequest;
 use App\Http\Requests\Admin\UpdateCaseStudyRequest;
@@ -11,6 +12,8 @@ use Illuminate\Http\RedirectResponse;
 
 class CaseStudyController extends Controller
 {
+    use UploadsFiles;
+
     public function index(): View
     {
         $caseStudies = CaseStudy::ordered()->get();
@@ -28,8 +31,7 @@ class CaseStudyController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('assets/images/case-studies'), $data['image']);
+            $data['image'] = $this->storeUpload($request->file('image'));
         }
 
         CaseStudy::create($data);
@@ -47,8 +49,7 @@ class CaseStudyController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('assets/images/case-studies'), $data['image']);
+            $data['image'] = $this->storeUpload($request->file('image'));
         }
 
         $caseStudy->update($data);

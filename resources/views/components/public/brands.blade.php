@@ -15,7 +15,7 @@
                             @foreach ($items as $brand)
                             <div class="swiper-slide brand-logo brand-logo--slider">
                                 <div class="brand-logo__image">
-                                    <img src="{{ asset('assets/images/brand/'.$brand->logo) }}" class="img-fluid" loading="lazy" alt="{{ $brand->name }}-tectignis">
+                                    <img src="{{ asset('uploads/'.$brand->logo) }}" class="img-fluid" loading="lazy" alt="{{ $brand->name }}-tectignis">
                                 </div>
                             </div>
                             @endforeach

@@ -340,7 +340,7 @@
                     <a href="{{ route('capabilities.show', $service->slug) }}" class="projects-wrap style-04 d-block">
                         <div class="projects-image-box">
                             <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('assets/images/icons/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
+                                <img class="img-fulid" src="{{ asset('uploads/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
                             </div>
                             <div class="content text-center">
                                 <h5 class="heading">{{ $service->title }}</h5>
@@ -420,7 +420,7 @@
                                     <div class="image-wrap">
                                         <div class="image">
                                             @if ($caseStudy->image)
-                                                <img class="img-fluid" src="{{ asset('assets/images/features/'.$caseStudy->image) }}" alt="{{ $caseStudy->title }}" loading="lazy">
+                                                <img class="img-fluid" src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->title }}" loading="lazy">
                                             @endif
                                         </div>
                                     </div>

@@ -3,13 +3,19 @@
 @section('title', 'Redirects')
 
 @section('content')
-    <div class="mb-4 flex items-center justify-between">
-        <h2 class="text-lg font-semibold">Redirects ({{ $redirects->count() }})</h2>
+    <div class="mb-5 flex items-center justify-between">
+        <h2 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+            <x-admin.icon name="switch-horizontal" class="h-5 w-5 text-fuchsia-600" />
+            Redirects
+            <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $redirects->count() }}</span>
+        </h2>
         <a href="{{ route('admin.redirects.create') }}"
-            class="rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-medium text-white hover:bg-fuchsia-700">+ New</a>
+            class="inline-flex items-center gap-1.5 rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-fuchsia-700">
+            <x-admin.icon name="plus" class="h-4 w-4" /> New Redirect
+        </a>
     </div>
 
-    <div class="rounded-xl border border-slate-200 bg-white overflow-hidden">
+    <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <table class="w-full text-sm">
             <thead class="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
                 <tr>
@@ -17,35 +23,35 @@
                     <th class="px-4 py-3">To</th>
                     <th class="px-4 py-3">Code</th>
                     <th class="px-4 py-3">Active</th>
-                    <th class="px-4 py-3"></th>
+                    <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
                 @forelse ($redirects as $r)
-                    <tr class="hover:bg-slate-50">
-                        <td class="px-4 py-3 font-mono text-xs">{{ $r->from_path }}</td>
-                        <td class="px-4 py-3 font-mono text-xs">{{ $r->to_path }}</td>
-                        <td class="px-4 py-3">{{ $r->status_code ?? 301 }}</td>
-                        <td class="px-4 py-3">
-                            <span class="rounded-full px-2 py-0.5 text-xs {{ $r->is_active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' }}">
-                                {{ $r->is_active ? 'Active' : 'Inactive' }}
+                    <tr class="transition hover:bg-slate-50">
+                        <td class="px-4 py-3 font-mono text-xs text-slate-700">{{ $r->from_path }}</td>
+                        <td class="px-4 py-3 font-mono text-xs text-slate-700">
+                            <span class="inline-flex items-center gap-1">
+                                <x-admin.icon name="arrow-left" class="h-3.5 w-3.5 rotate-180 text-slate-400" />
+                                {{ $r->to_path }}
                             </span>
                         </td>
                         <td class="px-4 py-3">
-                            <div class="flex items-center gap-2">
-                                <a href="{{ route('admin.redirects.edit', $r) }}" class="text-fuchsia-600 hover:underline">Edit</a>
-                                <form action="{{ route('admin.redirects.destroy', $r) }}" method="POST"
-                                    onsubmit="return confirm('Delete?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-500 hover:underline">Delete</button>
-                                </form>
+                            <span class="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">{{ $r->status_code ?? 301 }}</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <x-admin.status-badge :active="$r->is_active" />
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center justify-end gap-1">
+                                <x-admin.edit-link :href="route('admin.redirects.edit', $r)" />
+                                <x-admin.delete-button :action="route('admin.redirects.destroy', $r)" confirm="Delete this redirect?" />
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-8 text-center text-slate-400">No redirects configured.</td>
+                        <td colspan="5" class="px-4 py-10 text-center text-slate-400">No redirects configured.</td>
                     </tr>
                 @endforelse
             </tbody>

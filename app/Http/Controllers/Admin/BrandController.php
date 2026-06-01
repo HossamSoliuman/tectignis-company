@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBrandRequest;
 use App\Http\Requests\Admin\UpdateBrandRequest;
@@ -11,6 +12,8 @@ use Illuminate\Http\RedirectResponse;
 
 class BrandController extends Controller
 {
+    use UploadsFiles;
+
     public function index(): View
     {
         $brands = Brand::ordered()->get();
@@ -28,8 +31,7 @@ class BrandController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->getClientOriginalName();
-            $request->file('logo')->move(public_path('assets/images/brand'), $data['logo']);
+            $data['logo'] = $this->storeUpload($request->file('logo'));
         }
 
         Brand::create($data);
@@ -47,8 +49,7 @@ class BrandController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->getClientOriginalName();
-            $request->file('logo')->move(public_path('assets/images/brand'), $data['logo']);
+            $data['logo'] = $this->storeUpload($request->file('logo'));
         }
 
         $brand->update($data);
