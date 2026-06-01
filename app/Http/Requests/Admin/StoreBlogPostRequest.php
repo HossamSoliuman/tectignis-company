@@ -20,6 +20,7 @@ class StoreBlogPostRequest extends FormRequest
             'excerpt' => ['nullable', 'string', 'max:500'],
             'content' => ['required', 'string'],
             'image' => ['nullable', 'file', 'image', 'max:4096'],
+            'sort_order' => ['nullable', 'integer', 'min:0'],
             'published_at' => ['nullable', 'date'],
             'is_published' => ['boolean'],
             'seo_title' => ['nullable', 'string', 'max:255'],

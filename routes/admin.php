@@ -22,6 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
+        Route::post('uploads', [DashboardController::class, 'upload'])->name('uploads.store');
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

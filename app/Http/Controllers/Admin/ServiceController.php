@@ -30,13 +30,8 @@ class ServiceController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('icon')) {
-            $data['icon'] = $this->storeUpload($request->file('icon'));
-        }
-
-        if ($request->hasFile('banner_image')) {
-            $data['banner_image'] = $this->storeUpload($request->file('banner_image'));
-        }
+        $this->syncUpload($request, $data, 'icon');
+        $this->syncUpload($request, $data, 'banner_image');
 
         Service::create($data);
 
@@ -52,13 +47,8 @@ class ServiceController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('icon')) {
-            $data['icon'] = $this->storeUpload($request->file('icon'));
-        }
-
-        if ($request->hasFile('banner_image')) {
-            $data['banner_image'] = $this->storeUpload($request->file('banner_image'));
-        }
+        $this->syncUpload($request, $data, 'icon', $service->icon);
+        $this->syncUpload($request, $data, 'banner_image', $service->banner_image);
 
         $service->update($data);
 
@@ -67,6 +57,8 @@ class ServiceController extends Controller
 
     public function destroy(Service $service): RedirectResponse
     {
+        $this->deleteUpload($service->icon);
+        $this->deleteUpload($service->banner_image);
         $service->delete();
 
         return redirect()->route('admin.services.index')->with('status', 'Service deleted.');

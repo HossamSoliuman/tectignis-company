@@ -17,7 +17,7 @@ class BlogPostController extends Controller
 
     public function index(): View
     {
-        $posts = BlogPost::latest('published_at')->get();
+        $posts = BlogPost::ordered()->get();
 
         return view('admin.blog.index', compact('posts'));
     }
@@ -32,9 +32,7 @@ class BlogPostController extends Controller
         $data = $request->validated();
         $data['slug'] = ($data['slug'] ?? null) ?: Str::slug($data['title']);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->storeUpload($request->file('image'));
-        }
+        $this->syncUpload($request, $data, 'image');
 
         BlogPost::create($data);
 
@@ -51,9 +49,7 @@ class BlogPostController extends Controller
         $data = $request->validated();
         $data['slug'] = ($data['slug'] ?? null) ?: Str::slug($data['title']);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->storeUpload($request->file('image'));
-        }
+        $this->syncUpload($request, $data, 'image', $blog->image);
 
         $blog->update($data);
 
@@ -62,6 +58,7 @@ class BlogPostController extends Controller
 
     public function destroy(BlogPost $blog): RedirectResponse
     {
+        $this->deleteUpload($blog->image);
         $blog->delete();
 
         return redirect()->route('admin.blog.index')->with('status', 'Blog post deleted.');

@@ -36,12 +36,38 @@
     <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100 lg:col-span-2">
             <h2 class="flex items-center gap-2 text-base font-semibold text-slate-900">
-                <x-admin.icon name="grid" class="h-5 w-5 text-fuchsia-600" /> Welcome to the Tectignis admin
+                <x-admin.icon name="photo-up" class="h-5 w-5 text-fuchsia-600" /> Upload an image
             </h2>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">
-                Manage your website content from here — services, blog posts, case studies, testimonials, brands,
-                leads and site settings. Uploaded images are stored in the <code class="rounded bg-slate-100 px-1.5 py-0.5 text-xs text-fuchsia-700">public/uploads</code> folder.
+            <p class="mt-1 text-sm text-slate-500">
+                Files are stored in the <code class="rounded bg-slate-100 px-1.5 py-0.5 text-xs text-fuchsia-700">public/uploads</code> folder.
             </p>
+
+            <form action="{{ route('admin.uploads.store') }}" method="POST" enctype="multipart/form-data"
+                class="mt-4 space-y-4">
+                @csrf
+                <x-admin.image-field name="image" label="Choose an image" hint="JPG, PNG, WEBP, SVG or GIF — up to 5 MB" />
+
+                <button type="submit"
+                    class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-fuchsia-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-md">
+                    <x-admin.icon name="photo-up" class="h-4 w-4" /> Upload image
+                </button>
+            </form>
+
+            @if (! empty($uploads))
+                <div class="mt-6 border-t border-slate-100 pt-5">
+                    <h3 class="text-sm font-semibold text-slate-700">Recent uploads</h3>
+                    <div class="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
+                        @foreach ($uploads as $upload)
+                            <a href="{{ $upload['url'] }}" target="_blank" rel="noopener"
+                                class="group block overflow-hidden rounded-xl border border-slate-200 bg-slate-50"
+                                title="{{ $upload['name'] }}">
+                                <img src="{{ $upload['url'] }}" alt="{{ $upload['name'] }}"
+                                    class="h-20 w-full object-contain transition group-hover:scale-105">
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">

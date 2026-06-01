@@ -12,7 +12,7 @@ class BlogPost extends Model
     use HasFactory;
 
     protected $fillable = [
-        'slug', 'title', 'excerpt', 'content', 'image',
+        'slug', 'title', 'excerpt', 'content', 'image', 'sort_order',
         'published_at', 'is_published',
         'seo_title', 'seo_description', 'seo_keywords',
     ];
@@ -22,6 +22,7 @@ class BlogPost extends Model
         return [
             'published_at' => 'datetime',
             'is_published' => 'boolean',
+            'sort_order' => 'integer',
         ];
     }
 
@@ -37,6 +38,6 @@ class BlogPost extends Model
 
     public function scopeOrdered($query): void
     {
-        $query->orderBy('published_at', 'desc');
+        $query->orderBy('sort_order')->orderByDesc('published_at');
     }
 }

@@ -30,9 +30,7 @@ class CaseStudyController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->storeUpload($request->file('image'));
-        }
+        $this->syncUpload($request, $data, 'image');
 
         CaseStudy::create($data);
 
@@ -48,9 +46,7 @@ class CaseStudyController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->storeUpload($request->file('image'));
-        }
+        $this->syncUpload($request, $data, 'image', $caseStudy->image);
 
         $caseStudy->update($data);
 
@@ -59,6 +55,7 @@ class CaseStudyController extends Controller
 
     public function destroy(CaseStudy $caseStudy): RedirectResponse
     {
+        $this->deleteUpload($caseStudy->image);
         $caseStudy->delete();
 
         return redirect()->route('admin.case-studies.index')->with('status', 'Case study deleted.');

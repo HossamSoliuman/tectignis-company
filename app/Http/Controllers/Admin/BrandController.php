@@ -30,9 +30,7 @@ class BrandController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('logo')) {
-            $data['logo'] = $this->storeUpload($request->file('logo'));
-        }
+        $this->syncUpload($request, $data, 'logo');
 
         Brand::create($data);
 
@@ -48,9 +46,7 @@ class BrandController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('logo')) {
-            $data['logo'] = $this->storeUpload($request->file('logo'));
-        }
+        $this->syncUpload($request, $data, 'logo', $brand->logo);
 
         $brand->update($data);
 
@@ -59,6 +55,7 @@ class BrandController extends Controller
 
     public function destroy(Brand $brand): RedirectResponse
     {
+        $this->deleteUpload($brand->logo);
         $brand->delete();
 
         return redirect()->route('admin.brands.index')->with('status', 'Brand deleted.');
