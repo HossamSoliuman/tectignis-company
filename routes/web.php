@@ -14,6 +14,8 @@ use App\Http\Controllers\SitemapController;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 
+//test update
+
 Route::get('/', HomeController::class)->name('home');
 
 Route::get('/about', [PageController::class, 'about'])->name('about');
