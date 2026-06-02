@@ -60,11 +60,11 @@
                                                             <li>
                                                                 <h2 class="page-list-title">Software Development</h2>
                                                                 <ul>
-                                                                    <li><a href="{{ route('capabilities.show', 'website-design-development') }}"><span>Website Design &amp; Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'web-application-development') }}"><span>Web Application Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'ecommerce-development') }}"><span>E-commerce Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'mobile-app-development') }}"><span>Mobile Application Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'custom-software-development') }}"><span>Custom Software Development</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'website-design-development') }}"><span>Website Design &amp; Development</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'web-application-development') }}"><span>Web Application Development</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'ecommerce-development') }}"><span>E-commerce Development</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'mobile-app-development') }}"><span>Mobile Application Development</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'custom-software-development') }}"><span>Custom Software Development</span></a></li>
                                                                     <li><a href="{{ route('capabilities.index') }}"><span>CRM Development</span></a></li>
                                                                     <li><a href="{{ route('capabilities.index') }}"><span>ERP Development</span></a></li>
                                                                     <li><a href="{{ route('capabilities.index') }}"><span>SaaS Product Development</span></a></li>
@@ -112,14 +112,14 @@
                                                             <li>
                                                                 <h2 class="page-list-title">Infrastructure &amp; Surveillance</h2>
                                                                 <ul>
-                                                                    <li><a href="{{ route('capabilities.show', 'networking-solutions') }}"><span>Networking Solutions</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'networking-solutions') }}"><span>Networking Solutions</span></a></li>
                                                                     <li><a href="{{ route('capabilities.index') }}"><span>Structured Cabling</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'workstation-solutions') }}"><span>Server Setup &amp; Management</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'network-storage') }}"><span>Storage Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'workstation-solutions') }}"><span>Workstation Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'cctv-security') }}"><span>CCTV &amp; Security Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'access-control') }}"><span>Access Control Systems</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.show', 'amc') }}"><span>AMC Services</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'workstation-solutions') }}"><span>Server Setup &amp; Management</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'network-storage') }}"><span>Storage Solutions</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'workstation-solutions') }}"><span>Workstation Solutions</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'cctv-security') }}"><span>CCTV &amp; Security Solutions</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'access-control') }}"><span>Access Control Systems</span></a></li>
+                                                                    <li><a href="{{ route('services.show', 'amc') }}"><span>AMC Services</span></a></li>
                                                                 </ul>
                                                             </li>
 
@@ -145,35 +145,35 @@
                                                         </ul>
                                                     </li>
                                                     <li class="has-children">
-                                                        <a href="{{ route('capabilities.index') }}"><span>Solutions</span></a>
+                                                        <a href="{{ route('solutions.index') }}"><span>Solutions</span></a>
                                                         <ul class="megamenu megamenu--mega">
                                                             <li>
                                                                 <h2 class="page-list-title">Business Solutions</h2>
                                                                 <ul>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>ERP Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>CRM Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>HRMS Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>AI Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Cloud Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Security Solutions</span></a></li>
+                                                                    <li><a href="{{ route('solutions.show', 'erp-solutions') }}"><span>ERP Solutions</span></a></li>
+                                                                    <li><a href="{{ route('solutions.show', 'crm-solutions') }}"><span>CRM Solutions</span></a></li>
+                                                                    <li><a href="{{ route('solutions.show', 'hrms-solutions') }}"><span>HRMS Solutions</span></a></li>
+                                                                    <li><a href="{{ route('solutions.show', 'ai-solutions') }}"><span>AI Solutions</span></a></li>
+                                                                    <li><a href="{{ route('solutions.show', 'cloud-solutions') }}"><span>Cloud Solutions</span></a></li>
+                                                                    <li><a href="{{ route('solutions.show', 'cybersecurity-solutions') }}"><span>Security Solutions</span></a></li>
                                                                 </ul>
                                                             </li>
                                                         </ul>
                                                     </li>
                                                     <li class="has-children">
-                                                        <a href="#"><span>Industries</span></a>
+                                                        <a href="{{ route('industries.index') }}"><span>Industries</span></a>
                                                         <ul class="megamenu megamenu--mega">
                                                             <li>
                                                                 <h2 class="page-list-title">Industries We Serve</h2>
                                                                 <ul>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Manufacturing</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Healthcare</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Education</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Retail</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Real Estate</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Logistics</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Hospitality</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Corporate Offices</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'manufacturing') }}"><span>Manufacturing</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'healthcare') }}"><span>Healthcare</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'education') }}"><span>Education</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'retail') }}"><span>Retail</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'real-estate') }}"><span>Real Estate</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'logistics') }}"><span>Logistics</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'hospitality') }}"><span>Hospitality</span></a></li>
+                                                                    <li><a href="{{ route('industries.show', 'corporate-offices') }}"><span>Corporate Offices</span></a></li>
                                                                 </ul>
                                                             </li>
                                                         </ul>
@@ -262,26 +262,39 @@
                     <li class="has-children">
                         <a href="{{ route('capabilities.index') }}">Capabilities</a>
                         <ul class="sub-menu">
-                            <li><a href="{{ route('capabilities.show', 'custom-software-development') }}"><span>Custom Software Development</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'website-design-development') }}"><span>Website Design &amp; Development</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'web-application-development') }}"><span>Web Application Development</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'mobile-app-development') }}"><span>Mobile App Development</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'ecommerce-development') }}"><span>E-commerce Development</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'cctv-security') }}"><span>CCTV &amp; Security Solutions</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'access-control') }}"><span>Access Control Systems</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'networking-solutions') }}"><span>Networking Solutions</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'amc') }}"><span>Annual Maintenance (AMC)</span></a></li>
+                            <li><a href="{{ route('services.show', 'custom-software-development') }}"><span>Custom Software Development</span></a></li>
+                            <li><a href="{{ route('services.show', 'website-design-development') }}"><span>Website Design &amp; Development</span></a></li>
+                            <li><a href="{{ route('services.show', 'web-application-development') }}"><span>Web Application Development</span></a></li>
+                            <li><a href="{{ route('services.show', 'mobile-app-development') }}"><span>Mobile App Development</span></a></li>
+                            <li><a href="{{ route('services.show', 'ecommerce-development') }}"><span>E-commerce Development</span></a></li>
+                            <li><a href="{{ route('services.show', 'cctv-security') }}"><span>CCTV &amp; Security Solutions</span></a></li>
+                            <li><a href="{{ route('services.show', 'access-control') }}"><span>Access Control Systems</span></a></li>
+                            <li><a href="{{ route('services.show', 'networking-solutions') }}"><span>Networking Solutions</span></a></li>
+                            <li><a href="{{ route('services.show', 'amc') }}"><span>Annual Maintenance (AMC)</span></a></li>
                         </ul>
                     </li>
                     <li class="has-children">
-                        <a href="{{ route('capabilities.index') }}">Solutions</a>
+                        <a href="{{ route('solutions.index') }}">Solutions</a>
                         <ul class="sub-menu">
-                            <li><a href="{{ route('capabilities.show', 'erp-solutions') }}"><span>ERP Solutions</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'crm-solutions') }}"><span>CRM Solutions</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'hrms-solutions') }}"><span>HRMS Solutions</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'ai-solutions') }}"><span>AI Solutions</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'cloud-solutions') }}"><span>Cloud Solutions</span></a></li>
-                            <li><a href="{{ route('capabilities.show', 'cybersecurity-solutions') }}"><span>Security Solutions</span></a></li>
+                            <li><a href="{{ route('solutions.show', 'erp-solutions') }}"><span>ERP Solutions</span></a></li>
+                            <li><a href="{{ route('solutions.show', 'crm-solutions') }}"><span>CRM Solutions</span></a></li>
+                            <li><a href="{{ route('solutions.show', 'hrms-solutions') }}"><span>HRMS Solutions</span></a></li>
+                            <li><a href="{{ route('solutions.show', 'ai-solutions') }}"><span>AI Solutions</span></a></li>
+                            <li><a href="{{ route('solutions.show', 'cloud-solutions') }}"><span>Cloud Solutions</span></a></li>
+                            <li><a href="{{ route('solutions.show', 'cybersecurity-solutions') }}"><span>Security Solutions</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="{{ route('industries.index') }}">Industries</a>
+                        <ul class="sub-menu">
+                            <li><a href="{{ route('industries.show', 'manufacturing') }}"><span>Manufacturing</span></a></li>
+                            <li><a href="{{ route('industries.show', 'healthcare') }}"><span>Healthcare</span></a></li>
+                            <li><a href="{{ route('industries.show', 'education') }}"><span>Education</span></a></li>
+                            <li><a href="{{ route('industries.show', 'retail') }}"><span>Retail</span></a></li>
+                            <li><a href="{{ route('industries.show', 'real-estate') }}"><span>Real Estate</span></a></li>
+                            <li><a href="{{ route('industries.show', 'logistics') }}"><span>Logistics</span></a></li>
+                            <li><a href="{{ route('industries.show', 'hospitality') }}"><span>Hospitality</span></a></li>
+                            <li><a href="{{ route('industries.show', 'corporate-offices') }}"><span>Corporate Offices</span></a></li>
                         </ul>
                     </li>
                     <li class="has-children">

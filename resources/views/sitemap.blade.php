@@ -7,12 +7,44 @@
         <priority>{{ $page['priority'] }}</priority>
     </url>
     @endforeach
+    @foreach ($capabilities as $capability)
+    <url>
+        <loc>{{ route('capabilities.show', $capability->slug) }}</loc>
+        <lastmod>{{ $capability->updated_at->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    @endforeach
     @foreach ($services as $service)
     <url>
-        <loc>{{ route('capabilities.show', $service->slug) }}</loc>
+        <loc>{{ route('services.show', $service->slug) }}</loc>
         <lastmod>{{ $service->updated_at->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    @endforeach
+    @foreach ($solutions as $solution)
+    <url>
+        <loc>{{ route('solutions.show', $solution->slug) }}</loc>
+        <lastmod>{{ $solution->updated_at->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    @endforeach
+    @foreach ($industries as $industry)
+    <url>
+        <loc>{{ route('industries.show', $industry->slug) }}</loc>
+        <lastmod>{{ $industry->updated_at->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    @endforeach
+    @foreach ($pages as $page)
+    <url>
+        <loc>{{ route('pages.show', $page->slug) }}</loc>
+        <lastmod>{{ $page->updated_at->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
     @endforeach
     @foreach ($posts as $post)

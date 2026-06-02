@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\Brand;
+use App\Models\Capability;
 use App\Models\CaseStudy;
+use App\Models\Industry;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\Solution;
+use App\Models\Stat;
+use App\Models\TechStack;
 use App\Models\Testimonial;
 use Illuminate\Contracts\View\View;
 
@@ -16,6 +21,11 @@ class HomeController extends Controller
     public function __invoke(): View
     {
         return view('public.home', [
+            'capabilities' => Capability::active()->ordered()->get(),
+            'solutions' => Solution::active()->ordered()->get(),
+            'industries' => Industry::active()->ordered()->get(),
+            'stats' => Stat::active()->ordered()->get(),
+            'techStacks' => TechStack::active()->ordered()->get(),
             'services' => Service::active()->ordered()->get(),
             'caseStudies' => CaseStudy::active()->ordered()->get(),
             'testimonials' => Testimonial::active()->ordered()->get(),

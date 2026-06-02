@@ -76,7 +76,7 @@ unset($__defined_vars, $__key, $__value); ?>
             'name' => $service->title,
             'description' => $service->seo_description ?? $service->short_description,
             'provider' => ['@type' => 'Organization', 'name' => $siteName, 'url' => $siteUrl],
-            'url' => route('capabilities.show', $service->slug),
+            'url' => route('services.show', $service->slug),
         ];
     }
 

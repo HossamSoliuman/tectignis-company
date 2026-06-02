@@ -54,30 +54,14 @@
                 </div>
             </div>
             <div class="row">
+                @foreach ($stats as $stat)
                 <div class="col-md-3 col-sm-6 wow move-up">
                     <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count counter">100</div>
-                        <h6 class="fun-fact__text">+ Projects Delivered</h6>
+                        <div class="fun-fact__count @if (is_numeric($stat->value)) counter @endif">{{ $stat->value }}</div>
+                        <h6 class="fun-fact__text">{{ $stat->label }}</h6>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 wow move-up">
-                    <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count counter">50</div>
-                        <h6 class="fun-fact__text">+ Clients Served</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 wow move-up">
-                    <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count counter">5</div>
-                        <h6 class="fun-fact__text">+ Years Experience</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 wow move-up">
-                    <div class="fun-fact--two text-center">
-                        <div class="fun-fact__count">24/7</div>
-                        <h6 class="fun-fact__text">Support</h6>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -95,102 +79,24 @@
                 </div>
             </div>
             <div class="row">
+                @foreach ($capabilities as $capability)
                 <div class="col-lg-4 col-md-6 wow move-up">
                     <div class="projects-wrap style-04">
                         <div class="projects-image-box">
                             <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('assets/images/icons/Software-Development.webp') }}" alt="Software Development" loading="lazy">
+                                <img class="img-fulid" src="{{ asset('uploads/'.$capability->icon) }}" alt="{{ $capability->title }}" loading="lazy">
                             </div>
                             <div class="content text-center">
-                                <h5 class="heading">Software Development</h5>
-                                <div class="text">Web Apps · Mobile Apps · ERP · CRM · SaaS</div>
+                                <h5 class="heading">{{ $capability->title }}</h5>
+                                <div class="text">{{ $capability->short_description }}</div>
                                 <div class="box-projects-arrow">
-                                    <a href="{{ route('capabilities.show', 'custom-software-development') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
+                                    <a href="{{ route('capabilities.show', $capability->slug) }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 wow move-up">
-                    <div class="projects-wrap style-04">
-                        <div class="projects-image-box">
-                            <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('assets/images/icons/Custom-Software.webp') }}" alt="AI & Automation" loading="lazy">
-                            </div>
-                            <div class="content text-center">
-                                <h5 class="heading">AI &amp; Automation</h5>
-                                <div class="text">AI Chatbots · WhatsApp Automation · OCR · ML · Voice Bots</div>
-                                <div class="box-projects-arrow">
-                                    <a href="{{ route('capabilities.show', 'ai-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow move-up">
-                    <div class="projects-wrap style-04">
-                        <div class="projects-image-box">
-                            <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('assets/images/icons/Networking-Solutions.webp') }}" alt="Cloud & Infrastructure" loading="lazy">
-                            </div>
-                            <div class="content text-center">
-                                <h5 class="heading">Cloud &amp; Infrastructure</h5>
-                                <div class="text">AWS · Azure · Google Cloud · Migration · Hosting</div>
-                                <div class="box-projects-arrow">
-                                    <a href="{{ route('capabilities.show', 'cloud-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow move-up">
-                    <div class="projects-wrap style-04">
-                        <div class="projects-image-box">
-                            <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('assets/images/icons/CCTV-Systems.webp') }}" alt="Cybersecurity" loading="lazy">
-                            </div>
-                            <div class="content text-center">
-                                <h5 class="heading">Cybersecurity</h5>
-                                <div class="text">VAPT · Firewall · Security SOC · Support · Compliance</div>
-                                <div class="box-projects-arrow">
-                                    <a href="{{ route('capabilities.show', 'cybersecurity-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow move-up">
-                    <div class="projects-wrap style-04">
-                        <div class="projects-image-box">
-                            <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('assets/images/icons/Web-Design-and-Development.webp') }}" alt="Networking & Hardware" loading="lazy">
-                            </div>
-                            <div class="content text-center">
-                                <h5 class="heading">Networking &amp; Hardware</h5>
-                                <div class="text">Networking · Servers · Storage · Workstations · AMC</div>
-                                <div class="box-projects-arrow">
-                                    <a href="{{ route('capabilities.show', 'networking-solutions') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow move-up">
-                    <div class="projects-wrap style-04">
-                        <div class="projects-image-box">
-                            <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('assets/images/icons/MobileApp-Development.webp') }}" alt="Smart Security" loading="lazy">
-                            </div>
-                            <div class="content text-center">
-                                <h5 class="heading">Smart Security</h5>
-                                <div class="text">CCTV · Access Control · Visitor Management · Biometrics</div>
-                                <div class="box-projects-arrow">
-                                    <a href="{{ route('capabilities.show', 'cctv-security') }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="button-group-wrap text-center mt-40">
                 <a href="{{ route('capabilities.index') }}" class="btn">View All Capabilities</a>
@@ -249,27 +155,15 @@
                 </div>
             </div>
             <div class="row row--30">
-                @php
-                    $solutions = [
-                        ['icon' => 'fas fa-database', 'title' => 'ERP Solutions', 'slug' => 'erp-solutions'],
-                        ['icon' => 'fas fa-handshake', 'title' => 'CRM Solutions', 'slug' => 'crm-solutions'],
-                        ['icon' => 'fas fa-users', 'title' => 'HRMS Solutions', 'slug' => 'hrms-solutions'],
-                        ['icon' => 'fas fa-robot', 'title' => 'AI Solutions', 'slug' => 'ai-solutions'],
-                        ['icon' => 'fas fa-cloud', 'title' => 'Cloud Solutions', 'slug' => 'cloud-solutions'],
-                        ['icon' => 'fas fa-shield-alt', 'title' => 'Cybersecurity Solutions', 'slug' => 'cybersecurity-solutions'],
-                        ['icon' => 'fas fa-cogs', 'title' => 'Automation Solutions', 'slug' => 'custom-software-development'],
-                        ['icon' => 'fas fa-video', 'title' => 'Smart Security Solutions', 'slug' => 'cctv-security'],
-                    ];
-                @endphp
                 @foreach ($solutions as $solution)
                 <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
-                    <a href="{{ route('capabilities.show', $solution['slug']) }}" class="ht-box-images style-04 d-block text-center p-4 h-100">
+                    <a href="{{ route('solutions.show', $solution->slug) }}" class="ht-box-images style-04 d-block text-center p-4 h-100">
                         <div class="image-box-wrap">
                             <div class="box-image mb-20">
-                                <i class="{{ $solution['icon'] }} fa-3x text-color-primary"></i>
+                                <i class="{{ $solution->icon }} fa-3x text-color-primary"></i>
                             </div>
                             <div class="content">
-                                <h6 class="heading">{{ $solution['title'] }}</h6>
+                                <h6 class="heading">{{ $solution->title }}</h6>
                             </div>
                         </div>
                     </a>
@@ -292,30 +186,18 @@
                 </div>
             </div>
             <div class="row row--30">
-                @php
-                    $industries = [
-                        ['icon' => 'fas fa-industry', 'name' => 'Manufacturing'],
-                        ['icon' => 'fas fa-heartbeat', 'name' => 'Healthcare'],
-                        ['icon' => 'fas fa-graduation-cap', 'name' => 'Education'],
-                        ['icon' => 'fas fa-shopping-cart', 'name' => 'Retail'],
-                        ['icon' => 'fas fa-building', 'name' => 'Real Estate'],
-                        ['icon' => 'fas fa-truck', 'name' => 'Logistics'],
-                        ['icon' => 'fas fa-concierge-bell', 'name' => 'Hospitality'],
-                        ['icon' => 'fas fa-briefcase', 'name' => 'Corporate Offices'],
-                    ];
-                @endphp
                 @foreach ($industries as $industry)
                 <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
-                    <div class="ht-box-images style-03 text-center p-4">
+                    <a href="{{ route('industries.show', $industry->slug) }}" class="ht-box-images style-03 d-block text-center p-4">
                         <div class="image-box-wrap">
                             <div class="box-image mb-20">
-                                <i class="{{ $industry['icon'] }} fa-2x text-color-primary"></i>
+                                <i class="{{ $industry->icon }} fa-2x text-color-primary"></i>
                             </div>
                             <div class="content">
-                                <h6 class="heading">{{ $industry['name'] }}</h6>
+                                <h6 class="heading">{{ $industry->name }}</h6>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 @endforeach
             </div>
@@ -337,7 +219,7 @@
             <div class="row">
                 @foreach ($services->take(8) as $service)
                 <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
-                    <a href="{{ route('capabilities.show', $service->slug) }}" class="projects-wrap style-04 d-block">
+                    <a href="{{ route('services.show', $service->slug) }}" class="projects-wrap style-04 d-block">
                         <div class="projects-image-box">
                             <div class="box-image text-center">
                                 <img class="img-fulid" src="{{ asset('uploads/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
@@ -355,7 +237,7 @@
                 @endforeach
             </div>
             <div class="button-group-wrap text-center mt-40">
-                <a href="{{ route('capabilities.index') }}" class="btn">View All Services</a>
+                <a href="{{ route('services.index') }}" class="btn">View All Services</a>
             </div>
         </div>
     </div>
@@ -373,16 +255,13 @@
                 </div>
             </div>
             <div class="row justify-content-center text-center">
-                @php
-                    $techStack = [
-                        'React', 'Flutter', 'Node.js', 'PHP', 'Python', 'Laravel',
-                        'AWS', 'Azure', 'Google Cloud', 'MySQL', 'PostgreSQL', 'MongoDB',
-                    ];
-                @endphp
-                @foreach ($techStack as $tech)
+                @foreach ($techStacks as $tech)
                 <div class="col-lg-2 col-md-3 col-4 wow move-up section-space--mt_30">
                     <div class="ht-box-images style-03 text-center p-3">
-                        <p class="font-weight--bold text-color-primary mb-0">{{ $tech }}</p>
+                        @if ($tech->logo)
+                            <img class="img-fluid mb-10" src="{{ asset('uploads/'.$tech->logo) }}" alt="{{ $tech->name }}" loading="lazy" style="max-height:40px;width:auto;display:inline-block;">
+                        @endif
+                        <p class="font-weight--bold text-color-primary mb-0">{{ $tech->name }}</p>
                     </div>
                 </div>
                 @endforeach

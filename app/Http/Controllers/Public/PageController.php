@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Models\Setting;
 use Illuminate\Contracts\View\View;
 
@@ -45,5 +46,12 @@ class PageController extends Controller
         $content = Setting::get('legal_'.$slug);
 
         return view('public.legal', compact('slug', 'title', 'content'));
+    }
+
+    public function show(Page $page): View
+    {
+        abort_unless($page->is_active, 404);
+
+        return view('public.pages.show', compact('page'));
     }
 }

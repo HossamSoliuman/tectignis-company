@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasContentScopes;
 use Database\Factories\ServiceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     /** @use HasFactory<ServiceFactory> */
-    use HasFactory;
+    use HasContentScopes, HasFactory;
 
     protected $fillable = [
-        'slug', 'category', 'title', 'short_description', 'description',
+        'slug', 'category', 'title', 'short_description', 'description', 'body',
         'icon', 'banner_image', 'sort_order', 'is_active',
         'seo_title', 'seo_description', 'seo_keywords',
     ];
@@ -23,20 +24,5 @@ class Service extends Model
             'is_active' => 'boolean',
             'sort_order' => 'integer',
         ];
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
-    public function scopeActive($query): void
-    {
-        $query->where('is_active', true);
-    }
-
-    public function scopeOrdered($query): void
-    {
-        $query->orderBy('sort_order');
     }
 }

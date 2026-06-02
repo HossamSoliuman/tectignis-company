@@ -87,7 +87,6 @@
     <script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/right-click.js') }}"></script>
     @stack('scripts')
 
 </body>

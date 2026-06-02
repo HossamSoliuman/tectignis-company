@@ -20,6 +20,7 @@ class StoreServiceRequest extends FormRequest
             'category' => ['nullable', 'string', 'max:100'],
             'short_description' => ['required', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
+            'body' => ['nullable', 'string'],
             'icon' => ['nullable', 'file', 'image', 'max:2048'],
             'banner_image' => ['nullable', 'file', 'image', 'max:4096'],
             'sort_order' => ['nullable', 'integer', 'min:0'],

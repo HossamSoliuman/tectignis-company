@@ -6,7 +6,10 @@ use App\Http\Controllers\Public\CareersController;
 use App\Http\Controllers\Public\CaseStudyController;
 use App\Http\Controllers\Public\ContactController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\IndustryController;
 use App\Http\Controllers\Public\PageController;
+use App\Http\Controllers\Public\ServiceController;
+use App\Http\Controllers\Public\SolutionController;
 use App\Http\Controllers\SitemapController;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +20,15 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 
 Route::get('/capabilities', [CapabilityController::class, 'index'])->name('capabilities.index');
 Route::get('/capabilities/{slug}', [CapabilityController::class, 'show'])->name('capabilities.show');
+
+Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+
+Route::get('/solutions', [SolutionController::class, 'index'])->name('solutions.index');
+Route::get('/solutions/{slug}', [SolutionController::class, 'show'])->name('solutions.show');
+
+Route::get('/industries', [IndustryController::class, 'index'])->name('industries.index');
+Route::get('/industries/{slug}', [IndustryController::class, 'show'])->name('industries.show');
 
 Route::get('/careers', [PageController::class, 'careers'])->name('careers');
 Route::post('/careers', [CareersController::class, 'submit'])->name('careers.submit');
@@ -44,3 +56,6 @@ Route::get('/robots.txt', function () {
 })->name('robots');
 
 require __DIR__.'/admin.php';
+
+// Catch-all for admin-authored CMS pages. Registered LAST so all explicit routes win.
+Route::get('/{page:slug}', [PageController::class, 'show'])->name('pages.show');

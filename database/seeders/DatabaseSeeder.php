@@ -22,6 +22,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SettingsSeeder::class,
             ServiceSeeder::class,
+            CapabilitySeeder::class,
+            SolutionSeeder::class,
+            IndustrySeeder::class,
+            StatSeeder::class,
+            TechStackSeeder::class,
             BlogPostSeeder::class,
             CaseStudySeeder::class,
             TestimonialSeeder::class,

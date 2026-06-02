@@ -1,7 +1,11 @@
 <?php
 
 use App\Models\BlogPost;
+use App\Models\Capability;
+use App\Models\Industry;
+use App\Models\Page;
 use App\Models\Service;
+use App\Models\Solution;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -19,13 +23,74 @@ it('capabilities index returns 200', function () {
 });
 
 it('capabilities show returns 200 for valid slug', function () {
-    $service = Service::factory()->create(['is_active' => true, 'slug' => 'test-service']);
+    $capability = Capability::factory()->create(['is_active' => true, 'slug' => 'test-capability']);
 
-    $this->get(route('capabilities.show', $service->slug))->assertOk();
+    $this->get(route('capabilities.show', $capability->slug))->assertOk();
 });
 
 it('capabilities show returns 404 for unknown slug', function () {
-    $this->get(route('capabilities.show', 'nonexistent-service'))->assertNotFound();
+    $this->get(route('capabilities.show', 'nonexistent-capability'))->assertNotFound();
+});
+
+it('services index returns 200', function () {
+    $this->get(route('services.index'))->assertOk();
+});
+
+it('services show returns 200 for valid slug', function () {
+    $service = Service::factory()->create(['is_active' => true, 'slug' => 'test-service']);
+
+    $this->get(route('services.show', $service->slug))->assertOk();
+});
+
+it('solutions index returns 200', function () {
+    $this->get(route('solutions.index'))->assertOk();
+});
+
+it('solutions show returns 200 for valid slug', function () {
+    $solution = Solution::factory()->create(['is_active' => true, 'slug' => 'test-solution']);
+
+    $this->get(route('solutions.show', $solution->slug))->assertOk();
+});
+
+it('industries index returns 200', function () {
+    $this->get(route('industries.index'))->assertOk();
+});
+
+it('industries show returns 200 for valid slug', function () {
+    $industry = Industry::factory()->create(['is_active' => true, 'slug' => 'test-industry']);
+
+    $this->get(route('industries.show', $industry->slug))->assertOk();
+});
+
+it('renders a custom page with a raw HTML body', function () {
+    $page = Page::factory()->create([
+        'is_active' => true,
+        'slug' => 'my-custom-page',
+        'body' => '<section class="custom-marker">Hello from the CMS</section>',
+    ]);
+
+    $this->get(route('pages.show', $page->slug))
+        ->assertOk()
+        ->assertSee('custom-marker', false)
+        ->assertSee('Hello from the CMS');
+});
+
+it('returns 404 for an inactive custom page', function () {
+    $page = Page::factory()->create(['is_active' => false, 'slug' => 'hidden-page']);
+
+    $this->get(route('pages.show', $page->slug))->assertNotFound();
+});
+
+it('renders a solution detail using its custom HTML body when present', function () {
+    $solution = Solution::factory()->create([
+        'is_active' => true,
+        'slug' => 'body-solution',
+        'body' => '<div class="solution-body-marker">Custom solution layout</div>',
+    ]);
+
+    $this->get(route('solutions.show', $solution->slug))
+        ->assertOk()
+        ->assertSee('solution-body-marker', false);
 });
 
 it('careers page returns 200', function () {

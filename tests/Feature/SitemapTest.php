@@ -17,7 +17,7 @@ it('sitemap contains service urls', function () {
 
     $response = $this->get(route('sitemap'));
     $response->assertOk();
-    $response->assertSee(route('capabilities.show', $service->slug), false);
+    $response->assertSee(route('services.show', $service->slug), false);
 });
 
 it('sitemap contains blog post urls', function () {

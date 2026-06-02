@@ -22,14 +22,20 @@
                 @php
                     $nav = [
                         ['admin.dashboard', 'Dashboard', 'grid'],
-                        ['admin.settings.index', 'Settings', 'cog'],
+                        ['admin.capabilities.index', 'Capabilities', 'cube'],
                         ['admin.services.index', 'Services', 'briefcase'],
+                        ['admin.solutions.index', 'Solutions', 'puzzle'],
+                        ['admin.industries.index', 'Industries', 'office'],
+                        ['admin.pages.index', 'Pages', 'document-duplicate'],
+                        ['admin.stats.index', 'Home Stats', 'chart-pie'],
+                        ['admin.tech-stacks.index', 'Tech Stack', 'chip'],
                         ['admin.blog.index', 'Blog Posts', 'document-text'],
                         ['admin.case-studies.index', 'Case Studies', 'photograph'],
                         ['admin.testimonials.index', 'Testimonials', 'chat-alt'],
                         ['admin.brands.index', 'Brands', 'tag'],
                         ['admin.leads.index', 'Leads (Inbox)', 'inbox'],
                         ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
+                        ['admin.settings.index', 'Settings', 'cog'],
                     ];
                 @endphp
                 @foreach ($nav as [$route, $label, $icon])

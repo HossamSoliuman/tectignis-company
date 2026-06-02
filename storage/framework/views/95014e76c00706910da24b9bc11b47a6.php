@@ -144,7 +144,6 @@
     <script src="<?php echo e(asset('assets/js/vendor/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/plugins/plugins.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/main.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/right-click.js')); ?>"></script>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 
 </body>
