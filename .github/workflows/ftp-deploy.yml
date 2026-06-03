@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: 21
-          server-dir: /tectignis.free.je/htdocs/
+          server-dir: /test/
           exclude: |
             **/.git*
             **/.git*/**
