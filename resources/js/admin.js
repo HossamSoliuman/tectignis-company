@@ -31,7 +31,11 @@ document.addEventListener('change', (e) => {
         return;
     }
 
-    const preview = document.querySelector(input.dataset.preview);
+    // Image fields explicitly target a preview by selector; repeater rows fall
+    // back to the preview image within the same [data-image-field].
+    const preview = input.dataset.preview
+        ? document.querySelector(input.dataset.preview)
+        : input.closest('[data-image-field]')?.querySelector('[data-preview-img]');
     if (preview) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.classList.remove('hidden');
@@ -72,4 +76,52 @@ document.addEventListener('click', (e) => {
     field.querySelector('[data-placeholder]')?.classList.remove('hidden');
     field.querySelector('[data-current-name]')?.classList.add('hidden');
     button.classList.add('hidden');
+});
+
+// Repeater rows: add / remove / reorder. New rows are cloned from the
+// [data-repeater-template] with a unique, never-reused index so file/hidden
+// inputs in the same row stay associated. Order follows DOM order; the server
+// reindexes and drops empty rows on save.
+document.addEventListener('click', (e) => {
+    const addButton = e.target.closest('[data-repeater-add]');
+    if (addButton) {
+        const repeater = addButton.closest('[data-repeater]');
+        const template = repeater?.querySelector('[data-repeater-template]');
+        const rows = repeater?.querySelector('[data-repeater-rows]');
+        if (!template || !rows) {
+            return;
+        }
+
+        const next = Number(repeater.dataset.nextIndex ?? 100000);
+        repeater.dataset.nextIndex = String(next + 1);
+
+        const html = template.innerHTML.replaceAll('__INDEX__', String(next));
+        rows.appendChild(document.createRange().createContextualFragment(html));
+        return;
+    }
+
+    const removeButton = e.target.closest('[data-repeater-remove]');
+    if (removeButton) {
+        removeButton.closest('[data-repeater-row]')?.remove();
+        return;
+    }
+
+    const upButton = e.target.closest('[data-repeater-up]');
+    if (upButton) {
+        const row = upButton.closest('[data-repeater-row]');
+        const previous = row?.previousElementSibling;
+        if (row && previous) {
+            row.parentNode.insertBefore(row, previous);
+        }
+        return;
+    }
+
+    const downButton = e.target.closest('[data-repeater-down]');
+    if (downButton) {
+        const row = downButton.closest('[data-repeater-row]');
+        const next = row?.nextElementSibling;
+        if (row && next) {
+            row.parentNode.insertBefore(next, row);
+        }
+    }
 });

@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Http\Requests\Admin\Concerns\ValidatesServiceData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateServiceRequest extends FormRequest
 {
+    use ValidatesServiceData;
+
     public function authorize(): bool
     {
         return true;
@@ -15,20 +18,8 @@ class UpdateServiceRequest extends FormRequest
     /** @return array<string, array<int, mixed>> */
     public function rules(): array
     {
-        return [
+        return array_merge([
             'slug' => ['required', 'string', 'max:255', Rule::unique('services', 'slug')->ignore($this->route('service'))],
-            'title' => ['required', 'string', 'max:255'],
-            'category' => ['nullable', 'string', 'max:100'],
-            'short_description' => ['required', 'string', 'max:500'],
-            'description' => ['nullable', 'string'],
-            'body' => ['nullable', 'string'],
-            'icon' => ['nullable', 'file', 'image', 'max:2048'],
-            'banner_image' => ['nullable', 'file', 'image', 'max:4096'],
-            'sort_order' => ['nullable', 'integer', 'min:0'],
-            'is_active' => ['boolean'],
-            'seo_title' => ['nullable', 'string', 'max:255'],
-            'seo_description' => ['nullable', 'string', 'max:500'],
-            'seo_keywords' => ['nullable', 'string', 'max:500'],
-        ];
+        ], $this->baseServiceRules());
     }
 }

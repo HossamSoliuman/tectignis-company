@@ -8,7 +8,7 @@
     </div>
 
     <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data"
-        class="max-w-2xl space-y-6">
+        class="max-w-4xl space-y-5">
         @csrf
         @include('admin.services._form')
         <div class="flex justify-end">
