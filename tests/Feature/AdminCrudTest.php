@@ -24,7 +24,7 @@ it('admin can create a service', function () {
         ->post(route('admin.services.store'), [
             'title' => 'Test Service',
             'slug' => 'test-service',
-            'category' => 'digital_services',
+            'category' => 'software_development',
             'short_description' => 'A test service description.',
             'is_active' => '1',
         ])->assertRedirect(route('admin.services.index'));
@@ -97,7 +97,7 @@ it('stores an uploaded image into public/uploads', function () {
         ->post(route('admin.services.store'), [
             'title' => 'With Icon',
             'slug' => 'with-icon',
-            'category' => 'digital_services',
+            'category' => 'software_development',
             'short_description' => 'Has an uploaded icon.',
             'is_active' => '1',
             'icon' => UploadedFile::fake()->image('icon.png'),

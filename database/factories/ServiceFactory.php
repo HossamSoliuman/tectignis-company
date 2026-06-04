@@ -19,10 +19,11 @@ class ServiceFactory extends Factory
     {
         return [
             'slug' => fake()->unique()->slug(3),
-            'category' => fake()->randomElement(['it_services', 'digital_services']),
+            'category' => fake()->randomElement(['software_development', 'ai_automation', 'business_application']),
             'title' => fake()->words(3, true),
             'short_description' => fake()->sentence(),
             'description' => fake()->paragraph(),
+            'content' => [],
             'icon' => 'website-development-com.webp',
             'sort_order' => fake()->numberBetween(1, 20),
             'is_active' => true,

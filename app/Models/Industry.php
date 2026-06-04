@@ -6,6 +6,7 @@ use App\Models\Concerns\HasContentScopes;
 use Database\Factories\IndustryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Industry extends Model
 {
@@ -24,5 +25,15 @@ class Industry extends Model
             'is_active' => 'boolean',
             'sort_order' => 'integer',
         ];
+    }
+
+    /**
+     * Services this industry is attached to.
+     *
+     * @return BelongsToMany<Service, $this>
+     */
+    public function services(): BelongsToMany
+    {
+        return $this->belongsToMany(Service::class, 'service_industry');
     }
 }
