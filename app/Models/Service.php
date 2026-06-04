@@ -24,6 +24,18 @@ class Service extends Model
      */
     public const CATEGORIES = ['software_development', 'ai_automation', 'business_application'];
 
+    /**
+     * Human-readable labels for the three design categories (single source of truth
+     * for the admin form and the public services index grouping).
+     *
+     * @var array<string, string>
+     */
+    public const CATEGORY_LABELS = [
+        'software_development' => 'Software Development',
+        'ai_automation' => 'AI & Automation',
+        'business_application' => 'Business Application',
+    ];
+
     protected function casts(): array
     {
         return [

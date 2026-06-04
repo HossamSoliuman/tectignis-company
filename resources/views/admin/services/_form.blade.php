@@ -8,11 +8,7 @@
     $selectedTech = collect(old('tech_stacks', $s ? $s->techStacks->pluck('id')->all() : []))->map(fn ($id) => (int) $id)->all();
     $selectedIndustries = collect(old('industries', $s ? $s->industries->pluck('id')->all() : []))->map(fn ($id) => (int) $id)->all();
 
-    $categoryLabels = [
-        'software_development' => 'Software Development',
-        'ai_automation' => 'AI & Automation',
-        'business_application' => 'Business Application',
-    ];
+    $categoryLabels = \App\Models\Service::CATEGORY_LABELS;
 
     $inputClass = 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400';
 @endphp
