@@ -3,6 +3,32 @@
    Loaded after style.css so these rules win.
    ========================================================= */
 
+/* ---------- Dark header theme (from design mockup) ----------
+   The whole header — top utility bar and the main navigation — sits on a
+   deep navy background with a white wordmark, light menu text and magenta
+   accents, matching docs/images. Covers the JS sticky state too. */
+.header-area--default {
+    background-color: #0c0a26;
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+.header-top-wrap.border-bottom {
+    background-color: #08061b;
+    border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+.header-bottom-wrap {
+    background-color: #0c0a26;
+}
+
+/* Sticky header (JS toggles .is-sticky and switches it to white by default) */
+.header-area .is-sticky,
+.header-area .header-bottom-wrap.is-sticky {
+    background-color: #0c0a26 !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
 /* ---------- Header top bar ---------- */
 .header-top-wrap .header-top-inner {
     display: flex;
@@ -24,7 +50,7 @@
 
 .header-top-info li {
     font-size: 14px;
-    color: #5a5a6a;
+    color: rgba(255, 255, 255, 0.72);
     line-height: 1.4;
 }
 
@@ -34,12 +60,34 @@
 }
 
 .header-top-info a {
-    color: #5a5a6a;
+    color: rgba(255, 255, 255, 0.72);
     transition: color 0.2s;
 }
 
 .header-top-info a:hover {
-    color: #C10897;
+    color: #ffffff;
+}
+
+/* ---------- Main navigation: white text on dark ---------- */
+.navigation-menu > ul > li > a,
+.navigation-menu > ul > li > a span {
+    color: #ffffff;
+}
+
+.navigation-menu > ul > li.has-children > a:after {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.navigation-menu > ul > li:hover > a span,
+.navigation-menu > ul > li.active > a span,
+.navigation-menu > ul > li:hover > a:after,
+.navigation-menu > ul > li.active > a:after {
+    color: #ff3db4;
+}
+
+/* Brighten the active/hover underline so it reads on the dark bar */
+.navigation-menu > ul > li > a:before {
+    background-color: #ff1fae;
 }
 
 .header-top-right {
@@ -82,25 +130,26 @@
     }
 }
 
-/* ---------- Mega menu: 5 columns + CTA row ---------- */
-.navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--five {
-    min-width: 1120px;
+/* ---------- Mega menu: service categories + CTA row ----------
+   One column per live service category (driven by the admin). */
+.navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--services {
+    min-width: 880px;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1499px) {
-    .navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--five {
-        min-width: 980px;
+    .navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--services {
+        min-width: 780px;
     }
 }
 
-.megamenu--five > li {
-    flex-basis: 20%;
-    max-width: 20%;
+.megamenu--services > li {
+    flex-basis: 33.333%;
+    max-width: 33.333%;
 }
 
-.megamenu--five > li .page-list-title {
+.megamenu--services > li .page-list-title {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -109,13 +158,13 @@
     padding-bottom: 10px;
 }
 
-.megamenu--five > li > ul > li > a {
+.megamenu--services > li > ul > li > a {
     padding: 7px 0;
     font-size: 13.5px;
 }
 
 /* CTA row inside the mega menu */
-.megamenu--five > li.megamenu-cta-row {
+.megamenu--services > li.megamenu-cta-row {
     flex-basis: 100%;
     max-width: 100%;
     margin-top: 18px;
@@ -187,8 +236,8 @@ body {
 
 /* Anchor each compact dropdown under its own menu item. The wide mega panel
    is excluded so it keeps the full-width header as its positioning context
-   and can be centered on the page (see the .megamenu--five rule below). */
-.navigation-menu > ul > li.has-children:not(:has(.megamenu--five)) {
+   and can be centered on the page (see the .megamenu--services rule below). */
+.navigation-menu > ul > li.has-children:not(:has(.megamenu--services)) {
     position: relative;
 }
 
@@ -211,13 +260,13 @@ body {
 
 /* Compact single-column menus (Solutions, Industries, Resources):
    sized to their content instead of a 980px slab. */
-.navigation-menu > ul > li .megamenu--mega:not(.megamenu--five) {
+.navigation-menu > ul > li .megamenu--mega:not(.megamenu--services) {
     display: block;
     min-width: 230px;
     padding: 16px 12px;
 }
 
-.navigation-menu > ul > li .megamenu--mega:not(.megamenu--five) > li {
+.navigation-menu > ul > li .megamenu--mega:not(.megamenu--services) > li {
     flex-basis: auto;
     max-width: none;
     padding-left: 8px;
@@ -226,19 +275,34 @@ body {
 
 /* Wide Capabilities mega panel: keep the multi-column grid but center it
    under the bar and clamp it inside the viewport so it cannot overflow. */
-.navigation-menu > ul > li .megamenu.megamenu--five,
-.navigation-menu > ul > li.has-children:hover .megamenu.megamenu--five {
+.navigation-menu > ul > li .megamenu.megamenu--services,
+.navigation-menu > ul > li.has-children:hover .megamenu.megamenu--services {
     left: 50%;
     transform: translateX(-50%);
     min-width: 0;
-    width: min(1120px, calc(100vw - 40px));
+    width: min(880px, calc(100vw - 40px));
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1499px) {
-    .navigation-menu > ul > li .megamenu.megamenu--five,
-    .navigation-menu > ul > li.has-children:hover .megamenu.megamenu--five {
-        width: min(980px, calc(100vw - 40px));
+    .navigation-menu > ul > li .megamenu.megamenu--services,
+    .navigation-menu > ul > li.has-children:hover .megamenu.megamenu--services {
+        width: min(780px, calc(100vw - 40px));
     }
+}
+
+/* Mobile capabilities sub-menu: category captions between service links */
+.offcanvas-navigation .sub-menu .mobile-sub-heading {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 12px 0 4px;
+    border: 0;
+}
+
+.offcanvas-navigation .sub-menu .mobile-sub-heading:first-child {
+    padding-top: 0;
 }
 
 /* ---------- Hero fix (was a broken 120px heading) ---------- */

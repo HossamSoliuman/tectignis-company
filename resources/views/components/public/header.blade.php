@@ -32,7 +32,7 @@
                         <!-- brand logo -->
                         <div class="header__logo">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('assets/images/logo/Tectignis-IT-solution-logo.webp') }}" aria-label="Tectignis Logo" width="160" height="48" class="img-fluid" alt="Tectignis-IT-solution-logo">
+                                <img src="{{ asset('assets/images/logo/Tectignis-IT-solution-logo-white.webp') }}" aria-label="Tectignis Logo" width="160" height="48" class="img-fluid" alt="Tectignis-IT-solution-logo">
                             </a>
                         </div>
 
@@ -54,74 +54,19 @@
                                                     </li>
 
                                                     <li class="has-children">
-                                                        <a href="{{ route('capabilities.index') }}"><span>Capabilities</span></a>
-                                                        <ul class="megamenu megamenu--mega megamenu--five">
+                                                        <a href="{{ route('services.index') }}"><span>Capabilities</span></a>
+                                                        <ul class="megamenu megamenu--mega megamenu--services">
 
-                                                            <li>
-                                                                <h2 class="page-list-title">Software Development</h2>
-                                                                <ul>
-                                                                    <li><a href="{{ route('services.show', 'website-design-development') }}"><span>Website Design &amp; Development</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'web-application-development') }}"><span>Web Application Development</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'ecommerce-development') }}"><span>E-commerce Development</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'mobile-app-development') }}"><span>Mobile Application Development</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'custom-software-development') }}"><span>Custom Software Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>CRM Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>ERP Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>SaaS Product Development</span></a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <h2 class="page-list-title">Business Applications</h2>
-                                                                <ul>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>HRMS Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>LMS Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Inventory Management Software</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Hospital Management Software</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>School / College Management</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Real Estate Management Software</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Visitor Management Software</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>POS (Point of Sale) Software</span></a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <h2 class="page-list-title">AI &amp; Automation</h2>
-                                                                <ul>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>AI Integration</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>AI Chatbot Development</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>WhatsApp Business Automation</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>OCR &amp; Document Digitization</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Voice Bot Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Machine Learning Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Generative AI Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Business Process Automation</span></a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <h2 class="page-list-title">Cloud &amp; Security</h2>
-                                                                <ul>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Cloud Migration Services</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>AWS Consulting</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Microsoft Azure Consulting</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Google Cloud Services</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Cybersecurity Consulting</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>VAPT Services</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Firewall Configuration &amp; Mgmt</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>SOC Support</span></a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <h2 class="page-list-title">Infrastructure &amp; Surveillance</h2>
-                                                                <ul>
-                                                                    <li><a href="{{ route('services.show', 'networking-solutions') }}"><span>Networking Solutions</span></a></li>
-                                                                    <li><a href="{{ route('capabilities.index') }}"><span>Structured Cabling</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'workstation-solutions') }}"><span>Server Setup &amp; Management</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'network-storage') }}"><span>Storage Solutions</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'workstation-solutions') }}"><span>Workstation Solutions</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'cctv-security') }}"><span>CCTV &amp; Security Solutions</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'access-control') }}"><span>Access Control Systems</span></a></li>
-                                                                    <li><a href="{{ route('services.show', 'amc') }}"><span>AMC Services</span></a></li>
-                                                                </ul>
-                                                            </li>
+                                                            @foreach ($navServiceGroups as $groupLabel => $groupServices)
+                                                                <li>
+                                                                    <h2 class="page-list-title">{{ $groupLabel }}</h2>
+                                                                    <ul>
+                                                                        @foreach ($groupServices as $service)
+                                                                            <li><a href="{{ route('services.show', $service->slug) }}"><span>{{ $service->title }}</span></a></li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+                                                            @endforeach
 
                                                             <li class="megamenu-cta-row">
                                                                 <div class="megamenu-cta">
@@ -260,17 +205,14 @@
                         <a href="{{ route('about') }}">About</a>
                     </li>
                     <li class="has-children">
-                        <a href="{{ route('capabilities.index') }}">Capabilities</a>
+                        <a href="{{ route('services.index') }}">Capabilities</a>
                         <ul class="sub-menu">
-                            <li><a href="{{ route('services.show', 'custom-software-development') }}"><span>Custom Software Development</span></a></li>
-                            <li><a href="{{ route('services.show', 'website-design-development') }}"><span>Website Design &amp; Development</span></a></li>
-                            <li><a href="{{ route('services.show', 'web-application-development') }}"><span>Web Application Development</span></a></li>
-                            <li><a href="{{ route('services.show', 'mobile-app-development') }}"><span>Mobile App Development</span></a></li>
-                            <li><a href="{{ route('services.show', 'ecommerce-development') }}"><span>E-commerce Development</span></a></li>
-                            <li><a href="{{ route('services.show', 'cctv-security') }}"><span>CCTV &amp; Security Solutions</span></a></li>
-                            <li><a href="{{ route('services.show', 'access-control') }}"><span>Access Control Systems</span></a></li>
-                            <li><a href="{{ route('services.show', 'networking-solutions') }}"><span>Networking Solutions</span></a></li>
-                            <li><a href="{{ route('services.show', 'amc') }}"><span>Annual Maintenance (AMC)</span></a></li>
+                            @foreach ($navServiceGroups as $groupLabel => $groupServices)
+                                <li class="mobile-sub-heading">{{ $groupLabel }}</li>
+                                @foreach ($groupServices as $service)
+                                    <li><a href="{{ route('services.show', $service->slug) }}"><span>{{ $service->title }}</span></a></li>
+                                @endforeach
+                            @endforeach
                         </ul>
                     </li>
                     <li class="has-children">
