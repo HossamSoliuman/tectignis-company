@@ -21,12 +21,14 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SettingsSeeder::class,
-            ServiceSeeder::class,
             CapabilitySeeder::class,
             SolutionSeeder::class,
             IndustrySeeder::class,
             StatSeeder::class,
             TechStackSeeder::class,
+            // ServiceSeeder attaches TechStack/Industry pivots by name, so it must
+            // run after those tables are populated.
+            ServiceSeeder::class,
             BlogPostSeeder::class,
             CaseStudySeeder::class,
             TestimonialSeeder::class,
