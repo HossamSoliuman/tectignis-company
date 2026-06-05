@@ -30,8 +30,8 @@ class CapabilityController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'icon');
-        $this->syncUpload($request, $data, 'banner_image');
+        $this->syncUpload($request, $data, 'icon', null, 'capabilities');
+        $this->syncUpload($request, $data, 'banner_image', null, 'capabilities');
 
         Capability::create($data);
 
@@ -47,8 +47,8 @@ class CapabilityController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'icon', $capability->icon);
-        $this->syncUpload($request, $data, 'banner_image', $capability->banner_image);
+        $this->syncUpload($request, $data, 'icon', $capability->icon, 'capabilities');
+        $this->syncUpload($request, $data, 'banner_image', $capability->banner_image, 'capabilities');
 
         $capability->update($data);
 

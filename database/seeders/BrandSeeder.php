@@ -28,10 +28,10 @@ class BrandSeeder extends Seeder
 
         foreach ($brands as $index => $brand) {
             Brand::updateOrCreate(
-                ['logo' => $brand['slug'].'.webp'],
+                ['logo' => 'brands/'.$brand['slug'].'.webp'],
                 [
                     'name' => $brand['name'],
-                    'logo' => $brand['slug'].'.webp',
+                    'logo' => 'brands/'.$brand['slug'].'.webp',
                     'sort_order' => $index + 1,
                     'is_active' => true,
                 ]

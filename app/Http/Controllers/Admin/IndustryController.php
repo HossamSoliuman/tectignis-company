@@ -30,7 +30,7 @@ class IndustryController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'banner_image');
+        $this->syncUpload($request, $data, 'banner_image', null, 'industries');
 
         Industry::create($data);
 
@@ -46,7 +46,7 @@ class IndustryController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'banner_image', $industry->banner_image);
+        $this->syncUpload($request, $data, 'banner_image', $industry->banner_image, 'industries');
 
         $industry->update($data);
 

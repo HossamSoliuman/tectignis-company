@@ -30,7 +30,7 @@ class BrandController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'logo');
+        $this->syncUpload($request, $data, 'logo', null, 'brands');
 
         Brand::create($data);
 
@@ -46,7 +46,7 @@ class BrandController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'logo', $brand->logo);
+        $this->syncUpload($request, $data, 'logo', $brand->logo, 'brands');
 
         $brand->update($data);
 

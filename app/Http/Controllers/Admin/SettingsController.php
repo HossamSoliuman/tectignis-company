@@ -59,7 +59,7 @@ class SettingsController extends Controller
 
         if ($request->hasFile("images.$key")) {
             $this->deleteUpload($setting->value);
-            $setting->update(['value' => $this->storeUpload($request->file("images.$key"))]);
+            $setting->update(['value' => $this->storeUpload($request->file("images.$key"), 'site')]);
 
             return;
         }

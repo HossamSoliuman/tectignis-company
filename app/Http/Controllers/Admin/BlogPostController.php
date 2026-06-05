@@ -32,7 +32,7 @@ class BlogPostController extends Controller
         $data = $request->validated();
         $data['slug'] = ($data['slug'] ?? null) ?: Str::slug($data['title']);
 
-        $this->syncUpload($request, $data, 'image');
+        $this->syncUpload($request, $data, 'image', null, 'blog');
 
         BlogPost::create($data);
 
@@ -49,7 +49,7 @@ class BlogPostController extends Controller
         $data = $request->validated();
         $data['slug'] = ($data['slug'] ?? null) ?: Str::slug($data['title']);
 
-        $this->syncUpload($request, $data, 'image', $blog->image);
+        $this->syncUpload($request, $data, 'image', $blog->image, 'blog');
 
         $blog->update($data);
 

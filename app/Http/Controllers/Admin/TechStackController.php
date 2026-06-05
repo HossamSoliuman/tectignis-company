@@ -30,7 +30,7 @@ class TechStackController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'logo');
+        $this->syncUpload($request, $data, 'logo', null, 'tech-stacks');
 
         TechStack::create($data);
 
@@ -46,7 +46,7 @@ class TechStackController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'logo', $techStack->logo);
+        $this->syncUpload($request, $data, 'logo', $techStack->logo, 'tech-stacks');
 
         $techStack->update($data);
 

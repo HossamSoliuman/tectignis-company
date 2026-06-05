@@ -13,7 +13,7 @@ class BlogPostSeeder extends Seeder
             [
                 'slug' => 'top-technology-trends-2025',
                 'title' => 'Top Technology Trends to Know in 2025',
-                'image' => 'Artificial-Intelligence.webp',
+                'image' => 'blog/Artificial-Intelligence.webp',
                 'published_at' => '2025-05-21 00:00:00',
                 'is_published' => true,
                 'excerpt' => 'In a rapidly evolving digital world, keeping pace with technological advancements is not just a competitive advantage—it\'s a necessity. As we step into 2025, businesses and individuals alike are seeking innovative solutions to improve efficiency, security, scalability, and user engagement.',
@@ -24,7 +24,7 @@ class BlogPostSeeder extends Seeder
             [
                 'slug' => 'starlink-transforming-internet-india',
                 'title' => 'How Starlink is Changing the Future of Internet in India',
-                'image' => 'Starlink-India.webp',
+                'image' => 'blog/Starlink-India.webp',
                 'published_at' => '2025-05-08 00:00:00',
                 'is_published' => true,
                 'excerpt' => 'Satellite internet is reshaping connectivity across India. Starlink by SpaceX is offering high-speed broadband to remote and urban areas alike, transforming how businesses and individuals access the internet.',
@@ -35,7 +35,7 @@ class BlogPostSeeder extends Seeder
             [
                 'slug' => 'digital-marketing-strategy-indian-startups-2025',
                 'title' => 'Digital Marketing Strategy for Indian Startups 2025',
-                'image' => 'Digital-Marketing-Strategy.webp',
+                'image' => 'blog/Digital-Marketing-Strategy.webp',
                 'published_at' => '2025-04-30 00:00:00',
                 'is_published' => true,
                 'excerpt' => 'Around 90% of startups fail, and almost 1 in 5 don\'t even make it through their first year. Strong branding and clear communication from the beginning is critical for startup success.',

@@ -44,7 +44,7 @@ trait ManagesServiceContent
         $current = $service?->content['why_choose']['image'] ?? null;
         if ($request->hasFile('content.why_choose.image_file')) {
             $this->deleteUpload($current);
-            $content['why_choose']['image'] = $this->storeUpload($request->file('content.why_choose.image_file'));
+            $content['why_choose']['image'] = $this->storeUpload($request->file('content.why_choose.image_file'), 'services');
         }
         unset($content['why_choose']['image_file']);
 
@@ -78,7 +78,7 @@ trait ManagesServiceContent
 
             $fileKey = "content.{$section}.{$listKey}.{$index}.icon_file";
             if ($request->hasFile($fileKey)) {
-                $item['icon'] = $this->storeUpload($request->file($fileKey));
+                $item['icon'] = $this->storeUpload($request->file($fileKey), 'services');
             }
 
             unset($item['icon_file']);

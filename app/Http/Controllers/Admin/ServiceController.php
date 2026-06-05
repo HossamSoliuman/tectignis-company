@@ -34,8 +34,8 @@ class ServiceController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'icon');
-        $this->syncUpload($request, $data, 'banner_image');
+        $this->syncUpload($request, $data, 'icon', null, 'services');
+        $this->syncUpload($request, $data, 'banner_image', null, 'services');
         $this->prepareContent($request, $data);
 
         [$techStacks, $industries] = $this->pullAttachments($data);
@@ -58,8 +58,8 @@ class ServiceController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'icon', $service->icon);
-        $this->syncUpload($request, $data, 'banner_image', $service->banner_image);
+        $this->syncUpload($request, $data, 'icon', $service->icon, 'services');
+        $this->syncUpload($request, $data, 'banner_image', $service->banner_image, 'services');
         $this->prepareContent($request, $data, $service);
 
         [$techStacks, $industries] = $this->pullAttachments($data);

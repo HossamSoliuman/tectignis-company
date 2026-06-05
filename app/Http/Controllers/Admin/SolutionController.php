@@ -30,7 +30,7 @@ class SolutionController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'banner_image');
+        $this->syncUpload($request, $data, 'banner_image', null, 'solutions');
 
         Solution::create($data);
 
@@ -46,7 +46,7 @@ class SolutionController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'banner_image', $solution->banner_image);
+        $this->syncUpload($request, $data, 'banner_image', $solution->banner_image, 'solutions');
 
         $solution->update($data);
 

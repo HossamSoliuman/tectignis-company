@@ -25,7 +25,7 @@ class CapabilitySeeder extends Seeder
                     'category' => $category,
                     'title' => $title,
                     'short_description' => $shortDescription,
-                    'icon' => $icon,
+                    'icon' => 'capabilities/'.$icon,
                     'sort_order' => $index + 1,
                     'is_active' => true,
                 ],

@@ -30,7 +30,7 @@ class CaseStudyController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'image');
+        $this->syncUpload($request, $data, 'image', null, 'case-studies');
 
         CaseStudy::create($data);
 
@@ -46,7 +46,7 @@ class CaseStudyController extends Controller
     {
         $data = $request->validated();
 
-        $this->syncUpload($request, $data, 'image', $caseStudy->image);
+        $this->syncUpload($request, $data, 'image', $caseStudy->image, 'case-studies');
 
         $caseStudy->update($data);
 

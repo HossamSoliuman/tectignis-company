@@ -9,17 +9,22 @@ use Illuminate\Support\Str;
 trait UploadsFiles
 {
     /**
-     * Move an uploaded file into public/uploads using a unique, slugged filename
-     * and return the stored filename (referenced via asset('uploads/...')).
+     * Move an uploaded file into a subfolder of public/uploads using a unique,
+     * slugged filename and return the stored path relative to uploads/
+     * (e.g. "services/custom-software-ab12cd34.webp"), referenced via
+     * asset('uploads/...').
      */
-    protected function storeUpload(UploadedFile $file): string
+    protected function storeUpload(UploadedFile $file, string $folder = ''): string
     {
         $name = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
         $filename = $name.'-'.Str::lower(Str::random(8)).'.'.$file->getClientOriginalExtension();
 
-        $file->move(public_path('uploads'), $filename);
+        $folder = trim($folder, '/');
+        $destination = $folder === '' ? public_path('uploads') : public_path('uploads/'.$folder);
 
-        return $filename;
+        $file->move($destination, $filename);
+
+        return $folder === '' ? $filename : $folder.'/'.$filename;
     }
 
     /**
@@ -39,11 +44,11 @@ trait UploadsFiles
      *
      * @param  array<string, mixed>  $data
      */
-    protected function syncUpload(Request $request, array &$data, string $field, ?string $current = null): void
+    protected function syncUpload(Request $request, array &$data, string $field, ?string $current = null, string $folder = ''): void
     {
         if ($request->hasFile($field)) {
             $this->deleteUpload($current);
-            $data[$field] = $this->storeUpload($request->file($field));
+            $data[$field] = $this->storeUpload($request->file($field), $folder);
 
             return;
         }
