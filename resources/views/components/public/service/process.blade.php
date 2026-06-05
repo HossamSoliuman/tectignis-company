@@ -24,11 +24,10 @@
                 </div>
 
                 <div class="col-lg-8 svc-process__steps">
-                    <div class="row">
+                    <div class="row flex-nowrap">
                         @foreach ($steps as $index => $step)
-                            <div class="col-md-4 col-sm-6 wow move-up">
+                            <div class="col wow move-up">
                                 <div class="svc-step">
-                                    <span class="svc-step__num">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
                                     <span class="svc-step__icon">
                                         @if (filled($step['icon'] ?? null))
                                             <img src="{{ asset('uploads/'.$step['icon']) }}" alt="{{ $step['title'] }}" loading="lazy">
@@ -36,6 +35,7 @@
                                             <i class="{{ $fallbackIcons[$index % count($fallbackIcons)] }}"></i>
                                         @endif
                                     </span>
+                                    <span class="svc-step__num">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
                                     <h3 class="svc-step__title">{{ $step['title'] }}</h3>
                                     @if (filled($step['description'] ?? null))
                                         <p class="svc-step__text">{{ $step['description'] }}</p>

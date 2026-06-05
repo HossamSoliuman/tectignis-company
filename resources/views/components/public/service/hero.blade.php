@@ -49,13 +49,13 @@
                     <div class="svc-hero__stats">
                         @foreach ($stats as $stat)
                             <div class="svc-stat">
-                                <span class="svc-stat__icon"><i class="{{ $stat['icon'] ?? 'fas fa-star' }}"></i></span>
-                                <div class="svc-stat__body">
+                                <div class="svc-stat__top">
+                                    <span class="svc-stat__icon"><i class="{{ $stat['icon'] ?? 'fas fa-star' }}"></i></span>
                                     <span class="svc-stat__value">{{ $stat['value'] }}</span>
-                                    @if (filled($stat['label'] ?? null))
-                                        <span class="svc-stat__label">{{ $stat['label'] }}</span>
-                                    @endif
                                 </div>
+                                @if (filled($stat['label'] ?? null))
+                                    <span class="svc-stat__label">{{ $stat['label'] }}</span>
+                                @endif
                             </div>
                         @endforeach
                     </div>

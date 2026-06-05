@@ -14,11 +14,6 @@
     <meta property="og:type" content="website">
 @endsection
 
-@section('breadcrumb')
-    <x-public.breadcrumb :title="$service->title"
-        :items="['Services' => route('services.index'), $service->title => null]" />
-@endsection
-
 @section('content')
     @if ($service->body && empty($service->content))
         {{-- Escape hatch: legacy services still using free-form body and no rich content yet. --}}

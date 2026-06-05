@@ -19,7 +19,7 @@
 
             <div class="row svc-sub-services__grid">
                 @foreach ($items as $item)
-                    <div class="col-lg-4 col-md-6 wow move-up">
+                    <div class="col-lg-2 col-md-4 col-6 wow move-up">
                         <div class="svc-rect-card">
                             <span class="svc-rect-card__icon">
                                 @if (filled($item['icon'] ?? null))
