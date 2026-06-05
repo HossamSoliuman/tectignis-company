@@ -18,6 +18,11 @@ class IndustrySeeder extends Seeder
             ['slug' => 'logistics', 'name' => 'Logistics', 'icon' => 'fas fa-truck', 'short_description' => 'Fleet tracking, warehouse, and supply-chain management solutions.', 'sort_order' => 6],
             ['slug' => 'hospitality', 'name' => 'Hospitality', 'icon' => 'fas fa-concierge-bell', 'short_description' => 'Booking engines, PMS, and guest experience platforms for hospitality.', 'sort_order' => 7],
             ['slug' => 'corporate-offices', 'name' => 'Corporate Offices', 'icon' => 'fas fa-briefcase', 'short_description' => 'IT infrastructure, security, and productivity solutions for corporates.', 'sort_order' => 8],
+            ['slug' => 'finance-banking', 'name' => 'Finance & Banking', 'icon' => 'fas fa-landmark', 'short_description' => 'Secure fintech, lending, and digital banking platforms with compliance built in.', 'sort_order' => 9],
+            ['slug' => 'ecommerce', 'name' => 'E-commerce', 'icon' => 'fas fa-store', 'short_description' => 'Online stores, marketplaces, and order-management systems that scale.', 'sort_order' => 10],
+            ['slug' => 'government', 'name' => 'Government', 'icon' => 'fas fa-balance-scale', 'short_description' => 'Citizen services, e-governance, and public-sector digitization solutions.', 'sort_order' => 11],
+            ['slug' => 'startups', 'name' => 'Startups', 'icon' => 'fas fa-rocket', 'short_description' => 'MVP development and scalable products that take ideas to market fast.', 'sort_order' => 12],
+            ['slug' => 'travel-tourism', 'name' => 'Travel & Tourism', 'icon' => 'fas fa-plane', 'short_description' => 'Booking engines, travel portals, and itinerary platforms for the travel trade.', 'sort_order' => 13],
         ];
 
         foreach ($industries as $industry) {

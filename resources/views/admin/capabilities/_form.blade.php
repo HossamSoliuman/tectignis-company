@@ -16,9 +16,14 @@
 
     <div class="grid grid-cols-2 gap-4">
         <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Category</label>
-            <input type="text" name="category" value="{{ old('category', $s?->category) }}"
+            <label class="block text-sm font-medium text-slate-700 mb-1">Category (Major)</label>
+            <select name="category"
                 class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+                <option value="">— Select major —</option>
+                @foreach (\App\Models\Capability::CATEGORY_LABELS as $value => $label)
+                    <option value="{{ $value }}" @selected(old('category', $s?->category) === $value)>{{ $label }}</option>
+                @endforeach
+            </select>
         </div>
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Sort Order</label>

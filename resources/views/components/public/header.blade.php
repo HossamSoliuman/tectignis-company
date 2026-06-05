@@ -54,14 +54,21 @@
                                                     </li>
 
                                                     <li class="has-children">
-                                                        <a href="{{ route('services.index') }}"><span>Capabilities</span></a>
+                                                        <a href="{{ route('capabilities.index') }}"><span>Capabilities</span></a>
                                                         <ul class="megamenu megamenu--mega megamenu--services">
 
-                                                            @foreach ($navServiceGroups as $groupLabel => $groupServices)
+                                                            @foreach ($navCapabilities as $capability)
                                                                 <li>
-                                                                    <h2 class="page-list-title">{{ $groupLabel }}</h2>
+                                                                    <h2 class="page-list-title">
+                                                                        <a href="{{ route('capabilities.show', $capability->slug) }}">
+                                                                            @if ($capability->icon)
+                                                                                <span class="cap-title-icon"><img src="{{ asset('uploads/'.$capability->icon) }}" alt="{{ $capability->title }}" loading="lazy"></span>
+                                                                            @endif
+                                                                            <span>{{ $capability->title }}</span>
+                                                                        </a>
+                                                                    </h2>
                                                                     <ul>
-                                                                        @foreach ($groupServices as $service)
+                                                                        @foreach ($capability->services as $service)
                                                                             <li><a href="{{ route('services.show', $service->slug) }}"><span>{{ $service->title }}</span></a></li>
                                                                         @endforeach
                                                                     </ul>
@@ -205,11 +212,11 @@
                         <a href="{{ route('about') }}">About</a>
                     </li>
                     <li class="has-children">
-                        <a href="{{ route('services.index') }}">Capabilities</a>
+                        <a href="{{ route('capabilities.index') }}">Capabilities</a>
                         <ul class="sub-menu">
-                            @foreach ($navServiceGroups as $groupLabel => $groupServices)
-                                <li class="mobile-sub-heading">{{ $groupLabel }}</li>
-                                @foreach ($groupServices as $service)
+                            @foreach ($navCapabilities as $capability)
+                                <li class="mobile-sub-heading"><a href="{{ route('capabilities.show', $capability->slug) }}">{{ $capability->title }}</a></li>
+                                @foreach ($capability->services as $service)
                                     <li><a href="{{ route('services.show', $service->slug) }}"><span>{{ $service->title }}</span></a></li>
                                 @endforeach
                             @endforeach

@@ -8,7 +8,7 @@
     $selectedTech = collect(old('tech_stacks', $s ? $s->techStacks->pluck('id')->all() : []))->map(fn ($id) => (int) $id)->all();
     $selectedIndustries = collect(old('industries', $s ? $s->industries->pluck('id')->all() : []))->map(fn ($id) => (int) $id)->all();
 
-    $categoryLabels = \App\Models\Service::CATEGORY_LABELS;
+    $capabilityOptions = \App\Models\Capability::ordered()->get(['id', 'title']);
 
     $inputClass = 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400';
 @endphp
@@ -28,11 +28,11 @@
 
     <div class="grid grid-cols-2 gap-4">
         <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Category</label>
-            <select name="category" class="{{ $inputClass }}">
-                <option value="">— Select category —</option>
-                @foreach ($categoryLabels as $value => $label)
-                    <option value="{{ $value }}" @selected(old('category', $s?->category) === $value)>{{ $label }}</option>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Capability</label>
+            <select name="capability_id" class="{{ $inputClass }}">
+                <option value="">— Select capability —</option>
+                @foreach ($capabilityOptions as $capability)
+                    <option value="{{ $capability->id }}" @selected((int) old('capability_id', $s?->capability_id) === $capability->id)>{{ $capability->title }}</option>
                 @endforeach
             </select>
         </div>

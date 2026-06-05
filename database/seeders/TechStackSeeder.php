@@ -10,8 +10,20 @@ class TechStackSeeder extends Seeder
     public function run(): void
     {
         $technologies = [
-            'React', 'Flutter', 'Node.js', 'PHP', 'Python', 'Laravel',
-            'AWS', 'Azure', 'Google Cloud', 'MySQL', 'PostgreSQL', 'MongoDB',
+            // Frontend
+            'React', 'Vue.js', 'Angular', 'Next.js',
+            // Backend
+            'Node.js', 'PHP', 'Laravel', 'Python', 'Django', 'Java', '.NET',
+            // Mobile
+            'Flutter', 'React Native', 'Kotlin', 'Swift',
+            // CMS & E-commerce
+            'WordPress', 'Shopify', 'Magento',
+            // Databases
+            'MySQL', 'PostgreSQL', 'MongoDB', 'Redis',
+            // Cloud & DevOps
+            'AWS', 'Azure', 'Google Cloud', 'Docker', 'Kubernetes',
+            // AI / ML
+            'TensorFlow', 'PyTorch', 'OpenAI', 'LangChain',
         ];
 
         foreach ($technologies as $index => $name) {

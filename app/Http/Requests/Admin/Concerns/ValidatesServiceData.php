@@ -17,6 +17,7 @@ trait ValidatesServiceData
     {
         return array_merge([
             'title' => ['required', 'string', 'max:255'],
+            'capability_id' => ['nullable', 'integer', 'exists:capabilities,id'],
             'category' => ['nullable', Rule::in(Service::CATEGORIES)],
             'short_description' => ['required', 'string', 'max:500'],
             'description' => ['nullable', 'string'],

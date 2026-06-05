@@ -6,6 +6,7 @@ use App\Models\Concerns\HasContentScopes;
 use Database\Factories\ServiceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Service extends Model
@@ -14,7 +15,7 @@ class Service extends Model
     use HasContentScopes, HasFactory;
 
     protected $fillable = [
-        'slug', 'category', 'title', 'short_description', 'description', 'body', 'content',
+        'slug', 'capability_id', 'category', 'title', 'short_description', 'description', 'body', 'content',
         'icon', 'banner_image', 'sort_order', 'is_active',
         'seo_title', 'seo_description', 'seo_keywords',
     ];
@@ -43,6 +44,17 @@ class Service extends Model
             'sort_order' => 'integer',
             'content' => 'array',
         ];
+    }
+
+    /**
+     * The capability this service belongs to. Capabilities act as the headers
+     * the service is grouped under in the public header mega-menu.
+     *
+     * @return BelongsTo<Capability, $this>
+     */
+    public function capability(): BelongsTo
+    {
+        return $this->belongsTo(Capability::class);
     }
 
     /**

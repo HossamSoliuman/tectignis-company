@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Service;
+use App\Models\Capability;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,18 +26,18 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Feed the public header's "Capabilities" mega-menu with the live, admin-managed
-     * services grouped into the three design categories (matches the services index).
+     * capabilities (rendered as headers, in their stored order) each followed by the
+     * services attached to that capability, also in their stored order.
      */
     private function composeHeaderNavigation(): void
     {
         View::composer('components.public.header', function (\Illuminate\View\View $view): void {
-            $services = Service::active()->ordered()->get(['slug', 'title', 'category']);
+            $navCapabilities = Capability::active()
+                ->ordered()
+                ->with(['services' => fn ($query) => $query->active()])
+                ->get(['id', 'slug', 'title']);
 
-            $navServiceGroups = collect(Service::CATEGORY_LABELS)
-                ->map(fn (string $label, string $key) => $services->where('category', $key)->values())
-                ->filter->isNotEmpty();
-
-            $view->with('navServiceGroups', $navServiceGroups);
+            $view->with('navCapabilities', $navCapabilities);
         });
     }
 }

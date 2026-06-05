@@ -9,53 +9,32 @@ class CapabilitySeeder extends Seeder
 {
     public function run(): void
     {
+        // Capabilities are the header columns of the public mega-menu. Each is a
+        // "major" expertise area; the services attached to it (Service.capability_id)
+        // render as the column's sub-list. Order here = left-to-right column order.
         $capabilities = [
-            [
-                'slug' => 'custom-software-development',
-                'title' => 'Software Development',
-                'icon' => 'Software-Development.webp',
-                'short_description' => 'Web Apps · Mobile Apps · ERP · CRM · SaaS',
-                'sort_order' => 1,
-            ],
-            [
-                'slug' => 'ai-solutions',
-                'title' => 'AI & Automation',
-                'icon' => 'Custom-Software.webp',
-                'short_description' => 'AI Chatbots · WhatsApp Automation · OCR · ML · Voice Bots',
-                'sort_order' => 2,
-            ],
-            [
-                'slug' => 'cloud-solutions',
-                'title' => 'Cloud & Infrastructure',
-                'icon' => 'Networking-Solutions.webp',
-                'short_description' => 'AWS · Azure · Google Cloud · Migration · Hosting',
-                'sort_order' => 3,
-            ],
-            [
-                'slug' => 'cybersecurity-solutions',
-                'title' => 'Cybersecurity',
-                'icon' => 'CCTV-Systems.webp',
-                'short_description' => 'VAPT · Firewall · Security SOC · Support · Compliance',
-                'sort_order' => 4,
-            ],
-            [
-                'slug' => 'networking-solutions',
-                'title' => 'Networking & Hardware',
-                'icon' => 'Web-Design-and-Development.webp',
-                'short_description' => 'Networking · Servers · Storage · Workstations · AMC',
-                'sort_order' => 5,
-            ],
-            [
-                'slug' => 'cctv-security',
-                'title' => 'Smart Security',
-                'icon' => 'MobileApp-Development.webp',
-                'short_description' => 'CCTV · Access Control · Visitor Management · Biometrics',
-                'sort_order' => 6,
-            ],
+            ['software_development', 'software-development', 'Software Development', 'Custom web, mobile, SaaS and enterprise software engineered around your business.', 'Customize-Software-Development1.webp'],
+            ['business_application', 'business-applications', 'Business Applications', 'Ready-to-deploy management software for every department and industry.', 'Custom-Software.webp'],
+            ['ai_automation', 'ai-automation', 'AI & Automation', 'AI, machine learning and automation that cut costs and unlock growth.', 'Artificial-Intelligence.webp'],
         ];
 
-        foreach ($capabilities as $capability) {
-            Capability::updateOrCreate(['slug' => $capability['slug']], array_merge($capability, ['is_active' => true]));
+        foreach ($capabilities as $index => [$category, $slug, $title, $shortDescription, $icon]) {
+            Capability::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'category' => $category,
+                    'title' => $title,
+                    'short_description' => $shortDescription,
+                    'icon' => $icon,
+                    'sort_order' => $index + 1,
+                    'is_active' => true,
+                ],
+            );
         }
+
+        // Remove any capability that isn't one of the current majors (e.g. the
+        // legacy per-service capabilities). Services point here with nullOnDelete,
+        // so ServiceSeeder re-attaches them to the new majors by category.
+        Capability::whereNotIn('slug', array_column($capabilities, 1))->delete();
     }
 }
