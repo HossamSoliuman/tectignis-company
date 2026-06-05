@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="software-innovation-hero-image animation_images three mt-30">
-                        <img src="{{ \App\Models\Setting::imageUrl($settings['hero_image'] ?? 'custom-software-solution-pan-india.webp', 'hero_image') }}" class="img-fluid" alt="Software AI Smart Technology Solutions">
+                        <img src="{{ \App\Models\Setting::imageUrl($settings['hero_image'] ?? 'uploads/site/Networking-Solutions-India.webp', 'hero_image') }}" class="img-fluid" alt="Software AI Smart Technology Solutions">
                     </div>
                 </div>
             </div>

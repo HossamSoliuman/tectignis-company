@@ -2,48 +2,50 @@
 
 @php
     $section = $service->content['why_choose'] ?? [];
-    $points = array_values(array_filter($section['points'] ?? [], fn ($p) => filled($p)));
     $heading = $section['heading'] ?? 'Why Choose Tectignis';
-    $subtitle = $section['subtitle'] ?? null;
-    $image = $section['image'] ?? null;
-    $ctaLabel = $section['cta_label'] ?? 'Get a Quote';
+    $subtitle = $section['subtitle'] ?? 'The Tectignis Difference';
+    $fallbackIcons = ['fas fa-medal', 'fas fa-code', 'fas fa-shield-alt', 'fas fa-bolt', 'fas fa-handshake', 'fas fa-headset'];
+
+    // Preferred shape: rich cards [{icon, title, text}]. Falls back to the
+    // simple `points` string list, rendering each point as a card heading.
+    $cards = array_values(array_filter($section['cards'] ?? [], fn ($c) => filled($c['title'] ?? null)));
+    if (! count($cards)) {
+        $points = array_values(array_filter($section['points'] ?? [], fn ($p) => filled($p)));
+        $cards = array_map(fn ($p) => ['icon' => null, 'title' => $p, 'text' => null], $points);
+    }
 @endphp
 
-@if (($section['enabled'] ?? true) && count($points))
-    <div class="software-innovation-about-company-area software-innovation-about-bg section-space--ptb_120">
+@if (($section['enabled'] ?? true) && count($cards))
+    <section class="svc-section svc-why">
         <div class="container">
-            <div class="row align-items-center">
-                @if ($image)
-                    <div class="col-lg-6">
-                        <div class="image-inner-video-section">
-                            <img class="img-fluid border-radus-5" src="{{ asset('uploads/'.$image) }}"
-                                alt="{{ $heading }}" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 ms-auto mt-30">
-                @else
-                    <div class="col-lg-10 offset-lg-1">
+            <div class="svc-section-head text-center">
+                @if (filled($subtitle))
+                    <span class="svc-eyebrow">{{ $subtitle }}</span>
                 @endif
-                    <div class="machine-learning-about-content">
-                        <div class="section-title mb-20">
-                            <div class="section-title-wrap text-left section-space--mb_30">
-                                @if (filled($subtitle))
-                                    <h6 class="section-sub-title mb-20">{{ $subtitle }}</h6>
+                <h2 class="svc-section-title">{{ $heading }}</h2>
+            </div>
+
+            <div class="row svc-why__grid">
+                @foreach ($cards as $index => $card)
+                    <div class="col-lg-6 wow move-up">
+                        <div class="svc-why-card">
+                            <span class="svc-why-card__icon">
+                                @if (filled($card['icon'] ?? null))
+                                    <img src="{{ asset('uploads/'.$card['icon']) }}" alt="{{ $card['title'] }}" loading="lazy">
+                                @else
+                                    <i class="{{ $fallbackIcons[$index % count($fallbackIcons)] }}"></i>
                                 @endif
-                                <h3 class="heading">{{ $heading }}</h3>
-                            </div>
-                            <ul class="check-list mt-20">
-                                @foreach ($points as $point)
-                                    <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i>{{ $point }}</li>
-                                @endforeach
-                            </ul>
-                            <div class="button-group-wrap mt-30">
-                                <a href="{{ route('contact') }}" class="btn">{{ $ctaLabel }}</a>
+                            </span>
+                            <div class="svc-why-card__body">
+                                <h3 class="svc-why-card__title">{{ $card['title'] }}</h3>
+                                @if (filled($card['text'] ?? null))
+                                    <p class="svc-why-card__text">{{ $card['text'] }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
-    </div>
+    </section>
 @endif

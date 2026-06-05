@@ -28,17 +28,16 @@
         <x-public.cta />
         <!--========== Call to Action Area End ============-->
     @else
-        {{-- Rich, admin-managed service template (Sections A → J). Each component
-             reads $service->content[...] / the pivots and renders nothing when off or empty. --}}
-        <x-public.service.hero :service="$service" />              {{-- A: Hero --}}
-        <x-public.service.features-strip :service="$service" />    {{-- B: Feature/Trust strip --}}
-        <x-public.service.sub-services :service="$service" />      {{-- C: Our {Service} Services --}}
-        <x-public.service.process :service="$service" />           {{-- D: Process stepper --}}
-        <x-public.service.tech-stack :service="$service" />        {{-- E: Technologies We Use --}}
-        <x-public.service.industries :service="$service" />        {{-- F: Industries We Serve --}}
-        <x-public.service.case-studies :service="$service" />      {{-- G: Recent Success Stories --}}
-        <x-public.service.why-choose :service="$service" />        {{-- H: Why Choose Tectignis --}}
-        <x-public.service.faq :service="$service" />               {{-- I: FAQ --}}
-        <x-public.cta :service="$service" />                       {{-- J: CTA band --}}
+        {{-- Rich, admin-managed service template (redesigned, mockup-matching).
+             Each component reads $service->content[...] / the pivots and renders
+             nothing when off or empty. --}}
+        <x-public.service.hero :service="$service" />              {{-- Hero + stats --}}
+        <x-public.service.sub-services :service="$service" />      {{-- Our {Service} Services --}}
+        <x-public.service.process :service="$service" />           {{-- Process stepper --}}
+        <x-public.service.tech-stack :service="$service" />        {{-- Technologies We Use --}}
+        <x-public.service.why-choose :service="$service" />        {{-- Why Choose Tectignis --}}
+        <x-public.service.case-studies :service="$service" />      {{-- Recent Success Stories --}}
+        <x-public.service.faq :service="$service" />               {{-- FAQ + selling points --}}
+        <x-public.service.lets-start :service="$service" />        {{-- Let's Start contact --}}
     @endif
 @endsection

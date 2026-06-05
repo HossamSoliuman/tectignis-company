@@ -386,3 +386,792 @@ body {
 .software-innovation-hero-text .hero-button .ht-btn {
     margin-bottom: 10px;
 }
+
+/* =========================================================
+   Service detail page – redesigned sections (scoped `.svc-`)
+   These classes are used only by resources/views/components/
+   public/service/* so they never affect other pages.
+   ========================================================= */
+:root {
+    --svc-primary: #C10897;
+    --svc-accent: #ff3db4;
+    --svc-dark: #14132e;
+    --svc-navy: #0c0a26;
+    --svc-body: #5b5b72;
+    --svc-line: #ececf3;
+    --svc-soft: #faf6fb;
+}
+
+/* ---------- Shared building blocks ---------- */
+.svc-section {
+    padding: 90px 0;
+}
+
+.svc-section-head {
+    max-width: 720px;
+    margin: 0 auto 50px;
+}
+
+.svc-section-head.text-left {
+    margin-left: 0;
+}
+
+.svc-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--svc-primary);
+    background: rgba(193, 8, 151, 0.08);
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+}
+
+.svc-eyebrow--light {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.svc-section-title {
+    font-size: 38px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--svc-dark);
+    margin: 0;
+}
+
+.svc-accent {
+    color: var(--svc-primary);
+}
+
+/* ---------- Buttons ---------- */
+.svc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 15px 30px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.svc-btn--primary {
+    background: var(--svc-primary);
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(193, 8, 151, 0.28);
+}
+
+.svc-btn--primary:hover {
+    background: #a3067f;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.svc-btn--ghost {
+    background: transparent;
+    color: var(--svc-dark);
+    border-color: rgba(20, 19, 46, 0.18);
+}
+
+.svc-btn--ghost:hover {
+    border-color: var(--svc-primary);
+    color: var(--svc-primary);
+    transform: translateY(-2px);
+}
+
+.svc-btn--white {
+    background: #fff;
+    color: var(--svc-primary);
+}
+
+.svc-btn--white:hover {
+    background: var(--svc-dark);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.svc-btn--block {
+    width: 100%;
+}
+
+/* ---------- Hero ---------- */
+.svc-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 90px 0 100px;
+    background: linear-gradient(120deg, #f6f1fb 0%, #fdf3f9 100%);
+}
+
+.svc-hero__blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(10px);
+    opacity: 0.35;
+    z-index: 0;
+}
+
+.svc-hero__blob--1 {
+    width: 420px;
+    height: 420px;
+    top: -120px;
+    right: -120px;
+    background: radial-gradient(circle, rgba(255, 61, 180, 0.35), transparent 70%);
+}
+
+.svc-hero__blob--2 {
+    width: 320px;
+    height: 320px;
+    bottom: -120px;
+    left: -80px;
+    background: radial-gradient(circle, rgba(123, 31, 162, 0.25), transparent 70%);
+}
+
+.svc-hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.svc-hero__title {
+    font-size: 46px;
+    line-height: 1.18;
+    font-weight: 800;
+    color: var(--svc-dark);
+    margin: 0 0 18px;
+}
+
+.svc-hero__intro {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--svc-body);
+    margin-bottom: 30px;
+    max-width: 540px;
+}
+
+.svc-hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 42px;
+}
+
+.svc-hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.svc-stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.svc-stat__icon {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 20px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--svc-primary) 0%, #7b1fa2 100%);
+    box-shadow: 0 8px 18px rgba(193, 8, 151, 0.25);
+}
+
+.svc-stat__body {
+    display: flex;
+    flex-direction: column;
+}
+
+.svc-stat__value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--svc-dark);
+    line-height: 1.1;
+}
+
+.svc-stat__label {
+    font-size: 13.5px;
+    color: var(--svc-body);
+}
+
+.svc-hero__media {
+    position: relative;
+}
+
+.svc-hero__image-frame {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(20, 19, 46, 0.18);
+}
+
+.svc-hero__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 18px;
+}
+
+.svc-hero__image--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    font-size: 80px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--svc-primary) 0%, #7b1fa2 100%);
+}
+
+/* ---------- Sub-services (rectangle cards) ---------- */
+.svc-sub-services__grid {
+    row-gap: 26px;
+}
+
+.svc-rect-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    height: 100%;
+    background: #fff;
+    border: 1px solid var(--svc-line);
+    border-radius: 14px;
+    padding: 26px 24px;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.svc-rect-card:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
+    box-shadow: 0 18px 40px rgba(20, 19, 46, 0.1);
+}
+
+.svc-rect-card__icon {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 22px;
+    color: var(--svc-primary);
+    background: rgba(193, 8, 151, 0.08);
+    transition: background 0.25s, color 0.25s;
+}
+
+.svc-rect-card:hover .svc-rect-card__icon {
+    background: var(--svc-primary);
+    color: #fff;
+}
+
+.svc-rect-card__icon img {
+    max-width: 30px;
+    max-height: 30px;
+    object-fit: contain;
+}
+
+.svc-rect-card__title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--svc-dark);
+    margin: 0 0 8px;
+}
+
+.svc-rect-card__text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--svc-body);
+    margin: 0;
+}
+
+/* ---------- Process ---------- */
+.svc-process {
+    background: var(--svc-soft);
+}
+
+.svc-process__intro {
+    padding-right: 30px;
+}
+
+.svc-process__lead {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--svc-body);
+    margin: 18px 0 28px;
+}
+
+.svc-process__steps .row {
+    row-gap: 30px;
+}
+
+.svc-step {
+    position: relative;
+    height: 100%;
+    background: #fff;
+    border: 1px solid var(--svc-line);
+    border-radius: 14px;
+    padding: 28px 22px 24px;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.svc-step:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(20, 19, 46, 0.1);
+}
+
+.svc-step__num {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(193, 8, 151, 0.16);
+}
+
+.svc-step__icon {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-bottom: 18px;
+    font-size: 20px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--svc-primary) 0%, #7b1fa2 100%);
+}
+
+.svc-step__icon img {
+    max-width: 26px;
+    max-height: 26px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.svc-step__title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--svc-dark);
+    margin: 0 0 8px;
+}
+
+.svc-step__text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--svc-body);
+    margin: 0;
+}
+
+/* ---------- Technologies ---------- */
+.svc-tech__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px;
+}
+
+.svc-tech-card {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 26px 16px;
+    box-shadow: 0 10px 30px rgba(20, 19, 46, 0.07);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.svc-tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(193, 8, 151, 0.15);
+}
+
+.svc-tech-card__logo {
+    height: 46px;
+    width: auto;
+    object-fit: contain;
+}
+
+.svc-tech-card__fallback {
+    font-size: 34px;
+    color: var(--svc-primary);
+    line-height: 1;
+}
+
+.svc-tech-card__name {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--svc-dark);
+}
+
+/* ---------- Why choose ---------- */
+.svc-why {
+    background: var(--svc-soft);
+}
+
+.svc-why__grid {
+    row-gap: 26px;
+}
+
+.svc-why-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    height: 100%;
+    background: #fff;
+    border-radius: 14px;
+    padding: 26px 24px;
+    box-shadow: 0 10px 30px rgba(20, 19, 46, 0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.svc-why-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(20, 19, 46, 0.1);
+}
+
+.svc-why-card__icon {
+    flex: 0 0 auto;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 22px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--svc-primary) 0%, #7b1fa2 100%);
+}
+
+.svc-why-card__icon img {
+    max-width: 30px;
+    max-height: 30px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.svc-why-card__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--svc-dark);
+    margin: 0 0 6px;
+}
+
+.svc-why-card__text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--svc-body);
+    margin: 0;
+}
+
+/* ---------- Case studies ---------- */
+.svc-cases__head {
+    max-width: 620px;
+    margin-bottom: 46px;
+}
+
+.svc-cases__lead {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--svc-body);
+    margin: 16px 0 0;
+}
+
+.svc-cases__grid {
+    row-gap: 26px;
+}
+
+.svc-case-card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: 360px;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 28px;
+    background-color: var(--svc-dark);
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.svc-case-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 26px 50px rgba(20, 19, 46, 0.28);
+}
+
+.svc-case-card__content {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+}
+
+.svc-case-card__tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--svc-primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.svc-case-card__title {
+    font-size: 21px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 8px;
+}
+
+.svc-case-card__text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 0 0 14px;
+}
+
+.svc-case-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--svc-accent);
+}
+
+.svc-case-card:hover .svc-case-card__link i {
+    transform: translateX(5px);
+}
+
+.svc-case-card__link i {
+    transition: transform 0.25s;
+}
+
+/* ---------- FAQ ---------- */
+.svc-faq__main {
+    padding-right: 30px;
+}
+
+.svc-faq .svc-section-head {
+    margin-bottom: 30px;
+}
+
+.svc-accordion__item {
+    border: 1px solid var(--svc-line);
+    border-radius: 12px !important;
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: #fff;
+}
+
+.svc-accordion__button {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--svc-dark);
+    padding: 18px 20px;
+    box-shadow: none !important;
+}
+
+.svc-accordion__button:not(.collapsed) {
+    color: var(--svc-primary);
+    background: rgba(193, 8, 151, 0.05);
+}
+
+.svc-accordion__button:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.svc-accordion__body {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--svc-body);
+    padding: 4px 20px 20px;
+}
+
+.svc-sell-panel {
+    background: linear-gradient(150deg, var(--svc-primary) 0%, #7b1fa2 100%);
+    border-radius: 18px;
+    padding: 38px 34px;
+    color: #fff;
+    box-shadow: 0 24px 50px rgba(193, 8, 151, 0.28);
+}
+
+.svc-sell-panel__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 12px;
+}
+
+.svc-sell-panel__text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 22px;
+}
+
+.svc-sell-panel__list {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+}
+
+.svc-sell-panel__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.svc-sell-panel__list i {
+    margin-top: 2px;
+    color: #fff;
+}
+
+/* ---------- Lets start (contact) ---------- */
+.svc-start__card {
+    background: var(--svc-navy);
+    border-radius: 24px;
+    padding: 56px 50px;
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(12, 10, 38, 0.35);
+}
+
+.svc-start__title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 16px;
+}
+
+.svc-start__text {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 30px;
+}
+
+.svc-start__contacts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.svc-start__contacts li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.svc-start__contact-icon {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 17px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.svc-start__contact-label {
+    display: block;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 2px;
+}
+
+.svc-start__contacts a,
+.svc-start__contacts div > span:last-child {
+    color: #fff;
+    font-size: 15.5px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.svc-start__contacts a:hover {
+    color: var(--svc-accent);
+}
+
+.svc-start__form {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.svc-start__form .row {
+    row-gap: 16px;
+}
+
+.svc-input {
+    width: 100%;
+    background: #f6f6fa;
+    border: 1px solid var(--svc-line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 15px;
+    color: var(--svc-dark);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.svc-input:focus {
+    outline: none;
+    background: #fff;
+    border-color: var(--svc-primary);
+}
+
+.svc-input--area {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ---------- Responsive ---------- */
+@media only screen and (max-width: 1199px) {
+    .svc-hero__title { font-size: 40px; }
+    .svc-section-title { font-size: 32px; }
+}
+
+@media only screen and (max-width: 991px) {
+    .svc-section { padding: 70px 0; }
+    .svc-hero { padding: 70px 0 80px; }
+    .svc-hero__title { font-size: 34px; }
+    .svc-hero__media { margin-top: 40px; }
+    .svc-process__intro { padding-right: 0; margin-bottom: 40px; }
+    .svc-faq__main { padding-right: 0; margin-bottom: 40px; }
+    .svc-start__card { padding: 44px 34px; }
+    .svc-start__form-col { margin-top: 34px; }
+}
+
+@media only screen and (max-width: 575px) {
+    .svc-hero__title { font-size: 28px; }
+    .svc-section-title { font-size: 26px; }
+    .svc-hero__buttons .svc-btn { flex: 1 1 100%; }
+    .svc-hero__stats { gap: 18px; }
+    .svc-start__card { padding: 32px 22px; }
+    .svc-start__form { padding: 24px 18px; }
+    .svc-rect-card, .svc-why-card { flex-direction: column; }
+}

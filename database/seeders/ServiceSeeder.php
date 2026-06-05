@@ -66,8 +66,8 @@ class ServiceSeeder extends Seeder
                 'heading' => $s['heading'],
                 'intro' => $s['intro'],
                 'bullets' => $s['bullets'],
-                'cta_primary_label' => $s['cta_primary'] ?? 'Get Started',
-                'cta_secondary_label' => $s['cta_secondary'] ?? 'Talk to an Expert',
+                'cta_primary_label' => $s['cta_primary'] ?? 'Get Free Consultation',
+                'cta_secondary_label' => $s['cta_secondary'] ?? 'View Our Work',
             ],
             'features_strip' => [
                 'enabled' => true,
@@ -377,7 +377,6 @@ class ServiceSeeder extends Seeder
                     'Agile delivery with transparent weekly progress',
                     'Scalable architecture that grows with you',
                 ],
-                'cta_primary' => 'Start Your Project',
                 'sub_heading' => 'Our Custom Software Development Services',
                 'sub_subtitle' => 'What We Build',
                 'sub_services' => [

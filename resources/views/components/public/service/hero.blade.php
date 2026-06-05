@@ -5,54 +5,75 @@
     $eyebrow = $hero['eyebrow'] ?? \Illuminate\Support\Str::headline($service->category ?? '');
     $heading = $hero['heading'] ?? trim($service->title.' Services in Navi Mumbai');
     $intro = $hero['intro'] ?? $service->short_description;
-    $bullets = array_values(array_filter($hero['bullets'] ?? [], fn ($b) => filled($b)));
-    $ctaPrimary = $hero['cta_primary_label'] ?? 'Get Started';
-    $ctaSecondary = $hero['cta_secondary_label'] ?? 'Talk to an Expert';
+    $ctaPrimary = $hero['cta_primary_label'] ?? 'Get Free Consultation';
+    $ctaSecondary = $hero['cta_secondary_label'] ?? 'View Our Work';
+
+    // Stats row (icon + value + label). Falls back to sensible agency defaults
+    // so every service hero shows proof points even before custom content.
+    $stats = array_values(array_filter($hero['stats'] ?? [], fn ($s) => filled($s['value'] ?? null)));
+    if (! count($stats)) {
+        $stats = [
+            ['icon' => 'fas fa-rocket', 'value' => '250+', 'label' => 'Projects Delivered'],
+            ['icon' => 'fas fa-user-friends', 'value' => '180+', 'label' => 'Happy Clients'],
+            ['icon' => 'fas fa-award', 'value' => '10+', 'label' => 'Years of Experience'],
+        ];
+    }
 
     // Highlight the service name inside the heading when it appears there.
     $headingHtml = e($heading);
     if (filled($service->title) && str_contains($heading, $service->title)) {
-        $headingHtml = str_replace(e($service->title), '<span class="text-color-primary">'.e($service->title).'</span>', e($heading));
+        $headingHtml = str_replace(e($service->title), '<span class="svc-accent">'.e($service->title).'</span>', e($heading));
     }
 @endphp
 
-<div class="software-innovation-hero-wrapper section-space--ptb_90">
+<section class="svc-hero">
+    <span class="svc-hero__blob svc-hero__blob--1" aria-hidden="true"></span>
+    <span class="svc-hero__blob svc-hero__blob--2" aria-hidden="true"></span>
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 col-md-12">
-                <div class="software-innovation-hero-wrap wow move-up">
-                    <div class="software-innovation-hero-text">
-                        @if (filled($eyebrow))
-                            <p class="sub-heading text-uppercase font-weight--bold text-color-primary">{{ $eyebrow }}</p>
-                        @endif
-                        <h1 class="font-weight--reguler mb-20">{!! $headingHtml !!}</h1>
-                        @if (filled($intro))
-                            <p class="dec-text">{{ $intro }}</p>
-                        @endif
+            <div class="col-lg-6 col-md-12 svc-hero__content wow move-up">
+                @if (filled($eyebrow))
+                    <span class="svc-eyebrow">{{ $eyebrow }}</span>
+                @endif
+                <h1 class="svc-hero__title">{!! $headingHtml !!}</h1>
+                @if (filled($intro))
+                    <p class="svc-hero__intro">{{ $intro }}</p>
+                @endif
 
-                        <div class="hero-button mt-30">
-                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">{{ $ctaPrimary }}</a>
-                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline ms-3">{{ $ctaSecondary }}</a>
-                        </div>
+                <div class="svc-hero__buttons">
+                    <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">{{ $ctaPrimary }}</a>
+                    <a href="{{ route('case-studies.index') }}" class="svc-btn svc-btn--ghost">{{ $ctaSecondary }}</a>
+                </div>
 
-                        @if (count($bullets))
-                            <ul class="check-list mt-30">
-                                @foreach ($bullets as $bullet)
-                                    <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i>{{ $bullet }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                @if (count($stats))
+                    <div class="svc-hero__stats">
+                        @foreach ($stats as $stat)
+                            <div class="svc-stat">
+                                <span class="svc-stat__icon"><i class="{{ $stat['icon'] ?? 'fas fa-star' }}"></i></span>
+                                <div class="svc-stat__body">
+                                    <span class="svc-stat__value">{{ $stat['value'] }}</span>
+                                    @if (filled($stat['label'] ?? null))
+                                        <span class="svc-stat__label">{{ $stat['label'] }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
+                @endif
+            </div>
+
+            <div class="col-lg-6 col-md-12 svc-hero__media wow move-up">
+                <div class="svc-hero__image-frame">
+                    @if ($service->banner_image)
+                        <img class="svc-hero__image" src="{{ asset('uploads/'.$service->banner_image) }}"
+                            alt="{{ $service->title }}" loading="eager">
+                    @else
+                        <div class="svc-hero__image svc-hero__image--placeholder">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                    @endif
                 </div>
             </div>
-            @if ($service->banner_image)
-                <div class="col-lg-6 col-md-12">
-                    <div class="software-innovation-hero-image mt-30">
-                        <img class="img-fluid border-radus-5" src="{{ asset('uploads/'.$service->banner_image) }}"
-                            alt="{{ $service->title }}" loading="lazy">
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
-</div>
+</section>

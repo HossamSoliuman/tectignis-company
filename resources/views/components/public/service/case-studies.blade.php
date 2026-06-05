@@ -2,52 +2,42 @@
 
 @php
     $section = $service->content['case_studies'] ?? [];
-    // Section G shows the three most recent active case studies globally.
+    // Section shows the three most recent active case studies globally.
     $caseStudies = \App\Models\CaseStudy::active()->latest()->limit(3)->get();
     $heading = $section['heading'] ?? 'Our Recent Success Stories';
-    $subtitle = $section['subtitle'] ?? null;
+    $subtitle = $section['subtitle'] ?? 'Proof of Work';
 @endphp
 
 @if (($section['enabled'] ?? true) && $caseStudies->isNotEmpty())
-    <div class="projects-wrapper section-space--ptb_100">
+    <section class="svc-section svc-cases">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title-wrap text-center section-space--mb_40">
-                        @if (filled($subtitle))
-                            <h6 class="section-sub-title mb-20">{{ $subtitle }}</h6>
-                        @endif
-                        <h3 class="heading">{{ $heading }}</h3>
-                    </div>
-                </div>
+            <div class="svc-cases__head wow move-up">
+                @if (filled($subtitle))
+                    <span class="svc-eyebrow">{{ $subtitle }}</span>
+                @endif
+                <h2 class="svc-section-title">{{ $heading }}</h2>
+                <p class="svc-cases__lead">Real projects, real outcomes. See how we've helped businesses like yours turn ideas into measurable results.</p>
             </div>
-            <div class="row">
+
+            <div class="row svc-cases__grid">
                 @foreach ($caseStudies as $caseStudy)
-                    <div class="col-lg-4 col-md-6 wow move-up section-space--mt_30">
-                        <a href="{{ route('case-studies.index') }}" class="projects-wrap style-01 d-block h-100">
-                            <div class="projects-image-box">
-                                @if ($caseStudy->image)
-                                    <div class="projects-image">
-                                        <img class="img-fluid" src="{{ asset('uploads/'.$caseStudy->image) }}"
-                                            alt="{{ $caseStudy->title }}" loading="lazy">
-                                    </div>
+                    <div class="col-lg-4 col-md-6 wow move-up">
+                        <a href="{{ route('case-studies.index') }}" class="svc-case-card"
+                            @if ($caseStudy->image) style="background-image:linear-gradient(180deg, rgba(12,10,38,0.15) 0%, rgba(12,10,38,0.92) 100%), url('{{ asset('uploads/'.$caseStudy->image) }}');" @endif>
+                            <div class="svc-case-card__content">
+                                @if ($caseStudy->category)
+                                    <span class="svc-case-card__tag">{{ $caseStudy->category }}</span>
                                 @endif
-                                <div class="content">
-                                    <h6 class="heading">{{ $caseStudy->title }}</h6>
-                                    @if ($caseStudy->category)
-                                        <div class="post-categories">{{ $caseStudy->category }}</div>
-                                    @endif
-                                    <div class="text">{{ $caseStudy->short_description }}</div>
-                                    <div class="box-projects-arrow">
-                                        <span class="button-text">View case study</span>
-                                        <i class="fas fa-arrow-right ml-1"></i>
-                                    </div>
-                                </div>
+                                <h3 class="svc-case-card__title">{{ $caseStudy->title }}</h3>
+                                @if ($caseStudy->short_description)
+                                    <p class="svc-case-card__text">{{ \Illuminate\Support\Str::limit($caseStudy->short_description, 90) }}</p>
+                                @endif
+                                <span class="svc-case-card__link">View case study <i class="fas fa-arrow-right"></i></span>
                             </div>
                         </a>
                     </div>
                 @endforeach
             </div>
         </div>
-    </div>
+    </section>
 @endif
