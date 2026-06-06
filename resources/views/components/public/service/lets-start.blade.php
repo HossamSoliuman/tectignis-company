@@ -13,9 +13,9 @@
 <section class="svc-section svc-start">
     <div class="container">
         <div class="svc-start__card">
-            <div class="row">
+            <div class="row g-0">
                 <div class="col-lg-5 svc-start__info wow move-up">
-                    <span class="svc-eyebrow svc-eyebrow--light">{{ $subtitle }}</span>
+                    <span class="svc-eyebrow">{{ $subtitle }}</span>
                     <h2 class="svc-start__title">{{ $heading }}</h2>
                     <p class="svc-start__text">{{ $text }}</p>
 
