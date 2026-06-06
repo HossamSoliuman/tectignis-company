@@ -27,7 +27,7 @@
 
             <div class="row svc-why__grid">
                 @foreach ($cards as $index => $card)
-                    <div class="col-lg-6 wow move-up">
+                    <div class="col-lg-2 col-md-4 col-6 wow move-up">
                         <div class="svc-why-card">
                             <span class="svc-why-card__icon">
                                 @if (filled($card['icon'] ?? null))

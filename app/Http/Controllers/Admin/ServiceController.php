@@ -44,7 +44,7 @@ class ServiceController extends Controller
         $service->techStacks()->sync($techStacks);
         $service->industries()->sync($industries);
 
-        return redirect()->route('admin.services.index')->with('status', 'Service created.');
+        return redirect()->route('admin.services.edit', $service)->with('status', 'Service created.');
     }
 
     public function edit(Service $service): View
@@ -68,7 +68,7 @@ class ServiceController extends Controller
         $service->techStacks()->sync($techStacks);
         $service->industries()->sync($industries);
 
-        return redirect()->route('admin.services.index')->with('status', 'Service updated.');
+        return redirect()->route('admin.services.edit', $service)->with('status', 'Service updated.');
     }
 
     public function destroy(Service $service): RedirectResponse
