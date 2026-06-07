@@ -33,11 +33,12 @@ class SettingsController extends Controller
             Setting::where('key', $key)->update(['value' => $value]);
         }
 
-        foreach (array_keys($request->file('images', [])) as $key) {
-            $this->syncImageSetting($request, $key);
-        }
+        $imageKeys = array_unique(array_merge(
+            array_keys($request->file('images', [])),
+            array_keys((array) $request->input('remove_images', [])),
+        ));
 
-        foreach (array_keys((array) $request->input('remove_images', [])) as $key) {
+        foreach ($imageKeys as $key) {
             $this->syncImageSetting($request, $key);
         }
 
