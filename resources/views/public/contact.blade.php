@@ -17,10 +17,13 @@
             <div class="row">
                 <div class="col-12">
                     <div class="feature-list__one">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 wow move-up">
-                                <div class="ht-box-icon style-01 single-svg-icon-box">
-                                    <div class="icon-box-wrap">
+                        <div class="row align-items-stretch">
+                            <div class="col-lg-4 col-md-6 d-flex wow move-up">
+                                <div class="ht-box-icon style-01 single-svg-icon-box contact-info-card contact-info-card--phone w-100">
+                                    <div class="icon-box-wrap h-100">
+                                        <div class="contact-info-card__icon-wrap">
+                                            <i class="fas fa-phone-alt"></i>
+                                        </div>
                                         <div class="content">
                                             <h5 class="heading">Phone</h5>
                                             <div class="text">Call us today to explore software, AI, cloud and IT solutions.</div>
@@ -32,9 +35,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 wow move-up">
-                                <div class="ht-box-icon style-01 single-svg-icon-box">
-                                    <div class="icon-box-wrap">
+                            <div class="col-lg-4 col-md-6 d-flex wow move-up">
+                                <div class="ht-box-icon style-01 single-svg-icon-box contact-info-card contact-info-card--address w-100">
+                                    <div class="icon-box-wrap h-100">
+                                        <div class="contact-info-card__icon-wrap">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
                                         <div class="content">
                                             <h5 class="heading">Registered Address</h5>
                                             <div class="text">Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai - 410206</div>
@@ -42,9 +48,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 wow move-up">
-                                <div class="ht-box-icon style-01 single-svg-icon-box">
-                                    <div class="icon-box-wrap">
+                            <div class="col-lg-4 col-md-6 d-flex wow move-up">
+                                <div class="ht-box-icon style-01 single-svg-icon-box contact-info-card contact-info-card--email w-100">
+                                    <div class="icon-box-wrap h-100">
+                                        <div class="contact-info-card__icon-wrap">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
                                         <div class="content">
                                             <h5 class="heading">Email</h5>
                                             <div class="text">Email us your query today and our team will provide tailored solutions.</div>

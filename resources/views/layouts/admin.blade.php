@@ -18,33 +18,51 @@
                 <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-purple-600 text-sm font-bold shadow-lg shadow-fuchsia-500/30">T</span>
                 Tectignis
             </div>
-            <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-4 text-sm">
+            <nav class="flex-1 space-y-4 overflow-y-auto px-3 py-4 text-sm">
                 @php
-                    $nav = [
-                        ['admin.dashboard', 'Dashboard', 'grid'],
-                        ['admin.capabilities.index', 'Capabilities', 'cube'],
-                        ['admin.services.index', 'Services', 'briefcase'],
-                        ['admin.solutions.index', 'Solutions', 'puzzle'],
-                        ['admin.industries.index', 'Industries', 'office'],
-                        ['admin.pages.index', 'Pages', 'document-duplicate'],
-                        ['admin.stats.index', 'Home Stats', 'chart-pie'],
-                        ['admin.tech-stacks.index', 'Tech Stack', 'chip'],
-                        ['admin.blog.index', 'Blog Posts', 'document-text'],
-                        ['admin.case-studies.index', 'Case Studies', 'photograph'],
-                        ['admin.testimonials.index', 'Testimonials', 'chat-alt'],
-                        ['admin.brands.index', 'Brands', 'tag'],
-                        ['admin.leads.index', 'Leads (Inbox)', 'inbox'],
-                        ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
-                        ['admin.settings.index', 'Settings', 'cog'],
+                    $navGroups = [
+                        '' => [
+                            ['admin.dashboard', 'Dashboard', 'grid'],
+                        ],
+                        'Website Management' => [
+                            ['admin.settings.index', 'Home', 'home'],
+                            ['admin.stats.index', 'Stats', 'chart-pie'],
+                            ['admin.pages.index', 'Pages', 'document-duplicate'],
+                            ['admin.blog.index', 'Blog Posts', 'document-text'],
+                            ['admin.case-studies.index', 'Case Studies', 'photograph'],
+                            ['admin.testimonials.index', 'Testimonials', 'chat-alt'],
+                            ['admin.brands.index', 'Trusted Technology Partner', 'tag'],
+                        ],
+                        'Services & Capabilities' => [
+                            ['admin.capabilities.index', 'Capabilities', 'cube'],
+                            ['admin.services.index', 'Services', 'briefcase'],
+                            ['admin.solutions.index', 'Solutions', 'puzzle'],
+                            ['admin.industries.index', 'Industries', 'office'],
+                            ['admin.tech-stacks.index', 'Tech Stacks', 'chip'],
+                        ],
+                        'Sales & Marketing' => [
+                            ['admin.leads.index', 'Leads (Inbox)', 'inbox'],
+                            ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
+                        ],
+                        'Administration' => [
+                            ['admin.settings.index', 'Settings', 'cog'],
+                        ],
                     ];
                 @endphp
-                @foreach ($nav as [$route, $label, $icon])
-                    @php $active = request()->routeIs(Str::endsWith($route, '.index') ? Str::beforeLast($route, '.').'.*' : $route); @endphp
-                    <a href="{{ route($route) }}"
-                        class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-gradient-to-r from-fuchsia-600/90 to-purple-600/80 text-white shadow-sm' : 'text-slate-400 hover:bg-white/5 hover:text-white' }}">
-                        <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-white' : 'text-slate-500 group-hover:text-fuchsia-300' }}" />
-                        <span>{{ $label }}</span>
-                    </a>
+                @foreach ($navGroups as $groupLabel => $items)
+                    <div class="space-y-0.5">
+                        @if ($groupLabel !== '')
+                            <p class="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{{ $groupLabel }}</p>
+                        @endif
+                        @foreach ($items as [$route, $label, $icon])
+                            @php $active = request()->routeIs(Str::endsWith($route, '.index') ? Str::beforeLast($route, '.').'.*' : $route); @endphp
+                            <a href="{{ route($route) }}"
+                                class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-gradient-to-r from-fuchsia-600/90 to-purple-600/80 text-white shadow-sm' : 'text-slate-400 hover:bg-white/5 hover:text-white' }}">
+                                <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-white' : 'text-slate-500 group-hover:text-fuchsia-300' }}" />
+                                <span>{{ $label }}</span>
+                            </a>
+                        @endforeach
+                    </div>
                 @endforeach
             </nav>
             <div class="border-t border-white/5 px-3 py-4">

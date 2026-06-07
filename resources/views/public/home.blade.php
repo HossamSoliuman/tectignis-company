@@ -50,7 +50,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center mb-30">
-                    <h6 class="section-sub-title">Trusted Technology Partner</h6>
+                    <h6 class="section-sub-title text-white">Trusted Technology Partner</h6>
                 </div>
             </div>
             <div class="row">
@@ -68,7 +68,7 @@
     <!--=========== Trusted Technology Partner Stats End ==========-->
 
     <!--===========  Our Capabilities Start =============-->
-    <div class="feature-images-wrapper bg-gray section-space--ptb_100">
+    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -78,9 +78,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row capabilities-row">
                 @foreach ($capabilities as $capability)
-                <div class="col-lg-4 col-md-6 wow move-up">
+                <div class="col-lg-4 col-md-6 wow move-up d-flex">
                     <div class="projects-wrap style-04">
                         <div class="projects-image-box">
                             <div class="box-image text-center">
@@ -106,7 +106,7 @@
     <!--===========  Our Capabilities End =============-->
 
     <!--===========  Why Choose Tectignis Start =============-->
-    <div class="software-innovation-about-company-area software-innovation-about-bg section-space--ptb_120">
+    <div class="software-innovation-about-company-area software-innovation-about-bg section-space--ptb_80">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -144,7 +144,7 @@
     <!--===========  Why Choose Tectignis End =============-->
 
     <!--===========  Solutions We Deliver Start =============-->
-    <div class="feature-images-wrapper bg-gray section-space--ptb_100">
+    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -154,9 +154,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row row--30">
+            <div class="row solutions-row">
                 @foreach ($solutions as $solution)
-                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
+                <div class="col-6 col-sm-4 col-md-3 wow move-up section-space--mt_30">
                     <a href="{{ route('solutions.show', $solution->slug) }}" class="ht-box-images style-04 d-block text-center p-4 h-100">
                         <div class="image-box-wrap">
                             <div class="box-image mb-20">
@@ -175,7 +175,7 @@
     <!--===========  Solutions We Deliver End =============-->
 
     <!--===========  Industries We Serve Start =============-->
-    <div class="feature-images-wrapper section-space--ptb_100">
+    <div class="feature-images-wrapper section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -185,9 +185,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row row--30">
+            <div class="row industries-row">
                 @foreach ($industries as $industry)
-                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 wow move-up section-space--mt_30">
                     <a href="{{ route('industries.show', $industry->slug) }}" class="ht-box-images style-03 d-block text-center p-4">
                         <div class="image-box-wrap">
                             <div class="box-image mb-20">
@@ -206,7 +206,7 @@
     <!--===========  Industries We Serve End =============-->
 
     <!--=========== Featured Services Start ===========-->
-    <div class="feature-images-wrapper bg-gray section-space--ptb_100">
+    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -216,10 +216,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row featured-services-row">
                 @foreach ($services->take(8) as $service)
-                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
-                    <a href="{{ route('services.show', $service->slug) }}" class="projects-wrap style-04 d-block">
+                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30 d-flex">
+                    <a href="{{ route('services.show', $service->slug) }}" class="projects-wrap style-04 d-flex flex-column w-100">
                         <div class="projects-image-box">
                             <div class="box-image text-center">
                                 <img class="img-fulid" src="{{ asset('uploads/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
@@ -244,7 +244,7 @@
     <!--=========== Featured Services End ===========-->
 
     <!--=========== Technology Stack Start ===========-->
-    <div class="section-space--ptb_100">
+    <div class="section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -254,7 +254,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center text-center">
+            <div class="row justify-content-center text-center tech-stack-row">
                 @foreach ($techStacks as $tech)
                 <div class="col-lg-2 col-md-3 col-4 wow move-up section-space--mt_30">
                     <div class="ht-box-images style-03 text-center p-3">
@@ -271,7 +271,7 @@
     <!--=========== Technology Stack End ===========-->
 
     <!--=========== Case Studies Start =============-->
-    <div class="service-projects-wrapper bg-gray section-space--pt_100 mb-20">
+    <div class="service-projects-wrapper bg-gray section-space--pt_60 mb-20">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -363,7 +363,7 @@
 
     <!--=========== Resources & Insights Start ===========-->
     @if ($recentPosts->isNotEmpty())
-    <div class="feature-images-wrapper bg-gray section-space--ptb_100">
+    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -404,7 +404,7 @@
     <!--=========== Resources & Insights End ===========-->
 
     <!--====================  Final CTA Start ====================-->
-    <div class="contact-us-section-wrappaer infotechno-contact-us-bg section-space--ptb_120">
+    <div class="contact-us-section-wrappaer infotechno-contact-us-bg section-space--ptb_80">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7 col-md-6">
@@ -430,7 +430,7 @@
     <!--====================  Final CTA End ====================-->
 
     <!--====================  Contact Section Start ====================-->
-    <div class="contact-form-section section-space--ptb_100">
+    <div class="contact-form-section section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 wow move-up">

@@ -1386,3 +1386,265 @@ body {
     .svc-start__form { padding: 24px 18px; }
     .svc-rect-card { flex-direction: column; }
 }
+
+/* =========================================================
+   Home – Our Capabilities cards  (compact + equal height)
+   ========================================================= */
+.capabilities-row {
+    row-gap: 30px;
+}
+
+.capabilities-row .projects-wrap.style-04 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.capabilities-row .projects-wrap.style-04 .projects-image-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 28px 62px;
+    margin-bottom: 0;
+}
+
+.capabilities-row .projects-wrap.style-04 .box-image {
+    margin-bottom: 16px;
+}
+
+.capabilities-row .projects-wrap.style-04 .box-image img {
+    max-height: 64px;
+    width: auto;
+    object-fit: contain;
+}
+
+.capabilities-row .projects-wrap.style-04 .content {
+    flex: 1;
+    padding: 0 6px 0;
+}
+
+/* =========================================================
+   Home – Solutions single row (all 8 across on lg+)
+   ========================================================= */
+@media (min-width: 992px) {
+    .solutions-row {
+        justify-content: center;
+    }
+    .solutions-row > [class*="col-"] {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
+    }
+    .solutions-row .ht-box-images.style-04 {
+        padding: 16px 8px !important;
+    }
+    .solutions-row .ht-box-images.style-04 .box-image {
+        margin-bottom: 10px;
+    }
+    .solutions-row .ht-box-images.style-04 .content h6.heading {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+}
+
+/* =========================================================
+   Home – Industries compact grid (8 per row on lg+)
+   ========================================================= */
+@media (min-width: 992px) {
+    .industries-row > [class*="col-"] {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
+    }
+}
+
+.industries-row .ht-box-images.style-03 {
+    padding: 16px 10px !important;
+}
+
+.industries-row .ht-box-images.style-03 .box-image {
+    margin-bottom: 10px;
+}
+
+.industries-row .ht-box-images.style-03 .content h6.heading {
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+/* =========================================================
+   Home – Technology Stack (12 per row on lg+)
+   ========================================================= */
+@media (min-width: 992px) {
+    .tech-stack-row > [class*="col-"] {
+        flex: 0 0 8.333%;
+        max-width: 8.333%;
+    }
+}
+
+/* =========================================================
+   Home – Featured Services  (smaller boxes + equal height)
+   ========================================================= */
+.featured-services-row {
+    row-gap: 24px;
+}
+
+.featured-services-row .projects-wrap.style-04 {
+    height: 100%;
+}
+
+.featured-services-row .projects-wrap.style-04 .projects-image-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 52px;
+    margin-bottom: 0;
+    height: 100%;
+}
+
+.featured-services-row .projects-wrap.style-04 .box-image {
+    margin-bottom: 12px;
+}
+
+.featured-services-row .projects-wrap.style-04 .box-image img {
+    max-height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
+.featured-services-row .projects-wrap.style-04 .content {
+    flex: 1;
+    padding: 0;
+}
+
+.featured-services-row .projects-wrap.style-04 .content h5.heading {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+/* =========================================================
+   Contact page – info cards (equal height + color accents)
+   ========================================================= */
+.contact-info-card .icon-box-wrap {
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid transparent;
+}
+
+.contact-info-card .icon-box-wrap .content {
+    flex: 1;
+}
+
+/* Coloured icon circle */
+.contact-info-card__icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 20px;
+}
+
+/* Phone card — violet/purple */
+.contact-info-card--phone .icon-box-wrap {
+    background: linear-gradient(160deg, #faf5ff 0%, #fff 60%);
+    border-top-color: #7c3aed;
+}
+
+.contact-info-card--phone .contact-info-card__icon-wrap {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+.contact-info-card--phone .icon-box-wrap .content .heading {
+    color: #6d28d9;
+}
+
+.contact-info-card--phone .feature-btn a {
+    color: #7c3aed;
+}
+
+.contact-info-card--phone .feature-btn a:hover {
+    color: #4c1d95;
+}
+
+.contact-info-card--phone:hover .icon-box-wrap {
+    border-top-color: #7c3aed;
+}
+
+/* Address card — teal/emerald */
+.contact-info-card--address .icon-box-wrap {
+    background: linear-gradient(160deg, #f0fdf4 0%, #fff 60%);
+    border-top-color: #059669;
+}
+
+.contact-info-card--address .contact-info-card__icon-wrap {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.contact-info-card--address .icon-box-wrap .content .heading {
+    color: #047857;
+}
+
+/* Email card — amber/orange */
+.contact-info-card--email .icon-box-wrap {
+    background: linear-gradient(160deg, #fff7ed 0%, #fff 60%);
+    border-top-color: #ea580c;
+}
+
+.contact-info-card--email .contact-info-card__icon-wrap {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.contact-info-card--email .icon-box-wrap .content .heading {
+    color: #c2410c;
+}
+
+.contact-info-card--email .feature-btn a {
+    color: #ea580c;
+}
+
+.contact-info-card--email .feature-btn a:hover {
+    color: #9a3412;
+}
+
+/* =========================================================
+   Breadcrumb — compact (all pages)
+   ========================================================= */
+.breadcrumb-area {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+}
+
+.breadcrumb-title {
+    font-size: 26px;
+    line-height: 1.3;
+    margin-bottom: 0;
+}
+
+.breadcrumb-list {
+    margin-top: 8px !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .breadcrumb-area {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+    }
+    .breadcrumb-title {
+        font-size: 22px;
+    }
+}
+
+/* =========================================================
+   Contact page — reduce section whitespace
+   ========================================================= */
+.feature-icon-wrapper.section-space--ptb_100 {
+    padding-top: 50px !important;
+    padding-bottom: 40px !important;
+}
+
+.contact-us-area.section-space--pb_100 {
+    padding-bottom: 50px !important;
+}

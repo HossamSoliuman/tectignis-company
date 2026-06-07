@@ -185,4 +185,12 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - Run tests: `php artisan test --compact` or filter: `php artisan test --compact --filter=testName`.
 - Do NOT delete tests without approval.
 
+=== verification rules ===
+
+# Verification & Browser Testing
+
+- Do NOT attempt browser screenshots or Playwright/Selenium automation to verify UI changes. The browser environment is not set up for automated screenshot capture.
+- Do NOT try to install or configure Playwright browsers, puppeteer, or any headless browser tooling.
+- After making frontend (blade/CSS) changes, report the changes made and trust the user to verify visually in their browser.
+
 </laravel-boost-guidelines>
