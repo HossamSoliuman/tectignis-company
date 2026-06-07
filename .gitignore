@@ -23,6 +23,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 tech
-storage/*
+storage
 access.txt
 docs
