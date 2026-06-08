@@ -21,12 +21,12 @@ class Service extends Model
     ];
 
     /**
-     * Allowed `category` values (reconciled to the three design categories).
+     * Allowed `category` values (the design categories / capability majors).
      */
-    public const CATEGORIES = ['software_development', 'ai_automation', 'business_application'];
+    public const CATEGORIES = ['software_development', 'ai_automation', 'business_application', 'cloud_security'];
 
     /**
-     * Human-readable labels for the three design categories (single source of truth
+     * Human-readable labels for the design categories (single source of truth
      * for the admin form and the public services index grouping).
      *
      * @var array<string, string>
@@ -35,6 +35,7 @@ class Service extends Model
         'software_development' => 'Software Development',
         'ai_automation' => 'AI & Automation',
         'business_application' => 'Business Application',
+        'cloud_security' => 'Cloud & Security',
     ];
 
     protected function casts(): array

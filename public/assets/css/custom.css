@@ -145,8 +145,8 @@
 }
 
 .megamenu--services > li {
-    flex-basis: 33.333%;
-    max-width: 33.333%;
+    flex-basis: 25%;
+    max-width: 25%;
 }
 
 .megamenu--services > li .page-list-title {

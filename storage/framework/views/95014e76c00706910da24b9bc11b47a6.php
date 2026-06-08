@@ -104,7 +104,7 @@
     <?php endif; ?>
 
     <div id="main-wrapper">
-        <div class="site-wrapper-reveal">
+        <div class=" site-wrapper-reveal">
             <?php echo $__env->yieldContent('content'); ?>
         </div>
 

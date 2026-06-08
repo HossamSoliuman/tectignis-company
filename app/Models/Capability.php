@@ -20,12 +20,12 @@ class Capability extends Model
     ];
 
     /**
-     * Allowed `category` values (the three capability "majors").
+     * Allowed `category` values (the capability "majors").
      */
-    public const CATEGORIES = ['ai_automation', 'business_application', 'software_development'];
+    public const CATEGORIES = ['ai_automation', 'business_application', 'software_development', 'cloud_security'];
 
     /**
-     * Human-readable labels for the three capability majors, in the order they
+     * Human-readable labels for the capability majors, in the order they
      * should appear as columns in the header mega-menu. Single source of truth
      * for the admin form and the public grouping.
      *
@@ -35,6 +35,7 @@ class Capability extends Model
         'ai_automation' => 'AI & Automation',
         'business_application' => 'Business Application',
         'software_development' => 'Software Development',
+        'cloud_security' => 'Cloud & Security',
     ];
 
     protected function casts(): array

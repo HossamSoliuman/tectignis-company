@@ -66,7 +66,7 @@
     @endif
 
     <div id="main-wrapper">
-        <div class="site-wrapper-reveal">
+        <div class=" site-wrapper-reveal">
             @yield('content')
         </div>
 
