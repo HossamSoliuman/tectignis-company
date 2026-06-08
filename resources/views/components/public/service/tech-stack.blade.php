@@ -24,12 +24,14 @@
             <div class="svc-tech__grid">
                 @foreach ($techStacks as $tech)
                     <div class="svc-tech-card wow move-up">
-                        @if ($tech->logo)
-                            <img class="svc-tech-card__logo" src="{{ asset('uploads/'.$tech->logo) }}"
-                                alt="{{ $tech->name }}" loading="lazy">
-                        @else
-                            <span class="svc-tech-card__fallback"><i class="fas fa-microchip"></i></span>
-                        @endif
+                        <div class="svc-tech-card__logo-wrap">
+                            @if ($tech->logo)
+                                <img class="svc-tech-card__logo" src="{{ asset('uploads/'.$tech->logo) }}"
+                                    alt="{{ $tech->name }}" loading="lazy">
+                            @else
+                                <span class="svc-tech-card__fallback"><i class="fas fa-microchip"></i></span>
+                            @endif
+                        </div>
                         <span class="svc-tech-card__name">{{ $tech->name }}</span>
                     </div>
                 @endforeach
