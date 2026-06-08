@@ -6,6 +6,26 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    /* Brand fonts (from design mockup): Poppins display headings, Inter body. */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* Brand palette (sampled from design mockup): rose-pink #EB0B52 -> purple #6E2CAB. */
+    --color-brand-50: #fff1f5;
+    --color-brand-100: #ffe2eb;
+    --color-brand-200: #fecad9;
+    --color-brand-300: #fb9dba;
+    --color-brand-400: #f65e8c;
+    --color-brand-500: #eb0b52;
+    --color-brand-600: #c80946;
+    --color-brand-700: #a30a3c;
+    --color-brand-800: #7e0b32;
+    --color-brand-900: #5e0a28;
+    --color-brand-950: #3f0419;
+
+    --color-brand-purple-400: #8b46cc;
+    --color-brand-purple-500: #7e36c0;
+    --color-brand-purple-600: #6e2cab;
+    --color-brand-purple-700: #5c2490;
 }

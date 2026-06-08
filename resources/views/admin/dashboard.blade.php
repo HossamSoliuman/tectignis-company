@@ -91,7 +91,7 @@
 
         <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
             <h2 class="flex items-center gap-2 text-base font-semibold text-slate-900">
-                <x-admin.icon name="globe" class="h-5 w-5 text-sky-600" /> Top pages
+                <x-admin.icon name="globe" class="h-5 w-5 text-fuchsia-600" /> Top pages
             </h2>
             <p class="mt-1 text-sm text-slate-500">Most visited, last 30 days</p>
 
@@ -105,7 +105,7 @@
                                 <span class="shrink-0 font-semibold text-slate-900">{{ number_format($page['value']) }}</span>
                             </div>
                             <div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-                                <div class="h-full rounded-full bg-gradient-to-r from-sky-500 to-blue-600" style="width: {{ max(4, round($page['value'] / $topMax * 100)) }}%"></div>
+                                <div class="h-full rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-600" style="width: {{ max(4, round($page['value'] / $topMax * 100)) }}%"></div>
                             </div>
                         </div>
                     @endforeach
