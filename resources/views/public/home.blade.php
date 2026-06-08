@@ -254,14 +254,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center text-center tech-stack-row">
+            <div class="row tech-stack-row">
                 @foreach ($techStacks as $tech)
-                <div class="col-lg-2 col-md-3 col-4 wow move-up section-space--mt_30">
-                    <div class="ht-box-images style-03 text-center p-3">
-                        @if ($tech->logo)
-                            <img class="img-fluid mb-10" src="{{ asset('uploads/'.$tech->logo) }}" alt="{{ $tech->name }}" loading="lazy" style="max-height:40px;width:auto;display:inline-block;">
-                        @endif
-                        <p class="font-weight--bold text-color-primary mb-0">{{ $tech->name }}</p>
+                <div class="col-lg-2 col-md-3 col-4 wow move-up">
+                    <div class="tech-stack-card">
+                        <div class="tech-stack-card__logo">
+                            @if ($tech->logo)
+                                <img src="{{ asset('uploads/'.$tech->logo) }}" alt="{{ $tech->name }}" loading="lazy">
+                            @endif
+                        </div>
+                        <p class="tech-stack-card__name">{{ $tech->name }}</p>
                     </div>
                 </div>
                 @endforeach
