@@ -24,6 +24,15 @@ class TechStackSeeder extends Seeder
             'AWS', 'Azure', 'Google Cloud', 'Docker', 'Kubernetes',
             // AI / ML
             'TensorFlow', 'PyTorch', 'OpenAI', 'LangChain',
+            // Surveillance & Access Control
+            'Hikvision', 'Dahua', 'CP Plus', 'Axis', 'Bosch', 'Honeywell', 'ZKTeco', 'Matrix', 'eSSL',
+            // Networking
+            'Cisco', 'Fortinet', 'Palo Alto', 'Juniper', 'Aruba', 'Ubiquiti', 'D-Link', 'TP-Link', 'Netgear',
+            // Servers, Storage & Workstations
+            'Dell', 'HP', 'HPE', 'Lenovo', 'ASUS', 'Intel', 'AMD', 'VMware', 'Linux', 'Dell EMC',
+            'NetApp', 'Synology', 'QNAP', 'Seagate', 'Western Digital', 'Microsoft',
+            // Structured Cabling
+            'Panduit', 'CommScope', 'Belden', 'Legrand', 'Schneider Electric',
         ];
 
         foreach ($technologies as $index => $name) {

@@ -22,7 +22,7 @@ class Capability extends Model
     /**
      * Allowed `category` values (the capability "majors").
      */
-    public const CATEGORIES = ['ai_automation', 'business_application', 'software_development', 'cloud_security'];
+    public const CATEGORIES = ['ai_automation', 'business_application', 'software_development', 'cloud_security', 'infrastructure_surveillance'];
 
     /**
      * Human-readable labels for the capability majors, in the order they
@@ -36,6 +36,7 @@ class Capability extends Model
         'business_application' => 'Business Application',
         'software_development' => 'Software Development',
         'cloud_security' => 'Cloud & Security',
+        'infrastructure_surveillance' => 'Infrastructure & Surveillance',
     ];
 
     protected function casts(): array

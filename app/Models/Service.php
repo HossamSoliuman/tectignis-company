@@ -23,7 +23,7 @@ class Service extends Model
     /**
      * Allowed `category` values (the design categories / capability majors).
      */
-    public const CATEGORIES = ['software_development', 'ai_automation', 'business_application', 'cloud_security'];
+    public const CATEGORIES = ['software_development', 'ai_automation', 'business_application', 'cloud_security', 'infrastructure_surveillance'];
 
     /**
      * Human-readable labels for the design categories (single source of truth
@@ -36,6 +36,7 @@ class Service extends Model
         'ai_automation' => 'AI & Automation',
         'business_application' => 'Business Application',
         'cloud_security' => 'Cloud & Security',
+        'infrastructure_surveillance' => 'Infrastructure & Surveillance',
     ];
 
     protected function casts(): array

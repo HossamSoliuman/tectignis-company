@@ -133,20 +133,20 @@
 /* ---------- Mega menu: service categories + CTA row ----------
    One column per live service category (driven by the admin). */
 .navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--services {
-    min-width: 880px;
+    min-width: 1100px;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1499px) {
     .navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--services {
-        min-width: 780px;
+        min-width: 960px;
     }
 }
 
 .megamenu--services > li {
-    flex-basis: 25%;
-    max-width: 25%;
+    flex-basis: 20%;
+    max-width: 20%;
 }
 
 .megamenu--services > li .page-list-title {

@@ -17,6 +17,7 @@ class CapabilitySeeder extends Seeder
             ['business_application', 'business-applications', 'Business Applications', 'Ready-to-deploy management software for every department and industry.', 'Custom-Software.webp'],
             ['ai_automation', 'ai-automation', 'AI & Automation', 'AI, machine learning and automation that cut costs and unlock growth.', 'Artificial-Intelligence.webp'],
             ['cloud_security', 'cloud-security', 'Cloud & Security', 'Cloud consulting, migration and cybersecurity that keep you fast, scalable and protected.', 'cloud-security.png'],
+            ['infrastructure_surveillance', 'infrastructure-surveillance', 'Infrastructure & Surveillance', 'CCTV, access control, networking, servers and AMC that keep your physical IT secure and always-on.', 'infrastructure-surveillance.png'],
         ];
 
         foreach ($capabilities as $index => [$category, $slug, $title, $shortDescription, $icon]) {
