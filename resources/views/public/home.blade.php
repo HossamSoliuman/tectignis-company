@@ -68,31 +68,39 @@
     <!--=========== Trusted Technology Partner Stats End ==========-->
 
     <!--===========  Our Capabilities Start =============-->
-    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
+    <div class="capabilities-wrapper bg-gray section-space--ptb_60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">What We Do</h6>
-                        <h3 class="heading">Our <span class="text-color-primary">Capabilities</span></h3>
+                    <div class="section-title-wrap text-left section-space--mb_40">
+                        <h6 class="section-sub-title text-color-primary mb-15">Our Expertise</h6>
+                        <h3 class="heading">End-to-End Solutions to Drive Your <span class="text-color-primary">Business Forward</span></h3>
+                        <p class="capabilities-subtitle mt-15">We deliver innovative, reliable, and scalable solutions across industries to help you stay ahead.</p>
                     </div>
                 </div>
             </div>
+            @php
+                $capColors = ['#6D5BD0', '#3B82F6', '#0EA5E9', '#EB0B52', '#F43F5E', '#8B5CF6'];
+            @endphp
             <div class="row capabilities-row">
                 @foreach ($capabilities as $capability)
                 <div class="col-lg-4 col-md-6 wow move-up d-flex">
-                    <div class="projects-wrap style-04">
-                        <div class="projects-image-box">
-                            <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('uploads/'.$capability->icon) }}" alt="{{ $capability->title }}" loading="lazy">
+                    <div class="capability-card" style="--cap-color: {{ $capColors[$loop->index % count($capColors)] }};">
+                        <div class="capability-card__head">
+                            <div class="capability-card__icon">
+                                <img src="{{ asset('uploads/'.$capability->icon) }}" alt="{{ $capability->title }}" loading="lazy">
                             </div>
-                            <div class="content text-center">
-                                <h5 class="heading">{{ $capability->title }}</h5>
-                                <div class="text">{{ $capability->short_description }}</div>
-                                <div class="box-projects-arrow">
-                                    <a href="{{ route('capabilities.show', $capability->slug) }}" class="button-text">Discover Now <i class="fas fa-arrow-right ml-1"></i></a>
-                                </div>
+                            <div class="capability-card__heading-group">
+                                <h5 class="capability-card__title">{{ $capability->title }}</h5>
+                                <span class="capability-card__line"></span>
                             </div>
+                            <button type="button" class="capability-card__toggle" aria-label="Toggle details">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="capability-card__body">
+                            <p class="capability-card__text">{{ $capability->short_description }}</p>
+                            <a href="{{ route('capabilities.show', $capability->slug) }}" class="capability-card__link">Explore Solutions <i class="fas fa-arrow-right ml-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -106,66 +114,108 @@
     <!--===========  Our Capabilities End =============-->
 
     <!--===========  Why Choose Tectignis Start =============-->
-    <div class="software-innovation-about-company-area software-innovation-about-bg section-space--ptb_80">
+    <div class="why-choose-wrapper section-space--ptb_80">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="image-inner-video-section">
-                        <img class="img-fluid border-radus-5" src="{{ \App\Models\Setting::imageUrl($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp', 'what_we_offer_image') }}" alt="Why Choose Tectignis IT Solutions" loading="lazy">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <span class="why-choose-badge">Why Choose Us</span>
+                        <h3 class="heading mt-15">Why Choose <span class="text-color-primary">Tectignis?</span></h3>
+                        <p class="why-choose-subtitle mt-15">We combine expertise, technology, and a customer-first approach to deliver solutions that drive real results for your business.</p>
                     </div>
                 </div>
-                <div class="col-lg-6 ms-auto mt-30">
-                    <div class="machine-learning-about-content">
-                        <div class="section-title mb-20">
-                            <div class="section-title-wrap text-left section-space--mb_30">
-                                <h6 class="section-sub-title mb-20">Strategic Delivery Network</h6>
-                                <h3 class="heading">Why Choose <span class="text-color-primary">Tectignis</span>?</h3>
-                            </div>
-                            <p class="dec-text mt-20">We collaborate with experienced technology professionals and implementation partners to assemble the right expertise for each project — delivering enterprise-grade solutions while maintaining competitive pricing and agility.</p>
-                            <ul class="check-list mt-20">
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Global Delivery Model</strong></li>
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Cost-Effective Solutions</strong></li>
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Dedicated Project Management</strong></li>
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Scalable Resources</strong></li>
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Quality Assurance &amp; Testing</strong></li>
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>On-Time Delivery</strong></li>
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Single Point of Contact</strong></li>
-                                <li class="list-item"><i class="fas fa-check text-color-primary me-2"></i><strong>Multi-Domain Expertise</strong></li>
-                            </ul>
-                            <div class="button-group-wrap mt-30">
-                                <a href="{{ route('about') }}" class="btn">About Us</a>
-                            </div>
+            </div>
+
+            <div class="row align-items-center why-choose-main">
+                <div class="col-lg-5">
+                    <div class="why-choose-visual">
+                        <div class="why-choose-visual__image">
+                            <img class="img-fluid" src="{{ \App\Models\Setting::imageUrl($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp', 'what_we_offer_image') }}" alt="Why Choose Tectignis IT Solutions" loading="lazy">
+                        </div>
+                        <div class="why-choose-card">
+                            <span class="why-choose-card__dots" aria-hidden="true"></span>
+                            <span class="why-choose-card__watermark" aria-hidden="true">G</span>
+                            <h4 class="why-choose-card__title">Why Choose Tectignis</h4>
+                            <p class="why-choose-card__text">Empowering businesses with innovative IT solutions, delivered with trust, transparency, and excellence.</p>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-7 mt-5 mt-lg-0">
+                    @php
+                        $whyChooseFeatures = [
+                            ['icon' => 'fas fa-globe', 'title' => 'Global Delivery Model', 'text' => 'We leverage a global talent pool to deliver round-the-clock progress on your projects.'],
+                            ['icon' => 'fas fa-coins', 'title' => 'Cost-Effective Solutions', 'text' => 'Enterprise-grade quality at competitive pricing, without compromising on standards.'],
+                            ['icon' => 'fas fa-tasks', 'title' => 'Dedicated Project Management', 'text' => 'A dedicated manager keeps every milestone on track from kickoff to delivery.'],
+                            ['icon' => 'fas fa-expand-arrows-alt', 'title' => 'Scalable Resources', 'text' => 'Scale your team up or down on demand to match evolving project needs.'],
+                            ['icon' => 'fas fa-vial', 'title' => 'Quality Assurance & Testing', 'text' => 'Rigorous QA and testing at every stage to ensure reliable, bug-free releases.'],
+                            ['icon' => 'fas fa-clock', 'title' => 'On-Time Delivery', 'text' => 'Disciplined planning and execution that consistently meets agreed deadlines.'],
+                            ['icon' => 'fas fa-headset', 'title' => 'Single Point of Contact', 'text' => 'One reliable point of contact for clear, streamlined communication.'],
+                            ['icon' => 'fas fa-layer-group', 'title' => 'Multi-Domain Expertise', 'text' => 'Cross-industry experience that brings proven best practices to your domain.'],
+                        ];
+                    @endphp
+                    <div class="why-choose-features">
+                        @foreach ($whyChooseFeatures as $feature)
+                        <div class="why-choose-feature">
+                            <div class="why-choose-feature__icon"><i class="{{ $feature['icon'] }}"></i></div>
+                            <div class="why-choose-feature__content">
+                                <h6 class="why-choose-feature__title">{{ $feature['title'] }}</h6>
+                                <p class="why-choose-feature__text">{{ $feature['text'] }}</p>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            @if ($stats->isNotEmpty())
+            @php
+                $statIcons = ['fas fa-briefcase', 'fas fa-smile', 'fas fa-award', 'fas fa-headset'];
+            @endphp
+            <div class="why-choose-stats">
+                @foreach ($stats->take(4) as $stat)
+                <div class="why-choose-stat">
+                    <div class="why-choose-stat__icon"><i class="{{ $statIcons[$loop->index % count($statIcons)] }}"></i></div>
+                    <div class="why-choose-stat__content">
+                        <div class="why-choose-stat__number @if (is_numeric($stat->value)) counter @endif">{{ $stat->value }}</div>
+                        <div class="why-choose-stat__label">{{ $stat->label }}</div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
+            <div class="button-group-wrap text-center mt-40">
+                <a href="{{ route('about') }}" class="btn">About Us</a>
             </div>
         </div>
     </div>
     <!--===========  Why Choose Tectignis End =============-->
 
     <!--===========  Solutions We Deliver Start =============-->
-    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
+    <div class="solutions-deliver-wrapper bg-gray section-space--ptb_80">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">Business-Focused</h6>
-                        <h3 class="heading">Solutions We <span class="text-color-primary">Deliver</span></h3>
+                        <span class="solutions-deliver-overline">/// Solutions We Deliver ///</span>
+                        <h3 class="heading mt-15">Business-focused Solutions Built for <span class="text-color-primary">Impact</span></h3>
+                        <p class="solutions-deliver-subtitle mt-15">We deliver end-to-end IT solutions tailored to your business needs, designed to drive efficiency, security, and growth.</p>
                     </div>
                 </div>
             </div>
-            <div class="row solutions-row">
+            <div class="row solutions-deliver-row">
                 @foreach ($solutions as $solution)
-                <div class="col-6 col-sm-4 col-md-3 wow move-up section-space--mt_30">
-                    <a href="{{ route('solutions.show', $solution->slug) }}" class="ht-box-images style-04 d-block text-center p-4 h-100">
-                        <div class="image-box-wrap">
-                            <div class="box-image mb-20">
-                                <i class="{{ $solution->icon }} fa-3x text-color-primary"></i>
-                            </div>
-                            <div class="content">
-                                <h6 class="heading">{{ $solution->title }}</h6>
-                            </div>
-                        </div>
+                <div class="col-12 col-md-6 col-lg-3 wow move-up section-space--mt_30 d-flex">
+                    <a href="{{ route('solutions.show', $solution->slug) }}" class="solution-deliver-card w-100" aria-label="Learn more about our {{ $solution->title }}">
+                        <span class="solution-deliver-card__icon" aria-hidden="true">
+                            <i class="{{ $solution->icon }}"></i>
+                        </span>
+                        <h6 class="solution-deliver-card__title">{{ $solution->title }}</h6>
+                        <span class="solution-deliver-card__divider" aria-hidden="true"></span>
+                        @if ($solution->short_description)
+                        <p class="solution-deliver-card__text">{{ $solution->short_description }}</p>
+                        @endif
                     </a>
                 </div>
                 @endforeach
@@ -479,3 +529,16 @@
     <!--====================  Contact Section End ====================-->
 
 @endsection
+
+@push('scripts')
+<script>
+    document.querySelectorAll('.capabilities-row .capability-card__head').forEach(function (head) {
+        head.addEventListener('click', function (event) {
+            if (event.target.closest('.capability-card__link')) {
+                return;
+            }
+            head.closest('.capability-card').classList.toggle('is-open');
+        });
+    });
+</script>
+@endpush
