@@ -33,6 +33,32 @@
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ old('short_description', $cs?->short_description) }}</textarea>
     </div>
 
+    <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Home Page Card</p>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Theme</label>
+                <select name="theme"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+                    @foreach (['blue' => 'Blue', 'red' => 'Red', 'purple' => 'Purple'] as $value => $label)
+                        <option value="{{ $value }}" {{ old('theme', $cs?->theme) === $value ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Icon SVG Path</label>
+                <input type="text" name="icon" value="{{ old('icon', $cs?->icon) }}" placeholder="M9 17.25v1.007a3 3 0 0 1…"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+            </div>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Features (one per line)</label>
+            <textarea name="features" rows="3" placeholder="40% increase in operational efficiency&#10;Real-time data visibility"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ old('features') ? implode("\n", (array) old('features')) : implode("\n", $cs?->features ?? []) }}</textarea>
+            <p class="mt-1 text-xs text-slate-400">Shown as a checklist on the home page case-study card.</p>
+        </div>
+    </div>
+
     <div>
         <label class="block text-sm font-medium text-slate-700 mb-1">Full Content (HTML)</label>
         <textarea name="content" rows="10"

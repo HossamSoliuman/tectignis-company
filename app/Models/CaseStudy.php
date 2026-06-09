@@ -12,8 +12,8 @@ class CaseStudy extends Model
     use HasFactory;
 
     protected $fillable = [
-        'slug', 'title', 'category', 'short_description',
-        'image', 'content', 'sort_order', 'is_active',
+        'slug', 'title', 'category', 'theme', 'short_description',
+        'image', 'icon', 'features', 'content', 'sort_order', 'is_active',
     ];
 
     protected function casts(): array
@@ -21,6 +21,7 @@ class CaseStudy extends Model
         return [
             'is_active' => 'boolean',
             'sort_order' => 'integer',
+            'features' => 'array',
         ];
     }
 

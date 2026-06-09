@@ -21,12 +21,12 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="software-innovation-hero-wrap wow move-up">
                         <div class="software-innovation-hero-text">
-                            <p class="sub-heading">Serving Clients Across Navi Mumbai, Mumbai, Thane, Pune, India &amp; Worldwide.</p>
-                            <h1 class="font-weight--reguler mb-20">Transforming Businesses Through <span class="text-color-primary">Software, AI &amp; Smart Technology</span> Solutions</h1>
-                            <h6 class="info-heading">Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity &amp; Smart Security Systems.</h6>
+                            <p class="sub-heading">{{ $settings['hero_sub_heading'] ?? 'Serving Clients Across Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.' }}</p>
+                            <h1 class="font-weight--reguler mb-20">{{ $settings['hero_heading_line1'] ?? 'Transforming Businesses Through' }} <span class="text-color-primary">{{ $settings['hero_heading_line2'] ?? 'Software, AI & Smart Technology Solutions' }}</span></h1>
+                            <h6 class="info-heading">{{ $settings['hero_info_heading'] ?? 'Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems.' }}</h6>
                             <div class="hero-button mt-30">
-                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">Request Consultation</a>
-                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline ms-3">Get a Quote</a>
+                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">{{ $settings['hero_btn_primary'] ?? 'Request Consultation' }}</a>
+                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline ms-3">{{ $settings['hero_btn_secondary'] ?? 'Get a Quote' }}</a>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center mb-30">
-                    <h6 class="section-sub-title text-white">Trusted Technology Partner</h6>
+                    <h6 class="section-sub-title text-white">{{ $settings['stats_sub_heading'] ?? 'Trusted Technology Partner' }}</h6>
                 </div>
             </div>
             <div class="row">
@@ -73,9 +73,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-left section-space--mb_40">
-                        <h6 class="section-sub-title text-color-primary mb-15">Our Expertise</h6>
-                        <h3 class="heading">End-to-End Solutions to Drive Your <span class="text-color-primary">Business Forward</span></h3>
-                        <p class="capabilities-subtitle mt-15">We deliver innovative, reliable, and scalable solutions across industries to help you stay ahead.</p>
+                        <h6 class="section-sub-title text-color-primary mb-15">{{ $settings['cap_sub_heading'] ?? 'Our Expertise' }}</h6>
+                        <h3 class="heading">{{ $settings['cap_heading'] ?? 'End-to-End Solutions to Drive Your' }} <span class="text-color-primary">{{ $settings['cap_heading_highlight'] ?? 'Business Forward' }}</span></h3>
+                        <p class="capabilities-subtitle mt-15">{{ $settings['cap_subtitle'] ?? 'We deliver innovative, reliable, and scalable solutions across industries to help you stay ahead.' }}</p>
                     </div>
                 </div>
             </div>
@@ -119,9 +119,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <span class="why-choose-badge">Why Choose Us</span>
-                        <h3 class="heading mt-15">Why Choose <span class="text-color-primary">Tectignis?</span></h3>
-                        <p class="why-choose-subtitle mt-15">We combine expertise, technology, and a customer-first approach to deliver solutions that drive real results for your business.</p>
+                        <span class="why-choose-badge">{{ $settings['why_badge'] ?? 'Why Choose Us' }}</span>
+                        <h3 class="heading mt-15">{{ $settings['why_heading'] ?? 'Why Choose' }} <span class="text-color-primary">{{ $settings['why_heading_highlight'] ?? 'Tectignis?' }}</span></h3>
+                        <p class="why-choose-subtitle mt-15">{{ $settings['why_subtitle'] ?? 'We combine expertise, technology, and a customer-first approach to deliver solutions that drive real results for your business.' }}</p>
                     </div>
                 </div>
             </div>
@@ -142,25 +142,13 @@
                 </div>
 
                 <div class="col-lg-7 mt-5 mt-lg-0">
-                    @php
-                        $whyChooseFeatures = [
-                            ['icon' => 'fas fa-globe', 'title' => 'Global Delivery Model', 'text' => 'We leverage a global talent pool to deliver round-the-clock progress on your projects.'],
-                            ['icon' => 'fas fa-coins', 'title' => 'Cost-Effective Solutions', 'text' => 'Enterprise-grade quality at competitive pricing, without compromising on standards.'],
-                            ['icon' => 'fas fa-tasks', 'title' => 'Dedicated Project Management', 'text' => 'A dedicated manager keeps every milestone on track from kickoff to delivery.'],
-                            ['icon' => 'fas fa-expand-arrows-alt', 'title' => 'Scalable Resources', 'text' => 'Scale your team up or down on demand to match evolving project needs.'],
-                            ['icon' => 'fas fa-vial', 'title' => 'Quality Assurance & Testing', 'text' => 'Rigorous QA and testing at every stage to ensure reliable, bug-free releases.'],
-                            ['icon' => 'fas fa-clock', 'title' => 'On-Time Delivery', 'text' => 'Disciplined planning and execution that consistently meets agreed deadlines.'],
-                            ['icon' => 'fas fa-headset', 'title' => 'Single Point of Contact', 'text' => 'One reliable point of contact for clear, streamlined communication.'],
-                            ['icon' => 'fas fa-layer-group', 'title' => 'Multi-Domain Expertise', 'text' => 'Cross-industry experience that brings proven best practices to your domain.'],
-                        ];
-                    @endphp
                     <div class="why-choose-features">
                         @foreach ($whyChooseFeatures as $feature)
                         <div class="why-choose-feature">
-                            <div class="why-choose-feature__icon"><i class="{{ $feature['icon'] }}"></i></div>
+                            <div class="why-choose-feature__icon"><i class="{{ $feature->icon }}"></i></div>
                             <div class="why-choose-feature__content">
-                                <h6 class="why-choose-feature__title">{{ $feature['title'] }}</h6>
-                                <p class="why-choose-feature__text">{{ $feature['text'] }}</p>
+                                <h6 class="why-choose-feature__title">{{ $feature->title }}</h6>
+                                <p class="why-choose-feature__text">{{ $feature->text }}</p>
                             </div>
                         </div>
                         @endforeach
@@ -198,9 +186,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <span class="solutions-deliver-overline">/// Solutions We Deliver ///</span>
-                        <h3 class="heading mt-15">Business-focused Solutions Built for <span class="text-color-primary">Impact</span></h3>
-                        <p class="solutions-deliver-subtitle mt-15">We deliver end-to-end IT solutions tailored to your business needs, designed to drive efficiency, security, and growth.</p>
+                        <span class="solutions-deliver-overline">{{ $settings['sol_overline'] ?? '/// Solutions We Deliver ///' }}</span>
+                        <h3 class="heading mt-15">{{ $settings['sol_heading'] ?? 'Business-focused Solutions Built for' }} <span class="text-color-primary">{{ $settings['sol_heading_highlight'] ?? 'Impact' }}</span></h3>
+                        <p class="solutions-deliver-subtitle mt-15">{{ $settings['sol_subtitle'] ?? 'We deliver end-to-end IT solutions tailored to your business needs, designed to drive efficiency, security, and growth.' }}</p>
                     </div>
                 </div>
             </div>
@@ -242,13 +230,13 @@
                 <div class="industries-serve-pretitle">
                     <span class="industries-serve-pretitle__line"></span>
                     <span class="industries-serve-pretitle__dot"></span>
-                    <span>INDUSTRIES WE SERVE</span>
+                    <span>{{ $settings['ind_pretitle'] ?? 'INDUSTRIES WE SERVE' }}</span>
                     <span class="industries-serve-pretitle__dot"></span>
                     <span class="industries-serve-pretitle__line"></span>
                 </div>
-                <h2 class="industries-serve-heading">Empowering Every Industry</h2>
-                <h2 class="industries-serve-heading industries-serve-heading--gradient">with Intelligent Solutions</h2>
-                <p class="industries-serve-subtitle">We deliver tailored IT solutions to help businesses across industries innovate, optimize operations, and achieve sustainable growth.</p>
+                <h2 class="industries-serve-heading">{{ $settings['ind_heading_line1'] ?? 'Empowering Every Industry' }}</h2>
+                <h2 class="industries-serve-heading industries-serve-heading--gradient">{{ $settings['ind_heading_line2'] ?? 'with Intelligent Solutions' }}</h2>
+                <p class="industries-serve-subtitle">{{ $settings['ind_subtitle'] ?? 'We deliver tailored IT solutions to help businesses across industries innovate, optimize operations, and achieve sustainable growth.' }}</p>
             </div>
 
             {{-- Industry card grid --}}
@@ -355,11 +343,11 @@
             <div class="fs-header">
                 <p class="fs-pretitle">
                     <span aria-hidden="true">←</span>
-                    FEATURED SERVICES
+                    {{ $settings['fs_pretitle'] ?? 'FEATURED SERVICES' }}
                     <span aria-hidden="true">→</span>
                 </p>
-                <h2 class="fs-title">Our Most In-Demand Services</h2>
-                <p class="fs-subtitle">Powering businesses with innovative, secure, and scalable solutions tailored to meet today's digital challenges.</p>
+                <h2 class="fs-title">{{ $settings['fs_heading'] ?? 'Our Most In-Demand Services' }}</h2>
+                <p class="fs-subtitle">{{ $settings['fs_subtitle'] ?? "Powering businesses with innovative, secure, and scalable solutions tailored to meet today's digital challenges." }}</p>
             </div>
 
             @php
@@ -408,8 +396,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">Tools &amp; Platforms</h6>
-                        <h3 class="heading">Technology <span class="text-color-primary">Stack</span></h3>
+                        <h6 class="section-sub-title mb-20">{{ $settings['tech_sub_heading'] ?? 'Tools & Platforms' }}</h6>
+                        <h3 class="heading">{{ $settings['tech_heading'] ?? 'Technology' }} <span class="text-color-primary">{{ $settings['tech_heading_highlight'] ?? 'Stack' }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -435,74 +423,45 @@
     <section class="cs-section section-space--ptb_80">
         <div class="container">
             <div class="cs-header">
-                <span class="cs-header__badge">CASE STUDIES</span>
-                <h2 class="cs-header__title">Real Stories. Real Impact.</h2>
-                <p class="cs-header__subtitle">Explore how our solutions have helped businesses overcome challenges, improve operations, and achieve measurable results.</p>
+                <span class="cs-header__badge">{{ $settings['cs_badge'] ?? 'CASE STUDIES' }}</span>
+                <h2 class="cs-header__title">{{ $settings['cs_heading'] ?? 'Real Stories. Real Impact.' }}</h2>
+                <p class="cs-header__subtitle">{{ $settings['cs_subtitle'] ?? 'Explore how our solutions have helped businesses overcome challenges, improve operations, and achieve measurable results.' }}</p>
             </div>
 
             @php
-                $caseStudyCards = [
-                    [
-                        'theme'    => 'blue',
-                        'badge'    => 'ERP SOLUTION',
-                        'title'    => 'ERP for Manufacturing',
-                        'desc'     => 'Streamlined operations and improved productivity for a leading manufacturing company.',
-                        'features' => [
-                            '40% increase in operational efficiency',
-                            'Real-time data visibility across departments',
-                            'Reduced manual processes by 60%',
-                        ],
-                        'icon'     => 'M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3',
-                    ],
-                    [
-                        'theme'    => 'red',
-                        'badge'    => 'MOBILE SOLUTION',
-                        'title'    => 'Mobile Application',
-                        'desc'     => 'Delivered a scalable and user-friendly app that enhanced customer engagement.',
-                        'features' => [
-                            '3x increase in user engagement',
-                            'Seamless experience across platforms',
-                            'Improved customer satisfaction by 45%',
-                        ],
-                        'icon'     => 'M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 8.25h3',
-                    ],
-                    [
-                        'theme'    => 'purple',
-                        'badge'    => 'CLOUD SOLUTION',
-                        'title'    => 'Cloud Migration',
-                        'desc'     => 'Migrated infrastructure to the cloud for better performance, security, and scalability.',
-                        'features' => [
-                            '99.9% system uptime achieved',
-                            'Enhanced security and data protection',
-                            '30% reduction in IT infrastructure cost',
-                        ],
-                        'icon'     => 'M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z',
-                    ],
-                ];
+                $csThemes = ['blue', 'red', 'purple'];
+                $csDefaultIcon = 'M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3';
             @endphp
 
             <div class="cs-grid">
-                @foreach ($caseStudyCards as $card)
-                <div class="cs-card cs-card--{{ $card['theme'] }}">
+                @foreach ($caseStudies->take(3) as $caseStudy)
+                @php
+                    $csTheme = $caseStudy->theme ?: $csThemes[$loop->index % count($csThemes)];
+                    $csIcon = $caseStudy->icon ?: $csDefaultIcon;
+                @endphp
+                <div class="cs-card cs-card--{{ $csTheme }}">
                     <div class="cs-card__illus">
                         <div class="cs-card__illus-badge">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="{{ $card['icon'] }}"/>
+                                <path d="{{ $csIcon }}"/>
                             </svg>
                         </div>
                         <div class="cs-card__illus-main">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="{{ $card['icon'] }}"/>
+                                <path d="{{ $csIcon }}"/>
                             </svg>
                         </div>
                     </div>
                     <div class="cs-card__body">
-                        <span class="cs-card__badge">{{ $card['badge'] }}</span>
-                        <h3 class="cs-card__title">{{ $card['title'] }}</h3>
-                        <p class="cs-card__desc">{{ $card['desc'] }}</p>
+                        @if ($caseStudy->category)
+                        <span class="cs-card__badge">{{ $caseStudy->category }}</span>
+                        @endif
+                        <h3 class="cs-card__title">{{ $caseStudy->title }}</h3>
+                        <p class="cs-card__desc">{{ $caseStudy->short_description }}</p>
+                        @if (! empty($caseStudy->features))
                         <hr class="cs-card__divider">
                         <ul class="cs-card__features">
-                            @foreach ($card['features'] as $feature)
+                            @foreach ($caseStudy->features as $feature)
                             <li class="cs-card__feature">
                                 <span class="cs-card__check" aria-hidden="true">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -514,6 +473,7 @@
                             </li>
                             @endforeach
                         </ul>
+                        @endif
                         <a href="{{ route('case-studies.index') }}" class="cs-card__link">Read Case Study <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
@@ -532,51 +492,6 @@
     <!--====================  End of Testimonials ====================-->
 
     <!--=========== Global Presence Start ===========-->
-    @php
-        $gpIndiaLocations = [
-            ['city' => 'Navi Mumbai', 'type' => 'Head Office'],
-            ['city' => 'Mumbai', 'type' => 'Corporate Office'],
-            ['city' => 'Thane', 'type' => 'Regional Office'],
-            ['city' => 'Pune', 'type' => 'Development Center'],
-            ['city' => 'Panvel', 'type' => 'Operations Center'],
-            ['city' => 'Maharashtra', 'type' => 'Wide Service Network'],
-            ['city' => 'India', 'type' => 'Nationwide Delivery'],
-        ];
-        $gpGlobalLocations = [
-            ['city' => 'UAE', 'type' => 'Middle East Operations'],
-            ['city' => 'Saudi Arabia', 'type' => 'Regional Delivery Partner'],
-            ['city' => 'UK', 'type' => 'European Operations'],
-            ['city' => 'USA', 'type' => 'North America Operations'],
-            ['city' => 'Canada', 'type' => 'North America Partner'],
-            ['city' => 'Australia', 'type' => 'Asia Pacific Operations'],
-            ['city' => 'Singapore', 'type' => 'Southeast Asia Partner'],
-        ];
-        $gpAdvantages = [
-            ['title' => 'Global Reach', 'desc' => 'Presence in 25+ countries', 'tone' => 'rose',
-             'icon' => '<path d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/>'],
-            ['title' => 'Round the Clock Support', 'desc' => '24/7 assistance across time zones', 'tone' => 'indigo',
-             'icon' => '<path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>'],
-            ['title' => 'Local Expertise, Global Standards', 'desc' => 'Delivering excellence worldwide', 'tone' => 'rose',
-             'icon' => '<path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>'],
-            ['title' => 'Secure &amp; Compliant', 'desc' => 'Following global security standards', 'tone' => 'indigo',
-             'icon' => '<path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>'],
-            ['title' => 'Agile Delivery', 'desc' => 'Faster solutions, better results', 'tone' => 'rose',
-             'icon' => '<path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>'],
-        ];
-        $gpSteps = [
-            ['title' => 'Understand', 'desc' => 'We understand your business challenges',
-             'icon' => '<path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>'],
-            ['title' => 'Strategize', 'desc' => 'We design the right solution roadmap',
-             'icon' => '<path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>'],
-            ['title' => 'Develop', 'desc' => 'We build with agility and innovation',
-             'icon' => '<path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/>'],
-            ['title' => 'Deliver', 'desc' => 'We deliver quality, always on-time',
-             'icon' => '<path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>'],
-            ['title' => 'Grow Together', 'desc' => 'We help you scale and achieve more',
-             'icon' => '<path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>'],
-        ];
-    @endphp
-
     <section class="gp-section section-space--ptb_80">
         <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0">
             <defs>
@@ -589,9 +504,9 @@
         <div class="container">
             {{-- Header --}}
             <div class="gp-header">
-                <span class="gp-pretitle">Global Presence</span>
-                <h2 class="gp-title">Serving Clients Worldwide, Delivering Excellence <span class="gp-title__accent">Everywhere.</span></h2>
-                <p class="gp-subtitle">We combine local expertise with a global mindset to deliver innovative IT solutions that help your business grow, scale and succeed.</p>
+                <span class="gp-pretitle">{{ $settings['gp_pretitle'] ?? 'Global Presence' }}</span>
+                <h2 class="gp-title">{{ $settings['gp_heading'] ?? 'Serving Clients Worldwide, Delivering Excellence' }} <span class="gp-title__accent">{{ $settings['gp_heading_highlight'] ?? 'Everywhere.' }}</span></h2>
+                <p class="gp-subtitle">{{ $settings['gp_subtitle'] ?? 'We combine local expertise with a global mindset to deliver innovative IT solutions that help your business grow, scale and succeed.' }}</p>
             </div>
 
             {{-- Map + locations --}}
@@ -605,7 +520,7 @@
                         India Presence
                     </span>
                     <ul class="gp-list gp-list--india">
-                        @foreach ($gpIndiaLocations as $loc)
+                        @foreach ($indiaLocations as $loc)
                         <li class="gp-list__item">
                             <span class="gp-list__pin" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -613,8 +528,8 @@
                                 </svg>
                             </span>
                             <span class="gp-list__body">
-                                <span class="gp-list__city">{{ $loc['city'] }}</span>
-                                <span class="gp-list__type">{{ $loc['type'] }}</span>
+                                <span class="gp-list__city">{{ $loc->city }}</span>
+                                <span class="gp-list__type">{{ $loc->type }}</span>
                             </span>
                         </li>
                         @endforeach
@@ -626,7 +541,7 @@
                             </svg>
                         </span>
                         <span class="gp-stat__body">
-                            <span class="gp-stat__num">100+</span>
+                            <span class="gp-stat__num">{{ $settings['gp_india_projects'] ?? '100+' }}</span>
                             <span class="gp-stat__label">Projects Across India</span>
                         </span>
                     </div>
@@ -687,7 +602,7 @@
                         Global Delivery
                     </span>
                     <ul class="gp-list gp-list--global">
-                        @foreach ($gpGlobalLocations as $loc)
+                        @foreach ($globalLocations as $loc)
                         <li class="gp-list__item">
                             <span class="gp-list__pin" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -696,8 +611,8 @@
                                 </svg>
                             </span>
                             <span class="gp-list__body">
-                                <span class="gp-list__city">{{ $loc['city'] }}</span>
-                                <span class="gp-list__type">{{ $loc['type'] }}</span>
+                                <span class="gp-list__city">{{ $loc->city }}</span>
+                                <span class="gp-list__type">{{ $loc->type }}</span>
                             </span>
                         </li>
                         @endforeach
@@ -709,7 +624,7 @@
                             </svg>
                         </span>
                         <span class="gp-stat__body">
-                            <span class="gp-stat__num">25+</span>
+                            <span class="gp-stat__num">{{ $settings['gp_countries_served'] ?? '25+' }}</span>
                             <span class="gp-stat__label">Countries Served</span>
                         </span>
                     </div>
@@ -720,16 +635,16 @@
             <div class="gp-advantages">
                 <h3 class="gp-block-title">Our Global Advantage</h3>
                 <div class="gp-advantages__grid">
-                    @foreach ($gpAdvantages as $adv)
+                    @foreach ($globalAdvantages as $adv)
                     <div class="gp-advantage">
-                        <span class="gp-advantage__icon gp-advantage__icon--{{ $adv['tone'] }}" aria-hidden="true">
+                        <span class="gp-advantage__icon gp-advantage__icon--{{ $adv->tone }}" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                                {!! $adv['icon'] !!}
+                                {!! $adv->icon !!}
                             </svg>
                         </span>
                         <div class="gp-advantage__body">
-                            <h4 class="gp-advantage__title">{!! $adv['title'] !!}</h4>
-                            <p class="gp-advantage__desc">{{ $adv['desc'] }}</p>
+                            <h4 class="gp-advantage__title">{{ $adv->title }}</h4>
+                            <p class="gp-advantage__desc">{{ $adv->description }}</p>
                         </div>
                     </div>
                     @endforeach
@@ -741,15 +656,15 @@
                 <h3 class="gp-block-title">Connecting Opportunities. Delivering Impact.</h3>
                 <div class="gp-process__track">
                     <span class="gp-process__line" aria-hidden="true"></span>
-                    @foreach ($gpSteps as $step)
+                    @foreach ($processSteps as $step)
                     <div class="gp-step">
                         <span class="gp-step__icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                {!! $step['icon'] !!}
+                                {!! $step->icon !!}
                             </svg>
                         </span>
-                        <h4 class="gp-step__title">{{ $step['title'] }}</h4>
-                        <p class="gp-step__desc">{{ $step['desc'] }}</p>
+                        <h4 class="gp-step__title">{{ $step->title }}</h4>
+                        <p class="gp-step__desc">{{ $step->description }}</p>
                     </div>
                     @endforeach
                 </div>
@@ -765,8 +680,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">Stay Informed</h6>
-                        <h3 class="heading">Resources &amp; <span class="text-color-primary">Insights</span></h3>
+                        <h6 class="section-sub-title mb-20">{{ $settings['res_sub_heading'] ?? 'Stay Informed' }}</h6>
+                        <h3 class="heading">{{ $settings['res_heading'] ?? 'Resources &' }} <span class="text-color-primary">{{ $settings['res_heading_highlight'] ?? 'Insights' }}</span></h3>
                     </div>
                 </div>
             </div>
@@ -806,18 +721,18 @@
             <div class="row align-items-center">
                 <div class="col-lg-7 col-md-6">
                     <div class="conact-us-wrap-one">
-                        <h3 class="heading">Ready to <span class="text-color-primary">Transform</span> Your Business?</h3>
-                        <div class="sub-heading mt-20">Let's discuss your software, AI, cloud, cybersecurity, or infrastructure requirements.</div>
+                        <h3 class="heading">{{ $settings['cta_heading'] ?? 'Ready to' }} <span class="text-color-primary">{{ $settings['cta_heading_highlight'] ?? 'Transform' }}</span> {{ $settings['cta_heading_suffix'] ?? 'Your Business?' }}</h3>
+                        <div class="sub-heading mt-20">{{ $settings['cta_subheading'] ?? "Let's discuss your software, AI, cloud, cybersecurity, or infrastructure requirements." }}</div>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-6 mt-30 mt-md-0">
                     <div class="contact-info-one text-center">
                         <div class="contact-us-button d-flex flex-wrap justify-content-center gap-3">
-                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">Request Consultation</a>
-                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline">Get a Quote</a>
+                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">{{ $settings['cta_btn_primary'] ?? 'Request Consultation' }}</a>
+                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline">{{ $settings['cta_btn_secondary'] ?? 'Get a Quote' }}</a>
                         </div>
                         <div class="mt-20">
-                            <h2 class="call-us"><a href="tel:+919987705688">+91 9987705688</a></h2>
+                            <h2 class="call-us"><a href="tel:{{ str_replace(' ', '', $settings['site_phone'] ?? '+919987705688') }}">{{ $settings['site_phone'] ?? '+91 9987705688' }}</a></h2>
                         </div>
                     </div>
                 </div>
@@ -836,9 +751,9 @@
                         <h3 class="heading">Tectignis IT Solutions <span class="text-color-primary">Pvt. Ltd.</span></h3>
                     </div>
                     <ul class="list-unstyled">
-                        <li class="mb-15"><i class="fas fa-map-marker-alt text-color-primary me-3"></i>Navi Mumbai, Maharashtra, India</li>
-                        <li class="mb-15"><i class="fas fa-phone text-color-primary me-3"></i><a href="tel:+919987705688">+91 9987705688</a></li>
-                        <li class="mb-15"><i class="fas fa-envelope text-color-primary me-3"></i><a href="mailto:info@tectignis.in">info@tectignis.in</a></li>
+                        <li class="mb-15"><i class="fas fa-map-marker-alt text-color-primary me-3"></i>{{ $settings['site_address'] ?? 'Navi Mumbai, Maharashtra, India' }}</li>
+                        <li class="mb-15"><i class="fas fa-phone text-color-primary me-3"></i><a href="tel:{{ str_replace(' ', '', $settings['site_phone'] ?? '+919987705688') }}">{{ $settings['site_phone'] ?? '+91 9987705688' }}</a></li>
+                        <li class="mb-15"><i class="fas fa-envelope text-color-primary me-3"></i><a href="mailto:{{ $settings['site_email'] ?? 'info@tectignis.in' }}">{{ $settings['site_email'] ?? 'info@tectignis.in' }}</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-6 wow move-up">

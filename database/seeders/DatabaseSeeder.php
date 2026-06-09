@@ -33,6 +33,10 @@ class DatabaseSeeder extends Seeder
             CaseStudySeeder::class,
             TestimonialSeeder::class,
             BrandSeeder::class,
+            WhyChooseFeatureSeeder::class,
+            OfficeLocationSeeder::class,
+            GlobalAdvantageSeeder::class,
+            ProcessStepSeeder::class,
         ]);
     }
 }

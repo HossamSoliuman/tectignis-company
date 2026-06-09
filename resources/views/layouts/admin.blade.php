@@ -43,6 +43,12 @@
                             ['admin.industries.index', 'Industries', 'office'],
                             ['admin.tech-stacks.index', 'Tech Stacks', 'chip'],
                         ],
+                        'Home Sections' => [
+                            ['admin.why-choose-features.index', 'Why Choose Us', 'check-circle'],
+                            ['admin.office-locations.index', 'Office Locations', 'office'],
+                            ['admin.global-advantages.index', 'Global Advantages', 'globe'],
+                            ['admin.process-steps.index', 'Process Steps', 'trending-up'],
+                        ],
                         'Sales & Marketing' => [
                             ['admin.leads.index', 'Leads (Inbox)', 'inbox'],
                             ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
