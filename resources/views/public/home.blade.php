@@ -715,31 +715,90 @@
     @endif
     <!--=========== Resources & Insights End ===========-->
 
-    <!--====================  Final CTA Start ====================-->
-    <div class="contact-us-section-wrappaer infotechno-contact-us-bg section-space--ptb_80">
+    <!--====================  Ready to Transform CTA Start ====================-->
+    <section class="cta-transform section-space--ptb_80">
+        <span class="cta-transform__bg" aria-hidden="true"></span>
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7 col-md-6">
-                    <div class="conact-us-wrap-one">
-                        <h3 class="heading">{{ $settings['cta_heading'] ?? 'Ready to' }} <span class="text-color-primary">{{ $settings['cta_heading_highlight'] ?? 'Transform' }}</span> {{ $settings['cta_heading_suffix'] ?? 'Your Business?' }}</h3>
-                        <div class="sub-heading mt-20">{{ $settings['cta_subheading'] ?? "Let's discuss your software, AI, cloud, cybersecurity, or infrastructure requirements." }}</div>
+            <div class="cta-transform__inner">
+                {{-- Left column --}}
+                <div class="cta-transform__content">
+                    <span class="cta-transform__overline">
+                        <span class="cta-transform__overline-line" aria-hidden="true"></span>
+                        {{ $settings['cta_overline'] ?? "Let's Build the Future Together" }}
+                    </span>
+                    <h2 class="cta-transform__title">
+                        {{ $settings['cta_heading'] ?? 'Ready to Transform' }}
+                        <span class="cta-transform__title-grad">{{ $settings['cta_heading_highlight'] ?? 'Your Business?' }}</span>
+                    </h2>
+                    <p class="cta-transform__desc">{{ $settings['cta_subheading'] ?? "Let's discuss how our software, AI, cloud, cybersecurity, and infrastructure solutions can accelerate your growth and drive real business impact." }}</p>
+
+                    <div class="cta-transform__features">
+                        <div class="cta-feature">
+                            <span class="cta-feature__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>
+                            </span>
+                            <span class="cta-feature__text">
+                                <span class="cta-feature__title">Innovative Solutions</span>
+                                <span class="cta-feature__sub">that drive growth</span>
+                            </span>
+                        </div>
+                        <div class="cta-feature">
+                            <span class="cta-feature__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+                            </span>
+                            <span class="cta-feature__text">
+                                <span class="cta-feature__title">Secure &amp; Scalable</span>
+                                <span class="cta-feature__sub">by design</span>
+                            </span>
+                        </div>
+                        <div class="cta-feature">
+                            <span class="cta-feature__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 12a9.75 9.75 0 0 1 19.5 0M3.75 12v3.75A2.25 2.25 0 0 0 6 18h.75v-6.75H6a2.25 2.25 0 0 0-2.25 1.5Zm16.5 0A2.25 2.25 0 0 0 18 11.25h-.75V18H18a2.25 2.25 0 0 0 2.25-2.25V12Zm-1.5 6v.75A2.25 2.25 0 0 1 15 21h-1.5"/></svg>
+                            </span>
+                            <span class="cta-feature__text">
+                                <span class="cta-feature__title">24/7 Expert Support</span>
+                                <span class="cta-feature__sub">you can rely on</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="cta-transform__actions">
+                        <a href="{{ route('contact') }}" class="cta-btn cta-btn--primary">{{ $settings['cta_btn_primary'] ?? 'Request Consultation' }} <span aria-hidden="true">→</span></a>
+                        <a href="{{ route('contact') }}" class="cta-btn cta-btn--ghost">{{ $settings['cta_btn_secondary'] ?? 'Get a Quote' }} <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-6 mt-30 mt-md-0">
-                    <div class="contact-info-one text-center">
-                        <div class="contact-us-button d-flex flex-wrap justify-content-center gap-3">
-                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">{{ $settings['cta_btn_primary'] ?? 'Request Consultation' }}</a>
-                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline">{{ $settings['cta_btn_secondary'] ?? 'Get a Quote' }}</a>
-                        </div>
-                        <div class="mt-20">
-                            <h2 class="call-us"><a href="tel:{{ str_replace(' ', '', $settings['site_phone'] ?? '+919987705688') }}">{{ $settings['site_phone'] ?? '+91 9987705688' }}</a></h2>
-                        </div>
+
+                {{-- Right column: rocket + orbiting badges --}}
+                <div class="cta-transform__visual" aria-hidden="true">
+                    <span class="cta-orbit cta-orbit--outer"></span>
+                    <span class="cta-orbit cta-orbit--inner"></span>
+
+                    <div class="cta-rocket">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>
                     </div>
+
+                    @php
+                        $ctaBadges = [
+                            ['pos' => 'dev',   'label' => 'Software Development', 'tone' => 'purple', 'icon' => '<path d="m6.75 7.5-4.5 4.5 4.5 4.5m10.5-9 4.5 4.5-4.5 4.5M14.25 4.5l-4.5 15"/>'],
+                            ['pos' => 'ai',    'label' => 'AI &amp; Automation',  'tone' => 'purple', 'icon' => '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 9.75h6v4.5H9zM9 3v3m3-3v3m3-3v3M9 18v3m3-3v3m3-3v3M3 9h3m-3 3h3m-3 3h3m12-6h3m-3 3h3m-3 3h3"/>'],
+                            ['pos' => 'cloud', 'label' => 'Cloud',              'tone' => 'purple', 'icon' => '<path d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z"/>'],
+                            ['pos' => 'cyber', 'label' => 'Cybersecurity',      'tone' => 'red',    'icon' => '<path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 0h10.5a2.25 2.25 0 0 1 2.25 2.25v6A2.25 2.25 0 0 1 17.25 21H6.75a2.25 2.25 0 0 1-2.25-2.25v-6a2.25 2.25 0 0 1 2.25-2.25Z"/>'],
+                            ['pos' => 'infra', 'label' => 'Infrastructure',     'tone' => 'purple', 'icon' => '<path d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3v3.75a3 3 0 0 1-3 3m-16.5 0v2.25a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-2.25M6.75 8.25h.008v.008H6.75V8.25Zm0 6h.008v.008H6.75v-.008Z"/>'],
+                        ];
+                    @endphp
+                    @foreach ($ctaBadges as $badge)
+                    <div class="cta-badge cta-badge--{{ $badge['pos'] }}">
+                        <span class="cta-badge__circle cta-badge__circle--{{ $badge['tone'] }}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{!! $badge['icon'] !!}</svg>
+                        </span>
+                        <span class="cta-badge__label">{{ $badge['label'] }}</span>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
-    <!--====================  Final CTA End ====================-->
+    </section>
+    <!--====================  Ready to Transform CTA End ====================-->
 
     <!--====================  Contact Section Start ====================-->
     <div class="contact-form-section section-space--ptb_60">
