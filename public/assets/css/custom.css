@@ -3055,3 +3055,492 @@ body {
     .testi-card     { width: 100%; }
     .testi-card     { padding: 24px; }
 }
+
+/* =========================================================
+   Home – Global Presence (map infographic + advantages + process)
+   ========================================================= */
+.gp-section {
+    position: relative;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 42%, rgba(79, 70, 229, 0.05), transparent 70%),
+        #ffffff;
+    overflow: hidden;
+}
+
+/* --- Header --- */
+.gp-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 64px;
+}
+
+.gp-pretitle {
+    display: inline-block;
+    color: #E5185D;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.gp-title {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #0F172A;
+    margin: 0 0 18px;
+}
+
+.gp-title__accent {
+    color: #E5185D;
+}
+
+.gp-subtitle {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #64748B;
+    margin: 0;
+}
+
+/* --- Map section: 3-column layout --- */
+.gp-map-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 72px;
+}
+
+/* --- Sidebars --- */
+.gp-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+.gp-badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+.gp-badge svg {
+    width: 18px;
+    height: 18px;
+}
+
+.gp-badge--india { color: #E5185D; }
+.gp-badge--global { color: #4F46E5; }
+
+/* List with dashed timeline */
+.gp-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 24px;
+    position: relative;
+}
+
+.gp-list::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 5px;
+    width: 0;
+    border-left: 2px dashed;
+}
+
+.gp-list--india::before { border-color: #F9C0D3; }
+.gp-list--global::before { border-color: #C7C9F5; }
+
+.gp-list__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    position: relative;
+}
+
+.gp-list__pin {
+    position: absolute;
+    left: -24px;
+    top: 9px;
+    width: 22px;
+    display: flex;
+    justify-content: center;
+}
+
+.gp-list__pin svg {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+}
+
+.gp-list--india .gp-list__pin { color: #E5185D; }
+.gp-list--global .gp-list__pin { color: #4F46E5; }
+
+.gp-list__body {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.gp-list__city {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.gp-list--india .gp-list__city { color: #E5185D; }
+.gp-list--global .gp-list__city { color: #4F46E5; }
+
+.gp-list__type {
+    font-size: 12.5px;
+    color: #64748B;
+    margin-top: 2px;
+}
+
+/* Stat card */
+.gp-stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid #EEF1F6;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.07);
+}
+
+.gp-stat__icon {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gp-stat__icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.gp-stat--india .gp-stat__icon { background: #FFF0F5; color: #E5185D; }
+.gp-stat--global .gp-stat__icon { background: #EEF0FF; color: #4F46E5; }
+
+.gp-stat__body {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.gp-stat__num {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0F172A;
+}
+
+.gp-stat--india .gp-stat__num { color: #E5185D; }
+.gp-stat--global .gp-stat__num { color: #4F46E5; }
+
+.gp-stat__label {
+    font-size: 12.5px;
+    color: #64748B;
+    margin-top: 2px;
+}
+
+/* --- Center map --- */
+.gp-map {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.gp-map__svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+}
+
+.gp-map__india {
+    fill: #E5185D;
+    opacity: 0.92;
+}
+
+/* Connection arcs */
+.gp-arc {
+    stroke: #E5185D;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 6 7;
+    opacity: 0.55;
+    stroke-dashoffset: 0;
+    animation: gpDash 1.6s linear infinite;
+}
+
+.gp-arc:nth-of-type(even) {
+    stroke: #4F46E5;
+}
+
+@keyframes gpDash {
+    to { stroke-dashoffset: -26; }
+}
+
+/* Pulsing nodes */
+.gp-node__dot { fill: #4F46E5; }
+.gp-node__ring {
+    fill: #4F46E5;
+    opacity: 0.35;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: gpPulse 2.4s ease-out infinite;
+}
+
+.gp-node--hub .gp-node__dot { fill: #E5185D; }
+.gp-node--hub .gp-node__ring {
+    fill: #E5185D;
+    animation-duration: 2s;
+}
+
+.gp-node--global:nth-of-type(odd) .gp-node__dot { fill: #E5185D; }
+.gp-node--global:nth-of-type(odd) .gp-node__ring { fill: #E5185D; }
+
+@keyframes gpPulse {
+    0%   { transform: scale(0.6); opacity: 0.5; }
+    70%  { transform: scale(2.1); opacity: 0; }
+    100% { transform: scale(2.1); opacity: 0; }
+}
+
+/* --- Shared block titles (advantages + process) --- */
+.gp-block-title {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #0F172A;
+    margin: 0 0 36px;
+}
+
+/* --- Advantages banner --- */
+.gp-advantages {
+    background: #FCFCFD;
+    border: 1px solid #EEF1F6;
+    border-radius: 20px;
+    box-shadow: 0 12px 34px rgba(15, 23, 42, 0.05);
+    padding: 36px 40px;
+    margin-bottom: 72px;
+}
+
+.gp-advantages__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+}
+
+.gp-advantage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+}
+
+.gp-advantage__icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.gp-advantage__icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.gp-advantage__icon--rose { background: #FFF0F5; color: #E5185D; }
+.gp-advantage__icon--indigo { background: #EEF0FF; color: #4F46E5; }
+
+.gp-advantage__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1.35;
+    margin: 0 0 4px;
+}
+
+.gp-advantage__desc {
+    font-size: 13px;
+    color: #64748B;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- Process stepper --- */
+.gp-process__track {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+}
+
+.gp-process__line {
+    position: absolute;
+    top: 48px;
+    left: 9%;
+    right: 9%;
+    height: 0;
+    border-top: 2px dashed #C7C9F5;
+    z-index: 0;
+}
+
+.gp-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.gp-step__icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #EEF1F6;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gp-step__icon svg {
+    width: 38px;
+    height: 38px;
+    color: #4F46E5;
+}
+
+.gp-step:nth-child(even) .gp-step__icon svg { color: #E5185D; }
+
+.gp-step:hover .gp-step__icon {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 38px rgba(79, 70, 229, 0.16);
+}
+
+.gp-step__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0 0 6px;
+}
+
+.gp-step__desc {
+    font-size: 13px;
+    color: #64748B;
+    line-height: 1.5;
+    max-width: 160px;
+    margin: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1199px) {
+    .gp-title { font-size: 38px; }
+    .gp-sidebar { width: 240px; }
+    .gp-advantages { padding: 32px 28px; }
+}
+
+@media (max-width: 991px) {
+    .gp-title { font-size: 32px; }
+    .gp-header { margin-bottom: 48px; }
+
+    /* Stack: India sidebar, map, global sidebar */
+    .gp-map-section {
+        flex-direction: column;
+        gap: 40px;
+        margin-bottom: 56px;
+    }
+
+    .gp-sidebar {
+        width: 100%;
+        max-width: 460px;
+    }
+
+    .gp-map {
+        order: -1;
+        width: 100%;
+        max-width: 620px;
+    }
+
+    .gp-advantages__grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px 20px;
+    }
+
+    .gp-advantages { margin-bottom: 56px; }
+
+    /* Process wraps to a 2-column grid; drop the connecting line */
+    .gp-process__track {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 36px 16px;
+    }
+
+    .gp-process__line { display: none; }
+
+    .gp-step {
+        flex: 0 0 calc(33.333% - 16px);
+    }
+}
+
+@media (max-width: 767px) {
+    .gp-title { font-size: 27px; }
+    .gp-advantages__grid { grid-template-columns: repeat(2, 1fr); }
+    .gp-step { flex: 0 0 calc(50% - 16px); }
+    .gp-step__icon { width: 84px; height: 84px; }
+    .gp-step__icon svg { width: 34px; height: 34px; }
+}
+
+@media (max-width: 479px) {
+    .gp-title { font-size: 23px; }
+    .gp-advantages__grid { grid-template-columns: 1fr; }
+    .gp-advantage {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 16px;
+    }
+    .gp-step { flex: 0 0 100%; }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .gp-arc, .gp-node__ring { animation: none; }
+    .gp-arc { opacity: 0.5; }
+    .gp-node__ring { opacity: 0; }
+}

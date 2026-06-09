@@ -531,48 +531,232 @@
     <x-public.testimonials :testimonials="$testimonials" />
     <!--====================  End of Testimonials ====================-->
 
-    <!--=========== Service Coverage Start ===========-->
-    <div class="technology-service-area technology-service-bg section-space--ptb_80">
+    <!--=========== Global Presence Start ===========-->
+    @php
+        $gpIndiaLocations = [
+            ['city' => 'Navi Mumbai', 'type' => 'Head Office'],
+            ['city' => 'Mumbai', 'type' => 'Corporate Office'],
+            ['city' => 'Thane', 'type' => 'Regional Office'],
+            ['city' => 'Pune', 'type' => 'Development Center'],
+            ['city' => 'Panvel', 'type' => 'Operations Center'],
+            ['city' => 'Maharashtra', 'type' => 'Wide Service Network'],
+            ['city' => 'India', 'type' => 'Nationwide Delivery'],
+        ];
+        $gpGlobalLocations = [
+            ['city' => 'UAE', 'type' => 'Middle East Operations'],
+            ['city' => 'Saudi Arabia', 'type' => 'Regional Delivery Partner'],
+            ['city' => 'UK', 'type' => 'European Operations'],
+            ['city' => 'USA', 'type' => 'North America Operations'],
+            ['city' => 'Canada', 'type' => 'North America Partner'],
+            ['city' => 'Australia', 'type' => 'Asia Pacific Operations'],
+            ['city' => 'Singapore', 'type' => 'Southeast Asia Partner'],
+        ];
+        $gpAdvantages = [
+            ['title' => 'Global Reach', 'desc' => 'Presence in 25+ countries', 'tone' => 'rose',
+             'icon' => '<path d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/>'],
+            ['title' => 'Round the Clock Support', 'desc' => '24/7 assistance across time zones', 'tone' => 'indigo',
+             'icon' => '<path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>'],
+            ['title' => 'Local Expertise, Global Standards', 'desc' => 'Delivering excellence worldwide', 'tone' => 'rose',
+             'icon' => '<path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>'],
+            ['title' => 'Secure &amp; Compliant', 'desc' => 'Following global security standards', 'tone' => 'indigo',
+             'icon' => '<path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>'],
+            ['title' => 'Agile Delivery', 'desc' => 'Faster solutions, better results', 'tone' => 'rose',
+             'icon' => '<path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>'],
+        ];
+        $gpSteps = [
+            ['title' => 'Understand', 'desc' => 'We understand your business challenges',
+             'icon' => '<path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>'],
+            ['title' => 'Strategize', 'desc' => 'We design the right solution roadmap',
+             'icon' => '<path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>'],
+            ['title' => 'Develop', 'desc' => 'We build with agility and innovation',
+             'icon' => '<path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/>'],
+            ['title' => 'Deliver', 'desc' => 'We deliver quality, always on-time',
+             'icon' => '<path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>'],
+            ['title' => 'Grow Together', 'desc' => 'We help you scale and achieve more',
+             'icon' => '<path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/>'],
+        ];
+    @endphp
+
+    <section class="gp-section section-space--ptb_80">
+        <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0">
+            <defs>
+                <pattern id="gpDots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1.6" fill="#D8DEE9"/>
+                </pattern>
+            </defs>
+        </svg>
+
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="section-title section-space--pt_60">
-                        <h6 class="text-white section-sub-title mb-20">Local &amp; Global Reach</h6>
-                        <h3 class="text-white">Serving Businesses <span class="text-color-secondary">Across India &amp; Worldwide</span></h3>
-                        <div class="row mt-30">
-                            <div class="col-6">
-                                <h6 class="text-white font-weight--bold mb-15">India</h6>
-                                <ul class="list-unstyled text-white">
-                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Navi Mumbai</li>
-                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Mumbai</li>
-                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Thane</li>
-                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Pune</li>
-                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Panvel</li>
-                                    <li class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Maharashtra &amp; PAN India</li>
-                                </ul>
-                            </div>
-                            <div class="col-6">
-                                <h6 class="text-white font-weight--bold mb-15">Global Delivery</h6>
-                                <ul class="list-unstyled text-white">
-                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>UAE &amp; Saudi Arabia</li>
-                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>UK &amp; USA</li>
-                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>Canada</li>
-                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>Australia</li>
-                                    <li class="mb-1"><i class="fas fa-globe me-2"></i>Singapore</li>
-                                </ul>
-                            </div>
+            {{-- Header --}}
+            <div class="gp-header">
+                <span class="gp-pretitle">Global Presence</span>
+                <h2 class="gp-title">Serving Clients Worldwide, Delivering Excellence <span class="gp-title__accent">Everywhere.</span></h2>
+                <p class="gp-subtitle">We combine local expertise with a global mindset to deliver innovative IT solutions that help your business grow, scale and succeed.</p>
+            </div>
+
+            {{-- Map + locations --}}
+            <div class="gp-map-section">
+                {{-- Left sidebar: India --}}
+                <aside class="gp-sidebar gp-sidebar--india">
+                    <span class="gp-badge gp-badge--india">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"/>
+                        </svg>
+                        India Presence
+                    </span>
+                    <ul class="gp-list gp-list--india">
+                        @foreach ($gpIndiaLocations as $loc)
+                        <li class="gp-list__item">
+                            <span class="gp-list__pin" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/>
+                                </svg>
+                            </span>
+                            <span class="gp-list__body">
+                                <span class="gp-list__city">{{ $loc['city'] }}</span>
+                                <span class="gp-list__type">{{ $loc['type'] }}</span>
+                            </span>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <div class="gp-stat gp-stat--india">
+                        <span class="gp-stat__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/>
+                            </svg>
+                        </span>
+                        <span class="gp-stat__body">
+                            <span class="gp-stat__num">100+</span>
+                            <span class="gp-stat__label">Projects Across India</span>
+                        </span>
+                    </div>
+                </aside>
+
+                {{-- Center: dotted world map with India hub + arcs --}}
+                <div class="gp-map" role="img" aria-label="World map highlighting Tectignis delivery from India to clients across UAE, Saudi Arabia, UK, USA, Canada, Australia and Singapore.">
+                    <svg class="gp-map__svg" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet">
+                        {{-- Continents (dotted) --}}
+                        <g fill="url(#gpDots)">
+                            <path d="M120,90 C100,110 90,150 110,180 C130,210 180,232 212,212 C244,196 252,158 235,128 C218,98 160,75 120,90 Z"/>
+                            <path d="M250,255 C238,288 250,342 282,372 C302,392 322,382 322,350 C326,308 305,272 286,256 C271,246 258,246 250,255 Z"/>
+                            <path d="M428,118 C413,128 413,156 435,166 C462,177 492,166 497,144 C502,126 480,114 460,114 C448,113 436,114 428,118 Z"/>
+                            <path d="M452,198 C436,214 442,266 472,302 C492,322 512,316 517,286 C524,250 506,214 491,199 C476,187 462,188 452,198 Z"/>
+                            <path d="M520,108 C562,92 662,98 742,128 C802,150 822,182 792,202 C742,228 650,222 590,212 C540,202 508,170 508,144 C508,128 514,116 520,108 Z"/>
+                            <path d="M742,328 C726,344 732,376 766,386 C796,394 822,378 820,355 C817,334 792,321 766,321 C755,321 748,323 742,328 Z"/>
+                        </g>
+
+                        {{-- India highlight --}}
+                        <path class="gp-map__india" d="M548,212 C562,206 578,216 575,232 C572,250 560,266 552,252 C545,240 537,222 548,212 Z"/>
+
+                        {{-- Connection arcs from India hub --}}
+                        <g class="gp-arcs" fill="none">
+                            <path class="gp-arc" d="M560,236 Q495,150 430,158"/>
+                            <path class="gp-arc" d="M560,236 Q360,118 182,198"/>
+                            <path class="gp-arc" d="M560,236 Q360,78 182,150"/>
+                            <path class="gp-arc" d="M560,236 Q528,198 500,236"/>
+                            <path class="gp-arc" d="M560,236 Q512,206 470,248"/>
+                            <path class="gp-arc" d="M560,236 Q702,298 782,358"/>
+                            <path class="gp-arc" d="M560,236 Q622,250 662,300"/>
+                        </g>
+
+                        {{-- Global destination nodes --}}
+                        <g class="gp-nodes">
+                            <g class="gp-node gp-node--global" transform="translate(430,158)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(182,198)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(182,150)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(500,236)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(470,248)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(782,358)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(662,300)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                        </g>
+
+                        {{-- India hub --}}
+                        <g class="gp-node gp-node--hub" transform="translate(560,236)">
+                            <circle class="gp-node__ring" r="13"/>
+                            <circle class="gp-node__dot" r="5"/>
+                        </g>
+                    </svg>
+                </div>
+
+                {{-- Right sidebar: Global --}}
+                <aside class="gp-sidebar gp-sidebar--global">
+                    <span class="gp-badge gp-badge--global">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/>
+                        </svg>
+                        Global Delivery
+                    </span>
+                    <ul class="gp-list gp-list--global">
+                        @foreach ($gpGlobalLocations as $loc)
+                        <li class="gp-list__item">
+                            <span class="gp-list__pin" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                    <path d="M19.5 9.75c0 7.142-7.5 11.25-7.5 11.25S4.5 16.892 4.5 9.75a7.5 7.5 0 1 1 15 0Z"/>
+                                </svg>
+                            </span>
+                            <span class="gp-list__body">
+                                <span class="gp-list__city">{{ $loc['city'] }}</span>
+                                <span class="gp-list__type">{{ $loc['type'] }}</span>
+                            </span>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <div class="gp-stat gp-stat--global">
+                        <span class="gp-stat__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/>
+                            </svg>
+                        </span>
+                        <span class="gp-stat__body">
+                            <span class="gp-stat__num">25+</span>
+                            <span class="gp-stat__label">Countries Served</span>
+                        </span>
+                    </div>
+                </aside>
+            </div>
+
+            {{-- Our Global Advantage banner --}}
+            <div class="gp-advantages">
+                <h3 class="gp-block-title">Our Global Advantage</h3>
+                <div class="gp-advantages__grid">
+                    @foreach ($gpAdvantages as $adv)
+                    <div class="gp-advantage">
+                        <span class="gp-advantage__icon gp-advantage__icon--{{ $adv['tone'] }}" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                {!! $adv['icon'] !!}
+                            </svg>
+                        </span>
+                        <div class="gp-advantage__body">
+                            <h4 class="gp-advantage__title">{!! $adv['title'] !!}</h4>
+                            <p class="gp-advantage__desc">{{ $adv['desc'] }}</p>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                <div class="col-lg-6">
-                    <div class="banner-image section-space--pt_60">
-                        <img src="{{ \App\Models\Setting::imageUrl($settings['tech_service_image'] ?? 'Networking-Solutions-India.webp', 'tech_service_image') }}" class="img-fluid" alt="Global IT Solutions Delivery" loading="lazy">
+            </div>
+
+            {{-- Connecting Opportunities process stepper --}}
+            <div class="gp-process">
+                <h3 class="gp-block-title">Connecting Opportunities. Delivering Impact.</h3>
+                <div class="gp-process__track">
+                    <span class="gp-process__line" aria-hidden="true"></span>
+                    @foreach ($gpSteps as $step)
+                    <div class="gp-step">
+                        <span class="gp-step__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                {!! $step['icon'] !!}
+                            </svg>
+                        </span>
+                        <h4 class="gp-step__title">{{ $step['title'] }}</h4>
+                        <p class="gp-step__desc">{{ $step['desc'] }}</p>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-    </div>
-    <!--=========== Service Coverage End ===========-->
+    </section>
+    <!--=========== Global Presence End ===========-->
 
     <!--=========== Resources & Insights Start ===========-->
     @if ($recentPosts->isNotEmpty())
