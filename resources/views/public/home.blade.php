@@ -432,47 +432,99 @@
     <!--=========== Technology Stack End ===========-->
 
     <!--=========== Case Studies Start =============-->
-    <div class="service-projects-wrapper bg-gray section-space--pt_60 mb-20">
+    <section class="cs-section section-space--ptb_80">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title-wrap text-center section-space--mb_60">
-                        <h6 class="section-sub-title mb-20">Case Studies</h6>
-                        <h3 class="heading">Proud projects that <span class="text-color-primary">make us stand out</span></h3>
-                    </div>
-                </div>
+            <div class="cs-header">
+                <span class="cs-header__badge">CASE STUDIES</span>
+                <h2 class="cs-header__title">Real Stories. Real Impact.</h2>
+                <p class="cs-header__subtitle">Explore how our solutions have helped businesses overcome challenges, improve operations, and achieve measurable results.</p>
             </div>
-            <div class="swiper-container service-slider__project-active">
-                <div class="swiper-wrapper service-slider__project">
-                    @foreach ($caseStudies as $caseStudy)
-                    <div class="swiper-slide">
-                        <div class="row">
-                            <div class="slide-content col-lg-6 col-xl-5 order-2 order-lg-1">
-                                <div class="service-project-slide-info">
-                                    <h4 class="heading font-weight--reguler mb-10">{{ $caseStudy->title }}</h4>
-                                    <p class="sub-text text-color-primary">{{ $caseStudy->category }}</p>
-                                    <div class="text">{{ $caseStudy->short_description }}</div>
-                                    <div class="section-under-heading"><a href="{{ route('case-studies.index') }}">View All Case Studies</a></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-xl-7 order-1 order-lg-2">
-                                <div class="slide-image">
-                                    <div class="image-wrap">
-                                        <div class="image">
-                                            @if ($caseStudy->image)
-                                                <img class="img-fluid" src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->title }}" loading="lazy">
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+            @php
+                $caseStudyCards = [
+                    [
+                        'theme'    => 'blue',
+                        'badge'    => 'ERP SOLUTION',
+                        'title'    => 'ERP for Manufacturing',
+                        'desc'     => 'Streamlined operations and improved productivity for a leading manufacturing company.',
+                        'features' => [
+                            '40% increase in operational efficiency',
+                            'Real-time data visibility across departments',
+                            'Reduced manual processes by 60%',
+                        ],
+                        'icon'     => 'M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3',
+                    ],
+                    [
+                        'theme'    => 'red',
+                        'badge'    => 'MOBILE SOLUTION',
+                        'title'    => 'Mobile Application',
+                        'desc'     => 'Delivered a scalable and user-friendly app that enhanced customer engagement.',
+                        'features' => [
+                            '3x increase in user engagement',
+                            'Seamless experience across platforms',
+                            'Improved customer satisfaction by 45%',
+                        ],
+                        'icon'     => 'M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 8.25h3',
+                    ],
+                    [
+                        'theme'    => 'purple',
+                        'badge'    => 'CLOUD SOLUTION',
+                        'title'    => 'Cloud Migration',
+                        'desc'     => 'Migrated infrastructure to the cloud for better performance, security, and scalability.',
+                        'features' => [
+                            '99.9% system uptime achieved',
+                            'Enhanced security and data protection',
+                            '30% reduction in IT infrastructure cost',
+                        ],
+                        'icon'     => 'M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15Z',
+                    ],
+                ];
+            @endphp
+
+            <div class="cs-grid">
+                @foreach ($caseStudyCards as $card)
+                <div class="cs-card cs-card--{{ $card['theme'] }}">
+                    <div class="cs-card__illus">
+                        <div class="cs-card__illus-badge">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="{{ $card['icon'] }}"/>
+                            </svg>
+                        </div>
+                        <div class="cs-card__illus-main">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="{{ $card['icon'] }}"/>
+                            </svg>
                         </div>
                     </div>
-                    @endforeach
+                    <div class="cs-card__body">
+                        <span class="cs-card__badge">{{ $card['badge'] }}</span>
+                        <h3 class="cs-card__title">{{ $card['title'] }}</h3>
+                        <p class="cs-card__desc">{{ $card['desc'] }}</p>
+                        <hr class="cs-card__divider">
+                        <ul class="cs-card__features">
+                            @foreach ($card['features'] as $feature)
+                            <li class="cs-card__feature">
+                                <span class="cs-card__check" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="m9 12 2 2 4-4"/>
+                                    </svg>
+                                </span>
+                                {{ $feature }}
+                            </li>
+                            @endforeach
+                        </ul>
+                        <a href="{{ route('case-studies.index') }}" class="cs-card__link">Read Case Study <span aria-hidden="true">→</span></a>
+                    </div>
                 </div>
+                @endforeach
+            </div>
+
+            <div class="cs-footer">
+                <a href="{{ route('case-studies.index') }}" class="cs-cta-btn">View All Case Studies →</a>
             </div>
         </div>
-    </div>
+    </section>
     <!--=========== Case Studies End =============-->
 
     <!--====================  Testimonials ====================-->
