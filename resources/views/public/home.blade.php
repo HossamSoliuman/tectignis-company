@@ -350,41 +350,56 @@
     <!--===========  Industries We Serve End =============-->
 
     <!--=========== Featured Services Start ===========-->
-    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
+    <section class="fs-section section-space--ptb_80">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">Premium Expertise</h6>
-                        <h3 class="heading">Featured <span class="text-color-primary">Services</span></h3>
-                    </div>
-                </div>
+            <div class="fs-header">
+                <p class="fs-pretitle">
+                    <span aria-hidden="true">←</span>
+                    FEATURED SERVICES
+                    <span aria-hidden="true">→</span>
+                </p>
+                <h2 class="fs-title">Our Most In-Demand Services</h2>
+                <p class="fs-subtitle">Powering businesses with innovative, secure, and scalable solutions tailored to meet today's digital challenges.</p>
             </div>
-            <div class="row featured-services-row">
-                @foreach ($services->take(8) as $service)
-                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30 d-flex">
-                    <a href="{{ route('services.show', $service->slug) }}" class="projects-wrap style-04 d-flex flex-column w-100">
-                        <div class="projects-image-box">
-                            <div class="box-image text-center">
-                                <img class="img-fulid" src="{{ asset('uploads/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
-                            </div>
-                            <div class="content text-center">
-                                <h5 class="heading">{{ $service->title }}</h5>
-                                <div class="box-projects-arrow">
-                                    <span class="button-text">Learn More</span>
-                                    <i class="fas fa-arrow-right ml-1"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+
+            @php
+                $fsThemes = [
+                    ['color' => '#8B5CF6', 'bg' => '#F5F3FF'],
+                    ['color' => '#F43F5E', 'bg' => '#FFF1F2'],
+                    ['color' => '#8B5CF6', 'bg' => '#F5F3FF'],
+                    ['color' => '#F43F5E', 'bg' => '#FFF1F2'],
+                    ['color' => '#8B5CF6', 'bg' => '#F5F3FF'],
+                    ['color' => '#3B82F6', 'bg' => '#EFF6FF'],
+                    ['color' => '#F43F5E', 'bg' => '#FFF1F2'],
+                    ['color' => '#10B981', 'bg' => '#ECFDF5'],
+                ];
+            @endphp
+            <div class="fs-grid">
+                @foreach ($services->take(6) as $service)
+                @php $fsTheme = $fsThemes[$loop->index % count($fsThemes)]; @endphp
+                <a href="{{ route('services.show', $service->slug) }}"
+                   class="fs-card"
+                   style="--fs-color: {{ $fsTheme['color'] }}; --fs-color-bg: {{ $fsTheme['bg'] }};"
+                   aria-label="{{ $service->title }}">
+                    <div class="fs-card__icon" aria-hidden="true">
+                        <img src="{{ asset('uploads/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
+                    </div>
+                    <div class="fs-card__body">
+                        <h6 class="fs-card__title">{{ $service->title }}</h6>
+                        @if ($service->short_description)
+                        <p class="fs-card__desc">{{ Str::limit($service->short_description, 80) }}</p>
+                        @endif
+                    </div>
+                    <span class="fs-card__arrow" aria-hidden="true">→</span>
+                </a>
                 @endforeach
             </div>
+
             <div class="button-group-wrap text-center mt-40">
                 <a href="{{ route('services.index') }}" class="btn">View All Services</a>
             </div>
         </div>
-    </div>
+    </section>
     <!--=========== Featured Services End ===========-->
 
     <!--=========== Technology Stack Start ===========-->
