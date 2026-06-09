@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Capability;
+use App\Models\Industry;
 use App\Models\Page;
 use App\Models\Solution;
 use App\Models\Stat;
@@ -82,7 +83,7 @@ it('admin can create an industry', function () {
             'slug' => 'manufacturing',
             'icon' => 'fas fa-industry',
             'is_active' => '1',
-        ])->assertRedirect(route('admin.industries.index'));
+        ])->assertRedirect(route('admin.industries.edit', Industry::firstWhere('slug', 'manufacturing')));
 
     $this->assertDatabaseHas('industries', ['slug' => 'manufacturing']);
 });

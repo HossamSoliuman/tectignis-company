@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\ManagesIndustryContent;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreIndustryRequest;
@@ -12,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 
 class IndustryController extends Controller
 {
-    use UploadsFiles;
+    use ManagesIndustryContent, UploadsFiles;
 
     public function index(): View
     {
@@ -31,10 +32,11 @@ class IndustryController extends Controller
         $data = $request->validated();
 
         $this->syncUpload($request, $data, 'banner_image', null, 'industries');
+        $this->prepareContent($request, $data);
 
-        Industry::create($data);
+        $industry = Industry::create($data);
 
-        return redirect()->route('admin.industries.index')->with('status', 'Industry created.');
+        return redirect()->route('admin.industries.edit', $industry)->with('status', 'Industry created.');
     }
 
     public function edit(Industry $industry): View
@@ -47,10 +49,11 @@ class IndustryController extends Controller
         $data = $request->validated();
 
         $this->syncUpload($request, $data, 'banner_image', $industry->banner_image, 'industries');
+        $this->prepareContent($request, $data);
 
         $industry->update($data);
 
-        return redirect()->route('admin.industries.index')->with('status', 'Industry updated.');
+        return redirect()->route('admin.industries.edit', $industry)->with('status', 'Industry updated.');
     }
 
     public function destroy(Industry $industry): RedirectResponse

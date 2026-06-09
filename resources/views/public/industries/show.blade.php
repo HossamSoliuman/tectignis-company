@@ -14,51 +14,24 @@
     <meta property="og:type" content="website">
 @endsection
 
-@section('breadcrumb')
-    <x-public.breadcrumb :title="$industry->name"
-        :items="['Industries' => route('industries.index'), $industry->name => null]" />
-@endsection
-
 @section('content')
-    @if ($industry->body)
+    @if ($industry->body && empty($industry->content))
+        {{-- Escape hatch: legacy industries still using free-form body and no rich content yet. --}}
         @include('public._dynamic-body', ['body' => $industry->body])
+
+        <!--========== Call to Action Area Start ============-->
+        <x-public.cta />
+        <!--========== Call to Action Area End ============-->
     @else
-    <!--===========  feature-large-images-wrapper  Start =============-->
-    <div class="feature-large-images-wrapper section-space--ptb_100">
-        <div class="container">
-            <div class="cybersecurity-about-box">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-center">
-                        @if ($industry->icon)
-                            <i class="{{ $industry->icon }} fa-5x text-color-primary"></i>
-                        @endif
-                    </div>
-                    <div class="col-lg-7 offset-lg-1">
-                        <div class="conact-us-wrap-one managed-it">
-                            <h3 class="heading">Technology Solutions for <span class="text-color-primary">{{ $industry->name }}</span></h3>
-                            <div class="sub-heading">{{ $industry->short_description }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--===========  feature-large-images-wrapper  End =============-->
-
-    @if ($industry->description)
-        <div class="section-space--ptb_100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        {!! $industry->description !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    <!--========== Call to Action Area Start ============-->
-    <x-public.cta />
-    <!--========== Call to Action Area End ============-->
+        {{-- Rich, admin-managed industry template (mockup-matching). Each component
+             reads $industry->content[...] and renders nothing when off or empty. --}}
+        <x-public.industry.hero :industry="$industry" />                        {{-- Hero + feature grid + badges --}}
+        <x-public.industry.trust :industry="$industry" />                      {{-- Trust logos --}}
+        <x-public.industry.challenges-solutions :industry="$industry" />       {{-- Split: challenges + solution cards --}}
+        <x-public.industry.stats :industry="$industry" />                      {{-- Performance stats --}}
+        <x-public.industry.case-studies :industry="$industry" />               {{-- Success stories --}}
+        <x-public.industry.solutions-grid :industry="$industry" />             {{-- Solutions grid --}}
+        <x-public.industry.faq :industry="$industry" />                        {{-- FAQ + mid CTA --}}
+        <x-public.industry.cta-band :industry="$industry" />                   {{-- Bottom CTA band --}}
     @endif
 @endsection

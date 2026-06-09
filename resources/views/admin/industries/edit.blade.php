@@ -11,7 +11,7 @@
         @csrf
         @method('PUT')
         <div class="grid grid-cols-1 xl:grid-cols-[1fr_18rem] gap-6 items-start">
-            <div>
+            <div class="space-y-5">
                 @include('admin.industries._form')
             </div>
             <div class="space-y-4 xl:sticky xl:top-20 self-start">

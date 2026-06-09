@@ -14,7 +14,7 @@ class Industry extends Model
     use HasContentScopes, HasFactory;
 
     protected $fillable = [
-        'slug', 'name', 'short_description', 'description', 'body',
+        'slug', 'name', 'short_description', 'description', 'body', 'content',
         'icon', 'banner_image', 'sort_order', 'is_active',
         'seo_title', 'seo_description', 'seo_keywords',
     ];
@@ -24,6 +24,7 @@ class Industry extends Model
         return [
             'is_active' => 'boolean',
             'sort_order' => 'integer',
+            'content' => 'array',
         ];
     }
 
