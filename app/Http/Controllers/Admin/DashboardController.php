@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\CaseStudy;
 use App\Models\Lead;
+use App\Models\Page;
 use App\Models\PageVisit;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -21,23 +23,86 @@ class DashboardController extends Controller
 
     public function __invoke(): View
     {
-        $stats = [
-            'Leads' => Lead::count(),
-            'Blog Posts' => BlogPost::count(),
-            'Services' => Service::count(),
-            'Case Studies' => CaseStudy::count(),
-        ];
-
         $since = now()->startOfDay()->subDays(self::TREND_DAYS - 1);
 
+        $cards = [
+            'Total Leads' => $this->cardStat(Lead::class, $since),
+            'Blog Posts' => $this->cardStat(BlogPost::class, $since),
+            'Services' => $this->cardStat(Service::class, $since),
+            'Case Studies' => $this->cardStat(CaseStudy::class, $since),
+            'Pages' => $this->cardStat(Page::class, $since),
+        ];
+
         return view('admin.dashboard', [
-            'stats' => $stats,
+            'cards' => $cards,
             'visitsTrend' => $this->dailyTrend(PageVisit::query()->where('created_at', '>=', $since)->pluck('created_at')),
-            'leadsTrend' => $this->dailyTrend(Lead::query()->where('created_at', '>=', $since)->pluck('created_at')),
-            'topPages' => $this->topPages($since),
             'visitsTotal' => PageVisit::where('created_at', '>=', $since)->count(),
-            'leadsTotal' => Lead::where('created_at', '>=', $since)->count(),
+            'visitsGrowth' => $this->growth(
+                PageVisit::where('created_at', '>=', $since)->count(),
+                PageVisit::whereBetween('created_at', [$since->copy()->subDays(self::TREND_DAYS), $since])->count(),
+            ),
+            'topPages' => $this->topPages($since),
+            'leadsTotal' => Lead::count(),
+            'leadSegments' => $this->leadSegments(),
+            'recentLeads' => Lead::latest()->limit(4)->get(),
         ]);
+    }
+
+    /**
+     * Total count plus growth of the last 30 days versus the 30 days before.
+     *
+     * @param  class-string<Model>  $model
+     * @return array{value: int, growth: float|null}
+     */
+    private function cardStat(string $model, Carbon $since): array
+    {
+        return [
+            'value' => $model::count(),
+            'growth' => $this->growth(
+                $model::where('created_at', '>=', $since)->count(),
+                $model::whereBetween('created_at', [$since->copy()->subDays(self::TREND_DAYS), $since])->count(),
+            ),
+        ];
+    }
+
+    /**
+     * Percentage change between two windows, or null when there is no baseline.
+     */
+    private function growth(int $current, int $previous): ?float
+    {
+        if ($previous === 0) {
+            return null;
+        }
+
+        return round(($current - $previous) / $previous * 100, 1);
+    }
+
+    /**
+     * Lead counts grouped by source for the overview donut, largest first.
+     *
+     * @return array<int, array{label: string, value: int}>
+     */
+    private function leadSegments(): array
+    {
+        $bySource = Lead::query()
+            ->selectRaw('source, count(*) as total')
+            ->groupBy('source')
+            ->get()
+            ->groupBy(fn (Lead $row): string => $row->source ?: 'Other')
+            ->map(fn (Collection $rows): int => (int) $rows->sum('total'))
+            ->sortDesc();
+
+        $segments = $bySource->take(4);
+        $rest = $bySource->skip(4)->sum();
+
+        if ($rest > 0) {
+            $segments->put('Other', ($segments->get('Other') ?? 0) + $rest);
+        }
+
+        return $segments
+            ->map(fn (int $value, string $label): array => ['label' => $label, 'value' => $value])
+            ->values()
+            ->all();
     }
 
     /**

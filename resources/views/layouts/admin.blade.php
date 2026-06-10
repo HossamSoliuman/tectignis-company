@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-100">
+<html lang="en" class="h-full bg-slate-50">
 
 <head>
     <meta charset="utf-8">
@@ -16,12 +16,12 @@
     <div class="min-h-full">
         {{-- Sidebar --}}
         <aside data-sidebar
-            class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full transform flex-col bg-slate-900 text-slate-300 shadow-xl transition-transform duration-200 lg:translate-x-0">
-            <div class="flex h-16 items-center gap-2.5 border-b border-white/5 px-6 text-lg font-semibold text-white">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-purple-600 text-sm font-bold shadow-lg shadow-fuchsia-500/30">T</span>
+            class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full transform flex-col border-r border-slate-200 bg-white transition-transform duration-200 lg:translate-x-0">
+            <div class="flex h-16 shrink-0 items-center gap-2.5 border-b border-slate-100 px-6 text-lg font-semibold text-slate-900">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-purple-600 text-sm font-bold text-white shadow-lg shadow-purple-600/30">T</span>
                 Tectignis
             </div>
-            <nav class="flex-1 space-y-4 overflow-y-auto px-3 py-4 text-sm">
+            <nav class="sidebar-nav flex-1 space-y-4 overflow-y-auto px-3 py-4 text-sm">
                 @php
                     $navGroups = [
                         '' => [
@@ -61,25 +61,40 @@
                 @foreach ($navGroups as $groupLabel => $items)
                     <div class="space-y-0.5">
                         @if ($groupLabel !== '')
-                            <p class="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-widest text-slate-500">{{ $groupLabel }}</p>
+                            <p class="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-widest text-slate-400">{{ $groupLabel }}</p>
                         @endif
                         @foreach ($items as [$route, $label, $icon])
                             @php $active = request()->routeIs(Str::endsWith($route, '.index') ? Str::beforeLast($route, '.').'.*' : $route); @endphp
                             <a href="{{ route($route) }}"
-                                class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-gradient-to-r from-fuchsia-600/90 to-purple-600/80 text-white shadow-sm' : 'text-slate-400 hover:bg-white/5 hover:text-white' }}">
-                                <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-white' : 'text-slate-500 group-hover:text-fuchsia-300' }}" />
+                                class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-purple-50 text-purple-700 ring-1 ring-purple-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                                <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-purple-600' : 'text-slate-400 group-hover:text-purple-600' }}" />
                                 <span>{{ $label }}</span>
                             </a>
                         @endforeach
                     </div>
                 @endforeach
             </nav>
-            <div class="border-t border-white/5 px-3 py-4">
+            <div class="shrink-0 space-y-2 border-t border-slate-100 px-3 py-3">
                 <a href="{{ url('/') }}" target="_blank"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition hover:bg-white/5 hover:text-white">
-                    <x-admin.icon name="external-link" class="h-5 w-5 shrink-0 text-slate-500" />
+                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
+                    <x-admin.icon name="external-link" class="h-5 w-5 shrink-0 text-slate-400" />
                     View live site
                 </a>
+                <div class="flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-2.5">
+                    <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-xs font-semibold text-white">
+                        {{ Str::upper(Str::substr(auth()->user()?->name ?? 'A', 0, 1)) }}
+                    </span>
+                    <div class="min-w-0 flex-1">
+                        <p class="truncate text-sm font-semibold text-slate-800">{{ auth()->user()?->name }}</p>
+                        <p class="truncate text-xs text-slate-400">{{ auth()->user()?->email }}</p>
+                    </div>
+                    <form method="post" action="{{ route('admin.logout') }}">
+                        @csrf
+                        <button class="rounded-lg p-1.5 text-slate-400 transition hover:bg-white hover:text-purple-600" title="Logout" aria-label="Logout">
+                            <x-admin.icon name="logout" class="h-4.5 w-4.5" />
+                        </button>
+                    </form>
+                </div>
             </div>
         </aside>
 
@@ -99,25 +114,31 @@
                     </button>
                     <h1 class="text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 sm:gap-3">
                     <a href="{{ url('/') }}" target="_blank"
                         class="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-700 sm:inline-flex">
                         <x-admin.icon name="external-link" class="h-4 w-4" /> View site
                     </a>
-                    <div class="flex items-center gap-2">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-xs font-semibold text-white">
+                    @php $unreadLeads = \App\Models\Lead::where('is_read', false)->count(); @endphp
+                    <a href="{{ route('admin.leads.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                        title="Leads inbox" aria-label="Leads inbox{{ $unreadLeads ? ', ' . $unreadLeads . ' unread' : '' }}">
+                        <x-admin.icon name="bell" class="h-5 w-5" />
+                        @if ($unreadLeads > 0)
+                            <span class="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-semibold text-white">
+                                {{ $unreadLeads > 9 ? '9+' : $unreadLeads }}
+                            </span>
+                        @endif
+                    </a>
+                    <div class="h-6 w-px bg-slate-200"></div>
+                    <div class="flex items-center gap-2.5">
+                        <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-xs font-semibold text-white">
                             {{ Str::upper(Str::substr(auth()->user()?->name ?? 'A', 0, 1)) }}
                         </span>
-                        <span class="hidden text-sm font-medium text-slate-700 sm:inline">{{ auth()->user()?->name }}</span>
+                        <div class="hidden leading-tight sm:block">
+                            <p class="text-sm font-semibold text-slate-800">{{ auth()->user()?->name }}</p>
+                            <p class="text-xs text-slate-400">Super Admin</p>
+                        </div>
                     </div>
-                    <form method="post" action="{{ route('admin.logout') }}">
-                        @csrf
-                        <button
-                            class="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-slate-700">
-                            <x-admin.icon name="logout" class="h-4 w-4" />
-                            <span class="hidden sm:inline">Logout</span>
-                        </button>
-                    </form>
                 </div>
             </header>
 
@@ -140,6 +161,11 @@
                     </div>
                 @endif
                 @yield('content')
+
+                <footer class="mt-10 flex items-center justify-between border-t border-slate-200/70 pt-4 text-xs text-slate-400">
+                    <span>© {{ now()->year }} Tectignis. All rights reserved.</span>
+                    <span>Version 1.0.0</span>
+                </footer>
             </main>
         </div>
     </div>

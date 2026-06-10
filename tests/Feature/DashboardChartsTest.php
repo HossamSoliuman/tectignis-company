@@ -32,9 +32,10 @@ it('renders the dashboard with visit and lead charts', function () {
     $this->actingAs($admin)
         ->get(route('admin.dashboard'))
         ->assertOk()
-        ->assertSee('Page visits')
-        ->assertSee('Leads received')
-        ->assertSee('Top pages')
+        ->assertSee('Website Analytics')
+        ->assertSee('Leads Overview')
+        ->assertSee('Recent Leads')
+        ->assertSee('Top Pages')
         ->assertSee('/about')
         ->assertDontSee('Upload an image');
 });

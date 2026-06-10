@@ -47,3 +47,31 @@
         font-family: var(--font-display);
     }
 }
+
+@layer components {
+    /* Slim, brand-coloured scrollbar pinned to the LEFT edge of the nav.
+       The `direction: rtl` flips the scrollbar to the left; children are
+       reset to `ltr` so the nav content keeps its normal layout. */
+    .sidebar-nav {
+        direction: rtl;
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-purple-600) transparent;
+    }
+
+    .sidebar-nav > * {
+        direction: ltr;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-thumb {
+        background: var(--color-purple-600);
+        border-radius: 9999px;
+    }
+}
