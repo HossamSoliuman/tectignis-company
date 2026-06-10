@@ -55,6 +55,14 @@
         <priority>0.7</priority>
     </url>
     @endforeach
+    @foreach ($insights as $insight)
+    <url>
+        <loc>{{ route('insights.show', $insight->slug) }}</loc>
+        <lastmod>{{ $insight->updated_at->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    @endforeach
     @foreach (['privacy-policy', 'terms-and-conditions', 'refund-policy'] as $legal)
     <url>
         <loc>{{ route('legal.show', $legal) }}</loc>

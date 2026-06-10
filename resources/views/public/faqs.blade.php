@@ -3,124 +3,151 @@
 @section('title', 'Frequently Asked Questions | Software, AI, Cloud & Security | Tectignis')
 
 @section('seo')
-    <meta name="description" content="Find answers to common questions about software development, mobile apps, AI solutions, cloud services, cybersecurity and CCTV from Tectignis IT Solutions.">
+    <meta name="description" content="Find answers to common questions about our services, solutions, and how we can help your business grow — from Tectignis IT Solutions.">
     <link rel="canonical" href="{{ route('faqs') }}">
 @endsection
 
-@section('breadcrumb')
-    <x-public.breadcrumb title="FAQs" :items="['FAQs' => null]" />
-@endsection
+@php
+    $sitePhone = \App\Models\Setting::get('site_phone', '+91 9987705688');
+    $siteEmail = \App\Models\Setting::get('site_email', 'info@tectignis.in');
+    $totalFaqs = $faqCategories->sum(fn ($category) => $category->faqs->count());
+@endphp
 
 @section('content')
 
-    <div class="feature-images-wrapper section-space--ptb_100">
+    <!--=========== FAQs Hero ===========-->
+    <section class="res-hero">
         <div class="container">
+            <span class="res-hero__eyebrow">FAQs</span>
+            <h1 class="res-hero__title">Frequently Asked <span class="res-accent">Questions</span></h1>
+            <p class="res-hero__intro">Find answers to common questions about our services, solutions, and how we can help your business grow.</p>
+        </div>
+    </section>
 
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <div class="section-title-wrap section-space--mb_60">
-                        <h6 class="section-sub-title mb-20">Got Questions?</h6>
-                        <h3 class="heading">Frequently Asked <span class="text-color-primary">Questions</span></h3>
-                        <p class="mt-20">Everything you need to know about our services. Can't find an answer? <a href="{{ route('contact') }}">Contact us</a> directly.</p>
-                    </div>
-                </div>
-            </div>
+    <!--=========== FAQs Body ===========-->
+    <div class="res-body">
+        <div class="container">
+            <div class="row">
 
-            @php
-                $faqCategories = [
-                    [
-                        'title' => 'Software Development',
-                        'icon' => 'fas fa-laptop-code',
-                        'faqs' => [
-                            ['q' => 'How much does software development cost?', 'a' => 'Software development costs vary based on project complexity, features, and technology stack. We offer competitive pricing with transparent quotes. Contact us for a free consultation and detailed estimate tailored to your requirements.'],
-                            ['q' => 'How long does a software project take?', 'a' => 'Project timelines depend on scope and complexity. A simple web application may take 4–8 weeks, while a complex ERP or enterprise system can take 4–12 months. We provide detailed timelines during the planning phase.'],
-                            ['q' => 'Do you provide source code?', 'a' => 'Yes, upon project completion and full payment, we transfer complete source code ownership to the client. All intellectual property rights are yours.'],
-                        ],
-                    ],
-                    [
-                        'title' => 'Mobile Apps',
-                        'icon' => 'fas fa-mobile-alt',
-                        'faqs' => [
-                            ['q' => 'Do you build for Android or iOS?', 'a' => 'We develop for both Android and iOS, including hybrid/cross-platform apps using Flutter and React Native, giving you maximum reach with a single codebase.'],
-                            ['q' => 'Can you publish the app on Play Store and App Store?', 'a' => 'Yes, we handle the complete submission process for Google Play Store and Apple App Store, including compliance, assets, and metadata preparation.'],
-                            ['q' => 'Do you provide post-launch maintenance?', 'a' => 'Absolutely. We offer flexible AMC (Annual Maintenance Contract) plans covering bug fixes, updates, security patches, and feature enhancements.'],
-                        ],
-                    ],
-                    [
-                        'title' => 'AI & Automation',
-                        'icon' => 'fas fa-robot',
-                        'faqs' => [
-                            ['q' => 'Can AI be integrated with our existing ERP?', 'a' => 'Yes. We specialize in integrating AI capabilities — such as predictive analytics, intelligent reporting, and process automation — into existing ERP and business systems.'],
-                            ['q' => 'Do your AI chatbots support WhatsApp?', 'a' => 'Yes, we build WhatsApp-integrated AI chatbots using the WhatsApp Business API for automated customer support, lead generation, and business workflows.'],
-                        ],
-                    ],
-                    [
-                        'title' => 'Cloud Services',
-                        'icon' => 'fas fa-cloud',
-                        'faqs' => [
-                            ['q' => 'Do you provide AWS support?', 'a' => 'Yes, we are experienced with AWS, Azure, and Google Cloud. We offer cloud architecture, deployment, migration, managed services, and cost optimization.'],
-                            ['q' => 'Can you migrate our existing on-premise servers to cloud?', 'a' => 'Yes, we provide end-to-end cloud migration services — assessment, planning, migration, testing, and post-migration support — with minimal business disruption.'],
-                        ],
-                    ],
-                    [
-                        'title' => 'Cybersecurity',
-                        'icon' => 'fas fa-shield-alt',
-                        'faqs' => [
-                            ['q' => 'What is VAPT?', 'a' => 'VAPT stands for Vulnerability Assessment and Penetration Testing. It is a security testing methodology that identifies weaknesses in your systems before attackers can exploit them. We provide comprehensive VAPT reports with remediation guidance.'],
-                            ['q' => 'Do you provide cybersecurity audits?', 'a' => 'Yes, we conduct thorough security audits covering network infrastructure, applications, and policies, delivering detailed reports and actionable recommendations.'],
-                        ],
-                    ],
-                    [
-                        'title' => 'CCTV & Access Control',
-                        'icon' => 'fas fa-video',
-                        'faqs' => [
-                            ['q' => 'Which CCTV system is best for my business?', 'a' => 'The best system depends on your premises size, coverage requirements, and budget. We conduct a site survey and recommend IP/HD CCTV systems from leading brands with the right resolution, storage, and remote access capabilities.'],
-                            ['q' => 'Can CCTV be monitored remotely?', 'a' => 'Yes, all our CCTV solutions support remote monitoring via mobile apps and web browsers, allowing you to view live and recorded footage from anywhere in the world.'],
-                            ['q' => 'Do you provide Annual Maintenance Contracts (AMC)?', 'a' => 'Yes, we offer comprehensive AMC plans for CCTV, access control, networking, and IT infrastructure — ensuring ongoing performance, support, and preventive maintenance.'],
-                        ],
-                    ],
-                ];
-            @endphp
-
-            @foreach ($faqCategories as $category)
-            <div class="row section-space--mb_60">
-                <div class="col-lg-12">
-                    <div class="d-flex align-items-center section-space--mb_30">
-                        <i class="{{ $category['icon'] }} fa-2x text-color-primary me-3"></i>
-                        <h4 class="heading mb-0">{{ $category['title'] }}</h4>
-                    </div>
-                    <div class="accordion" id="faq-{{ Str::slug($category['title']) }}">
-                        @foreach ($category['faqs'] as $index => $faq)
-                        <div class="accordion-item mb-10">
-                            <h2 class="accordion-header" id="heading-{{ Str::slug($category['title']) }}-{{ $index }}">
-                                <button class="accordion-button {{ $index > 0 ? 'collapsed' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ Str::slug($category['title']) }}-{{ $index }}">
-                                    {{ $faq['q'] }}
-                                </button>
-                            </h2>
-                            <div id="collapse-{{ Str::slug($category['title']) }}-{{ $index }}" class="accordion-collapse collapse {{ $index === 0 ? 'show' : '' }}" data-bs-parent="#faq-{{ Str::slug($category['title']) }}">
-                                <div class="accordion-body">
-                                    {{ $faq['a'] }}
-                                </div>
-                            </div>
+                {{-- Category sidebar --}}
+                <div class="col-lg-3 mb-5 mb-lg-0">
+                    <div class="faq-side">
+                        <div class="res-search mb-3" style="max-width: none;">
+                            <span class="res-search__icon"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="search" placeholder="Search a question..." data-faq-search>
                         </div>
-                        @endforeach
+                        <ul class="res-cats">
+                            <li>
+                                <a href="#" class="is-active" data-faq-cat="all">
+                                    <i class="fas fa-layer-group" aria-hidden="true"></i> All Questions
+                                    <span class="res-cats__count">{{ $totalFaqs }}</span>
+                                </a>
+                            </li>
+                            @foreach ($faqCategories as $category)
+                                <li>
+                                    <a href="#" data-faq-cat="cat-{{ $category->id }}">
+                                        <i class="{{ $category->icon ?: 'fas fa-question-circle' }}" aria-hidden="true"></i> {{ $category->name }}
+                                        <span class="res-cats__count">{{ $category->faqs->count() }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
-            </div>
-            @endforeach
 
-            <!--=========== Still have questions CTA ===========-->
-            <div class="row section-space--mt_60">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="ht-box-images style-03 p-40">
-                        <h4 class="heading mb-20">Still Have Questions?</h4>
-                        <p class="mb-30">Our team is ready to answer any questions you have about our services, pricing, or project timelines.</p>
-                        <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">Contact Us</a>
+                {{-- Accordion --}}
+                <div class="col-lg-6">
+                    @forelse ($faqCategories as $category)
+                        <div data-faq-section="cat-{{ $category->id }}">
+                            @foreach ($category->faqs as $faq)
+                                <details class="faq-acc__item" data-faq-item @if ($loop->parent->first && $loop->first) open @endif>
+                                    <summary class="faq-acc__q">
+                                        <span data-faq-question>{{ $faq->question }}</span>
+                                        <span class="faq-acc__toggle"><i class="fas fa-plus" aria-hidden="true"></i></span>
+                                    </summary>
+                                    <div class="faq-acc__a">{{ $faq->answer }}</div>
+                                </details>
+                            @endforeach
+                        </div>
+                    @empty
+                        <div class="res-empty">
+                            <i class="far fa-question-circle" aria-hidden="true"></i>
+                            <p class="mb-0">No FAQs published yet. Check back soon.</p>
+                        </div>
+                    @endforelse
+
+                    <div class="res-empty" data-faq-no-results hidden>
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                        <p class="mb-0">No questions match your search.</p>
                     </div>
                 </div>
+
+                {{-- Contact card --}}
+                <div class="col-lg-3 mt-5 mt-lg-0">
+                    <div class="faq-contact">
+                        <div class="faq-contact__icon"><i class="fas fa-headset" aria-hidden="true"></i></div>
+                        <h5>Can't find what you're looking for?</h5>
+                        <p>Our experts are ready to answer your questions.</p>
+                        <ul class="faq-contact__list">
+                            <li><i class="fas fa-phone-alt" aria-hidden="true"></i> <a href="tel:{{ preg_replace('/\s+/', '', $sitePhone) }}">{{ $sitePhone }}</a></li>
+                            <li><i class="far fa-envelope" aria-hidden="true"></i> <a href="mailto:{{ $siteEmail }}">{{ $siteEmail }}</a></li>
+                            <li><i class="far fa-clock" aria-hidden="true"></i> Mon–Sat: 9AM – 8PM</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
 
+            <!--=========== Still have questions ===========-->
+            <div class="faq-footer">
+                <p class="faq-footer__hint"><i class="far fa-comment-dots" aria-hidden="true"></i> Still have questions? We're here to help! <a href="{{ route('contact') }}">Contact Us <i class="fas fa-arrow-right" aria-hidden="true"></i></a></p>
+                <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Contact Our Experts <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        (function () {
+            var catLinks = document.querySelectorAll('[data-faq-cat]');
+            var sections = document.querySelectorAll('[data-faq-section]');
+            var searchInput = document.querySelector('[data-faq-search]');
+            var noResults = document.querySelector('[data-faq-no-results]');
+            var activeCat = 'all';
+
+            function applyFilters() {
+                var term = (searchInput ? searchInput.value : '').trim().toLowerCase();
+                var visible = 0;
+                sections.forEach(function (section) {
+                    var sectionMatchesCat = activeCat === 'all' || section.getAttribute('data-faq-section') === activeCat;
+                    var sectionVisible = 0;
+                    section.querySelectorAll('[data-faq-item]').forEach(function (item) {
+                        var question = item.querySelector('[data-faq-question]').textContent.toLowerCase();
+                        var show = sectionMatchesCat && (term === '' || question.indexOf(term) !== -1);
+                        item.style.display = show ? '' : 'none';
+                        if (show) { sectionVisible++; }
+                    });
+                    section.style.display = sectionVisible > 0 ? '' : 'none';
+                    visible += sectionVisible;
+                });
+                if (noResults) { noResults.hidden = visible > 0; }
+            }
+
+            catLinks.forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    catLinks.forEach(function (l) { l.classList.remove('is-active'); });
+                    link.classList.add('is-active');
+                    activeCat = link.getAttribute('data-faq-cat');
+                    applyFilters();
+                });
+            });
+
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+            }
+        })();
+    </script>
+    @endpush
 
 @endsection

@@ -31,7 +31,6 @@
                             ['admin.settings.index', 'Home', 'home'],
                             ['admin.stats.index', 'Stats', 'chart-pie'],
                             ['admin.pages.index', 'Pages', 'document-duplicate'],
-                            ['admin.blog.index', 'Blog Posts', 'document-text'],
                             ['admin.case-studies.index', 'Case Studies', 'photograph'],
                             ['admin.testimonials.index', 'Testimonials', 'chat-alt'],
                             ['admin.brands.index', 'Trusted Technology Partner', 'tag'],
@@ -42,6 +41,14 @@
                             ['admin.solutions.index', 'Solutions', 'puzzle'],
                             ['admin.industries.index', 'Industries', 'office'],
                             ['admin.tech-stacks.index', 'Tech Stacks', 'chip'],
+                        ],
+                        'Resources' => [
+                            ['admin.blog.index', 'Blog Posts', 'document-text'],
+                            ['admin.insights.index', 'Technology Insights', 'light-bulb'],
+                            ['admin.faqs.index', 'FAQs', 'question-mark-circle'],
+                            ['admin.faq-categories.index', 'FAQ Categories', 'folder'],
+                            ['admin.downloads.index', 'Downloads', 'download'],
+                            ['admin.job-openings.index', 'Job Openings', 'briefcase'],
                         ],
                         'Home Sections' => [
                             ['admin.why-choose-features.index', 'Why Choose Us', 'check-circle'],

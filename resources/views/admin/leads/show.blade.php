@@ -58,6 +58,16 @@
             </div>
         @endif
 
+        @if ($lead->attachment)
+            <div class="border-t border-slate-100 pt-4">
+                <span class="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-400">Attachment</span>
+                <a href="{{ asset('uploads/'.$lead->attachment) }}" target="_blank"
+                    class="inline-flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2.5 text-sm font-medium text-fuchsia-600 transition hover:bg-slate-100">
+                    <x-admin.icon name="download" class="h-4 w-4" /> {{ basename($lead->attachment) }}
+                </a>
+            </div>
+        @endif
+
         <div class="flex items-center gap-3 border-t border-slate-100 pt-5">
             <a href="mailto:{{ $lead->email }}"
                 class="inline-flex items-center gap-1.5 rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-fuchsia-700">

@@ -11,7 +11,7 @@ class Lead extends Model
     /** @use HasFactory<LeadFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone', 'subject', 'message', 'source', 'is_read'];
+    protected $fillable = ['name', 'email', 'phone', 'subject', 'message', 'attachment', 'source', 'is_read'];
 
     protected function casts(): array
     {

@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             OfficeLocationSeeder::class,
             GlobalAdvantageSeeder::class,
             ProcessStepSeeder::class,
+            ResourceContentSeeder::class,
         ]);
     }
 }

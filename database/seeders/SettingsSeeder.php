@@ -74,6 +74,9 @@ class SettingsSeeder extends Seeder
             ['key' => 'cta_btn_primary', 'value' => 'Request Consultation', 'group' => 'home'],
             ['key' => 'cta_btn_secondary', 'value' => 'Get a Quote', 'group' => 'home'],
 
+            // careers
+            ['key' => 'careers_hero_image', 'value' => null, 'group' => 'careers'],
+
             // seo
             ['key' => 'robots_txt', 'value' => "User-agent: *\nAllow: /", 'group' => 'seo'],
         ];

@@ -17,108 +17,107 @@
     <meta property="og:type" content="article">
 @endsection
 
-@section('breadcrumb')
-    <x-public.breadcrumb :title="$post->title"
-        :items="['Blog' => route('blog.index'), $post->title => null]" />
-@endsection
-
 @section('content')
-    <!--====================  Blog Area Start ====================-->
-    <div class="blog-pages-wrapper section-space--ptb_100">
+
+    <!--=========== Article Hero ===========-->
+    <section class="res-hero res-hero--article">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <span class="res-hero__eyebrow">Blog</span>
+                    <h1 class="res-hero__title">{{ $post->title }}</h1>
+                    <div class="res-hero__meta">
+                        <span><i class="far fa-user" aria-hidden="true"></i> By {{ $post->author ?: 'Tectignis Team' }}</span>
+                        <span><i class="far fa-calendar" aria-hidden="true"></i> {{ $post->published_at->format('M d, Y') }}</span>
+                        @if ($post->category)
+                            <span class="res-hero__topic">{{ $post->category }}</span>
+                        @endif
+                    </div>
+                    <div class="res-share">
+                        <span>Share:</span>
+                        <a target="_blank" rel="noopener" aria-label="Share on Facebook"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('blog.show', $post->slug)) }}"><i class="fab fa-facebook-f"></i></a>
+                        <a target="_blank" rel="noopener" aria-label="Share on Twitter"
+                            href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $post->slug)) }}&text={{ urlencode($post->title) }}"><i class="fab fa-twitter"></i></a>
+                        <a target="_blank" rel="noopener" aria-label="Share on LinkedIn"
+                            href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('blog.show', $post->slug)) }}"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                @if ($post->image)
+                    <div class="col-lg-5">
+                        <div class="res-hero__media">
+                            <img src="{{ asset('uploads/'.$post->image) }}" alt="{{ $post->title }}" loading="eager">
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
+
+    <!--=========== Article Body ===========-->
+    <div class="res-body">
         <div class="container">
             <div class="row">
 
-                {{-- Sidebar --}}
-                <div class="col-lg-4 order-lg-1 order-2">
-                    <div class="page-sidebar-content-wrapper page-sidebar-left small-mt__40 tablet-mt__40">
+                <div class="col-lg-9">
+                    <div class="res-article">
+                        {!! $post->content !!}
 
-                        <div class="sidebar-widget widget-blog-recent-post wow move-up">
-                            <h4 class="sidebar-widget-title">Recent Posts</h4>
-                            <ul>
-                                @foreach ($recentPosts as $recent)
+                        <div class="res-article-cta">
+                            <div>
+                                <h5>Ready to Get Started?</h5>
+                                <p>Talk to our experts about your software, AI, cloud or security requirements.</p>
+                            </div>
+                            <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mt-5 mt-lg-0">
+                    @if ($categories->isNotEmpty())
+                        <div class="res-widget">
+                            <h4 class="res-widget__title">Categories</h4>
+                            <ul class="res-cats">
+                                @foreach ($categories as $category => $count)
                                     <li>
-                                        <a href="{{ route('blog.show', $recent->slug) }}"
-                                            class="{{ $recent->slug === $post->slug ? 'active' : '' }}">
-                                            {{ $recent->title }}
+                                        <a href="{{ route('blog.index', ['category' => $category]) }}" class="{{ $post->category === $category ? 'is-active' : '' }}">
+                                            <i class="fas fa-tag" aria-hidden="true"></i> {{ $category }}
+                                            <span class="res-cats__count">{{ $count }}</span>
                                         </a>
                                     </li>
                                 @endforeach
                             </ul>
                         </div>
+                    @endif
 
-                        <div class="sidebar-widget widget-images wow move-up">
-                            <img class="img-fluid" src="{{ asset('assets/images/blog/Startup-Services-India.webp') }}"
-                                alt="Startup Marketing">
-                            <p class="pt-4"><strong>Affordable Growth Solutions</strong></p>
-                            <p><strong>Let <a href="{{ route('home') }}" style="color: #C10897;">Tectignis IT Solutions</a> build your brand online</strong></p>
-                            <p><strong>Schedule Your Free Consultation!</strong></p>
-                            <a href="{{ route('contact') }}" class="ht-btn ht-btn-xs mt-15">Contact Us</a>
-                        </div>
-
-                    </div>
-                </div>
-
-                {{-- Main content --}}
-                <div class="col-lg-8 order-lg-2 order-1">
-                    <div class="main-blog-wrap">
-                        <div class="single-blog-item">
-                            <div class="post-feature blog-thumbnail wow move-up">
-                                <h3 class="post-title mb-5">{{ $post->title }}</h3>
-                            </div>
-
-                            <div class="post-info lg-blog-post-info wow move-up">
-                                <div class="post-meta mt-20">
-                                    <div class="post-date">
-                                        <span class="far fa-calendar meta-icon"></span>
-                                        {{ $post->published_at->format('M d, Y') }}
-                                    </div>
-                                </div>
-
-                                <div class="post-excerpt mt-15">
-                                    {!! $post->content !!}
-                                </div>
-
-                                <div class="entry-post-share-wrap border-bottom">
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="entry-post-share">
-                                                <div class="share-label">Share this post</div>
-                                                <div class="share-media">
-                                                    <span class="share-icon fas fa-share-alt"></span>
-                                                    <div class="share-list">
-                                                        <a class="hint--bounce hint--top hint--primary twitter"
-                                                            target="_blank" aria-label="Twitter"
-                                                            href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $post->slug)) }}&text={{ urlencode($post->title) }}">
-                                                            <i class="fab fa-twitter"></i>
-                                                        </a>
-                                                        <a class="hint--bounce hint--top hint--primary facebook"
-                                                            target="_blank" aria-label="Facebook"
-                                                            href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('blog.show', $post->slug)) }}">
-                                                            <i class="fab fa-facebook-f"></i>
-                                                        </a>
-                                                        <a class="hint--bounce hint--top hint--primary linkedin"
-                                                            target="_blank" aria-label="LinkedIn"
-                                                            href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('blog.show', $post->slug)) }}">
-                                                            <i class="fab fa-linkedin"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                    @if ($popularPosts->isNotEmpty())
+                        <div class="res-widget">
+                            <h4 class="res-widget__title">Popular Posts</h4>
+                            <ul class="res-pop">
+                                @foreach ($popularPosts as $popular)
+                                    <li>
+                                        <span class="res-pop__thumb">
+                                            @if ($popular->image)
+                                                <img src="{{ asset('uploads/'.$popular->image) }}" alt="{{ $popular->title }}" loading="lazy">
+                                            @else
+                                                <i class="far fa-image" aria-hidden="true"></i>
+                                            @endif
+                                        </span>
+                                        <div>
+                                            <a href="{{ route('blog.show', $popular->slug) }}" class="res-pop__title">{{ $popular->title }}</a>
+                                            <span class="res-pop__date">{{ $popular->published_at->format('M d, Y') }}</span>
                                         </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </div>
+                    @endif
+
+                    <x-public.resource.newsletter />
                 </div>
 
             </div>
         </div>
     </div>
-    <!--====================  Blog Area End  ====================-->
 
-    <!--========== Call to Action Area Start ============-->
-    <x-public.cta />
-    <!--========== Call to Action Area End ============-->
 @endsection

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\FaqCategory;
+use App\Models\JobOpening;
 use App\Models\Page;
 use App\Models\Setting;
 use Illuminate\Contracts\View\View;
@@ -16,22 +18,20 @@ class PageController extends Controller
 
     public function careers(): View
     {
-        return view('public.careers');
-    }
+        $jobOpenings = JobOpening::active()->ordered()->get();
 
-    public function technologyInsights(): View
-    {
-        return view('public.technology-insights');
-    }
-
-    public function downloads(): View
-    {
-        return view('public.downloads');
+        return view('public.careers', compact('jobOpenings'));
     }
 
     public function faqs(): View
     {
-        return view('public.faqs');
+        $faqCategories = FaqCategory::ordered()
+            ->with(['faqs' => fn ($query) => $query->active()->ordered()])
+            ->get()
+            ->filter(fn (FaqCategory $category) => $category->faqs->isNotEmpty())
+            ->values();
+
+        return view('public.faqs', compact('faqCategories'));
     }
 
     public function legal(string $slug): View

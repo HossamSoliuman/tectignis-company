@@ -5,8 +5,11 @@ use App\Http\Controllers\Public\CapabilityController;
 use App\Http\Controllers\Public\CareersController;
 use App\Http\Controllers\Public\CaseStudyController;
 use App\Http\Controllers\Public\ContactController;
+use App\Http\Controllers\Public\DownloadController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\IndustryController;
+use App\Http\Controllers\Public\InsightController;
+use App\Http\Controllers\Public\NewsletterController;
 use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SolutionController;
@@ -14,7 +17,7 @@ use App\Http\Controllers\SitemapController;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 
-//test update
+// test update
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -40,9 +43,12 @@ Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-s
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
-Route::get('/technology-insights', [PageController::class, 'technologyInsights'])->name('technology-insights');
-Route::get('/downloads', [PageController::class, 'downloads'])->name('downloads');
+Route::get('/technology-insights', [InsightController::class, 'index'])->name('technology-insights');
+Route::get('/technology-insights/{slug}', [InsightController::class, 'show'])->name('insights.show');
+Route::get('/downloads', [DownloadController::class, 'index'])->name('downloads');
+Route::post('/downloads/request', [DownloadController::class, 'request'])->name('downloads.request');
 Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
+Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

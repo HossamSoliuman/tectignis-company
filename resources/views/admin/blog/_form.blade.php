@@ -20,6 +20,20 @@
         </div>
     </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Category</label>
+            <input type="text" name="category" value="{{ old('category', $p?->category) }}" placeholder="e.g. Cloud Computing"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+            <p class="mt-1 text-xs text-slate-400">Used for the category filter and sidebar on the public blog.</p>
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Author</label>
+            <input type="text" name="author" value="{{ old('author', $p?->author ?? 'Tectignis Team') }}"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+        </div>
+    </div>
+
     <div>
         <label class="block text-sm font-medium text-slate-700 mb-1">Excerpt</label>
         <textarea name="excerpt" rows="2"

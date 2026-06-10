@@ -13,6 +13,8 @@ class BlogPostSeeder extends Seeder
             [
                 'slug' => 'top-technology-trends-2025',
                 'title' => 'Top Technology Trends to Know in 2025',
+                'category' => 'Software Development',
+                'author' => 'Tectignis Team',
                 'image' => 'blog/Artificial-Intelligence.webp',
                 'published_at' => '2025-05-21 00:00:00',
                 'is_published' => true,
@@ -24,6 +26,8 @@ class BlogPostSeeder extends Seeder
             [
                 'slug' => 'starlink-transforming-internet-india',
                 'title' => 'How Starlink is Changing the Future of Internet in India',
+                'category' => 'Networking',
+                'author' => 'Tectignis Team',
                 'image' => 'blog/Starlink-India.webp',
                 'published_at' => '2025-05-08 00:00:00',
                 'is_published' => true,
@@ -35,6 +39,8 @@ class BlogPostSeeder extends Seeder
             [
                 'slug' => 'digital-marketing-strategy-indian-startups-2025',
                 'title' => 'Digital Marketing Strategy for Indian Startups 2025',
+                'category' => 'Digital Marketing',
+                'author' => 'Tectignis Team',
                 'image' => 'blog/Digital-Marketing-Strategy.webp',
                 'published_at' => '2025-04-30 00:00:00',
                 'is_published' => true,
