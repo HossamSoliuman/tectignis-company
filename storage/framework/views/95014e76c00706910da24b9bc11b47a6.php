@@ -132,6 +132,28 @@
     </div>
 
     
+    <?php if (isset($component)) { $__componentOriginal4841e57275fcdfec38efa8608ed3efa1 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal4841e57275fcdfec38efa8608ed3efa1 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.public.consultation-modal','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('public.consultation-modal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal4841e57275fcdfec38efa8608ed3efa1)): ?>
+<?php $attributes = $__attributesOriginal4841e57275fcdfec38efa8608ed3efa1; ?>
+<?php unset($__attributesOriginal4841e57275fcdfec38efa8608ed3efa1); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal4841e57275fcdfec38efa8608ed3efa1)): ?>
+<?php $component = $__componentOriginal4841e57275fcdfec38efa8608ed3efa1; ?>
+<?php unset($__componentOriginal4841e57275fcdfec38efa8608ed3efa1); ?>
+<?php endif; ?>
+
+    
     <a href="#" class="scroll-top" id="scroll-top">
         <i class="arrow-top fas fa-chevron-up"></i>
         <i class="arrow-bottom fas fa-chevron-up"></i>

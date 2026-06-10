@@ -74,6 +74,9 @@
         <x-public.footer />
     </div>
 
+    {{-- Request Consultation modal --}}
+    <x-public.consultation-modal />
+
     {{-- Scroll top --}}
     <a href="#" class="scroll-top" id="scroll-top">
         <i class="arrow-top fas fa-chevron-up"></i>

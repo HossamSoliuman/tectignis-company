@@ -33,3 +33,27 @@ it('contact form with invalid email returns validation error', function () {
         'con_message' => 'Hello',
     ])->assertSessionHasErrors(['con_email']);
 });
+
+it('consultation modal submission without email creates a consultation lead', function () {
+    $this->post(route('contact.submit'), [
+        'con_source' => 'consultation',
+        'con_name' => 'Modal User',
+        'con_phone' => '9876543210',
+        'con_subject' => 'Cloud Solutions',
+        'con_message' => 'Please call me about cloud migration.',
+    ])->assertRedirect()->assertSessionHas('consultation_status');
+
+    $this->assertDatabaseHas('leads', [
+        'name' => 'Modal User',
+        'email' => null,
+        'source' => 'consultation',
+    ]);
+});
+
+it('consultation modal submission requires a mobile number', function () {
+    $this->post(route('contact.submit'), [
+        'con_source' => 'consultation',
+        'con_name' => 'Modal User',
+        'con_message' => 'Please call me.',
+    ])->assertSessionHasErrors(['con_phone']);
+});

@@ -15,7 +15,7 @@
                         <li><a href="tel:+919987705688"><i class="fas fa-phone-alt"></i> +91 9987705688</a></li>
                         <li><a href="mailto:info@tectignis.in"><i class="fas fa-envelope"></i> info@tectignis.in</a></li>
                     </ul>
-                    <a href="<?php echo e(route('contact')); ?>" class="header-top-btn">Request Consultation</a>
+                    <button type="button" class="header-top-btn js-consult-open">Request Consultation</button>
                 </div>
             </div>
         </div>
