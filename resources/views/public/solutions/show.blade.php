@@ -14,51 +14,24 @@
     <meta property="og:type" content="website">
 @endsection
 
-@section('breadcrumb')
-    <x-public.breadcrumb :title="$solution->title"
-        :items="['Solutions' => route('solutions.index'), $solution->title => null]" />
-@endsection
-
 @section('content')
-    @if ($solution->body)
+    @if ($solution->body && empty($solution->content))
+        {{-- Escape hatch: legacy solutions still using free-form body and no rich content yet. --}}
         @include('public._dynamic-body', ['body' => $solution->body])
+
+        <!--========== Call to Action Area Start ============-->
+        <x-public.cta />
+        <!--========== Call to Action Area End ============-->
     @else
-    <!--===========  feature-large-images-wrapper  Start =============-->
-    <div class="feature-large-images-wrapper section-space--ptb_100">
-        <div class="container">
-            <div class="cybersecurity-about-box">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-center">
-                        @if ($solution->icon)
-                            <i class="{{ $solution->icon }} fa-5x text-color-primary"></i>
-                        @endif
-                    </div>
-                    <div class="col-lg-7 offset-lg-1">
-                        <div class="conact-us-wrap-one managed-it">
-                            <h3 class="heading"><span class="text-color-primary">{{ $solution->title }}</span></h3>
-                            <div class="sub-heading">{{ $solution->short_description }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--===========  feature-large-images-wrapper  End =============-->
-
-    @if ($solution->description)
-        <div class="section-space--ptb_100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        {!! $solution->description !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    <!--========== Call to Action Area Start ============-->
-    <x-public.cta />
-    <!--========== Call to Action Area End ============-->
+        {{-- Rich, admin-managed solution template (mockup-matching). Each component
+             reads $solution->content[...] and renders nothing when off or empty. --}}
+        <x-public.solution.hero :solution="$solution" />              {{-- Hero + benefits list + badges --}}
+        <x-public.solution.stats :solution="$solution" />             {{-- KPI cards --}}
+        <x-public.solution.modules :solution="$solution" />           {{-- Modules grid --}}
+        <x-public.solution.benefits :solution="$solution" />          {{-- Benefits grid --}}
+        <x-public.solution.process :solution="$solution" />           {{-- Implementation process --}}
+        <x-public.solution.industries :solution="$solution" />        {{-- Industry solutions --}}
+        <x-public.solution.why-choose :solution="$solution" />        {{-- Why choose + testimonial --}}
+        <x-public.solution.cta-band :solution="$solution" />          {{-- Final CTA band --}}
     @endif
 @endsection

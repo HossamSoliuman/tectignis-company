@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\ManagesSolutionContent;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSolutionRequest;
@@ -12,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 
 class SolutionController extends Controller
 {
-    use UploadsFiles;
+    use ManagesSolutionContent, UploadsFiles;
 
     public function index(): View
     {
@@ -31,10 +32,11 @@ class SolutionController extends Controller
         $data = $request->validated();
 
         $this->syncUpload($request, $data, 'banner_image', null, 'solutions');
+        $this->prepareContent($request, $data);
 
-        Solution::create($data);
+        $solution = Solution::create($data);
 
-        return redirect()->route('admin.solutions.index')->with('status', 'Solution created.');
+        return redirect()->route('admin.solutions.edit', $solution)->with('status', 'Solution created.');
     }
 
     public function edit(Solution $solution): View
@@ -47,10 +49,11 @@ class SolutionController extends Controller
         $data = $request->validated();
 
         $this->syncUpload($request, $data, 'banner_image', $solution->banner_image, 'solutions');
+        $this->prepareContent($request, $data, $solution);
 
         $solution->update($data);
 
-        return redirect()->route('admin.solutions.index')->with('status', 'Solution updated.');
+        return redirect()->route('admin.solutions.edit', $solution)->with('status', 'Solution updated.');
     }
 
     public function destroy(Solution $solution): RedirectResponse

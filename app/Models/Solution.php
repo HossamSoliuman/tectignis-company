@@ -13,7 +13,7 @@ class Solution extends Model
     use HasContentScopes, HasFactory;
 
     protected $fillable = [
-        'slug', 'title', 'short_description', 'description', 'body',
+        'slug', 'title', 'short_description', 'description', 'body', 'content',
         'icon', 'banner_image', 'sort_order', 'is_active',
         'seo_title', 'seo_description', 'seo_keywords',
     ];
@@ -23,6 +23,7 @@ class Solution extends Model
         return [
             'is_active' => 'boolean',
             'sort_order' => 'integer',
+            'content' => 'array',
         ];
     }
 }

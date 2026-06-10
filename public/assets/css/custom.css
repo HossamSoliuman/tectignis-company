@@ -4453,6 +4453,54 @@ body {
 }
 
 /* =========================================================
+   Solution landing page — why-choose + testimonial
+   Reuses svc-* / ind-* primitives; only the bits unique to
+   the solution "Why Choose" block are defined here.
+   ========================================================= */
+.sol-why__title { margin-bottom: 24px; }
+.sol-why__points { margin-top: 6px; }
+.sol-why__aside { padding-left: 24px; }
+.sol-why__media {
+    margin-bottom: 26px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 50px rgba(20, 19, 46, 0.14);
+}
+.sol-why__media img { width: 100%; height: auto; display: block; }
+
+.sol-testimonial {
+    position: relative;
+    margin: 0;
+    background: var(--svc-soft);
+    border: 1px solid var(--svc-line);
+    border-radius: 16px;
+    padding: 34px 32px;
+}
+.sol-testimonial__mark {
+    position: absolute;
+    top: 26px;
+    right: 28px;
+    color: rgba(235, 11, 82, 0.18);
+    font-size: 30px;
+}
+.sol-testimonial__quote {
+    position: relative;
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--svc-dark);
+    font-style: italic;
+    margin: 0 0 20px;
+}
+.sol-testimonial__author { display: flex; flex-direction: column; gap: 2px; }
+.sol-testimonial__name { font-size: 15.5px; font-weight: 700; color: var(--svc-dark); }
+.sol-testimonial__role { font-size: 13.5px; color: var(--svc-body); }
+.sol-testimonial__link { margin-top: 18px; }
+
+@media only screen and (max-width: 991px) {
+    .sol-why__aside { padding-left: 0; margin-top: 40px; }
+}
+
+/* =========================================================
    About Us page (2024 redesign)
    Scoped about-* classes; aligned to brand magenta/purple.
    ========================================================= */
