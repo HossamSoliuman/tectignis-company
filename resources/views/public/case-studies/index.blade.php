@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="content">
                                         <h6 class="heading">{{ $caseStudy->title }}</h6>
-                                        <div class="post-categories">{{ $caseStudy->category }}</div>
+                                        <div class="post-categories">{{ $caseStudy->category?->name }}</div>
                                         <div class="text">{{ $caseStudy->short_description }}</div>
                                         <div class="box-projects-arrow">
                                             <span class="button-text">View case study</span>

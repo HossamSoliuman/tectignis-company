@@ -32,6 +32,7 @@
                             ['admin.stats.index', 'Stats', 'chart-pie'],
                             ['admin.pages.index', 'Pages', 'document-duplicate'],
                             ['admin.case-studies.index', 'Case Studies', 'photograph'],
+                            ['admin.case-study-categories.index', 'Case Study Categories', 'folder'],
                             ['admin.testimonials.index', 'Testimonials', 'chat-alt'],
                             ['admin.brands.index', 'Trusted Technology Partner', 'tag'],
                         ],

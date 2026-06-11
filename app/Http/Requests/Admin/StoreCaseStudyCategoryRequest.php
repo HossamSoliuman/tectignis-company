@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTechStackRequest extends FormRequest
+class StoreCaseStudyCategoryRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,11 +15,10 @@ class StoreTechStackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'logo' => ['nullable', 'file', 'image', 'max:2048'],
+            'name' => ['required', 'string', 'max:255', 'unique:case_study_categories,name'],
+            'description' => ['nullable', 'string', 'max:1000'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['boolean'],
-            'show_on_home' => ['boolean'],
         ];
     }
 }

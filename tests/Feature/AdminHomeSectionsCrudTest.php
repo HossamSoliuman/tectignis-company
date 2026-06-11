@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\CaseStudy;
+use App\Models\CaseStudyCategory;
 use App\Models\GlobalAdvantage;
 use App\Models\OfficeLocation;
 use App\Models\ProcessStep;
@@ -98,11 +99,13 @@ it('admin can update and delete a why-choose feature', function () {
 });
 
 it('stores case-study features from a newline-separated textarea', function () {
+    $category = CaseStudyCategory::factory()->create(['name' => 'ERP SOLUTION']);
+
     $this->actingAs(homeAdmin())
         ->post(route('admin.case-studies.store'), [
             'title' => 'ERP for Manufacturing',
             'slug' => 'erp-manufacturing',
-            'category' => 'ERP SOLUTION',
+            'case_study_category_id' => $category->id,
             'theme' => 'blue',
             'short_description' => 'Streamlined operations.',
             'features' => "40% increase in efficiency\nReal-time visibility\n",
@@ -113,6 +116,46 @@ it('stores case-study features from a newline-separated textarea', function () {
 
     expect($caseStudy->features)->toBe(['40% increase in efficiency', 'Real-time visibility']);
     expect($caseStudy->theme)->toBe('blue');
+    expect($caseStudy->category->name)->toBe('ERP SOLUTION');
+});
+
+it('manages case-study categories through the admin CRUD', function () {
+    $this->actingAs(homeAdmin())
+        ->post(route('admin.case-study-categories.store'), [
+            'name' => 'Digital Transformation',
+            'description' => 'Modernisation projects.',
+            'sort_order' => 2,
+            'is_active' => '1',
+        ])->assertRedirect(route('admin.case-study-categories.index'));
+
+    $category = CaseStudyCategory::firstWhere('name', 'Digital Transformation');
+    expect($category)->not->toBeNull();
+
+    $this->actingAs(homeAdmin())
+        ->put(route('admin.case-study-categories.update', $category), [
+            'name' => 'Digital Transformation & AI',
+            'sort_order' => 1,
+            'is_active' => '0',
+        ])->assertRedirect(route('admin.case-study-categories.index'));
+
+    $category->refresh();
+    expect($category->name)->toBe('Digital Transformation & AI');
+    expect($category->is_active)->toBeFalse();
+
+    $this->actingAs(homeAdmin())
+        ->delete(route('admin.case-study-categories.destroy', $category))
+        ->assertRedirect(route('admin.case-study-categories.index'));
+
+    $this->assertDatabaseMissing('case_study_categories', ['id' => $category->id]);
+});
+
+it('keeps the case study when its category is deleted', function () {
+    $category = CaseStudyCategory::factory()->create();
+    $caseStudy = CaseStudy::factory()->create(['case_study_category_id' => $category->id]);
+
+    $category->delete();
+
+    expect($caseStudy->refresh()->case_study_category_id)->toBeNull();
 });
 
 it('home page renders home-section content from the database', function () {

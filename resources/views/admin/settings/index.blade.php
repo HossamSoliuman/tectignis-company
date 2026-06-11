@@ -33,6 +33,10 @@
                                 @elseif (str_contains($setting->key, 'content') || str_contains($setting->key, 'legal_') || str_contains($setting->key, 'description'))
                                     <textarea name="settings[{{ $setting->key }}]" rows="6"
                                         class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ $setting->value }}</textarea>
+                                @elseif (str_contains($setting->key, 'password') || str_contains($setting->key, 'secret'))
+                                    <input type="password" name="settings[{{ $setting->key }}]"
+                                        value="{{ $setting->value }}" autocomplete="new-password"
+                                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
                                 @else
                                     <input type="text" name="settings[{{ $setting->key }}]"
                                         value="{{ $setting->value }}"

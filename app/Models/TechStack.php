@@ -14,15 +14,21 @@ class TechStack extends Model
     use HasFactory, HasOrderableScopes;
 
     protected $fillable = [
-        'name', 'logo', 'sort_order', 'is_active',
+        'name', 'logo', 'sort_order', 'is_active', 'show_on_home',
     ];
 
     protected function casts(): array
     {
         return [
             'is_active' => 'boolean',
+            'show_on_home' => 'boolean',
             'sort_order' => 'integer',
         ];
+    }
+
+    public function scopeShownOnHome($query): void
+    {
+        $query->where('show_on_home', true);
     }
 
     /**

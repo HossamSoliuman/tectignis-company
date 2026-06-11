@@ -32,7 +32,7 @@ class StoreCaseStudyRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:case_studies,slug'],
-            'category' => ['nullable', 'string', 'max:100'],
+            'case_study_category_id' => ['nullable', 'integer', 'exists:case_study_categories,id'],
             'theme' => ['nullable', 'string', 'in:blue,red,purple'],
             'short_description' => ['nullable', 'string', 'max:500'],
             'icon' => ['nullable', 'string'],

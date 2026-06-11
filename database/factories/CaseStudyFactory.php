@@ -20,7 +20,7 @@ class CaseStudyFactory extends Factory
         return [
             'slug' => fake()->unique()->slug(3),
             'title' => fake()->words(4, true),
-            'category' => fake()->word(),
+            'case_study_category_id' => null,
             'short_description' => fake()->sentence(),
             'image' => null,
             'content' => fake()->paragraph(),

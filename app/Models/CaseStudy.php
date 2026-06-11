@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\CaseStudyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CaseStudy extends Model
 {
@@ -12,7 +13,7 @@ class CaseStudy extends Model
     use HasFactory;
 
     protected $fillable = [
-        'slug', 'title', 'category', 'theme', 'short_description',
+        'slug', 'title', 'case_study_category_id', 'theme', 'short_description',
         'image', 'icon', 'features', 'content', 'sort_order', 'is_active',
     ];
 
@@ -23,6 +24,12 @@ class CaseStudy extends Model
             'sort_order' => 'integer',
             'features' => 'array',
         ];
+    }
+
+    /** @return BelongsTo<CaseStudyCategory, $this> */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(CaseStudyCategory::class, 'case_study_category_id');
     }
 
     public function scopeActive($query): void

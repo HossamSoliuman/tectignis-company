@@ -16,8 +16,37 @@ class SettingsSeeder extends Seeder
             ['key' => 'site_phone', 'value' => '+91 9987705688', 'group' => 'general'],
             ['key' => 'site_email', 'value' => 'info@tectignis.in', 'group' => 'general'],
             ['key' => 'site_address', 'value' => 'Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai - 410206', 'group' => 'general'],
-            ['key' => 'site_ga_id', 'value' => 'G-MSJ8VY2D8Q', 'group' => 'general'],
-            ['key' => 'site_gtm_id', 'value' => 'GTM-TFWTXHQ4', 'group' => 'general'],
+            ['key' => 'site_logo', 'value' => null, 'group' => 'general'],
+            ['key' => 'site_logo_dark', 'value' => null, 'group' => 'general'],
+            ['key' => 'site_favicon', 'value' => null, 'group' => 'general'],
+
+            // integrations
+            ['key' => 'site_ga_id', 'value' => 'G-MSJ8VY2D8Q', 'group' => 'integrations'],
+            ['key' => 'site_gtm_id', 'value' => 'GTM-TFWTXHQ4', 'group' => 'integrations'],
+            ['key' => 'google_search_console_verification', 'value' => null, 'group' => 'integrations'],
+            ['key' => 'meta_pixel_id', 'value' => null, 'group' => 'integrations'],
+            ['key' => 'recaptcha_site_key', 'value' => null, 'group' => 'integrations'],
+            ['key' => 'recaptcha_secret_key', 'value' => null, 'group' => 'integrations'],
+
+            // smtp
+            ['key' => 'smtp_host', 'value' => null, 'group' => 'smtp'],
+            ['key' => 'smtp_port', 'value' => null, 'group' => 'smtp'],
+            ['key' => 'smtp_username', 'value' => null, 'group' => 'smtp'],
+            ['key' => 'smtp_password', 'value' => null, 'group' => 'smtp'],
+            ['key' => 'smtp_encryption', 'value' => null, 'group' => 'smtp'],
+            ['key' => 'smtp_from_address', 'value' => null, 'group' => 'smtp'],
+            ['key' => 'smtp_from_name', 'value' => null, 'group' => 'smtp'],
+
+            // social
+            ['key' => 'social_facebook', 'value' => 'https://www.facebook.com/tectignisofficial/', 'group' => 'social'],
+            ['key' => 'social_instagram', 'value' => 'https://www.instagram.com/tectignisofficial/', 'group' => 'social'],
+            ['key' => 'social_linkedin', 'value' => 'https://in.linkedin.com/company/tectignis', 'group' => 'social'],
+            ['key' => 'social_twitter', 'value' => 'https://x.com/ItTectignis', 'group' => 'social'],
+            ['key' => 'social_whatsapp', 'value' => '+919987705688', 'group' => 'social'],
+
+            // legal
+            ['key' => 'legal_privacy-policy', 'value' => null, 'group' => 'legal'],
+            ['key' => 'legal_terms-and-conditions', 'value' => null, 'group' => 'legal'],
 
             // home — hero
             ['key' => 'hero_sub_heading', 'value' => 'Serving Clients Across Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.', 'group' => 'home'],

@@ -19,6 +19,7 @@ class UpdateTechStackRequest extends FormRequest
             'logo' => ['nullable', 'file', 'image', 'max:2048'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['boolean'],
+            'show_on_home' => ['boolean'],
         ];
     }
 }

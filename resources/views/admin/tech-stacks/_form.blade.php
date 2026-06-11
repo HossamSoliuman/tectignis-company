@@ -25,4 +25,12 @@
             class="rounded border-slate-300">
         <label for="is_active" class="text-sm font-medium text-slate-700">Active</label>
     </div>
+
+    <div class="flex items-center gap-2">
+        <input type="hidden" name="show_on_home" value="0">
+        <input type="checkbox" id="show_on_home" name="show_on_home" value="1"
+            {{ old('show_on_home', $s?->show_on_home ?? true) ? 'checked' : '' }}
+            class="rounded border-slate-300">
+        <label for="show_on_home" class="text-sm font-medium text-slate-700">Show in home page Technology Stack section</label>
+    </div>
 </div>

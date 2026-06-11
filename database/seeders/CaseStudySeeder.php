@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CaseStudy;
+use App\Models\CaseStudyCategory;
 use Illuminate\Database\Seeder;
 
 class CaseStudySeeder extends Seeder
@@ -60,7 +61,15 @@ class CaseStudySeeder extends Seeder
             ],
         ];
 
-        foreach ($caseStudies as $caseStudy) {
+        foreach ($caseStudies as $index => $caseStudy) {
+            $category = CaseStudyCategory::updateOrCreate(
+                ['name' => $caseStudy['category']],
+                ['sort_order' => $index, 'is_active' => true],
+            );
+
+            unset($caseStudy['category']);
+            $caseStudy['case_study_category_id'] = $category->id;
+
             CaseStudy::updateOrCreate(['slug' => $caseStudy['slug']], $caseStudy);
         }
     }

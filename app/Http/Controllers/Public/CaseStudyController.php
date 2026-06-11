@@ -10,7 +10,7 @@ class CaseStudyController extends Controller
 {
     public function index(): View
     {
-        $caseStudies = CaseStudy::active()->ordered()->get();
+        $caseStudies = CaseStudy::with('category')->active()->ordered()->get();
 
         return view('public.case-studies.index', compact('caseStudies'));
     }

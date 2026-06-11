@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CapabilityController;
+use App\Http\Controllers\Admin\CaseStudyCategoryController;
 use App\Http\Controllers\Admin\CaseStudyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DownloadController;
@@ -56,6 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('downloads', DownloadController::class);
         Route::resource('job-openings', JobOpeningController::class)->parameters(['job-openings' => 'jobOpening']);
         Route::resource('case-studies', CaseStudyController::class);
+        Route::resource('case-study-categories', CaseStudyCategoryController::class)->parameters(['case-study-categories' => 'caseStudyCategory']);
         Route::resource('testimonials', TestimonialController::class);
         Route::resource('brands', BrandController::class);
         Route::resource('why-choose-features', WhyChooseFeatureController::class);

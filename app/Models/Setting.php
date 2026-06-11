@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Setting extends Model
 {
@@ -26,11 +27,22 @@ class Setting extends Model
     }
 
     /**
+     * All settings as a key => value map, memoized for the request so the
+     * layout, header and footer share a single query.
+     *
+     * @return Collection<string, string|null>
+     */
+    public static function values(): Collection
+    {
+        return once(fn () => static::pluck('value', 'key'));
+    }
+
+    /**
      * Whether a setting key holds an image and should render as an upload field.
      */
     public static function isImageKey(string $key): bool
     {
-        return str_contains($key, 'image') || str_contains($key, 'logo');
+        return str_contains($key, 'image') || str_contains($key, 'logo') || str_contains($key, 'favicon');
     }
 
     /**

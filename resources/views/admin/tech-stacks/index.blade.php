@@ -23,6 +23,7 @@
                     <th class="px-4 py-3">Name</th>
                     <th class="px-4 py-3">Order</th>
                     <th class="px-4 py-3">Active</th>
+                    <th class="px-4 py-3">On Home</th>
                     <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
@@ -45,6 +46,9 @@
                             <x-admin.status-badge :active="$techStack->is_active" />
                         </td>
                         <td class="px-4 py-3">
+                            <x-admin.status-badge :active="$techStack->show_on_home" />
+                        </td>
+                        <td class="px-4 py-3">
                             <div class="flex items-center justify-end gap-1">
                                 <x-admin.edit-link :href="route('admin.tech-stacks.edit', $techStack)" />
                                 <x-admin.delete-button :action="route('admin.tech-stacks.destroy', $techStack)" />
@@ -53,7 +57,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-10 text-center text-slate-400">No technologies yet.</td>
+                        <td colspan="6" class="px-4 py-10 text-center text-slate-400">No technologies yet.</td>
                     </tr>
                 @endforelse
             </tbody>

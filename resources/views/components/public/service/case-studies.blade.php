@@ -3,7 +3,7 @@
 @php
     $section = $service->content['case_studies'] ?? [];
     // Section shows the three most recent active case studies globally.
-    $caseStudies = \App\Models\CaseStudy::active()->latest()->limit(3)->get();
+    $caseStudies = \App\Models\CaseStudy::with('category')->active()->latest()->limit(3)->get();
     $heading = $section['heading'] ?? 'Our Recent Success Stories';
     $subtitle = $section['subtitle'] ?? 'Proof of Work';
 @endphp
@@ -26,7 +26,7 @@
                             @if ($caseStudy->image) style="background-image:linear-gradient(180deg, rgba(12,10,38,0.15) 0%, rgba(12,10,38,0.92) 100%), url('{{ asset('uploads/'.$caseStudy->image) }}');" @endif>
                             <div class="svc-case-card__content">
                                 @if ($caseStudy->category)
-                                    <span class="svc-case-card__tag">{{ $caseStudy->category }}</span>
+                                    <span class="svc-case-card__tag">{{ $caseStudy->category->name }}</span>
                                 @endif
                                 <h3 class="svc-case-card__title">{{ $caseStudy->title }}</h3>
                                 @if ($caseStudy->short_description)

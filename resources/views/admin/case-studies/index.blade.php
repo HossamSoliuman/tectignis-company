@@ -41,7 +41,7 @@
                             @endif
                         </td>
                         <td class="px-4 py-3 font-medium text-slate-800">{{ $cs->title }}</td>
-                        <td class="px-4 py-3 text-slate-500">{{ $cs->category }}</td>
+                        <td class="px-4 py-3 text-slate-500">{{ $cs->category?->name ?? '—' }}</td>
                         <td class="px-4 py-3 text-slate-500">{{ $cs->sort_order }}</td>
                         <td class="px-4 py-3">
                             <x-admin.status-badge :active="$cs->is_active" />

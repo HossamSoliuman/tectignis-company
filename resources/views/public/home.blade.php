@@ -454,7 +454,7 @@
                     </div>
                     <div class="cs-card__body">
                         @if ($caseStudy->category)
-                        <span class="cs-card__badge">{{ $caseStudy->category }}</span>
+                        <span class="cs-card__badge">{{ $caseStudy->category->name }}</span>
                         @endif
                         <h3 class="cs-card__title">{{ $caseStudy->title }}</h3>
                         <p class="cs-card__desc">{{ $caseStudy->short_description }}</p>
