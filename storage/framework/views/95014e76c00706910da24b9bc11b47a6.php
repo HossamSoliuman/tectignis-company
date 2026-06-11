@@ -24,8 +24,24 @@
     <?php echo $__env->yieldContent('seo'); ?>
     <?php echo $__env->yieldPushContent('head'); ?>
 
+    <?php $siteSettings = \App\Models\Setting::values(); ?>
+
     
-    <?php $ga4Id = \App\Models\Setting::get('ga4_id'); ?>
+    <?php if($siteSettings['google_search_console_verification'] ?? false): ?>
+        <meta name="google-site-verification" content="<?php echo e($siteSettings['google_search_console_verification']); ?>">
+    <?php endif; ?>
+
+    
+    <?php if($siteSettings['site_gtm_id'] ?? false): ?>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','<?php echo e($siteSettings['site_gtm_id']); ?>');</script>
+    <?php endif; ?>
+
+    
+    <?php $ga4Id = $siteSettings['site_ga_id'] ?? null; ?>
     <?php if($ga4Id): ?>
         <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo e($ga4Id); ?>"></script>
         <script>
@@ -37,7 +53,20 @@
     <?php endif; ?>
 
     
-    <link rel="icon" href="<?php echo e(asset('assets/images/favicon.webp')); ?>">
+    <?php if($siteSettings['meta_pixel_id'] ?? false): ?>
+        <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '<?php echo e($siteSettings['meta_pixel_id']); ?>');
+        fbq('track', 'PageView');</script>
+        <noscript><img height="1" width="1" style="display:none" alt=""
+            src="https://www.facebook.com/tr?id=<?php echo e($siteSettings['meta_pixel_id']); ?>&ev=PageView&noscript=1"></noscript>
+    <?php endif; ?>
+
+    
+    <link rel="icon" href="<?php echo e(\App\Models\Setting::imageUrl($siteSettings['site_favicon'] ?? null, 'site_favicon') ?? asset('assets/images/favicon.webp')); ?>">
 
     
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -53,6 +82,12 @@
 </head>
 
 <body>
+
+    
+    <?php if($siteSettings['site_gtm_id'] ?? false): ?>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo e($siteSettings['site_gtm_id']); ?>"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <?php endif; ?>
 
     
     <?php echo $__env->yieldPushContent('json-ld'); ?>
@@ -166,6 +201,33 @@
     <script src="<?php echo e(asset('assets/js/vendor/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/plugins/plugins.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/main.js')); ?>"></script>
+
+    
+    <?php if($siteSettings['recaptcha_site_key'] ?? false): ?>
+        <script src="https://www.google.com/recaptcha/api.js?render=<?php echo e($siteSettings['recaptcha_site_key']); ?>"></script>
+        <script>
+            document.querySelectorAll('form[action*="contact"], form[action*="careers"], form[action*="downloads"]').forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.dataset.recaptchaDone) { return; }
+                    event.preventDefault();
+                    grecaptcha.ready(function () {
+                        grecaptcha.execute('<?php echo e($siteSettings['recaptcha_site_key']); ?>', { action: 'lead' }).then(function (token) {
+                            var input = form.querySelector('input[name="g-recaptcha-response"]');
+                            if (!input) {
+                                input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = 'g-recaptcha-response';
+                                form.appendChild(input);
+                            }
+                            input.value = token;
+                            form.dataset.recaptchaDone = '1';
+                            form.submit();
+                        });
+                    });
+                });
+            });
+        </script>
+    <?php endif; ?>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 
 </body>

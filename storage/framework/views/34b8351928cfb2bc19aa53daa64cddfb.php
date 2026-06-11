@@ -1,3 +1,19 @@
+<?php
+    $siteSettings = \App\Models\Setting::values();
+    $footerLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo_dark'] ?? null, 'site_logo_dark')
+        ?? asset('assets/images/logo/Tectignis-IT-solution-logo.webp');
+    $footerPhone = $siteSettings['site_phone'] ?? '+91 9987705688';
+    $footerEmail = $siteSettings['site_email'] ?? 'info@tectignis.in';
+    $whatsappNumber = preg_replace('/\D/', '', $siteSettings['social_whatsapp'] ?? '');
+    $socials = array_filter([
+        ['url' => $siteSettings['social_linkedin'] ?? null, 'icon' => 'fab fa-linkedin-in', 'label' => 'Visit LinkedIn'],
+        ['url' => $siteSettings['social_twitter'] ?? null, 'icon' => 'fab fa-twitter', 'label' => 'Visit X / Twitter'],
+        ['url' => $siteSettings['social_instagram'] ?? null, 'icon' => 'fab fa-instagram', 'label' => 'Visit Instagram'],
+        ['url' => $siteSettings['social_facebook'] ?? null, 'icon' => 'fab fa-facebook-f', 'label' => 'Visit Facebook'],
+        ['url' => $whatsappNumber ? 'https://wa.me/'.$whatsappNumber : null, 'icon' => 'fab fa-whatsapp', 'label' => 'Chat on WhatsApp'],
+    ], fn (array $social): bool => filled($social['url']));
+?>
+
 <footer class="ft-dark__main" aria-label="Site Footer">
     <div class="container">
         <div class="row ft-dark__row">
@@ -5,7 +21,7 @@
             
             <div class="col-xl-3 col-lg-4 col-md-12 ft-dark__col ft-dark__brand">
                 <a href="<?php echo e(route('home')); ?>" class="ft-dark__logo">
-                    <img src="<?php echo e(asset('assets/images/logo/Tectignis-IT-solution-logo.webp')); ?>"
+                    <img src="<?php echo e($footerLogo); ?>"
                          width="160" height="48" class="img-fluid" alt="Tectignis IT Solutions">
                 </a>
                 <p class="ft-dark__tagline">
@@ -13,26 +29,13 @@
                     security solutions. Empowering businesses with innovative technology.
                 </p>
                 <ul class="ft-dark__socials">
-                    <li>
-                        <a href="https://in.linkedin.com/company/tectignis" target="_blank" rel="noopener" aria-label="Visit LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://x.com/ItTectignis" target="_blank" rel="noopener" aria-label="Visit X / Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/tectignisofficial/" target="_blank" rel="noopener" aria-label="Visit Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/tectignisofficial/" target="_blank" rel="noopener" aria-label="Visit Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </li>
+                    <?php $__currentLoopData = $socials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li>
+                            <a href="<?php echo e($social['url']); ?>" target="_blank" rel="noopener" aria-label="<?php echo e($social['label']); ?>">
+                                <i class="<?php echo e($social['icon']); ?>"></i>
+                            </a>
+                        </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
 
@@ -97,11 +100,11 @@
                     </li>
                     <li>
                         <i class="fas fa-phone-alt"></i>
-                        <a href="tel:+919987705688">+91 9987705688</a>
+                        <a href="tel:<?php echo e(preg_replace('/[^+\d]/', '', $footerPhone)); ?>"><?php echo e($footerPhone); ?></a>
                     </li>
                     <li>
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:info@tectignis.in">info@tectignis.in</a>
+                        <a href="mailto:<?php echo e($footerEmail); ?>"><?php echo e($footerEmail); ?></a>
                     </li>
                     <li>
                         <i class="fas fa-clock"></i>
@@ -128,6 +131,7 @@
             <span class="ft-dark__copy-legal">
                 <a href="<?php echo e(route('legal.show', 'privacy-policy')); ?>">Privacy Policy</a>
                 <a href="<?php echo e(route('legal.show', 'terms-and-conditions')); ?>">Terms of Service</a>
+                <a href="<?php echo e(route('legal.show', 'cookie-policy')); ?>">Cookie Policy</a>
             </span>
         </div>
     </div>

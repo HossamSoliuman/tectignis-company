@@ -1,3 +1,13 @@
+<?php
+    $siteSettings = \App\Models\Setting::values();
+    $sitePhone = $siteSettings['site_phone'] ?? '+91 9987705688';
+    $siteEmail = $siteSettings['site_email'] ?? 'info@tectignis.in';
+    $headerLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo'] ?? null, 'site_logo')
+        ?? asset('assets/images/logo/Tectignis-IT-solution-logo-white.webp');
+    $mobileLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo_dark'] ?? null, 'site_logo_dark')
+        ?? asset('assets/images/logo/Tectignis-IT-solution-logo.webp');
+?>
+
 <div class="header-area header-area--default">
 
     <!-- Header Top Wrap Start -->
@@ -12,8 +22,8 @@
                 </div>
                 <div class="header-top-right">
                     <ul class="header-top-info">
-                        <li><a href="tel:+919987705688"><i class="fas fa-phone-alt"></i> +91 9987705688</a></li>
-                        <li><a href="mailto:info@tectignis.in"><i class="fas fa-envelope"></i> info@tectignis.in</a></li>
+                        <li><a href="tel:<?php echo e(preg_replace('/[^+\d]/', '', $sitePhone)); ?>"><i class="fas fa-phone-alt"></i> <?php echo e($sitePhone); ?></a></li>
+                        <li><a href="mailto:<?php echo e($siteEmail); ?>"><i class="fas fa-envelope"></i> <?php echo e($siteEmail); ?></a></li>
                     </ul>
                     <button type="button" class="header-top-btn js-consult-open">Request Consultation</button>
                 </div>
@@ -32,7 +42,7 @@
                         <!-- brand logo -->
                         <div class="header__logo">
                             <a href="<?php echo e(route('home')); ?>">
-                                <img src="<?php echo e(asset('assets/images/logo/Tectignis-IT-solution-logo-white.webp')); ?>" aria-label="Tectignis Logo" width="160" height="48" class="img-fluid" alt="Tectignis-IT-solution-logo">
+                                <img src="<?php echo e($headerLogo); ?>" aria-label="Tectignis Logo" width="160" height="48" class="img-fluid" alt="Tectignis-IT-solution-logo">
                             </a>
                         </div>
 
@@ -189,7 +199,7 @@
                         <!-- logo -->
                         <div class="logo">
                             <a href="<?php echo e(route('home')); ?>">
-                                <img src="<?php echo e(asset('assets/images/logo/Tectignis-IT-solution-logo.webp')); ?>" class="img-fluid" alt="Tectignis-IT-solution-logo">
+                                <img src="<?php echo e($mobileLogo); ?>" class="img-fluid" alt="Tectignis-IT-solution-logo">
                             </a>
                         </div>
                     </div>
