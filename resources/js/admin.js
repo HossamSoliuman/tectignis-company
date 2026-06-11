@@ -78,6 +78,29 @@ document.addEventListener('click', (e) => {
     button.classList.add('hidden');
 });
 
+// Client-side table filter for [data-table-search] inputs. The value of the
+// attribute is a selector for the table whose tbody rows are filtered by the
+// typed term. Empty-state rows (a single td[colspan]) are never hidden.
+document.addEventListener('input', (e) => {
+    const input = e.target.closest('[data-table-search]');
+    if (!input) {
+        return;
+    }
+
+    const table = document.querySelector(input.dataset.tableSearch);
+    if (!table) {
+        return;
+    }
+
+    const term = input.value.trim().toLowerCase();
+    table.querySelectorAll('tbody tr').forEach((row) => {
+        if (row.querySelector('td[colspan]')) {
+            return;
+        }
+        row.style.display = !term || row.textContent.toLowerCase().includes(term) ? '' : 'none';
+    });
+});
+
 // Repeater rows: add / remove / reorder. New rows are cloned from the
 // [data-repeater-template] with a unique, never-reused index so file/hidden
 // inputs in the same row stay associated. Order follows DOM order; the server

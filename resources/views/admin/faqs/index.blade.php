@@ -10,6 +10,7 @@
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $faqs->count() }}</span>
         </h2>
         <div class="flex items-center gap-2">
+            <x-admin.table-search target="#faqs-table" placeholder="Search FAQs…" />
             <a href="{{ route('admin.faq-categories.index') }}"
                 class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">
                 <x-admin.icon name="folder" class="h-4 w-4" /> Categories
@@ -22,7 +23,7 @@
     </div>
 
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <table class="w-full text-sm">
+        <table class="w-full text-sm" id="faqs-table">
             <thead class="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
                 <tr>
                     <th class="px-4 py-3">Question</th>

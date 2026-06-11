@@ -9,10 +9,11 @@
             Leads
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $leads->total() }} total</span>
         </h2>
+        <x-admin.table-search target="#leads-table" placeholder="Search this page…" />
     </div>
 
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <table class="w-full text-sm">
+        <table class="w-full text-sm" id="leads-table">
             <thead class="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
                 <tr>
                     <th class="px-4 py-3"></th>

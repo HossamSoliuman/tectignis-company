@@ -9,14 +9,17 @@
             Technology Stack
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $techStacks->count() }}</span>
         </h2>
-        <a href="{{ route('admin.tech-stacks.create') }}"
-            class="inline-flex items-center gap-1.5 rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-fuchsia-700">
-            <x-admin.icon name="plus" class="h-4 w-4" /> New Technology
-        </a>
+        <div class="flex items-center gap-2">
+            <x-admin.table-search target="#tech-stacks-table" placeholder="Search technologies…" />
+            <a href="{{ route('admin.tech-stacks.create') }}"
+                class="inline-flex items-center gap-1.5 rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-fuchsia-700">
+                <x-admin.icon name="plus" class="h-4 w-4" /> New Technology
+            </a>
+        </div>
     </div>
 
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <table class="w-full text-sm">
+        <table class="w-full text-sm" id="tech-stacks-table">
             <thead class="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
                 <tr>
                     <th class="px-4 py-3">Logo</th>
