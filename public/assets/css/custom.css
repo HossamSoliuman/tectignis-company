@@ -154,20 +154,14 @@ h1, h2, h3, h4, h5, h6,
 /* ---------- Mega menu: service categories + CTA row ----------
    One column per live service category (driven by the admin). */
 .navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--services {
-    min-width: 1100px;
+    min-width: 0;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
 
-@media only screen and (min-width: 1200px) and (max-width: 1499px) {
-    .navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--services {
-        min-width: 960px;
-    }
-}
-
 .megamenu--services > li {
-    flex-basis: 20%;
-    max-width: 20%;
+    flex: 0 0 auto;
+    max-width: none;
 }
 
 .megamenu--services > li .page-list-title {
@@ -183,6 +177,7 @@ h1, h2, h3, h4, h5, h6,
     display: flex;
     align-items: center;
     gap: 10px;
+    white-space: nowrap;
 }
 
 .megamenu--services > li .cap-title-icon {
@@ -207,6 +202,7 @@ h1, h2, h3, h4, h5, h6,
 .megamenu--services > li > ul > li > a {
     padding: 7px 0;
     font-size: 13.5px;
+    white-space: nowrap;
 }
 
 /* CTA row inside the mega menu */
@@ -326,14 +322,8 @@ body {
     left: 50%;
     transform: translateX(-50%);
     min-width: 0;
-    width: min(880px, calc(100vw - 40px));
-}
-
-@media only screen and (min-width: 1200px) and (max-width: 1499px) {
-    .navigation-menu > ul > li .megamenu.megamenu--services,
-    .navigation-menu > ul > li.has-children:hover .megamenu.megamenu--services {
-        width: min(780px, calc(100vw - 40px));
-    }
+    width: max-content;
+    max-width: calc(100vw - 40px);
 }
 
 /* Mobile capabilities sub-menu: category captions between service links */
