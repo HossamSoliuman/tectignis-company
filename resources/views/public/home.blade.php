@@ -15,25 +15,66 @@
 @section('content')
 
     <!--============ Hero Banner Start ============-->
-    <div class="software-innovation-hero-wrapper section-space--pt_10">
+    <div class="home-hero">
+        <span class="home-hero__bg" aria-hidden="true"></span>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6">
-                    <div class="software-innovation-hero-wrap wow move-up">
-                        <div class="software-innovation-hero-text">
-                            <p class="sub-heading">{{ $settings['hero_sub_heading'] ?? 'Serving Clients Across Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.' }}</p>
-                            <h1 class="font-weight--reguler mb-20">{{ $settings['hero_heading_line1'] ?? 'Transforming Businesses Through' }} <span class="text-color-primary">{{ $settings['hero_heading_line2'] ?? 'Software, AI & Smart Technology Solutions' }}</span></h1>
-                            <h6 class="info-heading">{{ $settings['hero_info_heading'] ?? 'Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems.' }}</h6>
-                            <div class="hero-button mt-30">
-                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md">{{ $settings['hero_btn_primary'] ?? 'Request Consultation' }}</a>
-                                <a href="{{ route('contact') }}" class="ht-btn ht-btn-md ht-btn--outline ms-3">{{ $settings['hero_btn_secondary'] ?? 'Get a Quote' }}</a>
+                <div class="col-lg-6">
+                    <div class="home-hero__content wow move-up">
+                        <span class="home-hero__overline">
+                            <span class="home-hero__overline-line" aria-hidden="true"></span>
+                            {{ $settings['hero_sub_heading'] ?? 'Serving Clients Across Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.' }}
+                        </span>
+                        <h1 class="home-hero__title">
+                            {{ $settings['hero_heading_line1'] ?? 'Transforming Businesses Through' }}
+                            <span class="home-hero__title-grad">{{ $settings['hero_heading_line2'] ?? 'Software, AI & Smart Technology Solutions' }}</span>
+                        </h1>
+                        <p class="home-hero__desc">{{ $settings['hero_info_heading'] ?? 'Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems.' }}</p>
+
+                        <div class="home-hero__features">
+                            <div class="home-hero__feature">
+                                <span class="home-hero__feature-icon" aria-hidden="true"><i class="fas fa-lightbulb"></i></span>
+                                <span class="home-hero__feature-text">
+                                    <span class="home-hero__feature-title">Innovative Solutions</span>
+                                    <span class="home-hero__feature-sub">that drive growth</span>
+                                </span>
                             </div>
+                            <div class="home-hero__feature">
+                                <span class="home-hero__feature-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></span>
+                                <span class="home-hero__feature-text">
+                                    <span class="home-hero__feature-title">Secure &amp; Scalable</span>
+                                    <span class="home-hero__feature-sub">by design</span>
+                                </span>
+                            </div>
+                            <div class="home-hero__feature">
+                                <span class="home-hero__feature-icon" aria-hidden="true"><i class="fas fa-headset"></i></span>
+                                <span class="home-hero__feature-text">
+                                    <span class="home-hero__feature-title">24/7 Expert Support</span>
+                                    <span class="home-hero__feature-sub">you can rely on</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="home-hero__actions">
+                            <button type="button" class="home-hero__btn home-hero__btn--primary js-consult-open">
+                                {{ $settings['hero_btn_primary'] ?? 'Request Consultation' }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </button>
+                            <a href="{{ route('contact') }}" class="home-hero__btn home-hero__btn--ghost">
+                                {{ $settings['hero_btn_secondary'] ?? 'Get a Quote' }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="software-innovation-hero-image animation_images three mt-30">
-                        <img src="{{ \App\Models\Setting::imageUrl($settings['hero_image'] ?? 'uploads/site/Networking-Solutions-India.webp', 'hero_image') }}" class="img-fluid" alt="Software AI Smart Technology Solutions">
+                <div class="col-lg-6">
+                    <div class="home-hero__media wow move-up">
+                        <span class="home-hero__glow" aria-hidden="true"></span>
+                        <img src="{{ \App\Models\Setting::imageUrl($settings['hero_image'] ?? 'uploads/site/Networking-Solutions-India.webp', 'hero_image') }}"
+                            class="home-hero__img" alt="Software AI Smart Technology Solutions" fetchpriority="high">
+                        <span class="home-hero__chip home-hero__chip--1"><i class="fas fa-code" aria-hidden="true"></i> Software Development</span>
+                        <span class="home-hero__chip home-hero__chip--2"><i class="fas fa-robot" aria-hidden="true"></i> AI &amp; Automation</span>
+                        <span class="home-hero__chip home-hero__chip--3"><i class="fas fa-cloud" aria-hidden="true"></i> Cloud</span>
+                        <span class="home-hero__chip home-hero__chip--4"><i class="fas fa-shield-alt" aria-hidden="true"></i> Cybersecurity</span>
+                        <span class="home-hero__chip home-hero__chip--5"><i class="fas fa-server" aria-hidden="true"></i> Infrastructure</span>
                     </div>
                 </div>
             </div>
@@ -547,46 +588,37 @@
                     </div>
                 </aside>
 
-                {{-- Center: dotted world map with India hub + arcs --}}
+                {{-- Center: world map (Wikimedia placeholder) with India hub + arcs --}}
                 <div class="gp-map" role="img" aria-label="World map highlighting Tectignis delivery from India to clients across UAE, Saudi Arabia, UK, USA, Canada, Australia and Singapore.">
-                    <svg class="gp-map__svg" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet">
-                        {{-- Continents (dotted) --}}
-                        <g fill="url(#gpDots)">
-                            <path d="M120,90 C100,110 90,150 110,180 C130,210 180,232 212,212 C244,196 252,158 235,128 C218,98 160,75 120,90 Z"/>
-                            <path d="M250,255 C238,288 250,342 282,372 C302,392 322,382 322,350 C326,308 305,272 286,256 C271,246 258,246 250,255 Z"/>
-                            <path d="M428,118 C413,128 413,156 435,166 C462,177 492,166 497,144 C502,126 480,114 460,114 C448,113 436,114 428,118 Z"/>
-                            <path d="M452,198 C436,214 442,266 472,302 C492,322 512,316 517,286 C524,250 506,214 491,199 C476,187 462,188 452,198 Z"/>
-                            <path d="M520,108 C562,92 662,98 742,128 C802,150 822,182 792,202 C742,228 650,222 590,212 C540,202 508,170 508,144 C508,128 514,116 520,108 Z"/>
-                            <path d="M742,328 C726,344 732,376 766,386 C796,394 822,378 820,355 C817,334 792,321 766,321 C755,321 748,323 742,328 Z"/>
-                        </g>
-
-                        {{-- India highlight --}}
-                        <path class="gp-map__india" d="M548,212 C562,206 578,216 575,232 C572,250 560,266 552,252 C545,240 537,222 548,212 Z"/>
-
-                        {{-- Connection arcs from India hub --}}
+                    <img class="gp-map__img"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/World_location_map_%28equirectangular_180%29.svg/1280px-World_location_map_%28equirectangular_180%29.svg.png"
+                        alt="" loading="lazy" decoding="async">
+                    {{-- Overlay: arcs + nodes positioned by lat/lon on the equirectangular map --}}
+                    <svg class="gp-map__svg gp-map__svg--overlay" viewBox="0 0 1000 500" preserveAspectRatio="none">
+                        {{-- Connection arcs from the Mumbai hub --}}
                         <g class="gp-arcs" fill="none">
-                            <path class="gp-arc" d="M560,236 Q495,150 430,158"/>
-                            <path class="gp-arc" d="M560,236 Q360,118 182,198"/>
-                            <path class="gp-arc" d="M560,236 Q360,78 182,150"/>
-                            <path class="gp-arc" d="M560,236 Q528,198 500,236"/>
-                            <path class="gp-arc" d="M560,236 Q512,206 470,248"/>
-                            <path class="gp-arc" d="M560,236 Q702,298 782,358"/>
-                            <path class="gp-arc" d="M560,236 Q622,250 662,300"/>
+                            <path class="gp-arc" d="M702,197 Q678,160 654,180"/>  {{-- Dubai --}}
+                            <path class="gp-arc" d="M702,197 Q666,148 630,182"/>  {{-- Riyadh --}}
+                            <path class="gp-arc" d="M702,197 Q600,60 500,107"/>   {{-- London --}}
+                            <path class="gp-arc" d="M702,197 Q500,20 294,137"/>   {{-- New York --}}
+                            <path class="gp-arc" d="M702,197 Q480,0 279,129"/>    {{-- Toronto --}}
+                            <path class="gp-arc" d="M702,197 Q840,250 920,344"/>  {{-- Sydney --}}
+                            <path class="gp-arc" d="M702,197 Q755,215 788,246"/>  {{-- Singapore --}}
                         </g>
 
                         {{-- Global destination nodes --}}
                         <g class="gp-nodes">
-                            <g class="gp-node gp-node--global" transform="translate(430,158)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
-                            <g class="gp-node gp-node--global" transform="translate(182,198)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
-                            <g class="gp-node gp-node--global" transform="translate(182,150)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
-                            <g class="gp-node gp-node--global" transform="translate(500,236)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
-                            <g class="gp-node gp-node--global" transform="translate(470,248)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
-                            <g class="gp-node gp-node--global" transform="translate(782,358)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
-                            <g class="gp-node gp-node--global" transform="translate(662,300)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(654,180)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(630,182)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(500,107)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(294,137)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(279,129)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(920,344)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
+                            <g class="gp-node gp-node--global" transform="translate(788,246)"><circle class="gp-node__ring" r="9"/><circle class="gp-node__dot" r="3.5"/></g>
                         </g>
 
-                        {{-- India hub --}}
-                        <g class="gp-node gp-node--hub" transform="translate(560,236)">
+                        {{-- India hub (Mumbai) --}}
+                        <g class="gp-node gp-node--hub" transform="translate(702,197)">
                             <circle class="gp-node__ring" r="13"/>
                             <circle class="gp-node__dot" r="5"/>
                         </g>
@@ -817,23 +849,35 @@
                 </div>
                 <div class="col-lg-6 wow move-up">
                     <div class="contact-form">
+                        @if (session('status'))
+                            <div class="alert alert-success mb-20">{{ session('status') }}</div>
+                        @endif
+                        @if ($errors->any())
+                            <div class="alert alert-danger mb-20">
+                                <ul class="mb-0 list-unstyled">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form action="{{ route('contact.submit') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-20">
-                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                    <input type="text" name="con_name" value="{{ old('con_name') }}" class="form-control" placeholder="Your Name" required>
                                 </div>
                                 <div class="col-md-6 mb-20">
-                                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                    <input type="email" name="con_email" value="{{ old('con_email') }}" class="form-control" placeholder="Your Email" required>
                                 </div>
                                 <div class="col-md-6 mb-20">
-                                    <input type="tel" name="phone" class="form-control" placeholder="Phone Number">
+                                    <input type="tel" name="con_phone" value="{{ old('con_phone') }}" class="form-control" placeholder="Phone Number">
                                 </div>
                                 <div class="col-md-6 mb-20">
-                                    <input type="text" name="subject" class="form-control" placeholder="Service Required">
+                                    <input type="text" name="con_subject" value="{{ old('con_subject') }}" class="form-control" placeholder="Service Required">
                                 </div>
                                 <div class="col-12 mb-20">
-                                    <textarea name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                                    <textarea name="con_message" class="form-control" rows="4" placeholder="Your Message" required>{{ old('con_message') }}</textarea>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="ht-btn ht-btn-md">Submit</button>

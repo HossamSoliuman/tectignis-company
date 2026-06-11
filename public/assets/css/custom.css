@@ -1,5 +1,5 @@
 /* =========================================================
-   Tectignis – custom overrides (header + hero)
+   Tectignis â€“ custom overrides (header + hero)
    Loaded after style.css so these rules win.
    ========================================================= */
 
@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ---------- Dark header theme (from design mockup) ----------
-   The whole header — top utility bar and the main navigation — sits on a
+   The whole header â€” top utility bar and the main navigation â€” sits on a
    deep navy background with a white wordmark, light menu text and magenta
    accents, matching docs/images. Covers the JS sticky state too. */
 .header-area--default {
@@ -266,7 +266,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* =========================================================
-   Navbar dropdowns – stable hover + content-sized panels
+   Navbar dropdowns â€“ stable hover + content-sized panels
    Replaces the old translate/slide reveal that jittered and
    the fixed-width slab that left big empty gaps.
    ========================================================= */
@@ -287,7 +287,7 @@ body {
     position: relative;
 }
 
-/* Base panel: instant, opacity-only reveal — no sliding transform and no
+/* Base panel: instant, opacity-only reveal â€” no sliding transform and no
    transition-delay (those were the source of the "lag then snap" feel). */
 .navigation-menu > ul > li .megamenu {
     top: 100%;
@@ -409,7 +409,7 @@ body {
 }
 
 /* =========================================================
-   Service detail page – redesigned sections (scoped `.svc-`)
+   Service detail page â€“ redesigned sections (scoped `.svc-`)
    These classes are used only by resources/views/components/
    public/service/* so they never affect other pages.
    ========================================================= */
@@ -1477,7 +1477,7 @@ body {
 }
 
 /* =========================================================
-   Home – Our Capabilities (expertise grid + mobile accordion)
+   Home â€“ Our Capabilities (expertise grid + mobile accordion)
    ========================================================= */
 .capabilities-subtitle {
     max-width: 560px;
@@ -1657,7 +1657,7 @@ body {
 }
 
 /* =========================================================
-   Home – Why Choose Tectignis (split layout + stats bar)
+   Home â€“ Why Choose Tectignis (split layout + stats bar)
    ========================================================= */
 .why-choose-badge {
     display: inline-block;
@@ -1873,7 +1873,7 @@ body {
 }
 
 /* =========================================================
-   Home – Solutions We Deliver (card grid)
+   Home â€“ Solutions We Deliver (card grid)
    ========================================================= */
 .solutions-deliver-overline {
     display: inline-block;
@@ -1961,7 +1961,7 @@ body {
 }
 
 /* =========================================================
-   Home – Industries We Serve (redesigned card grid + banner)
+   Home â€“ Industries We Serve (redesigned card grid + banner)
    ========================================================= */
 
 /* --- Section header --- */
@@ -2156,7 +2156,7 @@ body {
 }
 
 /* =========================================================
-   Home – Technology Stack (uniform logo cards)
+   Home â€“ Technology Stack (uniform logo cards)
    ========================================================= */
 .tech-stack-row {
     margin-right: -8px;
@@ -2248,7 +2248,7 @@ body {
 }
 
 /* =========================================================
-   Home – Featured Services (responsive card/list design)
+   Home â€“ Featured Services (responsive card/list design)
    ========================================================= */
 
 .fs-section {
@@ -2455,7 +2455,7 @@ body {
 }
 
 /* =========================================================
-   Contact page – info cards (equal height + color accents)
+   Contact page â€“ info cards (equal height + color accents)
    ========================================================= */
 .contact-info-card .icon-box-wrap {
     display: flex;
@@ -2479,7 +2479,7 @@ body {
     margin: 0 auto 20px;
 }
 
-/* Phone card — violet/purple */
+/* Phone card â€” violet/purple */
 .contact-info-card--phone .icon-box-wrap {
     background: linear-gradient(160deg, #faf5ff 0%, #fff 60%);
     border-top-color: #7c3aed;
@@ -2506,7 +2506,7 @@ body {
     border-top-color: #7c3aed;
 }
 
-/* Address card — teal/emerald */
+/* Address card â€” teal/emerald */
 .contact-info-card--address .icon-box-wrap {
     background: linear-gradient(160deg, #f0fdf4 0%, #fff 60%);
     border-top-color: #059669;
@@ -2521,7 +2521,7 @@ body {
     color: #047857;
 }
 
-/* Email card — amber/orange */
+/* Email card â€” amber/orange */
 .contact-info-card--email .icon-box-wrap {
     background: linear-gradient(160deg, #fff7ed 0%, #fff 60%);
     border-top-color: #ea580c;
@@ -2545,7 +2545,7 @@ body {
 }
 
 /* =========================================================
-   Breadcrumb — compact (all pages)
+   Breadcrumb â€” compact (all pages)
    ========================================================= */
 .breadcrumb-area {
     padding-top: 36px !important;
@@ -2573,7 +2573,7 @@ body {
 }
 
 /* =========================================================
-   Contact page — reduce section whitespace
+   Contact page â€” reduce section whitespace
    ========================================================= */
 .feature-icon-wrapper.section-space--ptb_100 {
     padding-top: 50px !important;
@@ -2585,7 +2585,7 @@ body {
 }
 
 /* =========================================================
-   Home – Case Studies (3-column themed cards)
+   Home â€“ Case Studies (3-column themed cards)
    ========================================================= */
 .cs-section {
     background: #F8FAFC;
@@ -2870,7 +2870,7 @@ body {
 }
 
 /* =========================================================
-   Home – Client Testimonials (custom carousel)
+   Home â€“ Client Testimonials (custom carousel)
    ========================================================= */
 
 .testi-section {
@@ -3115,7 +3115,7 @@ body {
 }
 
 /* =========================================================
-   Home – Global Presence (map infographic + advantages + process)
+   Home â€“ Global Presence (map infographic + advantages + process)
    ========================================================= */
 .gp-section {
     position: relative;
@@ -3604,7 +3604,7 @@ body {
 }
 
 /* =========================================================
-   Home – Ready to Transform CTA (rocket + orbiting badges)
+   Home â€“ Ready to Transform CTA (rocket + orbiting badges)
    ========================================================= */
 .cta-transform {
     position: relative;
@@ -4453,7 +4453,7 @@ body {
 }
 
 /* =========================================================
-   Solution landing page — why-choose + testimonial
+   Solution landing page â€” why-choose + testimonial
    Reuses svc-* / ind-* primitives; only the bits unique to
    the solution "Why Choose" block are defined here.
    ========================================================= */
@@ -5482,7 +5482,7 @@ a.contact-method:hover .contact-method__value { color: #ff5d97; }
 
 
 /* =========================================================
-   Resource pages (Blog, Insights, Downloads, FAQs) – scoped `.res-`
+   Resource pages (Blog, Insights, Downloads, FAQs) â€“ scoped `.res-`
    Shared dark hero, filter pills, article cards, sidebar
    widgets, pagination and CTA bands used by the pages in the
    Resources dropdown. Careers uses the `.car-` block below.
@@ -6384,7 +6384,7 @@ a.contact-method:hover .contact-method__value { color: #ff5d97; }
 }
 
 /* =========================================================
-   Careers page – scoped `.car-`
+   Careers page â€“ scoped `.car-`
    Light hero with team photo, stats strip, benefit cards,
    open-position rows and the application modal extras.
    ========================================================= */
@@ -6782,4 +6782,322 @@ a.contact-method:hover .contact-method__value { color: #ff5d97; }
     color: #b6b6c3;
     background: #fff;
     border-color: var(--svc-line);
+}
+
+/* =========================================================
+   Home hero - "Ready to Transform" reference design
+   ========================================================= */
+.home-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 64px 0 72px;
+    background: linear-gradient(120deg, #faf7fd 0%, #fdf3f9 55%, #f6f4ff 100%);
+}
+
+.home-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle, rgba(148, 163, 184, 0.16) 1px, transparent 1.4px),
+        radial-gradient(ellipse 55% 60% at 80% 40%, rgba(124, 58, 237, 0.07), transparent 70%),
+        radial-gradient(ellipse 40% 50% at 15% 80%, rgba(235, 11, 82, 0.05), transparent 70%);
+    background-size: 26px 26px, 100% 100%, 100% 100%;
+}
+
+.home-hero .container { position: relative; z-index: 1; }
+
+.home-hero__overline {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #E5185D;
+    margin-bottom: 18px;
+}
+
+.home-hero__overline-line {
+    width: 34px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #5B259A, #F82056);
+}
+
+.home-hero__title {
+    font-size: 46px;
+    line-height: 1.18;
+    font-weight: 800;
+    color: #14132e;
+    margin: 0 0 18px;
+}
+
+.home-hero__title-grad {
+    display: block;
+    background: linear-gradient(90deg, #5B259A 0%, #F82056 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: #5B259A;
+    -webkit-text-fill-color: transparent;
+}
+
+.home-hero__desc {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: #5b5b72;
+    max-width: 540px;
+    margin: 0 0 26px;
+}
+
+.home-hero__features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    margin-bottom: 30px;
+}
+
+.home-hero__feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.home-hero__feature-icon {
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #f0e6f2;
+    box-shadow: 0 6px 14px rgba(20, 19, 46, 0.06);
+    color: #E5185D;
+    font-size: 15px;
+}
+
+.home-hero__feature-text { display: flex; flex-direction: column; line-height: 1.3; }
+.home-hero__feature-title { font-size: 13.5px; font-weight: 700; color: #14132e; }
+.home-hero__feature-sub { font-size: 12px; color: #8a8aa0; }
+
+.home-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.home-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border-radius: 10px;
+    padding: 13px 26px;
+    font-size: 14.5px;
+    font-weight: 700;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+}
+
+.home-hero__btn--primary {
+    background: linear-gradient(90deg, #EB0B52 0%, #6E2CAB 110%);
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(235, 11, 82, 0.28);
+}
+
+.home-hero__btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(235, 11, 82, 0.36);
+    color: #fff;
+}
+
+.home-hero__btn--ghost {
+    background: #fff;
+    color: #14132e;
+    border: 1.5px solid #e7e0ef;
+}
+
+.home-hero__btn--ghost:hover {
+    border-color: #E5185D;
+    color: #E5185D;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(20, 19, 46, 0.08);
+}
+
+/* Right column media */
+.home-hero__media {
+    position: relative;
+    margin-top: 10px;
+    padding: 26px;
+}
+
+.home-hero__glow {
+    position: absolute;
+    inset: 8% 6%;
+    border-radius: 32px;
+    background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.14), rgba(235, 11, 82, 0.08) 60%, transparent 75%);
+    filter: blur(6px);
+}
+
+.home-hero__img {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+    box-shadow: 0 26px 60px rgba(20, 19, 46, 0.16);
+    animation: heroFloat 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.home-hero__chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid #f0e6f2;
+    border-radius: 999px;
+    padding: 8px 15px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #14132e;
+    box-shadow: 0 10px 24px rgba(20, 19, 46, 0.12);
+    white-space: nowrap;
+    z-index: 2;
+    animation: heroChipFloat 5s ease-in-out infinite;
+}
+
+.home-hero__chip i { color: #E5185D; font-size: 13px; }
+
+.home-hero__chip--1 { top: 4%; left: -2%; animation-delay: 0s; }
+.home-hero__chip--2 { top: -2%; right: 6%; animation-delay: 0.7s; }
+.home-hero__chip--3 { top: 42%; right: -3%; animation-delay: 1.4s; }
+.home-hero__chip--4 { bottom: 8%; right: 4%; animation-delay: 2.1s; }
+.home-hero__chip--5 { bottom: -1%; left: 6%; animation-delay: 2.8s; }
+
+@keyframes heroChipFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+@media only screen and (max-width: 1199px) {
+    .home-hero__title { font-size: 40px; }
+}
+
+@media only screen and (max-width: 991px) {
+    .home-hero { padding: 48px 0 56px; }
+    .home-hero__title { font-size: 34px; }
+    .home-hero__media { margin-top: 38px; }
+}
+
+@media only screen and (max-width: 767px) {
+    .home-hero__title { font-size: 28px; }
+    .home-hero__features { gap: 12px 18px; }
+    .home-hero__chip { display: none; }
+    .home-hero__media { padding: 10px; }
+}
+
+/* =========================================================
+   Global presence map - real world map + overlay pins
+   ========================================================= */
+.gp-map__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    filter: saturate(0.45) contrast(0.95) opacity(0.9);
+}
+
+.gp-map__svg--overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* =========================================================
+   Navbar + dropdown enhancements
+   ========================================================= */
+
+/* Rotate the theme's existing chevron when a dropdown is open */
+.navigation-menu > ul > li.has-children:hover > a:after {
+    transform: rotate(180deg);
+}
+/* Dropdown panels: card look + soft reveal */
+.navigation-menu > ul > li .megamenu {
+    border: 1px solid #efe9f4;
+    border-radius: 14px;
+    box-shadow:
+        0 24px 54px rgba(20, 19, 46, 0.13),
+        0 4px 14px rgba(20, 19, 46, 0.06);
+    margin-top: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
+}
+
+.navigation-menu > ul > li.has-children:hover .megamenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Keep the centered wide panel centered while it slides */
+.navigation-menu > ul > li .megamenu.megamenu--services {
+    transform: translateX(-50%) translateY(8px);
+}
+
+.navigation-menu > ul > li.has-children:hover .megamenu.megamenu--services {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Dropdown items: pill hover with slide */
+.navigation-menu > ul > li .megamenu > li > ul > li > a,
+.navigation-menu > ul > li .megamenu--mega:not(.megamenu--services) > li > ul > li > a {
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: background 0.16s ease, color 0.16s ease, padding-left 0.16s ease;
+}
+
+.navigation-menu > ul > li .megamenu > li > ul > li > a:hover {
+    background: #faf4f8;
+    color: #E5185D;
+    padding-left: 16px;
+}
+
+/* Section titles inside compact dropdowns */
+.megamenu--mega:not(.megamenu--services) .page-list-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 700;
+    color: #8a8aa0;
+    border-bottom: 1px solid #f1ecf4;
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+}
+
+/* Sticky header: stronger separation when stuck */
+.header-bottom-wrap.header-sticky.is-sticky {
+    box-shadow: 0 10px 30px rgba(20, 19, 46, 0.10);
+}
+
+/* Invisible bridge over the 6px panel offset so hover is not lost
+   while the pointer travels from the menu link into the dropdown. */
+.navigation-menu > ul > li .megamenu::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -12px;
+    height: 12px;
 }

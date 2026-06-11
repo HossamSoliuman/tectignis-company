@@ -55,7 +55,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'hero_info_heading', 'value' => 'Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems.', 'group' => 'home'],
             ['key' => 'hero_btn_primary', 'value' => 'Request Consultation', 'group' => 'home'],
             ['key' => 'hero_btn_secondary', 'value' => 'Get a Quote', 'group' => 'home'],
-            ['key' => 'hero_image', 'value' => 'site/custom-software-solution-pan-india.webp', 'group' => 'home'],
+            ['key' => 'hero_image', 'value' => 'custom-software-solution-pan-india.webp', 'group' => 'home'],
             ['key' => 'what_we_offer_image', 'value' => 'site/IT-Services-in-Nav-Mumbai.webp', 'group' => 'home'],
 
             // home — section headers
