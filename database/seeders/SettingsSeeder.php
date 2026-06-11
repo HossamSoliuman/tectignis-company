@@ -47,6 +47,7 @@ class SettingsSeeder extends Seeder
             // legal
             ['key' => 'legal_privacy-policy', 'value' => null, 'group' => 'legal'],
             ['key' => 'legal_terms-and-conditions', 'value' => null, 'group' => 'legal'],
+            ['key' => 'legal_cookie-policy', 'value' => null, 'group' => 'legal'],
 
             // home — hero
             ['key' => 'hero_sub_heading', 'value' => 'Serving Clients Across Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.', 'group' => 'home'],

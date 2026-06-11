@@ -130,6 +130,7 @@
             <span class="ft-dark__copy-legal">
                 <a href="{{ route('legal.show', 'privacy-policy') }}">Privacy Policy</a>
                 <a href="{{ route('legal.show', 'terms-and-conditions') }}">Terms of Service</a>
+                <a href="{{ route('legal.show', 'cookie-policy') }}">Cookie Policy</a>
             </span>
         </div>
     </div>
