@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Mail\LeadNotificationMail;
 use App\Models\Lead;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,13 +16,15 @@ class NewsletterController extends Controller
             'email' => ['required', 'email', 'max:255'],
         ]);
 
-        Lead::create([
+        $lead = Lead::create([
             'name' => 'Newsletter Subscriber',
             'email' => $data['email'],
             'subject' => 'Newsletter Subscription',
             'message' => 'Subscribed to the newsletter via '.url()->previous(),
             'source' => 'newsletter',
         ]);
+
+        LeadNotificationMail::dispatchFor($lead);
 
         return back()->with('newsletter_status', 'Thank you for subscribing!');
     }

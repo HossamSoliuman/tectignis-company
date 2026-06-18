@@ -192,7 +192,7 @@
                         </div>
                         <div class="consult-field">
                             <label for="apply_phone">Phone Number <span aria-hidden="true">*</span></label>
-                            <input id="apply_phone" name="con_phone" type="text" placeholder="Enter your phone number" value="{{ old('con_phone') }}" maxlength="15" required>
+                            <input id="apply_phone" name="con_phone" type="text" placeholder="Enter your phone number" value="{{ old('con_phone') }}" maxlength="20" required>
                         </div>
                         <div class="consult-field">
                             <label for="apply_experience">Total Experience</label>

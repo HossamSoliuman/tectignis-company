@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Public\ContactRequest;
+use App\Mail\LeadNotificationMail;
 use App\Models\Lead;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -27,7 +28,7 @@ class ContactController extends Controller
             $message = 'Company: '.$data['con_company']."\n\n".$message;
         }
 
-        Lead::create([
+        $lead = Lead::create([
             'name' => $data['con_name'],
             'email' => $data['con_email'] ?? null,
             'phone' => $data['con_phone'] ?? null,
@@ -35,6 +36,8 @@ class ContactController extends Controller
             'message' => $message,
             'source' => $isConsultation ? 'consultation' : 'contact',
         ]);
+
+        LeadNotificationMail::dispatchFor($lead);
 
         Log::info('New lead from public form', [
             'source' => $isConsultation ? 'consultation' : 'contact',

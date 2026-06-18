@@ -15,7 +15,8 @@ class SettingsController extends Controller
 
     public function index(): View
     {
-        $settings = Setting::orderBy('group')->orderBy('key')->get()->groupBy('group');
+        $settings = Setting::whereNotIn('group', ['smtp', 'mail'])
+            ->orderBy('group')->orderBy('key')->get()->groupBy('group');
 
         return view('admin.settings.index', compact('settings'));
     }

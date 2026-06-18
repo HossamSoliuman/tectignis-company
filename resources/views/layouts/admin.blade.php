@@ -63,6 +63,8 @@
                         ],
                         'Administration' => [
                             ['admin.settings.index', 'Settings', 'cog'],
+                            ['admin.mail.edit', 'Email & Forms', 'envelope'],
+                            ['admin.account.edit', 'My Account', 'user'],
                         ],
                     ];
                 @endphp
@@ -82,28 +84,6 @@
                     </div>
                 @endforeach
             </nav>
-            <div class="shrink-0 space-y-2 border-t border-slate-100 px-3 py-3">
-                <a href="{{ url('/') }}" target="_blank"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900">
-                    <x-admin.icon name="external-link" class="h-5 w-5 shrink-0 text-slate-400" />
-                    View live site
-                </a>
-                <div class="flex items-center gap-3 rounded-xl bg-slate-50 px-3 py-2.5">
-                    <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-xs font-semibold text-white">
-                        {{ Str::upper(Str::substr(auth()->user()?->name ?? 'A', 0, 1)) }}
-                    </span>
-                    <div class="min-w-0 flex-1">
-                        <p class="truncate text-sm font-semibold text-slate-800">{{ auth()->user()?->name }}</p>
-                        <p class="truncate text-xs text-slate-400">{{ auth()->user()?->email }}</p>
-                    </div>
-                    <form method="post" action="{{ route('admin.logout') }}">
-                        @csrf
-                        <button class="rounded-lg p-1.5 text-slate-400 transition hover:bg-white hover:text-purple-600" title="Logout" aria-label="Logout">
-                            <x-admin.icon name="logout" class="h-4.5 w-4.5" />
-                        </button>
-                    </form>
-                </div>
-            </div>
         </aside>
 
         {{-- Mobile backdrop --}}
@@ -123,10 +103,6 @@
                     <h1 class="text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3">
-                    <a href="{{ url('/') }}" target="_blank"
-                        class="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-700 sm:inline-flex">
-                        <x-admin.icon name="external-link" class="h-4 w-4" /> View site
-                    </a>
                     @php $unreadLeads = \App\Models\Lead::where('is_read', false)->count(); @endphp
                     <a href="{{ route('admin.leads.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
                         title="Leads inbox" aria-label="Leads inbox{{ $unreadLeads ? ', ' . $unreadLeads . ' unread' : '' }}">
@@ -147,6 +123,15 @@
                             <p class="text-xs text-slate-400">Super Admin</p>
                         </div>
                     </div>
+                    <form method="post" action="{{ route('admin.logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-slate-500 transition hover:bg-rose-50 hover:text-rose-600"
+                            title="Logout" aria-label="Logout">
+                            <x-admin.icon name="logout" class="h-5 w-5" />
+                            <span class="hidden sm:inline">Logout</span>
+                        </button>
+                    </form>
                 </div>
             </header>
 

@@ -37,6 +37,13 @@ class SettingsSeeder extends Seeder
             ['key' => 'smtp_from_address', 'value' => null, 'group' => 'smtp'],
             ['key' => 'smtp_from_name', 'value' => null, 'group' => 'smtp'],
 
+            // mail — per-form notification recipients
+            ['key' => 'mail_to_default', 'value' => null, 'group' => 'mail'],
+            ['key' => 'mail_to_contact', 'value' => null, 'group' => 'mail'],
+            ['key' => 'mail_to_consultation', 'value' => null, 'group' => 'mail'],
+            ['key' => 'mail_to_career', 'value' => null, 'group' => 'mail'],
+            ['key' => 'mail_to_newsletter', 'value' => null, 'group' => 'mail'],
+
             // social
             ['key' => 'social_facebook', 'value' => 'https://www.facebook.com/tectignisofficial/', 'group' => 'social'],
             ['key' => 'social_instagram', 'value' => 'https://www.instagram.com/tectignisofficial/', 'group' => 'social'],

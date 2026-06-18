@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <input class="svc-input" name="con_phone" type="text" placeholder="Phone Number *"
-                                        value="{{ old('con_phone') }}" maxlength="15" required>
+                                        value="{{ old('con_phone') }}" maxlength="20" required>
                                 </div>
                                 <div class="col-md-6">
                                     <input class="svc-input" name="con_subject" type="text" placeholder="Subject *"

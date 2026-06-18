@@ -111,7 +111,10 @@
                     <p class="contact-form-card__desc">Fill in the form below and our team will get back to you with tailored solutions.</p>
 
                     @if (session('status'))
-                        <div class="alert alert-success">{{ session('status') }}</div>
+                        <div class="alert alert-success" id="contact-status" role="status" tabindex="-1">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75m6 2.25a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                            <span>{{ session('status') }}</span>
+                        </div>
                     @endif
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -123,7 +126,7 @@
                         </div>
                     @endif
 
-                    <form class="contact-form" id="contact-form" action="{{ route('contact.submit') }}" method="post">
+                    <form class="contact-form" id="contact-lead-form" action="{{ route('contact.submit') }}" method="post">
                         @csrf
                         <div class="contact-form__grid">
                             <div class="contact-field">
@@ -140,7 +143,7 @@
                             </div>
                             <div class="contact-field">
                                 <label for="con_phone">Mobile Number *</label>
-                                <input id="con_phone" name="con_phone" type="text" placeholder="+91 00000 00000" value="{{ old('con_phone') }}" maxlength="15" required>
+                                <input id="con_phone" name="con_phone" type="text" placeholder="+91 00000 00000" value="{{ old('con_phone') }}" maxlength="20" required>
                             </div>
                             <div class="contact-field contact-field--full">
                                 <label for="con_subject">Service of Interest</label>
@@ -288,7 +291,7 @@
                     <p class="contact-cta__text">Book a free consultation and let's turn your idea into a working solution.</p>
                 </div>
                 <div class="contact-cta__actions">
-                    <a href="#contact-form" class="about-btn about-btn--primary">Request Consultation <span aria-hidden="true">→</span></a>
+                    <a href="#contact-lead-form" class="about-btn about-btn--primary">Request Consultation <span aria-hidden="true">→</span></a>
                     <a href="tel:+919987705688" class="contact-cta__call">Call Now</a>
                 </div>
             </div>
@@ -297,3 +300,17 @@
     <!--============ CTA Banner End ============-->
 
 @endsection
+
+@if (session('status'))
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var status = document.getElementById('contact-status');
+                if (status) {
+                    status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    status.focus({ preventScroll: true });
+                }
+            });
+        </script>
+    @endpush
+@endif

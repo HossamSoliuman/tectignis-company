@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
             'mail.mailers.smtp.port' => (int) $smtp->get('smtp_port', 587),
             'mail.mailers.smtp.username' => $smtp->get('smtp_username'),
             'mail.mailers.smtp.password' => $smtp->get('smtp_password'),
-            'mail.mailers.smtp.scheme' => $smtp->get('smtp_encryption'),
+            'mail.mailers.smtp.scheme' => $smtp->get('smtp_encryption') === 'ssl' ? 'smtps' : 'smtp',
         ]);
 
         if ($smtp->get('smtp_from_address')) {

@@ -2,8 +2,9 @@
     $siteSettings = \App\Models\Setting::values();
     $sitePhone = $siteSettings['site_phone'] ?? '+91 9987705688';
     $siteEmail = $siteSettings['site_email'] ?? 'info@tectignis.in';
-    $headerLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo'] ?? null, 'site_logo')
-        ?? asset('assets/images/logo/Tectignis-IT-solution-logo-white.webp');
+    // Header now sits on a white background, so use the dark wordmark.
+    $headerLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo_dark'] ?? null, 'site_logo_dark')
+        ?? asset('assets/images/logo/Tectignis-IT-solution-logo.webp');
     $mobileLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo_dark'] ?? null, 'site_logo_dark')
         ?? asset('assets/images/logo/Tectignis-IT-solution-logo.webp');
 ?>
@@ -65,7 +66,7 @@
 
                                                     <li class="has-children">
                                                         <a href="<?php echo e(route('capabilities.index')); ?>"><span>Capabilities</span></a>
-                                                        <ul class="megamenu megamenu--mega megamenu--services">
+                                                        <ul class="megamenu megamenu--mega megamenu--services" style="--cap-count: <?php echo e($navCapabilities->count()); ?>">
 
                                                             <?php $__currentLoopData = $navCapabilities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $capability): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                 <li>

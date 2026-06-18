@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
+use App\Mail\LeadNotificationMail;
 use App\Models\Lead;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class CareersController extends Controller
             ? $this->storeUpload($request->file('con_resume'), 'resumes')
             : null;
 
-        Lead::create([
+        $lead = Lead::create([
             'name' => $data['con_name'],
             'email' => $data['con_email'],
             'phone' => $data['con_phone'],
@@ -65,6 +66,8 @@ class CareersController extends Controller
             'attachment' => $resumePath,
             'source' => 'career',
         ]);
+
+        LeadNotificationMail::dispatchFor($lead);
 
         return back()->with('career_status', 'Application submitted! We will be in touch shortly.');
     }

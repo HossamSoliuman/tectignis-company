@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\BrandController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\InsightController;
 use App\Http\Controllers\Admin\JobOpeningController;
 use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\OfficeLocationController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProcessStepController;
@@ -40,8 +42,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
+        Route::get('account', [AccountController::class, 'edit'])->name('account.edit');
+        Route::put('account', [AccountController::class, 'update'])->name('account.update');
+
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+
+        Route::get('mail', [MailController::class, 'edit'])->name('mail.edit');
+        Route::put('mail', [MailController::class, 'update'])->name('mail.update');
+        Route::post('mail/test', [MailController::class, 'test'])->name('mail.test');
 
         Route::resource('capabilities', CapabilityController::class);
         Route::resource('services', ServiceController::class);

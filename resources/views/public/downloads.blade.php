@@ -133,7 +133,7 @@
 
                     <div class="consult-field">
                         <label for="dl_phone">Mobile No. <span aria-hidden="true">*</span></label>
-                        <input id="dl_phone" name="phone" type="text" placeholder="Enter your mobile number" value="{{ old('phone') }}" maxlength="15" required>
+                        <input id="dl_phone" name="phone" type="text" placeholder="Enter your mobile number" value="{{ old('phone') }}" maxlength="20" required>
                     </div>
 
                     <div class="consult-field">

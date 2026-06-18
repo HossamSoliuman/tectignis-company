@@ -45,7 +45,7 @@
 
                 <div class="consult-field">
                     <label for="consult_phone">Mobile Number <span aria-hidden="true">*</span></label>
-                    <input id="consult_phone" name="con_phone" type="text" placeholder="+91 00000 00000" value="{{ old('con_source') === 'consultation' ? old('con_phone') : '' }}" maxlength="15" required>
+                    <input id="consult_phone" name="con_phone" type="text" placeholder="+91 00000 00000" value="{{ old('con_source') === 'consultation' ? old('con_phone') : '' }}" maxlength="20" required>
                 </div>
 
                 <div class="consult-field">

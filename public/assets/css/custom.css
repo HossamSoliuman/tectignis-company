@@ -22,30 +22,30 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: -0.01em;
 }
 
-/* ---------- Dark header theme (from design mockup) ----------
+/* ---------- Light header theme ----------
    The whole header â€” top utility bar and the main navigation â€” sits on a
-   deep navy background with a white wordmark, light menu text and magenta
-   accents, matching docs/images. Covers the JS sticky state too. */
+   white background with the dark wordmark, dark menu text and magenta
+   accents. Covers the JS sticky state too. */
 .header-area--default {
-    background-color: #0c0a26;
-    border-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+    background-color: #ffffff;
+    border-color: #E5E7EB;
+    box-shadow: 0 1px 0 #E5E7EB, 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
 .header-top-wrap.border-bottom {
-    background-color: #08061b;
-    border-color: rgba(255, 255, 255, 0.07) !important;
+    background-color: #ffffff;
+    border-color: #E5E7EB !important;
 }
 
 .header-bottom-wrap {
-    background-color: #0c0a26;
+    background-color: #ffffff;
 }
 
-/* Sticky header (JS toggles .is-sticky and switches it to white by default) */
+/* Sticky header */
 .header-area .is-sticky,
 .header-area .header-bottom-wrap.is-sticky {
-    background-color: #0c0a26 !important;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    background-color: #ffffff !important;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10);
 }
 
 /* ---------- Header top bar ---------- */
@@ -69,7 +69,7 @@ h1, h2, h3, h4, h5, h6,
 
 .header-top-info li {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.72);
+    color: #6B7280;
     line-height: 1.4;
 }
 
@@ -79,22 +79,22 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .header-top-info a {
-    color: rgba(255, 255, 255, 0.72);
+    color: #6B7280;
     transition: color 0.2s;
 }
 
 .header-top-info a:hover {
-    color: #ffffff;
+    color: #374151;
 }
 
-/* ---------- Main navigation: white text on dark ---------- */
+/* ---------- Main navigation: dark text on white ---------- */
 .navigation-menu > ul > li > a,
 .navigation-menu > ul > li > a span {
-    color: #ffffff;
+    color: #374151;
 }
 
 .navigation-menu > ul > li.has-children > a:after {
-    color: rgba(255, 255, 255, 0.7);
+    color: #9aa0ad;
 }
 
 .navigation-menu > ul > li:hover > a span,
@@ -152,16 +152,24 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ---------- Mega menu: service categories + CTA row ----------
-   One column per live service category (driven by the admin). */
+   One column per live service category (driven by the admin). The columns
+   are laid out as a fixed N-column grid (N = --cap-count, set in the markup)
+   so every category stays on a single row and never wraps to a second line,
+   which would break the responsive layout. Columns shrink to fit and their
+   link text wraps when the viewport gets narrow. */
 .navigation-menu > ul > li .megamenu.megamenu--mega.megamenu--services {
+    display: grid;
+    grid-template-columns: repeat(var(--cap-count, 4), minmax(0, 1fr));
+    gap: 0 28px;
     min-width: 0;
-    flex-wrap: wrap;
-    justify-content: flex-start;
 }
 
 .megamenu--services > li {
-    flex: 0 0 auto;
+    min-width: 0;
     max-width: none;
+    /* Grid `gap` controls column spacing; drop the theme's per-column padding. */
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .megamenu--services > li .page-list-title {
@@ -177,7 +185,6 @@ h1, h2, h3, h4, h5, h6,
     display: flex;
     align-items: center;
     gap: 10px;
-    white-space: nowrap;
 }
 
 .megamenu--services > li .cap-title-icon {
@@ -202,12 +209,11 @@ h1, h2, h3, h4, h5, h6,
 .megamenu--services > li > ul > li > a {
     padding: 7px 0;
     font-size: 13.5px;
-    white-space: nowrap;
 }
 
-/* CTA row inside the mega menu */
+/* CTA row inside the mega menu: span every column on its own row below. */
 .megamenu--services > li.megamenu-cta-row {
-    flex-basis: 100%;
+    grid-column: 1 / -1;
     max-width: 100%;
     margin-top: 18px;
     padding: 0 15px;
@@ -5600,14 +5606,20 @@ a.contact-method:hover .contact-method__value { color: #ff5d97; }
     inset: 0;
     z-index: 10000;
     display: none;
-    align-items: center;
+    /* Start content at the top and let the whole overlay scroll. Centering
+       with `align-items: center` pushed tall modals (careers / downloads)
+       above the viewport, clipping their header. `margin: auto` on the dialog
+       still centers it vertically when there is room. */
+    align-items: flex-start;
     justify-content: center;
     padding: 24px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .consult-modal[data-open] { display: flex; }
 
 .consult-modal__overlay {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(2px);
@@ -5620,6 +5632,7 @@ a.contact-method:hover .contact-method__value { color: #ff5d97; }
     z-index: 1;
     width: 100%;
     max-width: 480px;
+    margin: auto;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 30px 80px rgba(8, 11, 36, 0.4);
@@ -7376,4 +7389,28 @@ a.contact-method:hover .contact-method__value { color: #ff5d97; }
     right: 0;
     top: -12px;
     height: 12px;
+}
+
+/* Contact form success confirmation */
+.contact-form-card .alert-success {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #e7f7ee;
+    border: 1px solid #b6e6c9;
+    color: #15803d;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+
+.contact-form-card .alert-success svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.contact-form-card .alert-success:focus {
+    outline: none;
 }
