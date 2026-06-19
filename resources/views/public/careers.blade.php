@@ -147,6 +147,7 @@
         </div>
     </div>
 
+    @push('modals')
     <!--=========== Application Modal ===========-->
     <div class="consult-modal" id="apply-modal" aria-hidden="{{ $applyModalOpen ? 'false' : 'true' }}" @if ($applyModalOpen) data-open="true" @endif>
         <div class="consult-modal__overlay" data-apply-close aria-hidden="true"></div>
@@ -244,6 +245,7 @@
             </div>
         </div>
     </div>
+    @endpush
 
     @push('scripts')
     <script>

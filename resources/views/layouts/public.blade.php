@@ -112,6 +112,10 @@
     {{-- Request Consultation modal --}}
     <x-public.consultation-modal />
 
+    {{-- Page-level modals (rendered at body level so they escape the
+         `.site-wrapper-reveal` stacking context and layer above the header) --}}
+    @stack('modals')
+
     {{-- Scroll top --}}
     <a href="#" class="scroll-top" id="scroll-top">
         <i class="arrow-top fas fa-chevron-up"></i>

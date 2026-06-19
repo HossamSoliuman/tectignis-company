@@ -93,6 +93,7 @@
         </div>
     </div>
 
+    @push('modals')
     <!--=========== Download Lead Capture Modal ===========-->
     <div class="consult-modal" id="download-modal" aria-hidden="{{ $modalOpen ? 'false' : 'true' }}" @if ($modalOpen) data-open="true" @endif>
         <div class="consult-modal__overlay" data-dl-close aria-hidden="true"></div>
@@ -147,6 +148,7 @@
             </div>
         </div>
     </div>
+    @endpush
 
     @push('scripts')
     <script>

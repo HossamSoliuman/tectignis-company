@@ -5688,17 +5688,28 @@ a.contact-method:hover .contact-method__value { color: #4A90BA; }
     inset: 0;
     z-index: 10000;
     display: none;
-    /* Start content at the top and let the whole overlay scroll. Centering
-       with `align-items: center` pushed tall modals (careers / downloads)
-       above the viewport, clipping their header. `margin: auto` on the dialog
-       still centers it vertically when there is room. */
-    align-items: flex-start;
-    justify-content: center;
-    padding: 24px;
+    /* The whole overlay is the scroll container. The dialog is vertically
+       centered when it fits, but when it is taller than the viewport it
+       scrolls from the top (kept clear of the edges by the padding) so its
+       header is never clipped. The inline-block + ghost-element approach is
+       used instead of flexbox `align-items: center` / `margin: auto`, both of
+       which push tall dialogs above the scroll origin and clip the header. */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    padding: 24px;
+    text-align: center;
+    white-space: nowrap;
 }
-.consult-modal[data-open] { display: flex; }
+.consult-modal[data-open] { display: block; }
+
+/* Ghost element that provides the vertical-center baseline. */
+.consult-modal::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+}
 
 .consult-modal__overlay {
     position: fixed;
@@ -5712,9 +5723,12 @@ a.contact-method:hover .contact-method__value { color: #4A90BA; }
 .consult-modal__dialog {
     position: relative;
     z-index: 1;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+    text-align: left;
     width: 100%;
     max-width: 480px;
-    margin: auto;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 30px 80px rgba(8, 11, 36, 0.4);

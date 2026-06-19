@@ -189,6 +189,9 @@
 <?php endif; ?>
 
     
+    <?php echo $__env->yieldPushContent('modals'); ?>
+
+    
     <a href="#" class="scroll-top" id="scroll-top">
         <i class="arrow-top fas fa-chevron-up"></i>
         <i class="arrow-bottom fas fa-chevron-up"></i>
