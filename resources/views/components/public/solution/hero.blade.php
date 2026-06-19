@@ -2,6 +2,7 @@
 
 @php
     $hero = $solution->content['hero'] ?? [];
+    $dark = ($hero['theme'] ?? 'light') === 'dark';
     $eyebrow = $hero['eyebrow'] ?? null;
     $heading = $hero['heading'] ?? $solution->title;
     $highlight = $hero['highlight'] ?? null;
@@ -19,7 +20,7 @@
     }
 @endphp
 
-<section class="ind-hero">
+<section class="ind-hero {{ $dark ? 'ind-hero--dark' : '' }}">
     <span class="ind-hero__blob" aria-hidden="true"></span>
     <div class="container">
         <nav class="ind-breadcrumb" aria-label="Breadcrumb">

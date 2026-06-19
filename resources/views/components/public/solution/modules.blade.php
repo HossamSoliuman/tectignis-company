@@ -5,6 +5,8 @@
     $cards = array_values(array_filter($section['cards'] ?? [], fn ($c) => filled($c['title'] ?? null)));
     $heading = $section['heading'] ?? 'Our Modules';
     $subtitle = $section['subtitle'] ?? null;
+    // Cycled fallback glyphs so cards read as distinct even without uploaded icons.
+    $fallbackIcons = ['fas fa-cube', 'fas fa-layer-group', 'fas fa-chart-line', 'fas fa-cogs', 'fas fa-shield-alt', 'fas fa-cloud', 'fas fa-robot', 'fas fa-puzzle-piece'];
 @endphp
 
 @if (($section['enabled'] ?? true) && count($cards))
@@ -19,13 +21,13 @@
 
             <div class="row ind-solutions__grid">
                 @foreach ($cards as $card)
-                    <div class="col-lg-4 col-md-6 col-12 wow move-up">
+                    <div class="col-lg-3 col-md-6 col-12 wow move-up">
                         <div class="ind-solution-card h-100 d-flex flex-column">
                             <span class="ind-solution-card__icon">
                                 @if (filled($card['icon'] ?? null))
                                     <img src="{{ asset('uploads/'.$card['icon']) }}" alt="" loading="lazy">
                                 @else
-                                    <i class="fas fa-cube"></i>
+                                    <i class="{{ $fallbackIcons[$loop->index % count($fallbackIcons)] }}"></i>
                                 @endif
                             </span>
                             <h3 class="ind-solution-card__title">{{ $card['title'] }}</h3>

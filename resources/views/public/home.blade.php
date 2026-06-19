@@ -121,7 +121,7 @@
                 </div>
             </div>
             @php
-                $capColors = ['#6D5BD0', '#3B82F6', '#0EA5E9', '#EB0B52', '#F43F5E', '#8B5CF6'];
+                $capColors = ['#0F766E', '#3B82F6', '#0EA5E9', '#19587F', '#2C73A0', '#14B8A6'];
             @endphp
             <div class="row capabilities-row">
                 @foreach ($capabilities as $capability)
@@ -259,7 +259,7 @@
         <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
             <defs>
                 <linearGradient id="indGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#E5185D"/>
+                    <stop offset="0%" stop-color="#19587F"/>
                     <stop offset="100%" stop-color="#5B21B6"/>
                 </linearGradient>
             </defs>
@@ -393,13 +393,13 @@
 
             @php
                 $fsThemes = [
-                    ['color' => '#8B5CF6', 'bg' => '#F5F3FF'],
-                    ['color' => '#F43F5E', 'bg' => '#FFF1F2'],
-                    ['color' => '#8B5CF6', 'bg' => '#F5F3FF'],
-                    ['color' => '#F43F5E', 'bg' => '#FFF1F2'],
-                    ['color' => '#8B5CF6', 'bg' => '#F5F3FF'],
+                    ['color' => '#14B8A6', 'bg' => '#E3F2F0'],
+                    ['color' => '#2C73A0', 'bg' => '#EAF2F7'],
+                    ['color' => '#14B8A6', 'bg' => '#E3F2F0'],
+                    ['color' => '#2C73A0', 'bg' => '#EAF2F7'],
+                    ['color' => '#14B8A6', 'bg' => '#E3F2F0'],
                     ['color' => '#3B82F6', 'bg' => '#EFF6FF'],
-                    ['color' => '#F43F5E', 'bg' => '#FFF1F2'],
+                    ['color' => '#2C73A0', 'bg' => '#EAF2F7'],
                     ['color' => '#10B981', 'bg' => '#ECFDF5'],
                 ];
             @endphp
@@ -534,14 +534,6 @@
 
     <!--=========== Global Presence Start ===========-->
     <section class="gp-section section-space--ptb_80">
-        <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0">
-            <defs>
-                <pattern id="gpDots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
-                    <circle cx="2" cy="2" r="1.6" fill="#D8DEE9"/>
-                </pattern>
-            </defs>
-        </svg>
-
         <div class="container">
             {{-- Header --}}
             <div class="gp-header">
@@ -588,11 +580,13 @@
                     </div>
                 </aside>
 
-                {{-- Center: world map (Wikimedia placeholder) with India hub + arcs --}}
+                {{-- Center: world map (uploadable from admin) with India hub + arcs --}}
+                @php
+                    $gpMapUrl = \App\Models\Setting::imageUrl($settings['gp_map_image'] ?? null, 'gp_map_image')
+                        ?? 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/World_location_map_%28equirectangular_180%29.svg/1280px-World_location_map_%28equirectangular_180%29.svg.png';
+                @endphp
                 <div class="gp-map" role="img" aria-label="World map highlighting Tectignis delivery from India to clients across UAE, Saudi Arabia, UK, USA, Canada, Australia and Singapore.">
-                    <img class="gp-map__img"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/World_location_map_%28equirectangular_180%29.svg/1280px-World_location_map_%28equirectangular_180%29.svg.png"
-                        alt="" loading="lazy" decoding="async">
+                    <img class="gp-map__img" src="{{ $gpMapUrl }}" alt="" loading="lazy" decoding="async">
                     {{-- Overlay: arcs + nodes positioned by lat/lon on the equirectangular map --}}
                     <svg class="gp-map__svg gp-map__svg--overlay" viewBox="0 0 1000 500" preserveAspectRatio="none">
                         {{-- Connection arcs from the Mumbai hub --}}

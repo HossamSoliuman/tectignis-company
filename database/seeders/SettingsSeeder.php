@@ -99,6 +99,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'gp_subtitle', 'value' => 'We combine local expertise with a global mindset to deliver innovative IT solutions that help your business grow, scale and succeed.', 'group' => 'home'],
             ['key' => 'gp_india_projects', 'value' => '100+', 'group' => 'home'],
             ['key' => 'gp_countries_served', 'value' => '25+', 'group' => 'home'],
+            ['key' => 'gp_map_image', 'value' => null, 'group' => 'home'],
             ['key' => 'res_sub_heading', 'value' => 'Stay Informed', 'group' => 'home'],
             ['key' => 'res_heading', 'value' => 'Resources &', 'group' => 'home'],
             ['key' => 'res_heading_highlight', 'value' => 'Insights', 'group' => 'home'],

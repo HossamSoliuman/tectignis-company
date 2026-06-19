@@ -93,6 +93,41 @@ it('renders a solution detail using its custom HTML body when present', function
         ->assertSee('solution-body-marker', false);
 });
 
+it('renders the rich solution landing template with the dark hero theme and sections', function () {
+    $solution = Solution::factory()->create([
+        'is_active' => true,
+        'slug' => 'rich-solution',
+        'body' => null,
+        'content' => [
+            'hero' => ['theme' => 'dark', 'heading' => 'Intelligent Solutions'],
+            'modules' => ['enabled' => true, 'heading' => 'Our Test Modules', 'cards' => [['title' => 'First Module', 'description' => 'Does things.']]],
+            'process' => ['enabled' => true, 'heading' => 'Our Test Process', 'steps' => [['title' => 'Discover', 'description' => 'Step one.']]],
+            'cta_band' => ['enabled' => true, 'heading' => 'Ready to start?'],
+        ],
+    ]);
+
+    $this->get(route('solutions.show', $solution->slug))
+        ->assertOk()
+        ->assertSee('ind-hero--dark', false)
+        ->assertSee('Our Test Modules')
+        ->assertSee('First Module')
+        ->assertSee('Our Test Process')
+        ->assertDontSee('solution-body-marker', false);
+});
+
+it('uses the light hero theme by default for solutions', function () {
+    $solution = Solution::factory()->create([
+        'is_active' => true,
+        'slug' => 'light-solution',
+        'body' => null,
+        'content' => ['hero' => ['heading' => 'Light Hero Solution']],
+    ]);
+
+    $this->get(route('solutions.show', $solution->slug))
+        ->assertOk()
+        ->assertDontSee('ind-hero--dark', false);
+});
+
 it('careers page returns 200', function () {
     $this->get(route('careers'))->assertOk();
 });

@@ -35,6 +35,14 @@
 
 {{-- A · Hero --}}
 <x-admin.service-panel title="Hero" subtitle="Top banner: badge, headline, intro, benefits list, buttons & floating badges. The banner image is set in the Details panel.">
+    <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Hero theme</label>
+        <select name="content[hero][theme]" class="{{ $inputClass }}">
+            <option value="light" @selected($cat('hero.theme', 'light') === 'light')>Light — soft gradient banner (ERP, CRM, HRMS)</option>
+            <option value="dark" @selected($cat('hero.theme') === 'dark')>Dark — deep navy banner with teal glow (AI, Cloud, Security)</option>
+        </select>
+        <p class="mt-1 text-xs text-slate-400">Pick the banner style. Dark suits glowing 3D visuals; light suits product/dashboard screenshots.</p>
+    </div>
     <div class="grid grid-cols-2 gap-4">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Badge / eyebrow</label>

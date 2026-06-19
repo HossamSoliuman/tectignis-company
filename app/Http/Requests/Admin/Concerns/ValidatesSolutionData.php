@@ -42,6 +42,7 @@ trait ValidatesSolutionData
 
             // Section A — Hero
             'content.hero' => ['nullable', 'array'],
+            'content.hero.theme' => ['nullable', 'string', 'in:light,dark'],
             'content.hero.eyebrow' => ['nullable', 'string', 'max:120'],
             'content.hero.heading' => ['nullable', 'string', 'max:200'],
             'content.hero.highlight' => ['nullable', 'string', 'max:120'],

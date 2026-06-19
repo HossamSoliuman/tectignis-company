@@ -61,7 +61,7 @@ it('admin can create a solution with a custom HTML body', function () {
             'icon' => 'fas fa-database',
             'body' => '<section>Custom solution HTML</section>',
             'is_active' => '1',
-        ])->assertRedirect(route('admin.solutions.index'));
+        ])->assertRedirect(route('admin.solutions.edit', Solution::firstWhere('slug', 'erp-solution')));
 
     $this->assertDatabaseHas('solutions', ['slug' => 'erp-solution', 'body' => '<section>Custom solution HTML</section>']);
 });
