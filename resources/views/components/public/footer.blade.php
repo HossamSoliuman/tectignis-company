@@ -246,8 +246,8 @@
                     <a href="{{ route('legal.show', 'cookie-policy') }}">Cookie Policy</a>
                 </div>
                 <div class="ft-dark__reg-info">
-                    <span>GSTIN: 27AAHFT31725F1Z3</span>
-                    <span>CIN: U72900MH2023PTC401102</span>
+                    <span>GSTIN: 27AAICT1840Q1ZS</span>
+                    <span>CIN: U72900MH2020PTC348594</span>
                 </div>
             </div>
         </div>

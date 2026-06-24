@@ -1321,7 +1321,7 @@ body {
     flex-shrink: 0;
     width: 16px;
     margin-top: 3px;
-    color: #19587F;
+    color: #F59E0B;
     font-size: 13px;
     text-align: center;
 }
@@ -1332,7 +1332,7 @@ body {
 }
 
 .ft-dark__brand-contact a:hover {
-    color: #19587F;
+    color: #F59E0B;
 }
 
 /* Social icons */
@@ -1359,8 +1359,8 @@ body {
 }
 
 .ft-dark__socials a:hover {
-    background: #19587F;
-    border-color: #19587F;
+    background: #F59E0B;
+    border-color: #F59E0B;
     color: #fff;
 }
 
@@ -1383,7 +1383,7 @@ body {
     left: 0;
     width: 30px;
     height: 2px;
-    background: linear-gradient(90deg, #19587F, #9c27b0);
+    background: linear-gradient(90deg, #19587F, #F59E0B);
     border-radius: 2px;
 }
 
@@ -1416,12 +1416,12 @@ body {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     font-size: 8px;
-    color: #19587F;
+    color: #F59E0B;
     flex-shrink: 0;
 }
 
 .ft-dark__links a:hover {
-    color: #19587F;
+    color: #F59E0B;
     padding-left: 4px;
 }
 
@@ -1442,7 +1442,7 @@ body {
 }
 
 .ft-dark__section-header i {
-    color: #19587F;
+    color: #0F766E;
     font-size: 18px;
 }
 
@@ -1490,12 +1490,12 @@ body {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     font-size: 8px;
-    color: #19587F;
+    color: #F59E0B;
     flex-shrink: 0;
 }
 
 .ft-dark__service-item:hover {
-    color: #19587F;
+    color: #F59E0B;
     padding-left: 4px;
 }
 
@@ -1516,11 +1516,12 @@ body {
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 12px;
-    color: #19587F;
+    color: #D1D5DB;
 }
 
 .ft-dark__location-tag i {
     font-size: 10px;
+    color: #F59E0B;
 }
 
 /* Location tags + lower split */
@@ -5347,7 +5348,7 @@ body {
     align-items: center;
     gap: 14px;
 }
-a.contact-method:hover .contact-method__value { color: #4A90BA; }
+a.contact-method:hover .contact-method__value { color: #F59E0B; }
 .contact-method__icon {
     display: inline-flex;
     align-items: center;

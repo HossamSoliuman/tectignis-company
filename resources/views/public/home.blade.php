@@ -35,22 +35,29 @@
                             <div class="home-hero__feature">
                                 <span class="home-hero__feature-icon" aria-hidden="true"><i class="fas fa-lightbulb"></i></span>
                                 <span class="home-hero__feature-text">
-                                    <span class="home-hero__feature-title">Innovative Solutions</span>
-                                    <span class="home-hero__feature-sub">that drive growth</span>
+                                    <span class="home-hero__feature-title">Custom Software Development</span>
+                                    <span class="home-hero__feature-sub">Tailored solutions for startups, SMEs & enterprises</span>
                                 </span>
                             </div>
                             <div class="home-hero__feature">
                                 <span class="home-hero__feature-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></span>
                                 <span class="home-hero__feature-text">
-                                    <span class="home-hero__feature-title">Secure &amp; Scalable</span>
-                                    <span class="home-hero__feature-sub">by design</span>
+                                    <span class="home-hero__feature-title">AI &amp; Business Automation</span>
+                                    <span class="home-hero__feature-sub">Reduce manual work and improve productivity</span>
                                 </span>
                             </div>
                             <div class="home-hero__feature">
                                 <span class="home-hero__feature-icon" aria-hidden="true"><i class="fas fa-headset"></i></span>
                                 <span class="home-hero__feature-text">
-                                    <span class="home-hero__feature-title">24/7 Expert Support</span>
-                                    <span class="home-hero__feature-sub">you can rely on</span>
+                                    <span class="home-hero__feature-title">Cloud &amp; Cybersecurity</span>
+                                    <span class="home-hero__feature-sub">Secure, scalable and enterprise-ready infrastructure</span>
+                                </span>
+                            </div>
+                            <div class="home-hero__feature">
+                                <span class="home-hero__feature-icon" aria-hidden="true"><i class="fas fa-headset"></i></span>
+                                <span class="home-hero__feature-text">
+                                    <span class="home-hero__feature-title">ERP &amp; CRM</span>
+                                    <span class="home-hero__feature-sub">Streamline operations and improve customer management</span>
                                 </span>
                             </div>
                         </div>
@@ -107,52 +114,45 @@
         </div>
     </div>
     <!--=========== Trusted Technology Partner Stats End ==========-->
+    
+    
+    
+    
 
-    <!--===========  Our Capabilities Start =============-->
-    <div class="capabilities-wrapper bg-gray section-space--ptb_60">
+    <!--===========  Solutions We Deliver Start =============-->
+    <div class="solutions-deliver-wrapper bg-gray section-space--ptb_80">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title-wrap text-left section-space--mb_40">
-                        <h6 class="section-sub-title text-color-primary mb-15">{{ $settings['cap_sub_heading'] ?? 'Our Expertise' }}</h6>
-                        <h3 class="heading">{{ $settings['cap_heading'] ?? 'End-to-End Solutions to Drive Your' }} <span class="text-color-primary">{{ $settings['cap_heading_highlight'] ?? 'Business Forward' }}</span></h3>
-                        <p class="capabilities-subtitle mt-15">{{ $settings['cap_subtitle'] ?? 'We deliver innovative, reliable, and scalable solutions across industries to help you stay ahead.' }}</p>
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <span class="solutions-deliver-overline">{{ $settings['sol_overline'] ?? '/// Solutions We Deliver ///' }}</span>
+                        <h3 class="heading mt-15">{{ $settings['sol_heading'] ?? 'Business-focused Solutions Built for' }} <span class="text-color-primary">{{ $settings['sol_heading_highlight'] ?? 'Impact' }}</span></h3>
+                        <p class="solutions-deliver-subtitle mt-15">{{ $settings['sol_subtitle'] ?? 'We deliver end-to-end IT solutions tailored to your business needs, designed to drive efficiency, security, and growth.' }}</p>
                     </div>
                 </div>
             </div>
-            @php
-                $capColors = ['#0F766E', '#3B82F6', '#0EA5E9', '#19587F', '#2C73A0', '#14B8A6'];
-            @endphp
-            <div class="row capabilities-row">
-                @foreach ($capabilities as $capability)
-                <div class="col-lg-4 col-md-6 wow move-up d-flex">
-                    <div class="capability-card" style="--cap-color: {{ $capColors[$loop->index % count($capColors)] }};">
-                        <div class="capability-card__head">
-                            <div class="capability-card__icon">
-                                <img src="{{ asset('uploads/'.$capability->icon) }}" alt="{{ $capability->title }}" loading="lazy">
-                            </div>
-                            <div class="capability-card__heading-group">
-                                <h5 class="capability-card__title">{{ $capability->title }}</h5>
-                                <span class="capability-card__line"></span>
-                            </div>
-                            <button type="button" class="capability-card__toggle" aria-label="Toggle details">
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                        </div>
-                        <div class="capability-card__body">
-                            <p class="capability-card__text">{{ $capability->short_description }}</p>
-                            <a href="{{ route('capabilities.show', $capability->slug) }}" class="capability-card__link">Explore Solutions <i class="fas fa-arrow-right ml-1"></i></a>
-                        </div>
-                    </div>
+            <div class="row solutions-deliver-row">
+                @foreach ($solutions as $solution)
+                <div class="col-12 col-md-6 col-lg-3 wow move-up section-space--mt_30 d-flex">
+                    <a href="{{ route('solutions.show', $solution->slug) }}" class="solution-deliver-card w-100" aria-label="Learn more about our {{ $solution->title }}">
+                        <span class="solution-deliver-card__icon" aria-hidden="true">
+                            <i class="{{ $solution->icon }}"></i>
+                        </span>
+                        <h6 class="solution-deliver-card__title">{{ $solution->title }}</h6>
+                        <span class="solution-deliver-card__divider" aria-hidden="true"></span>
+                        @if ($solution->short_description)
+                        <p class="solution-deliver-card__text">{{ $solution->short_description }}</p>
+                        @endif
+                    </a>
                 </div>
                 @endforeach
             </div>
-            <div class="button-group-wrap text-center mt-40">
-                <a href="{{ route('capabilities.index') }}" class="btn">View All Capabilities</a>
-            </div>
         </div>
     </div>
-    <!--===========  Our Capabilities End =============-->
+    <!--===========  Solutions We Deliver End =============-->
+
+
+
 
     <!--===========  Why Choose Tectignis Start =============-->
     <div class="why-choose-wrapper section-space--ptb_80">
@@ -221,37 +221,6 @@
     </div>
     <!--===========  Why Choose Tectignis End =============-->
 
-    <!--===========  Solutions We Deliver Start =============-->
-    <div class="solutions-deliver-wrapper bg-gray section-space--ptb_80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title-wrap text-center section-space--mb_40">
-                        <span class="solutions-deliver-overline">{{ $settings['sol_overline'] ?? '/// Solutions We Deliver ///' }}</span>
-                        <h3 class="heading mt-15">{{ $settings['sol_heading'] ?? 'Business-focused Solutions Built for' }} <span class="text-color-primary">{{ $settings['sol_heading_highlight'] ?? 'Impact' }}</span></h3>
-                        <p class="solutions-deliver-subtitle mt-15">{{ $settings['sol_subtitle'] ?? 'We deliver end-to-end IT solutions tailored to your business needs, designed to drive efficiency, security, and growth.' }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row solutions-deliver-row">
-                @foreach ($solutions as $solution)
-                <div class="col-12 col-md-6 col-lg-3 wow move-up section-space--mt_30 d-flex">
-                    <a href="{{ route('solutions.show', $solution->slug) }}" class="solution-deliver-card w-100" aria-label="Learn more about our {{ $solution->title }}">
-                        <span class="solution-deliver-card__icon" aria-hidden="true">
-                            <i class="{{ $solution->icon }}"></i>
-                        </span>
-                        <h6 class="solution-deliver-card__title">{{ $solution->title }}</h6>
-                        <span class="solution-deliver-card__divider" aria-hidden="true"></span>
-                        @if ($solution->short_description)
-                        <p class="solution-deliver-card__text">{{ $solution->short_description }}</p>
-                        @endif
-                    </a>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <!--===========  Solutions We Deliver End =============-->
 
     <!--===========  Industries We Serve Start =============-->
     <section class="industries-serve-section section-space--ptb_80">
@@ -347,8 +316,8 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="industries-serve-banner__title">Global Reach</div>
-                        <div class="industries-serve-banner__subtitle">Solutions with Worldwide Impact</div>
+                        <div class="industries-serve-banner__title">150+</div>
+                        <div class="industries-serve-banner__subtitle">Projects Delivered</div>
                     </div>
                 </div>
                 <div class="industries-serve-banner__item">
@@ -358,8 +327,8 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="industries-serve-banner__title">Domain Expertise</div>
-                        <div class="industries-serve-banner__subtitle">Deep Industry Knowledge</div>
+                        <div class="industries-serve-banner__title">50+</div>
+                        <div class="industries-serve-banner__subtitle">Happy Clients</div>
                     </div>
                 </div>
                 <div class="industries-serve-banner__item">
@@ -369,67 +338,14 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="industries-serve-banner__title">Business Impact</div>
-                        <div class="industries-serve-banner__subtitle">Delivering Measurable Results</div>
+                        <div class="industries-serve-banner__title">5+</div>
+                        <div class="industries-serve-banner__subtitle">Countries Served</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--===========  Industries We Serve End =============-->
-
-    <!--=========== Featured Services Start ===========-->
-    <section class="fs-section section-space--ptb_80">
-        <div class="container">
-            <div class="fs-header">
-                <p class="fs-pretitle">
-                    <span aria-hidden="true">←</span>
-                    {{ $settings['fs_pretitle'] ?? 'FEATURED SERVICES' }}
-                    <span aria-hidden="true">→</span>
-                </p>
-                <h2 class="fs-title">{{ $settings['fs_heading'] ?? 'Our Most In-Demand Services' }}</h2>
-                <p class="fs-subtitle">{{ $settings['fs_subtitle'] ?? "Powering businesses with innovative, secure, and scalable solutions tailored to meet today's digital challenges." }}</p>
-            </div>
-
-            @php
-                $fsThemes = [
-                    ['color' => '#14B8A6', 'bg' => '#E3F2F0'],
-                    ['color' => '#2C73A0', 'bg' => '#EAF2F7'],
-                    ['color' => '#14B8A6', 'bg' => '#E3F2F0'],
-                    ['color' => '#2C73A0', 'bg' => '#EAF2F7'],
-                    ['color' => '#14B8A6', 'bg' => '#E3F2F0'],
-                    ['color' => '#3B82F6', 'bg' => '#EFF6FF'],
-                    ['color' => '#2C73A0', 'bg' => '#EAF2F7'],
-                    ['color' => '#10B981', 'bg' => '#ECFDF5'],
-                ];
-            @endphp
-            <div class="fs-grid">
-                @foreach ($services->take(6) as $service)
-                @php $fsTheme = $fsThemes[$loop->index % count($fsThemes)]; @endphp
-                <a href="{{ route('services.show', $service->slug) }}"
-                   class="fs-card"
-                   style="--fs-color: {{ $fsTheme['color'] }}; --fs-color-bg: {{ $fsTheme['bg'] }};"
-                   aria-label="{{ $service->title }}">
-                    <div class="fs-card__icon" aria-hidden="true">
-                        <img src="{{ asset('uploads/'.$service->icon) }}" alt="{{ $service->title }}" loading="lazy">
-                    </div>
-                    <div class="fs-card__body">
-                        <h6 class="fs-card__title">{{ $service->title }}</h6>
-                        @if ($service->short_description)
-                        <p class="fs-card__desc">{{ Str::limit($service->short_description, 80) }}</p>
-                        @endif
-                    </div>
-                    <span class="fs-card__arrow" aria-hidden="true">→</span>
-                </a>
-                @endforeach
-            </div>
-
-            <div class="button-group-wrap text-center mt-40">
-                <a href="{{ route('services.index') }}" class="btn">View All Services</a>
-            </div>
-        </div>
-    </section>
-    <!--=========== Featured Services End ===========-->
 
     <!--=========== Technology Stack Start ===========-->
     <div class="section-space--ptb_60">
@@ -456,9 +372,28 @@
                 </div>
                 @endforeach
             </div>
+            
+               {{-- Connecting Opportunities process stepper --}} 
+               <div class="gp-process"> 
+               <h3 class="gp-block-title">Our Proven Delivery Process</h3> 
+               <div class="gp-process__track"> 
+               <span class="gp-process__line" aria-hidden="true"></span> 
+               @foreach ($processSteps as $step) 
+               <div class="gp-step"> 
+               <span class="gp-step__icon" aria-hidden="true"> 
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> 
+               {!! $step->icon !!} </svg> 
+               </span> 
+               <h4 class="gp-step__title">{{ $step->title }}</h4> 
+               <p class="gp-step__desc">{{ $step->description }}</p> 
+               </div> 
+               @endforeach 
+               </div> 
+               </div>
         </div>
     </div>
     <!--=========== Technology Stack End ===========-->
+    
 
     <!--=========== Case Studies Start =============-->
     <section class="cs-section section-space--ptb_80">
@@ -676,25 +611,6 @@
                     @endforeach
                 </div>
             </div>
-
-            {{-- Connecting Opportunities process stepper --}}
-            <div class="gp-process">
-                <h3 class="gp-block-title">Connecting Opportunities. Delivering Impact.</h3>
-                <div class="gp-process__track">
-                    <span class="gp-process__line" aria-hidden="true"></span>
-                    @foreach ($processSteps as $step)
-                    <div class="gp-step">
-                        <span class="gp-step__icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                {!! $step->icon !!}
-                            </svg>
-                        </span>
-                        <h4 class="gp-step__title">{{ $step->title }}</h4>
-                        <p class="gp-step__desc">{{ $step->description }}</p>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </section>
     <!--=========== Global Presence End ===========-->
@@ -826,64 +742,7 @@
     </section>
     <!--====================  Ready to Transform CTA End ====================-->
 
-    <!--====================  Contact Section Start ====================-->
-    <div class="contact-form-section section-space--ptb_60">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 wow move-up">
-                    <div class="section-title-wrap text-left section-space--mb_30">
-                        <h6 class="section-sub-title mb-20">Get In Touch</h6>
-                        <h3 class="heading">Tectignis IT Solutions <span class="text-color-primary">Pvt. Ltd.</span></h3>
-                    </div>
-                    <ul class="list-unstyled">
-                        <li class="mb-15"><i class="fas fa-map-marker-alt text-color-primary me-3"></i>{{ $settings['site_address'] ?? 'Navi Mumbai, Maharashtra, India' }}</li>
-                        <li class="mb-15"><i class="fas fa-phone text-color-primary me-3"></i><a href="tel:{{ str_replace(' ', '', $settings['site_phone'] ?? '+919987705688') }}">{{ $settings['site_phone'] ?? '+91 9987705688' }}</a></li>
-                        <li class="mb-15"><i class="fas fa-envelope text-color-primary me-3"></i><a href="mailto:{{ $settings['site_email'] ?? 'info@tectignis.in' }}">{{ $settings['site_email'] ?? 'info@tectignis.in' }}</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 wow move-up">
-                    <div class="contact-form">
-                        @if (session('status'))
-                            <div class="alert alert-success mb-20">{{ session('status') }}</div>
-                        @endif
-                        @if ($errors->any())
-                            <div class="alert alert-danger mb-20">
-                                <ul class="mb-0 list-unstyled">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form action="{{ route('contact.submit') }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6 mb-20">
-                                    <input type="text" name="con_name" value="{{ old('con_name') }}" class="form-control" placeholder="Your Name" required>
-                                </div>
-                                <div class="col-md-6 mb-20">
-                                    <input type="email" name="con_email" value="{{ old('con_email') }}" class="form-control" placeholder="Your Email" required>
-                                </div>
-                                <div class="col-md-6 mb-20">
-                                    <input type="tel" name="con_phone" value="{{ old('con_phone') }}" class="form-control" placeholder="Phone Number">
-                                </div>
-                                <div class="col-md-6 mb-20">
-                                    <input type="text" name="con_subject" value="{{ old('con_subject') }}" class="form-control" placeholder="Service Required">
-                                </div>
-                                <div class="col-12 mb-20">
-                                    <textarea name="con_message" class="form-control" rows="4" placeholder="Your Message" required>{{ old('con_message') }}</textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="ht-btn ht-btn-md">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--====================  Contact Section End ====================-->
+    
 
 @endsection
 
