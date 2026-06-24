@@ -28,15 +28,16 @@
         <h2 class="text-lg font-semibold text-slate-900">Site Settings</h2>
     </div>
 
-    {{-- Group quick navigation --}}
-    <div class="mb-6 flex flex-wrap gap-2">
+    {{-- Tab navigation --}}
+    <div class="mb-6 flex flex-wrap gap-2" id="settings-tabs">
         @foreach ($settings as $group => $items)
             @php $meta = $groupMeta[$group] ?? ['title' => ucfirst($group), 'icon' => 'cog']; @endphp
-            <a href="#settings-{{ $group }}"
-                class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-600 transition hover:border-fuchsia-300 hover:text-fuchsia-600">
+            <button type="button"
+                data-settings-tab="{{ $group }}"
+                class="settings-tab inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition">
                 <x-admin.icon :name="$meta['icon']" class="h-3.5 w-3.5" />
                 {{ $meta['title'] }}
-            </a>
+            </button>
         @endforeach
     </div>
 
@@ -46,7 +47,7 @@
 
         @foreach ($settings as $group => $items)
             @php $meta = $groupMeta[$group] ?? ['title' => ucfirst($group), 'icon' => 'cog', 'description' => null]; @endphp
-            <div class="mb-8 scroll-mt-24" id="settings-{{ $group }}">
+            <div class="mb-8" data-settings-panel="{{ $group }}" hidden>
                 <div class="mb-3">
                     <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-800">
                         <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-fuchsia-50 text-fuchsia-600">

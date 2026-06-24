@@ -1,4 +1,45 @@
 // Admin panel scripts.
+
+// Settings tabs: show one panel at a time, persist choice in the URL hash.
+(function initSettingsTabs() {
+    const tabs = () => [...document.querySelectorAll('[data-settings-tab]')];
+    const panels = () => [...document.querySelectorAll('[data-settings-panel]')];
+
+    function activateTab(group) {
+        tabs().forEach((btn) => {
+            const isActive = btn.dataset.settingsTab === group;
+            btn.classList.toggle('border-fuchsia-500', isActive);
+            btn.classList.toggle('bg-fuchsia-50', isActive);
+            btn.classList.toggle('text-fuchsia-700', isActive);
+            btn.classList.toggle('border-slate-200', !isActive);
+            btn.classList.toggle('bg-white', !isActive);
+            btn.classList.toggle('text-slate-600', !isActive);
+        });
+        panels().forEach((panel) => {
+            panel.hidden = panel.dataset.settingsPanel !== group;
+        });
+        history.replaceState(null, '', '#' + group);
+    }
+
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-settings-tab]');
+        if (btn) {
+            activateTab(btn.dataset.settingsTab);
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const all = tabs();
+        if (!all.length) {
+            return;
+        }
+        const hash = location.hash.replace('#', '');
+        const initial = all.find((b) => b.dataset.settingsTab === hash) ?? all[0];
+        activateTab(initial.dataset.settingsTab);
+    });
+})();
+
+
 // Mobile sidebar toggle + backdrop.
 const sidebar = () => document.querySelector('[data-sidebar]');
 const backdrop = () => document.querySelector('[data-sidebar-backdrop]');
