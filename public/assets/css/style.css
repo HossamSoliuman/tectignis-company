@@ -2699,7 +2699,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 }
 
 .header__logo>a img {
-  width: 160px;
+  width: 259px;
 }
 
 .header__logo .dark-logo {
@@ -2736,7 +2736,7 @@ only screen and (max-width: 767px) {
   .header.default-menu-style .header__logo {
     -webkit-flex-basis: 13%;
     -ms-flex-preferred-size: 13%;
-    flex-basis: 13%;
+    flex-basis: 21%;
   }
 }
 
