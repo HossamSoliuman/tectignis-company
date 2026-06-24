@@ -136,7 +136,7 @@
                 <div class="col-12 col-md-6 col-lg wow move-up section-space--mt_30 d-flex">
                     <a href="{{ route('capabilities.show', $capability->slug) }}" class="solution-deliver-card w-100" aria-label="Learn more about our {{ $capability->title }}">
                         <span class="solution-deliver-card__icon" aria-hidden="true">
-                            <i class="{{ $capability->icon }}"></i>
+                            <img src="{{ asset('uploads/'.$capability->icon) }}" alt="{{ $capability->title }}" loading="lazy">
                         </span>
                         <h6 class="solution-deliver-card__title">{{ $capability->title }}</h6>
                         <span class="solution-deliver-card__divider" aria-hidden="true"></span>
