@@ -119,29 +119,29 @@
     
     
 
-    <!--===========  Solutions We Deliver Start =============-->
+    <!--===========  Capabilities We Deliver Start =============-->
     <div class="solutions-deliver-wrapper bg-gray section-space--ptb_80">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <span class="solutions-deliver-overline">{{ $settings['sol_overline'] ?? '/// Solutions We Deliver ///' }}</span>
-                        <h3 class="heading mt-15">{{ $settings['sol_heading'] ?? 'Business-focused Solutions Built for' }} <span class="text-color-primary">{{ $settings['sol_heading_highlight'] ?? 'Impact' }}</span></h3>
-                        <p class="solutions-deliver-subtitle mt-15">{{ $settings['sol_subtitle'] ?? 'We deliver end-to-end IT solutions tailored to your business needs, designed to drive efficiency, security, and growth.' }}</p>
+                        <span class="solutions-deliver-overline">{{ $settings['cap_overline'] ?? '/// Capabilities We Deliver ///' }}</span>
+                        <h3 class="heading mt-15">{{ $settings['cap_heading'] ?? 'Business-focused Capabilities Built for' }} <span class="text-color-primary">{{ $settings['cap_heading_highlight'] ?? 'Impact' }}</span></h3>
+                        <p class="solutions-deliver-subtitle mt-15">{{ $settings['cap_subtitle'] ?? 'We deliver end-to-end IT capabilities tailored to your business needs, designed to drive efficiency, security, and growth.' }}</p>
                     </div>
                 </div>
             </div>
             <div class="row solutions-deliver-row">
-                @foreach ($solutions as $solution)
-                <div class="col-12 col-md-6 col-lg-3 wow move-up section-space--mt_30 d-flex">
-                    <a href="{{ route('solutions.show', $solution->slug) }}" class="solution-deliver-card w-100" aria-label="Learn more about our {{ $solution->title }}">
+                @foreach ($capabilities as $capability)
+                <div class="col-12 col-md-6 col-lg wow move-up section-space--mt_30 d-flex">
+                    <a href="{{ route('capabilities.show', $capability->slug) }}" class="solution-deliver-card w-100" aria-label="Learn more about our {{ $capability->title }}">
                         <span class="solution-deliver-card__icon" aria-hidden="true">
-                            <i class="{{ $solution->icon }}"></i>
+                            <i class="{{ $capability->icon }}"></i>
                         </span>
-                        <h6 class="solution-deliver-card__title">{{ $solution->title }}</h6>
+                        <h6 class="solution-deliver-card__title">{{ $capability->title }}</h6>
                         <span class="solution-deliver-card__divider" aria-hidden="true"></span>
-                        @if ($solution->short_description)
-                        <p class="solution-deliver-card__text">{{ $solution->short_description }}</p>
+                        @if ($capability->short_description)
+                        <p class="solution-deliver-card__text">{{ $capability->short_description }}</p>
                         @endif
                     </a>
                 </div>
@@ -149,7 +149,7 @@
             </div>
         </div>
     </div>
-    <!--===========  Solutions We Deliver End =============-->
+    <!--===========  Capabilities We Deliver End =============-->
 
 
 
@@ -285,7 +285,7 @@
                 <a href="{{ route('industries.show', $industry->slug) }}" class="industry-serve-card" aria-label="{{ $industry->name }}">
                     <div class="industry-serve-card__blob">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                             stroke="url(#indGrad)" stroke-width="1.5"
+                             stroke="#19587F" stroke-width="1.5"
                              stroke-linecap="round" stroke-linejoin="round"
                              aria-hidden="true">
                             {!! $industryIconPaths[$industry->name] ?? $defaultIconPath !!}
@@ -372,28 +372,39 @@
                 </div>
                 @endforeach
             </div>
-            
-               {{-- Connecting Opportunities process stepper --}} 
-               <div class="gp-process"> 
-               <h3 class="gp-block-title">Our Proven Delivery Process</h3> 
-               <div class="gp-process__track"> 
-               <span class="gp-process__line" aria-hidden="true"></span> 
-               @foreach ($processSteps as $step) 
-               <div class="gp-step"> 
-               <span class="gp-step__icon" aria-hidden="true"> 
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"> 
-               {!! $step->icon !!} </svg> 
-               </span> 
-               <h4 class="gp-step__title">{{ $step->title }}</h4> 
-               <p class="gp-step__desc">{{ $step->description }}</p> 
-               </div> 
-               @endforeach 
-               </div> 
-               </div>
         </div>
     </div>
     <!--=========== Technology Stack End ===========-->
-    
+
+    <!--=========== Our Proven Delivery Process Start ===========-->
+    <section class="section-space--ptb_80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title-wrap text-center section-space--mb_40">
+                        <h3 class="heading">Our Proven <span class="text-color-primary">Delivery Process</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="gp-process">
+                <div class="gp-process__track">
+                    <span class="gp-process__line" aria-hidden="true"></span>
+                    @foreach ($processSteps as $step)
+                    <div class="gp-step">
+                        <span class="gp-step__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                {!! $step->icon !!}
+                            </svg>
+                        </span>
+                        <h4 class="gp-step__title">{{ $step->title }}</h4>
+                        <p class="gp-step__desc">{{ $step->description }}</p>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=========== Our Proven Delivery Process End ===========-->
 
     <!--=========== Case Studies Start =============-->
     <section class="cs-section section-space--ptb_80">

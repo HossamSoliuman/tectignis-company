@@ -19,6 +19,9 @@ class Setting extends Model
         'hero_image' => 'assets/images/hero',
         'what_we_offer_image' => 'assets/images/banners',
         'tech_service_image' => 'assets/images/banners',
+        'site_logo' => 'assets/images/logo',
+        'site_logo_dark' => 'assets/images/logo',
+        'site_favicon' => 'assets/images/logo',
     ];
 
     public static function get(string $key, mixed $default = null): mixed

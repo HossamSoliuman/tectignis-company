@@ -2,10 +2,9 @@
     $siteSettings = \App\Models\Setting::values();
     $sitePhone = $siteSettings['site_phone'] ?? '+91 9987705688';
     $siteEmail = $siteSettings['site_email'] ?? 'info@tectignis.in';
-    // Header now sits on a white background, so use the dark wordmark.
-    $headerLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo_dark'] ?? null, 'site_logo_dark')
+    $headerLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo'] ?? null, 'site_logo')
         ?? asset('assets/images/logo/Tectignis-IT-solution-logo.webp');
-    $mobileLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo_dark'] ?? null, 'site_logo_dark')
+    $mobileLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo'] ?? null, 'site_logo')
         ?? asset('assets/images/logo/Tectignis-IT-solution-logo.webp');
 ?>
 

@@ -2324,7 +2324,7 @@ body {
 }
 
 @media (min-width: 1200px) {
-    .industries-serve-grid { grid-template-columns: repeat(8, 1fr); gap: 20px; }
+    .industries-serve-grid { grid-template-columns: repeat(6, 1fr); gap: 20px; }
 }
 
 /* --- Individual industry card --- */
@@ -2454,15 +2454,15 @@ body {
 
 @media (min-width: 992px) {
     .tech-stack-row > [class*="col-"] {
-        flex: 0 0 16.666%;
-        max-width: 16.666%;
+        flex: 0 0 14.2857%;
+        max-width: 14.2857%;
     }
 }
 
 @media (min-width: 1200px) {
     .tech-stack-row > [class*="col-"] {
-        flex: 0 0 12.5%;
-        max-width: 12.5%;
+        flex: 0 0 14.2857%;
+        max-width: 14.2857%;
     }
 }
 

@@ -16,8 +16,8 @@ class SettingsSeeder extends Seeder
             ['key' => 'site_phone', 'value' => '+91 9987705688', 'group' => 'general'],
             ['key' => 'site_email', 'value' => 'info@tectignis.in', 'group' => 'general'],
             ['key' => 'site_address', 'value' => 'Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai - 410206', 'group' => 'general'],
-            ['key' => 'site_logo', 'value' => null, 'group' => 'general'],
-            ['key' => 'site_logo_dark', 'value' => null, 'group' => 'general'],
+            ['key' => 'site_logo', 'value' => 'Tectignis-IT-solution-logo-white.webp', 'group' => 'general'],
+            ['key' => 'site_logo_dark', 'value' => 'Tectignis-IT-solution-logo.webp', 'group' => 'general'],
             ['key' => 'site_favicon', 'value' => null, 'group' => 'general'],
 
             // integrations
