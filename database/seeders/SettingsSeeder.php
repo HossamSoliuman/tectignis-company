@@ -117,6 +117,14 @@ class SettingsSeeder extends Seeder
 
             // seo
             ['key' => 'robots_txt', 'value' => "User-agent: *\nAllow: /", 'group' => 'seo'],
+
+            // seo — home page
+            ['key' => 'home_meta_title', 'value' => 'Software, AI & IT Solutions Company | Navi Mumbai, Mumbai, Pune, India | Tectignis', 'group' => 'seo'],
+            ['key' => 'home_meta_description', 'value' => 'Tectignis IT Solutions – Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems. Serving Navi Mumbai, Mumbai, Thane, Pune, Maharashtra & Worldwide.', 'group' => 'seo'],
+            ['key' => 'home_meta_keywords', 'value' => 'software development company Navi Mumbai, IT solutions Mumbai, AI development India, cloud services Pune, cybersecurity company Thane, ERP development, CRM solutions, CCTV installation Mumbai', 'group' => 'seo'],
+            ['key' => 'home_og_title', 'value' => 'Software, AI & IT Solutions Company | Navi Mumbai | Tectignis', 'group' => 'seo'],
+            ['key' => 'home_og_description', 'value' => 'Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems. Serving Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.', 'group' => 'seo'],
+            ['key' => 'home_og_image', 'value' => null, 'group' => 'seo'],
         ];
 
         foreach ($settings as $setting) {

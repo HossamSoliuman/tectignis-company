@@ -1,14 +1,28 @@
 @extends('layouts.public')
 
-@section('title', 'Software, AI & IT Solutions Company | Navi Mumbai, Mumbai, Pune, India | Tectignis')
+@section('title', $settings['home_meta_title'] ?? 'Software, AI & IT Solutions Company | Navi Mumbai, Mumbai, Pune, India | Tectignis')
 
 @section('seo')
-    <meta name="description" content="Tectignis IT Solutions – Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems. Serving Navi Mumbai, Mumbai, Thane, Pune, Maharashtra & Worldwide.">
-    <meta name="keywords" content="software development company Navi Mumbai, IT solutions Mumbai, AI development India, cloud services Pune, cybersecurity company Thane, ERP development, CRM solutions, CCTV installation Mumbai">
-    <meta property="og:title" content="Software, AI & IT Solutions Company | Navi Mumbai | Tectignis">
-    <meta property="og:description" content="Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems. Serving Navi Mumbai, Mumbai, Thane, Pune, India & Worldwide.">
+    @php
+        $homeMetaDesc = $settings['home_meta_description'] ?? 'Tectignis IT Solutions – Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems.';
+        $homeMetaKeywords = $settings['home_meta_keywords'] ?? null;
+        $homeOgTitle = $settings['home_og_title'] ?? ($settings['home_meta_title'] ?? null);
+        $homeOgDesc = $settings['home_og_description'] ?? $homeMetaDesc;
+        $homeOgImage = ($settings['home_og_image'] ?? null)
+            ? \App\Models\Setting::imageUrl($settings['home_og_image'], 'home_og_image')
+            : null;
+    @endphp
+    <meta name="description" content="{{ $homeMetaDesc }}">
+    @if ($homeMetaKeywords)
+        <meta name="keywords" content="{{ $homeMetaKeywords }}">
+    @endif
+    <meta property="og:title" content="{{ $homeOgTitle }}">
+    <meta property="og:description" content="{{ $homeOgDesc }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/') }}">
+    @if ($homeOgImage)
+        <meta property="og:image" content="{{ $homeOgImage }}">
+    @endif
     <link rel="canonical" href="{{ url('/') }}">
 @endsection
 
@@ -254,7 +268,7 @@
                 @foreach ($industries as $industry)
                 <a href="{{ route('industries.show', $industry->slug) }}" class="industry-serve-card" aria-label="{{ $industry->name }}">
                     <div class="industry-serve-card__blob">
-                        <i class="{{ $industry->icon ?: 'fas fa-globe' }}" aria-hidden="true"></i>
+                        <i class="{{ $industry->icon }}" aria-hidden="true"></i>
                     </div>
                     <span class="industry-serve-card__label">{{ $industry->name }}</span>
                 </a>
