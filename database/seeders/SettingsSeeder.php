@@ -52,8 +52,153 @@ class SettingsSeeder extends Seeder
             ['key' => 'social_whatsapp', 'value' => '+919987705688', 'group' => 'social'],
 
             // legal
-            ['key' => 'legal_privacy-policy', 'value' => null, 'group' => 'legal'],
-            ['key' => 'legal_terms-and-conditions', 'value' => null, 'group' => 'legal'],
+            ['key' => 'legal_privacy-policy', 'group' => 'legal', 'value' => '<h1>Privacy Policy</h1>
+<p class="legal-last-updated">Last updated: June 2025</p>
+
+<p>Tectignis IT Solutions Pvt Ltd ("Tectignis", "we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and your rights regarding that data when you use our website at <a href="https://tectignis.in">tectignis.in</a> or engage our services.</p>
+
+<h2>1. Information We Collect</h2>
+<p>We collect information that you provide directly to us and information collected automatically when you use our website.</p>
+<h3>Information You Provide</h3>
+<ul>
+  <li><strong>Contact &amp; enquiry forms</strong> — name, email address, phone number, company name, and the message you send us.</li>
+  <li><strong>Consultation requests</strong> — service requirements and project details you share.</li>
+  <li><strong>Job applications</strong> — CV/résumé, cover letter, and contact details submitted via our Careers page.</li>
+  <li><strong>Newsletter sign-ups</strong> — email address.</li>
+</ul>
+<h3>Information Collected Automatically</h3>
+<ul>
+  <li>IP address, browser type, operating system, and referring URLs.</li>
+  <li>Pages visited, time spent on pages, and click interactions (via Google Analytics and Google Tag Manager).</li>
+  <li>Cookies and similar tracking technologies (see Section 6).</li>
+</ul>
+
+<h2>2. How We Use Your Information</h2>
+<ul>
+  <li>To respond to your enquiries and provide the services you have requested.</li>
+  <li>To send quotes, proposals, or project updates.</li>
+  <li>To process job applications and communicate with candidates.</li>
+  <li>To send newsletters and marketing communications (only where you have opted in).</li>
+  <li>To improve our website content, user experience, and service offerings.</li>
+  <li>To comply with legal obligations.</li>
+</ul>
+
+<h2>3. Legal Basis for Processing (GDPR / Indian DPDP Act)</h2>
+<ul>
+  <li><strong>Consent</strong> — where you have explicitly agreed (e.g., newsletter sign-ups).</li>
+  <li><strong>Legitimate interests</strong> — responding to business enquiries and improving our services.</li>
+  <li><strong>Contractual necessity</strong> — delivering services you have engaged us for.</li>
+  <li><strong>Legal obligation</strong> — complying with applicable laws and regulations.</li>
+</ul>
+
+<h2>4. Data Sharing &amp; Disclosure</h2>
+<p>We do not sell your personal data. We may share it with:</p>
+<ul>
+  <li><strong>Service providers</strong> — hosting, email delivery, analytics, and CRM tools operating under data-processing agreements.</li>
+  <li><strong>Professional advisors</strong> — lawyers or accountants where legally required.</li>
+  <li><strong>Authorities</strong> — government or regulatory bodies when required by law.</li>
+</ul>
+
+<h2>5. Data Retention</h2>
+<p>We retain personal data only as long as necessary for the purposes set out in this policy or as required by law. Enquiry data is typically retained for up to 3 years; client project data is retained for the duration of the engagement plus 7 years for financial and legal compliance.</p>
+
+<h2>6. Cookies</h2>
+<p>Our website uses cookies to provide core functionality, analyse traffic (Google Analytics), and deliver relevant content. You may disable cookies in your browser settings; however, some parts of the site may not function correctly without them.</p>
+
+<h2>7. Third-Party Links</h2>
+<p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of those sites and encourage you to review their privacy policies.</p>
+
+<h2>8. Your Rights</h2>
+<p>Depending on your location, you may have the right to:</p>
+<ul>
+  <li>Access the personal data we hold about you.</li>
+  <li>Request correction of inaccurate data.</li>
+  <li>Request deletion of your data ("right to be forgotten").</li>
+  <li>Withdraw consent at any time (where processing is based on consent).</li>
+  <li>Object to or restrict certain processing activities.</li>
+  <li>Lodge a complaint with a data protection authority.</li>
+</ul>
+<p>To exercise any of these rights, please contact us at <a href="mailto:info@tectignis.in">info@tectignis.in</a>.</p>
+
+<h2>9. Data Security</h2>
+<p>We implement industry-standard technical and organisational measures to protect your personal data against unauthorised access, loss, or disclosure. These include HTTPS encryption, access controls, and regular security reviews.</p>
+
+<h2>10. Children\'s Privacy</h2>
+<p>Our website and services are not directed at children under the age of 18. We do not knowingly collect personal data from minors.</p>
+
+<h2>11. Changes to This Policy</h2>
+<p>We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page indicates when the most recent revision was made. Continued use of the website after changes constitutes acceptance of the updated policy.</p>
+
+<h2>12. Contact Us</h2>
+<p>If you have any questions about this Privacy Policy or how we handle your data, please reach out:</p>
+<ul>
+  <li><strong>Email:</strong> <a href="mailto:info@tectignis.in">info@tectignis.in</a></li>
+  <li><strong>Phone:</strong> +91 9987705688</li>
+  <li><strong>Address:</strong> Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai – 410206, Maharashtra, India</li>
+</ul>'],
+
+            ['key' => 'legal_terms-and-conditions', 'group' => 'legal', 'value' => '<h1>Terms &amp; Conditions</h1>
+<p class="legal-last-updated">Last updated: June 2025</p>
+
+<p>Please read these Terms &amp; Conditions ("Terms") carefully before using the website at <a href="https://tectignis.in">tectignis.in</a> or engaging any services provided by Tectignis IT Solutions Pvt Ltd ("Tectignis", "we", "us", or "our"). By accessing the website or entering into a service agreement with us, you agree to be bound by these Terms.</p>
+
+<h2>1. Acceptance of Terms</h2>
+<p>By using this website or engaging our services, you confirm that you are at least 18 years old and have the authority to enter into these Terms on behalf of yourself or the organisation you represent.</p>
+
+<h2>2. Services</h2>
+<p>Tectignis provides custom software development, AI &amp; automation solutions, cloud infrastructure, cybersecurity, CCTV &amp; smart security systems, ERP/CRM development, and related IT consulting services. The specific scope, deliverables, timelines, and fees for any engagement are defined in a separate Statement of Work (SoW) or service agreement signed by both parties.</p>
+
+<h2>3. Use of the Website</h2>
+<p>You agree not to:</p>
+<ul>
+  <li>Use the website for any unlawful purpose or in violation of any applicable regulations.</li>
+  <li>Attempt to gain unauthorised access to any part of the website or its underlying infrastructure.</li>
+  <li>Transmit any malware, spam, or harmful code.</li>
+  <li>Reproduce, distribute, or create derivative works from any content on this website without prior written consent from Tectignis.</li>
+</ul>
+
+<h2>4. Intellectual Property</h2>
+<p>All content on this website — including text, graphics, logos, images, and software — is the property of Tectignis or its licensors and is protected by applicable intellectual property laws.</p>
+<p>For client projects, intellectual property ownership is determined by the terms of the signed service agreement. Unless expressly stated otherwise, custom software developed for a client is assigned to the client upon full payment of all outstanding invoices.</p>
+
+<h2>5. Confidentiality</h2>
+<p>Both parties agree to keep confidential any non-public business or technical information shared during an engagement. This obligation survives the termination of any agreement for a period of three (3) years.</p>
+
+<h2>6. Payment Terms</h2>
+<p>Payment schedules and methods are specified in individual service agreements. Unless agreed otherwise, invoices are due within 15 days of issue. Tectignis reserves the right to suspend services on accounts with overdue balances.</p>
+
+<h2>7. Limitation of Liability</h2>
+<p>To the maximum extent permitted by applicable law, Tectignis shall not be liable for:</p>
+<ul>
+  <li>Indirect, incidental, or consequential damages arising from use of our website or services.</li>
+  <li>Loss of data, revenue, or profits not directly caused by Tectignis\'s gross negligence or wilful misconduct.</li>
+  <li>Interruptions to services caused by third-party infrastructure, force majeure events, or factors beyond our reasonable control.</li>
+</ul>
+<p>Our aggregate liability under any service agreement shall not exceed the total fees paid by the client in the three (3) months preceding the claim.</p>
+
+<h2>8. Warranties &amp; Disclaimers</h2>
+<p>The website and any information on it are provided "as is" without warranties of any kind. We do not warrant that the website will be error-free, uninterrupted, or free from viruses. Service-specific warranties are defined in individual service agreements.</p>
+
+<h2>9. Third-Party Links &amp; Integrations</h2>
+<p>Our website and solutions may link to or integrate with third-party services. Tectignis is not responsible for the content, availability, or practices of any third-party platforms.</p>
+
+<h2>10. Termination</h2>
+<p>Either party may terminate a service agreement in accordance with the notice provisions therein. Tectignis reserves the right to suspend or terminate website access for users who violate these Terms.</p>
+
+<h2>11. Governing Law &amp; Dispute Resolution</h2>
+<p>These Terms are governed by the laws of India. Any disputes arising from these Terms or a related service agreement shall be subject to the exclusive jurisdiction of the courts of Navi Mumbai, Maharashtra, India. Parties agree to first attempt to resolve disputes through good-faith negotiation before initiating legal proceedings.</p>
+
+<h2>12. Amendments</h2>
+<p>We may update these Terms at any time. The "Last updated" date at the top of this page reflects the most recent revision. Continued use of the website after changes are posted constitutes acceptance of the revised Terms.</p>
+
+<h2>13. Contact Us</h2>
+<p>For questions or concerns about these Terms, please contact us:</p>
+<ul>
+  <li><strong>Email:</strong> <a href="mailto:info@tectignis.in">info@tectignis.in</a></li>
+  <li><strong>Phone:</strong> +91 9987705688</li>
+  <li><strong>Address:</strong> Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai – 410206, Maharashtra, India</li>
+</ul>'],
+
             ['key' => 'legal_cookie-policy', 'value' => null, 'group' => 'legal'],
 
             // home — hero
@@ -128,6 +273,10 @@ class SettingsSeeder extends Seeder
         ];
 
         foreach ($settings as $setting) {
+            if ($setting['group'] !== 'legal') {
+                continue;
+            }
+
             Setting::updateOrCreate(['key' => $setting['key']], $setting);
         }
     }
