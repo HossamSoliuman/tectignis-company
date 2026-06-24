@@ -80,7 +80,7 @@
                                 </div>
                                 <p class="dec-text mt-20">{{ $capability->short_description }}</p>
                                 <div class="tab-button mt-30">
-                                    <a class="btn-text" href="{{ route('contact') }}">
+                                    <a class="btn-text js-consult-open" href="#">
                                         <span class="button-text">Get a free consultation <i class="fas fa-arrow-right"></i></span>
                                     </a>
                                 </div>

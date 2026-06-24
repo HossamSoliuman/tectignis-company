@@ -38,29 +38,33 @@
                 @csrf
                 <input type="hidden" name="con_source" value="consultation">
 
-                <div class="consult-field">
-                    <label for="consult_name">Name <span aria-hidden="true">*</span></label>
-                    <input id="consult_name" name="con_name" type="text" placeholder="John Doe" value="{{ old('con_source') === 'consultation' ? old('con_name') : '' }}" required>
+                <div class="consult-form__row">
+                    <div class="consult-field">
+                        <label for="consult_name">Name <span aria-hidden="true">*</span></label>
+                        <input id="consult_name" name="con_name" type="text" placeholder="John Doe" value="{{ old('con_source') === 'consultation' ? old('con_name') : '' }}" required>
+                    </div>
+
+                    <div class="consult-field">
+                        <label for="consult_phone">Mobile Number <span aria-hidden="true">*</span></label>
+                        <input id="consult_phone" name="con_phone" type="text" placeholder="+91 00000 00000" value="{{ old('con_source') === 'consultation' ? old('con_phone') : '' }}" maxlength="20" required>
+                    </div>
                 </div>
 
-                <div class="consult-field">
-                    <label for="consult_phone">Mobile Number <span aria-hidden="true">*</span></label>
-                    <input id="consult_phone" name="con_phone" type="text" placeholder="+91 00000 00000" value="{{ old('con_source') === 'consultation' ? old('con_phone') : '' }}" maxlength="20" required>
-                </div>
+                <div class="consult-form__row">
+                    <div class="consult-field">
+                        <label for="consult_email">Email Address <span class="consult-field__optional">(Optional)</span></label>
+                        <input id="consult_email" name="con_email" type="email" placeholder="you@company.com" value="{{ old('con_source') === 'consultation' ? old('con_email') : '' }}">
+                    </div>
 
-                <div class="consult-field">
-                    <label for="consult_email">Email Address <span class="consult-field__optional">(Optional)</span></label>
-                    <input id="consult_email" name="con_email" type="email" placeholder="you@company.com" value="{{ old('con_source') === 'consultation' ? old('con_email') : '' }}">
-                </div>
-
-                <div class="consult-field">
-                    <label for="consult_subject">Select Service <span aria-hidden="true">*</span></label>
-                    <select id="consult_subject" name="con_subject" required>
-                        <option value="" disabled {{ old('con_source') === 'consultation' && old('con_subject') ? '' : 'selected' }}>Choose a service</option>
-                        @foreach ($consultationServices as $service)
-                            <option value="{{ $service }}" @selected(old('con_source') === 'consultation' && old('con_subject') === $service)>{{ $service }}</option>
-                        @endforeach
-                    </select>
+                    <div class="consult-field">
+                        <label for="consult_subject">Select Service <span aria-hidden="true">*</span></label>
+                        <select id="consult_subject" name="con_subject" required>
+                            <option value="" disabled {{ old('con_source') === 'consultation' && old('con_subject') ? '' : 'selected' }}>Choose a service</option>
+                            @foreach ($consultationServices as $service)
+                                <option value="{{ $service }}" @selected(old('con_source') === 'consultation' && old('con_subject') === $service)>{{ $service }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="consult-field">

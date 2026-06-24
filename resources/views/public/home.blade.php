@@ -66,9 +66,9 @@
                             <button type="button" class="home-hero__btn home-hero__btn--primary js-consult-open">
                                 {{ $settings['hero_btn_primary'] ?? 'Request Consultation' }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ route('contact') }}" class="home-hero__btn home-hero__btn--ghost">
+                            <button type="button" class="home-hero__btn home-hero__btn--ghost js-consult-open">
                                 {{ $settings['hero_btn_secondary'] ?? 'Get a Quote' }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -705,8 +705,8 @@
                     </div>
 
                     <div class="cta-transform__actions">
-                        <a href="{{ route('contact') }}" class="cta-btn cta-btn--primary">{{ $settings['cta_btn_primary'] ?? 'Request Consultation' }} <span aria-hidden="true">→</span></a>
-                        <a href="{{ route('contact') }}" class="cta-btn cta-btn--ghost">{{ $settings['cta_btn_secondary'] ?? 'Get a Quote' }} <span aria-hidden="true">→</span></a>
+                        <button type="button" class="cta-btn cta-btn--primary js-consult-open">{{ $settings['cta_btn_primary'] ?? 'Request Consultation' }} <span aria-hidden="true">→</span></button>
+                        <button type="button" class="cta-btn cta-btn--ghost js-consult-open">{{ $settings['cta_btn_secondary'] ?? 'Get a Quote' }} <span aria-hidden="true">→</span></button>
                     </div>
                 </div>
 

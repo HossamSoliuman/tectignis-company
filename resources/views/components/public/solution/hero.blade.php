@@ -53,7 +53,7 @@
                 @endif
 
                 <div class="ind-hero__buttons">
-                    <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">{{ $ctaPrimary }} <i class="fas fa-arrow-right"></i></a>
+                    <button type="button" class="svc-btn svc-btn--primary js-consult-open">{{ $ctaPrimary }} <i class="fas fa-arrow-right"></i></button>
                     <a href="{{ route('contact') }}" class="svc-btn ind-btn--indigo">{{ $ctaSecondary }} <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>

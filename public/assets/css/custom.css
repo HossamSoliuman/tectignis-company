@@ -5801,7 +5801,8 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
 
 /* ---------- Form ---------- */
 .consult-form { display: flex; flex-direction: column; gap: 12px; }
-.consult-field { display: flex; flex-direction: column; }
+.consult-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.consult-field { display: flex; flex-direction: column; min-width: 0; }
 .consult-field label {
     font-size: 13px;
     font-weight: 600;
@@ -5864,6 +5865,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
     .consult-modal__icon svg { width: 22px; height: 22px; }
     .consult-modal__title { font-size: 18px; }
     .consult-form { gap: 10px; }
+    .consult-form__row { grid-template-columns: 1fr; gap: 10px; }
 }
 
 

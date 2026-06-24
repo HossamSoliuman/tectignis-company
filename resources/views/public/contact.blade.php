@@ -291,7 +291,7 @@
                     <p class="contact-cta__text">Book a free consultation and let's turn your idea into a working solution.</p>
                 </div>
                 <div class="contact-cta__actions">
-                    <a href="#contact-lead-form" class="about-btn about-btn--primary">Request Consultation <span aria-hidden="true">→</span></a>
+                    <button type="button" class="about-btn about-btn--primary js-consult-open">Request Consultation <span aria-hidden="true">→</span></button>
                     <a href="tel:+919987705688" class="contact-cta__call">Call Now</a>
                 </div>
             </div>

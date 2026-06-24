@@ -41,7 +41,7 @@
                 @endif
 
                 <div class="svc-hero__buttons">
-                    <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">{{ $ctaPrimary }}</a>
+                    <button type="button" class="svc-btn svc-btn--primary js-consult-open">{{ $ctaPrimary }}</button>
                     <a href="{{ route('case-studies.index') }}" class="svc-btn svc-btn--ghost">{{ $ctaSecondary }}</a>
                 </div>
 

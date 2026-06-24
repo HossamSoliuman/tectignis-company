@@ -95,7 +95,7 @@
                                                                             <span>Get expert guidance for your business needs.</span>
                                                                         </span>
                                                                     </a>
-                                                                    <a href="{{ route('contact') }}" class="megamenu-cta-box">
+                                                                    <a href="#" class="megamenu-cta-box js-consult-open">
                                                                         <span class="cta-icon"><i class="fas fa-file-invoice"></i></span>
                                                                         <span>
                                                                             <h6>Request A Quote</h6>
