@@ -19,12 +19,13 @@ use App\Models\TechStack;
 use App\Models\Testimonial;
 use App\Models\WhyChooseFeature;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function __invoke(): View
     {
-        return view('public.home', [
+        $data = Cache::rememberForever('site.home', fn () => [
             'capabilities' => Capability::active()->ordered()->get(),
             'solutions' => Solution::active()->ordered()->get(),
             'industries' => Industry::active()->ordered()->get(),
@@ -39,8 +40,10 @@ class HomeController extends Controller
             'globalLocations' => OfficeLocation::where('region', 'global')->active()->ordered()->get(),
             'globalAdvantages' => GlobalAdvantage::active()->ordered()->get(),
             'processSteps' => ProcessStep::active()->ordered()->get(),
-            'settings' => Setting::pluck('value', 'key'),
+            'settings' => Setting::values(),
             'recentPosts' => BlogPost::published()->latest('published_at')->limit(3)->get(),
         ]);
+
+        return view('public.home', $data);
     }
 }

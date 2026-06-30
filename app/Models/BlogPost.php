@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\FlushesSiteCache;
 use Database\Factories\BlogPostFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class BlogPost extends Model
 {
     /** @use HasFactory<BlogPostFactory> */
-    use HasFactory;
+    use FlushesSiteCache, HasFactory;
 
     protected $fillable = [
         'slug', 'title', 'category', 'author', 'excerpt', 'content', 'image', 'sort_order',

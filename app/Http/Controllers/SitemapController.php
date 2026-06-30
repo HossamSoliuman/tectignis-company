@@ -9,6 +9,7 @@ use App\Models\Industry;
 use App\Models\Insight;
 use App\Models\Page;
 use App\Models\Service;
+use App\Models\Setting;
 use App\Models\Solution;
 use Illuminate\Http\Response;
 
@@ -45,5 +46,12 @@ class SitemapController extends Controller
         ))->render();
 
         return response($content, 200)->header('Content-Type', 'application/xml');
+    }
+
+    public function robots(): Response
+    {
+        $content = Setting::get('robots_txt', "User-agent: *\nAllow: /")."\nSitemap: ".url('/sitemap.xml');
+
+        return response($content, 200)->header('Content-Type', 'text/plain');
     }
 }

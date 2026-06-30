@@ -13,17 +13,20 @@
         ['url' => $siteSettings['social_twitter'] ?? null, 'icon' => 'fab fa-twitter', 'label' => 'Visit X / Twitter'],
         ['url' => $whatsappNumber ? 'https://wa.me/'.$whatsappNumber : null, 'icon' => 'fab fa-whatsapp', 'label' => 'Chat on WhatsApp'],
     ], fn (array $social): bool => filled($social['url']));
-    $capabilityIds = \App\Models\Capability::where('is_active', true)->orderBy('sort_order')->pluck('id');
-    $popularServices = \App\Models\Service::where('is_active', true)
-        ->whereIn('capability_id', $capabilityIds)
-        ->orderBy('capability_id')
-        ->orderBy('sort_order')
-        ->get(['title', 'slug', 'capability_id'])
-        ->groupBy('capability_id')
-        ->sortKeysUsing(fn ($a, $b) => $capabilityIds->search($a) <=> $capabilityIds->search($b))
-        ->flatMap(fn ($services) => $services->take(3))
-        ->take(12)
-        ->values();
+    $popularServices = \Illuminate\Support\Facades\Cache::rememberForever('site.footer_services', function () {
+        $capabilityIds = \App\Models\Capability::where('is_active', true)->orderBy('sort_order')->pluck('id');
+
+        return \App\Models\Service::where('is_active', true)
+            ->whereIn('capability_id', $capabilityIds)
+            ->orderBy('capability_id')
+            ->orderBy('sort_order')
+            ->get(['title', 'slug', 'capability_id'])
+            ->groupBy('capability_id')
+            ->sortKeysUsing(fn ($a, $b) => $capabilityIds->search($a) <=> $capabilityIds->search($b))
+            ->flatMap(fn ($services) => $services->take(3))
+            ->take(12)
+            ->values();
+    });
 @endphp
 
 <footer class="ft-dark__main" aria-label="Site Footer">

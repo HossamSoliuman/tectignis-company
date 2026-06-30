@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Capability;
 use App\Models\Setting;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
     private function applySmtpSettings(): void
     {
         try {
-            $smtp = Setting::where('group', 'smtp')->whereNotNull('value')->pluck('value', 'key');
+            $smtp = Setting::values();
         } catch (QueryException) {
             return;
         }
@@ -72,11 +73,11 @@ class AppServiceProvider extends ServiceProvider
     private function composeHeaderNavigation(): void
     {
         View::composer('components.public.header', function (\Illuminate\View\View $view): void {
-            $navCapabilities = Capability::active()
+            $navCapabilities = Cache::rememberForever('site.nav', fn () => Capability::active()
                 ->where('show_in_menu', true)
                 ->ordered()
                 ->with(['services' => fn ($query) => $query->active()])
-                ->get(['id', 'slug', 'title']);
+                ->get(['id', 'slug', 'title']));
 
             $view->with('navCapabilities', $navCapabilities);
         });

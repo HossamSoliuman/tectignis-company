@@ -14,7 +14,6 @@ use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SolutionController;
 use App\Http\Controllers\SitemapController;
-use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 
 // test update
@@ -56,11 +55,7 @@ Route::get('/legal/{slug}', [PageController::class, 'legal'])->name('legal.show'
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
-Route::get('/robots.txt', function () {
-    $content = Setting::get('robots_txt', "User-agent: *\nAllow: /")."\nSitemap: ".url('/sitemap.xml');
-
-    return response($content, 200)->header('Content-Type', 'text/plain');
-})->name('robots');
+Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 require __DIR__.'/admin.php';
 

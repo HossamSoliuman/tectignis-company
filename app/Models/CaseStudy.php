@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\FlushesSiteCache;
 use Database\Factories\CaseStudyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CaseStudy extends Model
 {
     /** @use HasFactory<CaseStudyFactory> */
-    use HasFactory;
+    use FlushesSiteCache, HasFactory;
 
     protected $fillable = [
         'slug', 'title', 'case_study_category_id', 'theme', 'short_description',

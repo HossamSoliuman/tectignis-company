@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\FlushesSiteCache;
 use Illuminate\Database\Eloquent\Model;
 
 class Redirect extends Model
 {
+    use FlushesSiteCache;
+
     protected $fillable = ['from_path', 'to_path', 'status_code', 'is_active'];
 
     protected function casts(): array

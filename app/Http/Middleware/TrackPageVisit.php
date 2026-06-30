@@ -17,16 +17,21 @@ class TrackPageVisit
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $response = $next($request);
+        return $next($request);
+    }
 
+    /**
+     * Record the visit after the response is sent to the client, keeping the
+     * write off the request's response path.
+     */
+    public function terminate(Request $request, Response $response): void
+    {
         if ($this->shouldTrack($request, $response)) {
             PageVisit::create([
                 'path' => Str::limit('/'.ltrim($request->path(), '/'), 255, ''),
                 'referer' => Str::limit((string) $request->headers->get('referer'), 255, '') ?: null,
             ]);
         }
-
-        return $response;
     }
 
     /**

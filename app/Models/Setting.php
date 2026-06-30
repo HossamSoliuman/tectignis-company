@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\FlushesSiteCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class Setting extends Model
 {
+    use FlushesSiteCache;
+
     protected $fillable = ['key', 'value', 'group'];
 
     /**
@@ -26,18 +30,19 @@ class Setting extends Model
 
     public static function get(string $key, mixed $default = null): mixed
     {
-        return static::where('key', $key)->value('value') ?? $default;
+        return static::values()->get($key) ?? $default;
     }
 
     /**
-     * All settings as a key => value map, memoized for the request so the
-     * layout, header and footer share a single query.
+     * All settings as a key => value map. Memoized per-request via once() and
+     * cached across requests; both layers are flushed by FlushesSiteCache when
+     * any setting is saved or deleted.
      *
      * @return Collection<string, string|null>
      */
     public static function values(): Collection
     {
-        return once(fn () => static::pluck('value', 'key'));
+        return once(fn () => Cache::rememberForever('site.settings', fn () => static::pluck('value', 'key')));
     }
 
     /**
