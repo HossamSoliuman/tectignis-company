@@ -20,7 +20,7 @@
                     <p class="about-hero__desc"> Our team combines technical expertise, industry experience, and customer-first thinking to build reliable, secure, and future-ready solutions. Whether it's developing enterprise applications, modernizing legacy systems, implementing cloud infrastructure, or automating business processes with AI, we help organizations innovate with confidence.</p>
                     <div class="about-hero__actions">
                         <a href="{{ route('contact') }}" class="about-btn about-btn--primary">Work With Us <span aria-hidden="true">→</span></a>
-                        <a href="{{ route('services.index') }}" class="about-btn about-btn--ghost">Our Services</a>
+                        <a href="{{ route('capabilities.index') }}" class="about-btn about-btn--ghost">Our Services</a>
                     </div>
                 </div>
                 <div class="about-hero__media wow move-up">
@@ -115,22 +115,41 @@
     <!--============ Vision & Mission End ============-->
 
     <!--============ Values Start ============-->
+    @php
+        $aboutSettings = \App\Models\Setting::values();
+        // SVG icons stay in code (consistent with the design system); only the
+        // heading, subtitle and each card's title/text are admin-editable.
+        $aboutValueIcons = [
+            '<path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>',
+            '<path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84"/>',
+            '<path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>',
+            '<path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/>',
+            '<path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>',
+        ];
+        $aboutValueDefaults = [
+            ['title' => 'Integrity', 'text' => "We operate with honesty, transparency, and accountability—earning our clients' trust through ethical business practices and dependable execution."],
+            ['title' => 'Innovation', 'text' => 'We embrace emerging technologies, creative thinking, and continuous learning to develop future-ready digital solutions that drive business transformation.'],
+            ['title' => 'Customer Success', 'text' => "Our clients' success is our priority. We listen carefully, understand business challenges, and deliver tailored solutions that create measurable impact."],
+            ['title' => 'Excellence', 'text' => 'We maintain the highest standards in design, development, quality assurance, and support to deliver reliable, secure, and scalable technology solutions.'],
+            ['title' => 'Agility', 'text' => 'We respond quickly to changing business needs, adapting with speed, flexibility, and proactive collaboration to keep every project moving forward.'],
+        ];
+        $aboutValues = [];
+        foreach ($aboutValueDefaults as $i => $default) {
+            $n = $i + 1;
+            $aboutValues[] = [
+                'icon' => $aboutValueIcons[$i],
+                'title' => $aboutSettings["about_value_{$n}_title"] ?? $default['title'],
+                'text' => $aboutSettings["about_value_{$n}_text"] ?? $default['text'],
+            ];
+        }
+    @endphp
     <section class="about-values bg-gray section-space--ptb_80">
         <div class="container">
             <div class="section-title-wrap text-center section-space--mb_40">
-                <span class="about-section-label about-section-label--center">What Drives Us</span>
-                <h2 class="about-section-heading">Our Core <span class="text-color-primary">Values</span></h2>
-                <p class="about-values__subtitle">Our values define how we think, collaborate, innovate, and deliver. They guide every project, every client relationship, and every solution we build—ensuring lasting business value through trust, quality, and continuous innovation.</p>
+                <span class="about-section-label about-section-label--center">{{ $aboutSettings['about_values_label'] ?? 'What Drives Us' }}</span>
+                <h2 class="about-section-heading">{!! $aboutSettings['about_values_heading'] ?? 'Our Core <span class="text-color-primary">Values</span>' !!}</h2>
+                <p class="about-values__subtitle">{{ $aboutSettings['about_values_subtitle'] ?? 'Our values define how we think, collaborate, innovate, and deliver. They guide every project, every client relationship, and every solution we build—ensuring lasting business value through trust, quality, and continuous innovation.' }}</p>
             </div>
-            @php
-                $aboutValues = [
-                    ['icon' => '<path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>', 'title' => 'Integrity', 'text' => 'We earn trust through transparency, honesty and accountability in everything we deliver.'],
-                    ['icon' => '<path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84"/>', 'title' => 'Innovation', 'text' => 'We embrace emerging technology to craft smarter, future-ready solutions.'],
-                    ['icon' => '<path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>', 'title' => 'Customer First', 'text' => 'Your goals lead the way — we build solutions around real business needs.'],
-                    ['icon' => '<path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/>', 'title' => 'Excellence', 'text' => 'We hold ourselves to the highest standards of quality and craftsmanship.'],
-                    ['icon' => '<path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>', 'title' => 'Agility', 'text' => 'We move fast and adapt, delivering value with speed and flexibility.'],
-                ];
-            @endphp
             <div class="about-values__grid">
                 @foreach ($aboutValues as $value)
                     <div class="about-value-card wow move-up">

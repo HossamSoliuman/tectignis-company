@@ -203,7 +203,7 @@
     <script src="<?php echo e(asset('assets/js/vendor/jquery-migrate-3.3.0.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/vendor/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/plugins/plugins.min.js')); ?>"></script>
-    <script src="<?php echo e(asset('assets/js/main.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/main.js')); ?>?v=<?php echo e(filemtime(public_path('assets/js/main.js'))); ?>"></script>
 
     
     <?php if($siteSettings['recaptcha_site_key'] ?? false): ?>

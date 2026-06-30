@@ -25,6 +25,7 @@
                     <th class="px-4 py-3">Custom Page</th>
                     <th class="px-4 py-3">Order</th>
                     <th class="px-4 py-3">Active</th>
+                    <th class="px-4 py-3">In Menu</th>
                     <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
@@ -55,6 +56,15 @@
                             <x-admin.status-badge :active="$capability->is_active" />
                         </td>
                         <td class="px-4 py-3">
+                            @if ($capability->show_in_menu)
+                                <span class="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-xs font-medium text-sky-700">
+                                    <x-admin.icon name="check-circle" class="h-3.5 w-3.5" /> Yes
+                                </span>
+                            @else
+                                <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-400">No</span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3">
                             <div class="flex items-center justify-end gap-1">
                                 <x-admin.edit-link :href="route('admin.capabilities.edit', $capability)" />
                                 <x-admin.delete-button :action="route('admin.capabilities.destroy', $capability)" />
@@ -63,7 +73,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="px-4 py-10 text-center text-slate-400">No capabilities yet.</td>
+                        <td colspan="8" class="px-4 py-10 text-center text-slate-400">No capabilities yet.</td>
                     </tr>
                 @endforelse
             </tbody>

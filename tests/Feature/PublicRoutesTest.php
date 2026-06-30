@@ -6,6 +6,7 @@ use App\Models\Industry;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Solution;
+use Database\Seeders\RedirectSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -32,8 +33,10 @@ it('capabilities show returns 404 for unknown slug', function () {
     $this->get(route('capabilities.show', 'nonexistent-capability'))->assertNotFound();
 });
 
-it('services index returns 200', function () {
-    $this->get(route('services.index'))->assertOk();
+it('redirects the removed /services listing to /capabilities', function () {
+    $this->seed(RedirectSeeder::class);
+
+    $this->get('/services')->assertRedirect('/capabilities');
 });
 
 it('services show returns 200 for valid slug', function () {

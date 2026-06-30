@@ -26,7 +26,6 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/capabilities', [CapabilityController::class, 'index'])->name('capabilities.index');
 Route::get('/capabilities/{slug}', [CapabilityController::class, 'show'])->name('capabilities.show');
 
-Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 
 Route::get('/solutions', [SolutionController::class, 'index'])->name('solutions.index');
@@ -36,7 +35,7 @@ Route::get('/industries', [IndustryController::class, 'index'])->name('industrie
 Route::get('/industries/{slug}', [IndustryController::class, 'show'])->name('industries.show');
 
 Route::get('/careers', [PageController::class, 'careers'])->name('careers');
-Route::post('/careers', [CareersController::class, 'submit'])->name('careers.submit');
+Route::post('/careers', [CareersController::class, 'submit'])->middleware('throttle:10,1')->name('careers.submit');
 
 Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
 
@@ -46,12 +45,12 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/technology-insights', [InsightController::class, 'index'])->name('technology-insights');
 Route::get('/technology-insights/{slug}', [InsightController::class, 'show'])->name('insights.show');
 Route::get('/downloads', [DownloadController::class, 'index'])->name('downloads');
-Route::post('/downloads/request', [DownloadController::class, 'request'])->name('downloads.request');
+Route::post('/downloads/request', [DownloadController::class, 'request'])->middleware('throttle:10,1')->name('downloads.request');
 Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
-Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->middleware('throttle:10,1')->name('newsletter.subscribe');
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
-Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::post('/contact', [ContactController::class, 'submit'])->middleware('throttle:10,1')->name('contact.submit');
 
 Route::get('/legal/{slug}', [PageController::class, 'legal'])->name('legal.show');
 

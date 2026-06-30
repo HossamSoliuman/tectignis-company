@@ -13,6 +13,27 @@
     $totalFaqs = $faqCategories->sum(fn ($category) => $category->faqs->count());
 @endphp
 
+@php
+    $faqSchemaItems = $faqCategories
+        ->flatMap(fn ($category) => $category->faqs)
+        ->map(fn ($faq) => [
+            '@type' => 'Question',
+            'name' => $faq->question,
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => strip_tags($faq->answer)],
+        ])
+        ->values();
+@endphp
+
+@if ($faqSchemaItems->isNotEmpty())
+    @push('json-ld')
+        <script type="application/ld+json">{!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => $faqSchemaItems->all(),
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @endpush
+@endif
+
 @section('content')
 
     <!--=========== FAQs Hero ===========-->

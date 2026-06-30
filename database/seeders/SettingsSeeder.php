@@ -16,6 +16,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'site_phone', 'value' => '+91 9987705688', 'group' => 'general'],
             ['key' => 'site_email', 'value' => 'info@tectignis.in', 'group' => 'general'],
             ['key' => 'site_address', 'value' => 'Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai - 410206', 'group' => 'general'],
+            ['key' => 'business_hours', 'value' => 'Mon – Sat: 9:30 AM – 6:30 PM', 'group' => 'general'],
             ['key' => 'site_logo', 'value' => 'Tectignis-IT-solution-logo-white.webp', 'group' => 'general'],
             ['key' => 'site_logo_dark', 'value' => 'Tectignis-IT-solution-logo.webp', 'group' => 'general'],
             ['key' => 'site_favicon', 'value' => null, 'group' => 'general'],
@@ -257,6 +258,21 @@ class SettingsSeeder extends Seeder
             ['key' => 'cta_btn_primary', 'value' => 'Request Consultation', 'group' => 'home'],
             ['key' => 'cta_btn_secondary', 'value' => 'Get a Quote', 'group' => 'home'],
 
+            // about — core values
+            ['key' => 'about_values_label', 'value' => 'What Drives Us', 'group' => 'about'],
+            ['key' => 'about_values_heading', 'value' => 'Our Core <span class="text-color-primary">Values</span>', 'group' => 'about'],
+            ['key' => 'about_values_subtitle', 'value' => 'Our values define how we think, collaborate, innovate, and deliver. They guide every project, every client relationship, and every solution we build—ensuring lasting business value through trust, quality, and continuous innovation.', 'group' => 'about'],
+            ['key' => 'about_value_1_title', 'value' => 'Integrity', 'group' => 'about'],
+            ['key' => 'about_value_1_text', 'value' => "We operate with honesty, transparency, and accountability—earning our clients' trust through ethical business practices and dependable execution.", 'group' => 'about'],
+            ['key' => 'about_value_2_title', 'value' => 'Innovation', 'group' => 'about'],
+            ['key' => 'about_value_2_text', 'value' => 'We embrace emerging technologies, creative thinking, and continuous learning to develop future-ready digital solutions that drive business transformation.', 'group' => 'about'],
+            ['key' => 'about_value_3_title', 'value' => 'Customer Success', 'group' => 'about'],
+            ['key' => 'about_value_3_text', 'value' => "Our clients' success is our priority. We listen carefully, understand business challenges, and deliver tailored solutions that create measurable impact.", 'group' => 'about'],
+            ['key' => 'about_value_4_title', 'value' => 'Excellence', 'group' => 'about'],
+            ['key' => 'about_value_4_text', 'value' => 'We maintain the highest standards in design, development, quality assurance, and support to deliver reliable, secure, and scalable technology solutions.', 'group' => 'about'],
+            ['key' => 'about_value_5_title', 'value' => 'Agility', 'group' => 'about'],
+            ['key' => 'about_value_5_text', 'value' => 'We respond quickly to changing business needs, adapting with speed, flexibility, and proactive collaboration to keep every project moving forward.', 'group' => 'about'],
+
             // careers
             ['key' => 'careers_hero_image', 'value' => null, 'group' => 'careers'],
 
@@ -273,11 +289,16 @@ class SettingsSeeder extends Seeder
         ];
 
         foreach ($settings as $setting) {
-            if ($setting['group'] !== 'legal') {
+            // Legal pages are always refreshed to the bundled copy. Every other
+            // setting is only inserted when missing, so admin-managed values are
+            // never overwritten while new keys still get seeded on deploy.
+            if ($setting['group'] === 'legal') {
+                Setting::updateOrCreate(['key' => $setting['key']], $setting);
+
                 continue;
             }
 
-            Setting::updateOrCreate(['key' => $setting['key']], $setting);
+            Setting::firstOrCreate(['key' => $setting['key']], $setting);
         }
     }
 }

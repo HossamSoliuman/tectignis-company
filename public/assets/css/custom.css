@@ -7556,3 +7556,98 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
 .contact-form-card .alert-success:focus {
     outline: none;
 }
+
+/* ============================================================
+   Reusable service / capability / industry / solution cards
+   (white card · circular light-blue icon chip · accent underline)
+   ============================================================ */
+.svc-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+}
+@media (max-width: 575px) {
+    .svc-card-grid { grid-template-columns: 1fr; }
+}
+.svc-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 28px 32px;
+    background: #fff;
+    border: 1px solid var(--about-border, #ededed);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(17, 20, 38, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    height: 100%;
+}
+.svc-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(25, 88, 127, 0.35);
+    box-shadow: 0 22px 44px rgba(25, 88, 127, 0.14);
+}
+.svc-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--about-soft, #EAF2F7);
+    color: var(--about-primary, #19587F);
+    margin-bottom: 22px;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+.svc-card:hover .svc-card__icon {
+    background: var(--about-primary, #19587F);
+    color: #fff;
+}
+.svc-card__icon i { font-size: 28px; line-height: 1; }
+.svc-card__icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+.svc-card__title {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--about-heading, #111426);
+    margin: 0 0 14px;
+}
+.svc-card__accent {
+    width: 42px;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--about-primary, #19587F);
+    margin-bottom: 16px;
+    transition: width 0.25s ease;
+}
+.svc-card:hover .svc-card__accent { width: 64px; }
+.svc-card__text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--about-body, #5a6072);
+    margin: 0;
+}
+.svc-card__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-top: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--about-border, #ededed);
+    color: var(--about-primary, #19587F);
+    font-size: 14px;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.svc-card:hover .svc-card__arrow {
+    background: var(--about-primary, #19587F);
+    border-color: var(--about-primary, #19587F);
+    color: #fff;
+    transform: translateX(4px);
+}

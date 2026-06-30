@@ -145,22 +145,42 @@
     /*===================================
     =           Menu Activeion          =
     ===================================*/
-    var cururl = window.location.pathname;
-    var curpage = cururl.substr(cururl.lastIndexOf('/') + 1);
-    var hash = window.location.hash.substr(1);
-    if((curpage == "" || curpage == "/" || curpage == "admin") && hash=="")
-        {
-        //$("nav .navbar-nav > li:first-child").addClass("active");
-        } else {
-            $(".navigation-menu li").each(function()
-        {
-            $(this).removeClass("active");
+    // Highlight only the top-level menu item whose own link matches the current
+    // page by exact path (or as a path prefix, so detail pages keep their parent
+    // highlighted). Matching only direct-child links avoids mega-menu/CTA links
+    // (e.g. a "Contact" CTA inside the Capabilities menu) lighting up extra items.
+    (function () {
+        var normalize = function (path) {
+            path = (path || '').replace(/\/+$/, '');
+            return path === '' ? '/' : path;
+        };
+        var currentPath = normalize(window.location.pathname);
+
+        $(".navigation-menu > ul > li, .offcanvas-navigation > ul > li").each(function () {
+            var $li = $(this);
+            $li.removeClass("active");
+
+            var href = $li.children("a").attr("href");
+            if (!href || href === "#") {
+                return;
+            }
+
+            var linkPath;
+            try {
+                linkPath = normalize(new URL(href, window.location.origin).pathname);
+            } catch (e) {
+                return;
+            }
+
+            if (linkPath === "/") {
+                if (currentPath === "/") {
+                    $li.addClass("active");
+                }
+            } else if (currentPath === linkPath || currentPath.indexOf(linkPath + "/") === 0) {
+                $li.addClass("active");
+            }
         });
-        if(hash != "")
-            $(".navigation-menu li a[href*='"+hash+"']").parents("li").addClass("active");
-        else
-        $(".navigation-menu li a[href*='"+curpage+"']").parents("li").addClass("active");
-    }
+    })();
     
     
     /*=========================================

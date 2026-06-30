@@ -15,7 +15,7 @@ class Capability extends Model
 
     protected $fillable = [
         'slug', 'category', 'title', 'short_description', 'description', 'body',
-        'icon', 'banner_image', 'sort_order', 'is_active',
+        'icon', 'banner_image', 'sort_order', 'is_active', 'show_in_menu',
         'seo_title', 'seo_description', 'seo_keywords',
     ];
 
@@ -43,6 +43,7 @@ class Capability extends Model
     {
         return [
             'is_active' => 'boolean',
+            'show_in_menu' => 'boolean',
             'sort_order' => 'integer',
         ];
     }

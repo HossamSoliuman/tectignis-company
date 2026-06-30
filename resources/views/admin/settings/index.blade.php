@@ -7,6 +7,7 @@
         $groupMeta = [
             'general' => ['title' => 'General', 'icon' => 'cog', 'description' => 'Company name, contact details, logos and favicon used across the site.'],
             'home' => ['title' => 'Home Page', 'icon' => 'home', 'description' => 'Headings, sub-headings and images for every section of the home page.'],
+            'about' => ['title' => 'About Page', 'icon' => 'light-bulb', 'description' => 'Editable copy for the About page, including the "Our Core Values" section.'],
             'social' => ['title' => 'Social Media', 'icon' => 'share', 'description' => 'Profile links shown in the footer. Leave a field empty to hide its icon.'],
             'integrations' => ['title' => 'Integrations & Tracking', 'icon' => 'chart-bar', 'description' => 'Google Analytics, Tag Manager, Search Console, Meta Pixel and reCAPTCHA keys.'],
             'smtp' => ['title' => 'Email (SMTP)', 'icon' => 'envelope', 'description' => 'Outgoing mail server. When a host is set, these settings override the default mail configuration.'],
@@ -72,7 +73,7 @@
                                         label=""
                                         :current="$setting->value"
                                         :current-url="\App\Models\Setting::imageUrl($setting->value, $setting->key)" />
-                                @elseif (str_contains($setting->key, 'content') || str_contains($setting->key, 'legal_') || str_contains($setting->key, 'description'))
+                                @elseif (str_contains($setting->key, 'content') || str_contains($setting->key, 'legal_') || str_contains($setting->key, 'description') || str_contains($setting->key, 'subtitle') || str_ends_with($setting->key, '_text'))
                                     <textarea name="settings[{{ $setting->key }}]" rows="6"
                                         class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ $setting->value }}</textarea>
                                 @elseif (str_contains($setting->key, 'password') || str_contains($setting->key, 'secret'))

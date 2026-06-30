@@ -29,7 +29,6 @@ class SitemapController extends Controller
             ['url' => route('home'), 'changefreq' => 'weekly', 'priority' => '1.0'],
             ['url' => route('about'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['url' => route('capabilities.index'), 'changefreq' => 'monthly', 'priority' => '0.9'],
-            ['url' => route('services.index'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['url' => route('solutions.index'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['url' => route('industries.index'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['url' => route('blog.index'), 'changefreq' => 'weekly', 'priority' => '0.8'],

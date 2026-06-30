@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             GlobalAdvantageSeeder::class,
             ProcessStepSeeder::class,
             ResourceContentSeeder::class,
+            RedirectSeeder::class,
         ]);
     }
 }

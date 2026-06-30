@@ -23,20 +23,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row row--30">
+            <div class="svc-card-grid">
                 @foreach ($solutions as $solution)
-                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
-                    <a href="{{ route('solutions.show', $solution->slug) }}" class="ht-box-images style-04 d-block text-center p-4 h-100">
-                        <div class="image-box-wrap">
-                            <div class="box-image mb-20">
-                                <i class="{{ $solution->icon }} fa-3x text-color-primary"></i>
-                            </div>
-                            <div class="content">
-                                <h6 class="heading">{{ $solution->title }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                    <x-public.svc-card
+                        :href="route('solutions.show', $solution->slug)"
+                        :title="$solution->title"
+                        :text="$solution->short_description"
+                        :icon-class="$solution->icon ?: 'fas fa-cube'" />
                 @endforeach
             </div>
         </div>

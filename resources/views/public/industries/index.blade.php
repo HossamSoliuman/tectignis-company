@@ -23,20 +23,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row row--30">
+            <div class="svc-card-grid">
                 @foreach ($industries as $industry)
-                <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
-                    <a href="{{ route('industries.show', $industry->slug) }}" class="ht-box-images style-03 d-block text-center p-4 h-100">
-                        <div class="image-box-wrap">
-                            <div class="box-image mb-20">
-                                <i class="{{ $industry->icon }} fa-2x text-color-primary"></i>
-                            </div>
-                            <div class="content">
-                                <h6 class="heading">{{ $industry->name }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                    <x-public.svc-card
+                        :href="route('industries.show', $industry->slug)"
+                        :title="$industry->name"
+                        :text="$industry->short_description"
+                        :icon-class="$industry->icon ?: 'fas fa-building'" />
                 @endforeach
             </div>
         </div>

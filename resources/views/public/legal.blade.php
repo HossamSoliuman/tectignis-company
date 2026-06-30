@@ -68,11 +68,11 @@
     }
     .legal-content a {
         all: revert;
-        color: #C10897;
+        color: #19587F;
         text-decoration: underline;
     }
     .legal-content a:hover {
-        color: #9b0679;
+        color: #13405d;
     }
     .legal-content strong {
         all: revert;

@@ -26,6 +26,7 @@ class UpdateCapabilityRequest extends FormRequest
             'banner_image' => ['nullable', 'file', 'image', 'max:4096'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['boolean'],
+            'show_in_menu' => ['boolean'],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:500'],
             'seo_keywords' => ['nullable', 'string', 'max:500'],

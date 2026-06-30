@@ -31,6 +31,15 @@
                             class="rounded border-slate-300">
                         <label for="is_active" class="text-sm font-medium text-slate-700">Active</label>
                     </div>
+                    <div class="flex items-start gap-2">
+                        <input type="hidden" name="show_in_menu" value="0">
+                        <input type="checkbox" id="show_in_menu" name="show_in_menu" value="1"
+                            {{ old('show_in_menu', $capability->show_in_menu) ? 'checked' : '' }}
+                            class="mt-0.5 rounded border-slate-300">
+                        <label for="show_in_menu" class="text-sm font-medium text-slate-700">Show in header menu
+                            <span class="mt-0.5 block text-xs font-normal text-slate-400">Controls the header "Capabilities" mega-menu, independently of Active.</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="flex flex-col gap-2">
                     <button type="submit"

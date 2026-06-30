@@ -65,11 +65,15 @@ class AppServiceProvider extends ServiceProvider
      * Feed the public header's "Capabilities" mega-menu with the live, admin-managed
      * capabilities (rendered as headers, in their stored order) each followed by the
      * services attached to that capability, also in their stored order.
+     *
+     * Only capabilities flagged `show_in_menu` appear here, so the admin can keep a
+     * capability live on the site while removing it from the header mega-menu.
      */
     private function composeHeaderNavigation(): void
     {
         View::composer('components.public.header', function (\Illuminate\View\View $view): void {
             $navCapabilities = Capability::active()
+                ->where('show_in_menu', true)
                 ->ordered()
                 ->with(['services' => fn ($query) => $query->active()])
                 ->get(['id', 'slug', 'title']);

@@ -9,6 +9,16 @@
 
 @section('content')
 
+    @php
+        $contactSettings = \App\Models\Setting::values();
+        $contactPhone = $contactSettings['site_phone'] ?? '+91 9987705688';
+        $contactPhoneHref = preg_replace('/[^+\d]/', '', $contactPhone);
+        $contactEmail = $contactSettings['site_email'] ?? 'info@tectignis.in';
+        $contactAddress = $contactSettings['site_address'] ?? 'Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai - 410206';
+        $contactHours = $contactSettings['business_hours'] ?? 'Mon – Sat: 9:30 AM – 6:30 PM';
+        $contactWhatsapp = preg_replace('/\D/', '', $contactSettings['social_whatsapp'] ?? '');
+    @endphp
+
     <!--============ Contact Hero Start ============-->
     <section class="contact-hero">
         <span class="contact-hero__grid-bg" aria-hidden="true"></span>
@@ -21,22 +31,22 @@
                     <h1 class="contact-hero__title">Let's talk about your next <span class="text-color-primary">technology move</span></h1>
                     <p class="contact-hero__desc">Whether you need software, AI, cloud, networking or security solutions, our team in Navi Mumbai is ready to help you scale across India and beyond.</p>
                     <div class="contact-hero__methods">
-                        <a href="tel:+919987705688" class="contact-method">
+                        <a href="tel:{{ $contactPhoneHref }}" class="contact-method">
                             <span class="contact-method__icon" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
                             </span>
                             <span class="contact-method__body">
                                 <span class="contact-method__label">Call us</span>
-                                <span class="contact-method__value">+91 9987705688</span>
+                                <span class="contact-method__value">{{ $contactPhone }}</span>
                             </span>
                         </a>
-                        <a href="mailto:info@tectignis.in" class="contact-method">
+                        <a href="mailto:{{ $contactEmail }}" class="contact-method">
                             <span class="contact-method__icon" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
                             </span>
                             <span class="contact-method__body">
                                 <span class="contact-method__label">Email us</span>
-                                <span class="contact-method__value">info@tectignis.in</span>
+                                <span class="contact-method__value">{{ $contactEmail }}</span>
                             </span>
                         </a>
                         <div class="contact-method">
@@ -171,7 +181,7 @@
                         </span>
                         <div class="contact-info-card__body">
                             <h5 class="contact-info-card__title">Registered Office</h5>
-                            <p class="contact-info-card__text">Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai - 410206</p>
+                            <p class="contact-info-card__text">{{ $contactAddress }}</p>
                         </div>
                     </div>
                     <div class="contact-info-card">
@@ -180,7 +190,7 @@
                         </span>
                         <div class="contact-info-card__body">
                             <h5 class="contact-info-card__title">Call Us</h5>
-                            <p class="contact-info-card__text"><a href="tel:+919987705688">+91 9987705688</a></p>
+                            <p class="contact-info-card__text"><a href="tel:{{ $contactPhoneHref }}">{{ $contactPhone }}</a></p>
                         </div>
                     </div>
                     <div class="contact-info-card">
@@ -189,7 +199,7 @@
                         </span>
                         <div class="contact-info-card__body">
                             <h5 class="contact-info-card__title">Email Us</h5>
-                            <p class="contact-info-card__text"><a href="mailto:info@tectignis.in">info@tectignis.in</a></p>
+                            <p class="contact-info-card__text"><a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a></p>
                         </div>
                     </div>
                     <div class="contact-info-card">
@@ -198,10 +208,10 @@
                         </span>
                         <div class="contact-info-card__body">
                             <h5 class="contact-info-card__title">Business Hours</h5>
-                            <p class="contact-info-card__text">Mon – Sat: 9:30 AM – 6:30 PM</p>
+                            <p class="contact-info-card__text">{{ $contactHours }}</p>
                         </div>
                     </div>
-                    <a href="https://wa.me/919987705688" target="_blank" rel="noopener" class="contact-info-card contact-info-card--whatsapp">
+                    <a href="https://wa.me/{{ $contactWhatsapp ?: '919987705688' }}" target="_blank" rel="noopener" class="contact-info-card contact-info-card--whatsapp">
                         <span class="contact-info-card__icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.512 5.26l-.999 3.648 3.737-.981a9.875 9.875 0 0 0 .239.274zm5.392-.745c-2.831 0-5.13-2.299-5.13-5.13 0-.265.021-.526.062-.781h2.005c.038.255.06.516.06.781a3.005 3.005 0 0 0 3.003 3.003c.265 0 .526-.022.781-.06v2.005a5.16 5.16 0 0 1-.781.06z"/></svg>
                         </span>
@@ -257,7 +267,8 @@
                     ['q' => 'Do you work with clients outside Navi Mumbai?', 'a' => 'Yes. While our headquarters are in Navi Mumbai, we provide IT services across India and support clients worldwide through remote collaboration and global delivery.'],
                     ['q' => 'Is the initial consultation free?', 'a' => 'Yes. We offer a free initial consultation to understand your business objectives, discuss your requirements, and recommend the most suitable technology solution.'],
                     ['q' => 'How long does a typical project take?', 'a' => 'Project timelines depend on the scope and complexity. Most projects are delivered within 2–12 weeks, while enterprise solutions may require additional development phases. A detailed timeline is shared before development begins.'],
-                    
+                    ['q' => 'Do you provide maintenance and technical support after project delivery?', 'a' => 'Yes. We provide ongoing maintenance, security updates, performance monitoring, bug fixes, and technical support through flexible Annual Maintenance Contracts (AMC) and support plans.'],
+                    ['q' => 'How do I get started with Tectignis?', 'a' => "Simply fill out our contact form, email us, or call our team. We'll schedule a consultation, understand your requirements, prepare a detailed proposal, and begin the project after your approval."],
                 ];
             @endphp
             <div class="contact-faq__grid">
@@ -293,7 +304,7 @@
                 </div>
                 <div class="contact-cta__actions">
                     <button type="button" class="about-btn about-btn--primary js-consult-open">Request Consultation <span aria-hidden="true">→</span></button>
-                    <a href="tel:+919987705688" class="contact-cta__call">Call Now</a>
+                    <a href="tel:{{ $contactPhoneHref }}" class="contact-cta__call">Call Now</a>
                 </div>
             </div>
         </div>
@@ -301,6 +312,18 @@
     <!--============ CTA Banner End ============-->
 
 @endsection
+
+@push('json-ld')
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        'mainEntity' => collect($contactFaqs)->map(fn ($faq) => [
+            '@type' => 'Question',
+            'name' => $faq['q'],
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['a']],
+        ])->all(),
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@endpush
 
 @if (session('status'))
     @push('scripts')

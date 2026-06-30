@@ -59,7 +59,7 @@
 
                 <div class="ind-hero__buttons">
                     <button type="button" class="svc-btn svc-btn--primary js-consult-open">{{ $ctaPrimary }} <i class="fas fa-arrow-right"></i></button>
-                    <a href="{{ route('services.index') }}" class="svc-btn ind-btn--indigo">{{ $ctaSecondary }} <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ route('capabilities.index') }}" class="svc-btn ind-btn--indigo">{{ $ctaSecondary }} <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
