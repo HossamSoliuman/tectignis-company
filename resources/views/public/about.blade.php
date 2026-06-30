@@ -15,8 +15,9 @@
             <div class="about-hero__grid">
                 <div class="about-hero__content wow move-up">
                     <span class="about-section-label">About Tectignis</span>
-                    <h1 class="about-hero__title">Building the legacy of <span class="text-color-primary">information technology</span> across India &amp; beyond</h1>
-                    <p class="about-hero__desc">Tectignis IT Solutions Pvt Ltd delivers enterprise-grade software, AI, cloud, networking and security solutions — combining world-class engineering with competitive pricing and the agility your business needs to stay ahead.</p>
+                    <h1 class="about-hero__title">Building the Future of<span class="text-color-primary"> Digital Innovation</span> Across India &amp; beyond</h1>
+                    <p class="about-hero__desc">At Tectignis IT Solutions Pvt. Ltd., we empower businesses with cutting-edge technology solutions that drive digital transformation, operational excellence, and sustainable growth. From startups to enterprises, we deliver scalable software, AI-powered automation, cloud infrastructure, cybersecurity, networking, and digital engineering services tailored to modern business needs.  </p>
+                    <p class="about-hero__desc"> Our team combines technical expertise, industry experience, and customer-first thinking to build reliable, secure, and future-ready solutions. Whether it's developing enterprise applications, modernizing legacy systems, implementing cloud infrastructure, or automating business processes with AI, we help organizations innovate with confidence.</p>
                     <div class="about-hero__actions">
                         <a href="{{ route('contact') }}" class="about-btn about-btn--primary">Work With Us <span aria-hidden="true">→</span></a>
                         <a href="{{ route('services.index') }}" class="about-btn about-btn--ghost">Our Services</a>
@@ -26,7 +27,7 @@
                     <span class="about-hero__shape" aria-hidden="true"></span>
                     <span class="about-hero__dots" aria-hidden="true"></span>
                     <div class="about-hero__image">
-                        <img src="{{ asset('assets/images/bg/IT-Solutions-PAN-India.webp') }}" alt="Tectignis IT Solutions team delivering services across PAN India" loading="lazy">
+                        <img src="{{ asset('assets/images/bg/IT-Solutions-PAN-India.png') }}" alt="Tectignis IT Solutions team delivering services across PAN India" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -67,15 +68,15 @@
             <div class="about-overview__grid">
                 <div class="about-overview__media wow move-up">
                     <div class="about-overview__image">
-                        <img src="{{ asset('assets/images/bg/IT-Services-in-Navi-Mumbai.webp') }}" alt="Tectignis IT Solutions office in Navi Mumbai" loading="lazy">
+                        <img src="{{ asset('assets/images/bg/IT-Services-in-Navi-Mumbai.jpg') }}" alt="Tectignis IT Solutions office in Navi Mumbai" loading="lazy">
                     </div>
                 </div>
                 <div class="about-overview__content wow move-up">
                     <span class="about-section-label">Our Company</span>
-                    <h2 class="about-section-heading">We run all kinds of IT services that vow your <span class="text-color-primary">success</span></h2>
-                    <p class="about-overview__text">Tectignis IT Solutions Pvt Ltd builds customized plans for every client based on their unique requirements, delivering enterprise-grade technology while maintaining competitive pricing and agility. We collaborate with experienced technology professionals and implementation partners to assemble the right expertise for each project.</p>
+                    <h2 class="about-section-heading">We Deliver Future-Ready Technology Solutions That <span class="text-color-primary">Accelerate Business Growth </span></h2>
+                    <p class="about-overview__text">At Tectignis IT Solutions Pvt. Ltd., we help startups, SMEs, and enterprises transform their businesses through innovative software, AI, cloud, and digital solutions. Our experienced team combines technical expertise with a customer-first approach to deliver secure, scalable, and high-performance solutions tailored to your unique business objectives.</p>
                     <ul class="about-checklist">
-                        @foreach (['Custom software, AI & cloud engineering', 'Cybersecurity & smart security systems', 'Networking, infrastructure & managed services', 'Dedicated support across Navi Mumbai & PAN India'] as $item)
+                        @foreach (['Custom Software, Web & Mobile Application Development', 'Artificial Intelligence, Automation & Cloud Solutions', 'Cybersecurity, Networking & Smart Infrastructure Services', 'Trusted Technology Partner with Dedicated Project Support'] as $item)
                             <li class="about-checklist__item">
                                 <span class="about-checklist__icon" aria-hidden="true">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
@@ -99,14 +100,14 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
                     </span>
                     <h3 class="about-vm__title">Our Vision</h3>
-                    <p class="about-vm__text">To be the most trusted technology partner that empowers businesses of every size to innovate fearlessly, scale confidently, and lead their industries through intelligent, future-ready solutions.</p>
+                    <p class="about-vm__text">To become a globally trusted technology partner that empowers businesses to innovate, transform, and grow through intelligent digital solutions. We envision a future where organizations of every size leverage secure, scalable, and future-ready technology to achieve sustainable success.</p>
                 </div>
                 <div class="about-vm__card wow move-up">
                     <span class="about-vm__icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>
                     </span>
                     <h3 class="about-vm__title">Our Mission</h3>
-                    <p class="about-vm__text">To deliver secure, scalable and cost-effective IT solutions tailored to each client — combining deep technical expertise, a customer-first mindset, and a relentless commitment to measurable business impact.</p>
+                    <p class="about-vm__text">Our mission is to deliver innovative, secure, and cost-effective technology solutions that solve real business challenges. By combining technical excellence, customer-centric thinking, and continuous innovation, we help organizations accelerate digital transformation, improve operational efficiency, and create lasting business value.</p>
                 </div>
             </div>
         </div>
@@ -119,7 +120,7 @@
             <div class="section-title-wrap text-center section-space--mb_40">
                 <span class="about-section-label about-section-label--center">What Drives Us</span>
                 <h2 class="about-section-heading">Our Core <span class="text-color-primary">Values</span></h2>
-                <p class="about-values__subtitle">The principles that shape every solution we build and every relationship we nurture.</p>
+                <p class="about-values__subtitle">Our values define how we think, collaborate, innovate, and deliver. They guide every project, every client relationship, and every solution we build—ensuring lasting business value through trust, quality, and continuous innovation.</p>
             </div>
             @php
                 $aboutValues = [
@@ -157,11 +158,12 @@
         <div class="container">
             <div class="about-global__grid">
                 <div class="about-global__content wow move-up">
-                    <span class="about-section-label">Global Presence</span>
-                    <h2 class="about-section-heading">Local expertise with a <span class="text-color-primary">global mindset</span></h2>
-                    <p class="about-global__text">Headquartered in Navi Mumbai and delivering across PAN India, we partner with clients worldwide — combining regional insight with a global delivery model to help businesses grow, scale and succeed wherever they operate.</p>
+                    <span class="about-section-label">Technology Partner for Businesses Across India & Beyond</span>
+                    <h2 class="about-section-heading">Local Expertise. <span class="text-color-primary">Global Impact.</span></h2>
+                    <p class="about-global__text">From our headquarters in Navi Mumbai, India, Tectignis delivers world-class technology solutions to businesses across India and international markets. By combining local expertise with global best practices, we help organizations innovate, scale, and succeed in an increasingly digital world.</p>
+                    <p class="about-global__text">Whether supporting startups, SMEs, or enterprises, our team delivers secure, scalable, and future-ready software, AI, cloud, and cybersecurity solutions backed by responsive service and long-term partnerships.</p>
                     <ul class="about-checklist">
-                        @foreach (['Delivery hubs across India', 'Clients in 25+ countries', 'Round-the-clock support model'] as $item)
+                        @foreach (['Headquartered in Navi Mumbai with PAN India service delivery', 'Serving clients across India and international markets', 'Remote-first delivery model with global collaboration','Reliable project execution, continuous support, and long-term partnerships'] as $item)
                             <li class="about-checklist__item">
                                 <span class="about-checklist__icon" aria-hidden="true">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.75 6 6 9-13.5"/></svg>
@@ -173,38 +175,10 @@
                 </div>
                 <div class="about-global__media wow move-up">
                     <div class="about-global__map" role="img" aria-label="World map highlighting Tectignis global delivery from India.">
-                        <svg viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet">
-                            <g fill="url(#aboutGpDots)">
-                                <path d="M120,90 C100,110 90,150 110,180 C130,210 180,232 212,212 C244,196 252,158 235,128 C218,98 160,75 120,90 Z"/>
-                                <path d="M250,255 C238,288 250,342 282,372 C302,392 322,382 322,350 C326,308 305,272 286,256 C271,246 258,246 250,255 Z"/>
-                                <path d="M428,118 C413,128 413,156 435,166 C462,177 492,166 497,144 C502,126 480,114 460,114 C448,113 436,114 428,118 Z"/>
-                                <path d="M452,198 C436,214 442,266 472,302 C492,322 512,316 517,286 C524,250 506,214 491,199 C476,187 462,188 452,198 Z"/>
-                                <path d="M520,108 C562,92 662,98 742,128 C802,150 822,182 792,202 C742,228 650,222 590,212 C540,202 508,170 508,144 C508,128 514,116 520,108 Z"/>
-                                <path d="M742,328 C726,344 732,376 766,386 C796,394 822,378 820,355 C817,334 792,321 766,321 C755,321 748,323 742,328 Z"/>
-                            </g>
-                            <path class="about-global__india" d="M548,212 C562,206 578,216 575,232 C572,250 560,266 552,252 C545,240 537,222 548,212 Z"/>
-                            <g class="about-global__arcs" fill="none">
-                                <path d="M560,236 Q495,150 430,158"/>
-                                <path d="M560,236 Q360,118 182,198"/>
-                                <path d="M560,236 Q360,78 182,150"/>
-                                <path d="M560,236 Q702,298 782,358"/>
-                                <path d="M560,236 Q622,250 662,300"/>
-                            </g>
-                            <g class="about-global__nodes">
-                                <circle cx="430" cy="158" r="4"/>
-                                <circle cx="182" cy="198" r="4"/>
-                                <circle cx="182" cy="150" r="4"/>
-                                <circle cx="782" cy="358" r="4"/>
-                                <circle cx="662" cy="300" r="4"/>
-                            </g>
-                            <g class="about-global__hub" transform="translate(560,236)">
-                                <circle class="about-global__hub-ring" r="13"/>
-                                <circle class="about-global__hub-dot" r="5"/>
-                            </g>
-                        </svg>
+                        <img src="assets/images/bg/aboutus-tectignis-worldwide.png" alt="Tectignis Global Presence" class="img-fluid about-global__image">
                         <div class="about-global__card">
                             <span class="about-global__card-num">25+</span>
-                            <span class="about-global__card-label">Countries Served</span>
+                            <span class="about-global__card-label">Serving Clients Across India & Worldwide</span>
                         </div>
                     </div>
                 </div>

@@ -106,7 +106,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* Brighten the active/hover underline so it reads on the dark bar */
 .navigation-menu > ul > li > a:before {
-    background-color: #FF2E6A;
+    background-color: #19587F;
 }
 
 .header-top-right {
@@ -2203,28 +2203,58 @@ body {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
+/*.solution-deliver-card__icon {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    width: 90px;*/
+/*    height: 90px;*/
+/*    border-radius: 50%;*/
+/*    background: #EAF2F7;*/
+/*    color: #19587F;*/
+/*    font-size: 26px;*/
+/*    margin-bottom: 20px;*/
+/*    transition: background 0.3s ease;*/
+/*}*/
+
+/*.solution-deliver-card:hover .solution-deliver-card__icon {*/
+/*    background: #FFE0E8;*/
+/*}*/
+
+/*.solution-deliver-card__icon img {*/
+/*    width: 70px;*/
+/*    height: 70px;*/
+/*    object-fit: contain;*/
+/*}*/
+
 .solution-deliver-card__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background: #EAF2F7;
-    color: #19587F;
-    font-size: 26px;
-    margin-bottom: 20px;
-    transition: background 0.3s ease;
+    background: rgba(25, 88, 127, 0.08);
+    border: 1px solid rgba(25, 88, 127, 0.08);
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
 }
 
 .solution-deliver-card:hover .solution-deliver-card__icon {
-    background: #FFE0E8;
+    background: rgba(25, 181, 165, 0.12);
+    border-color: rgba(25, 181, 165, 0.2);
+    transform: translateY(-2px);
 }
 
 .solution-deliver-card__icon img {
-    width: 36px;
-    height: 36px;
+    width: 54px;
+    height: 54px;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.solution-deliver-card:hover .solution-deliver-card__icon img {
+    transform: scale(1.08);
 }
 
 .solution-deliver-card__title {
@@ -3133,21 +3163,23 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    border: 2px solid #2C73A0;
-    color: #2C73A0;
-    background: transparent;
+    border: 2px solid #19587F;
+    color: #19587F;
+    background: rgba(25, 181, 165, 0.05);
     font-size: 16px;
     font-weight: 600;
     padding: 12px 32px;
-    border-radius: 8px;
+    border-radius: 10px;
     text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .cs-cta-btn:hover {
-    background: #2C73A0;
+    background: linear-gradient(90deg, #19587F 0%, #19B5A5 100%);
     color: #fff;
-    text-decoration: none;
+    border-color: #19B5A5;
+    box-shadow: 0 10px 25px rgba(25, 88, 127, 0.3);
+    transform: translateY(-2px);
 }
 
 /* --- Responsive --- */
@@ -4034,15 +4066,16 @@ body {
 }
 
 .cta-btn--primary {
-    background: linear-gradient(90deg, #F92157 0%, #C823A8 100%);
+    background: linear-gradient(90deg, #19587F 0%, #0F4C75 50%, #19B5A5 100%);
     color: #fff;
-    box-shadow: 0 8px 20px rgba(25, 88, 127, 0.22);
+    box-shadow: 0 8px 20px rgba(25, 88, 127, 0.25);
+    border: none;
 }
 
 .cta-btn--primary:hover {
-    color: #fff;
+    background: linear-gradient(90deg, #174F73 0%, #16A394 100%);
     transform: translateY(-2px);
-    box-shadow: 0 14px 28px rgba(25, 88, 127, 0.32);
+    box-shadow: 0 12px 28px rgba(25, 88, 127, 0.35);
 }
 
 .cta-btn--ghost {
@@ -5163,9 +5196,6 @@ body {
     position: relative;
     padding: 18px;
     border-radius: 18px;
-    background: radial-gradient(120% 120% at 50% 0%, #11294a 0%, #0c1c36 55%, #0a1426 100%);
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    box-shadow: 0 24px 60px rgba(10, 20, 38, 0.35);
 }
 .about-global__map svg { width: 100%; height: auto; display: block; }
 .about-global__india { fill: #ff3b5c; opacity: 0.92; }
@@ -5175,11 +5205,11 @@ body {
 .about-global__hub-dot { fill: #ff3b5c; }
 .about-global__card {
     position: absolute;
-    right: 6%;
-    bottom: 4%;
+    right: 5%;
+    bottom: 7%;
     background: #fff;
     border: 1px solid var(--about-border);
-    border-radius: 14px;
+    border-radius: 24px;
     padding: 20px 26px;
     text-align: center;
     box-shadow: 0 20px 44px rgba(17, 20, 38, 0.14);
@@ -5740,7 +5770,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
     white-space: normal;
     text-align: left;
     width: 100%;
-    max-width: 480px;
+    max-width: 571px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 30px 80px rgba(8, 11, 36, 0.4);
@@ -5826,7 +5856,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
 .consult-field select,
 .consult-field textarea {
     width: 100%;
-    padding: 10px 14px;
+    padding: 15px 14px;
     font-size: 14px;
     color: var(--about-heading);
     background: #fff;

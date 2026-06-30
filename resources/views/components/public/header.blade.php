@@ -1,6 +1,6 @@
 @php
     $siteSettings = \App\Models\Setting::values();
-    $sitePhone = $siteSettings['site_phone'] ?? '+91 9987705688';
+    $sitePhone = $siteSettings['site_phone'] ?? '+91 9987805688';
     $siteEmail = $siteSettings['site_email'] ?? 'info@tectignis.in';
     $headerLogo = \App\Models\Setting::imageUrl($siteSettings['site_logo'] ?? null, 'site_logo')
         ?? asset('assets/images/logo/Tectignis-IT-solution-logo.webp');
@@ -17,7 +17,7 @@
                 <div class="header-top-left">
                     <ul class="header-top-info">
                         <li><i class="fas fa-map-marker-alt"></i> Navi Mumbai, Maharashtra, India</li>
-                        <li class="d-sm-hide"><i class="fas fa-globe"></i> Serving Clients Worldwide</li>
+                        <li class="d-sm-hide"><i class="fas fa-globe"></i> Serving Businesses Across India & Worldwide</li>
                     </ul>
                 </div>
                 <div class="header-top-right">

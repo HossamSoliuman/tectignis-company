@@ -146,21 +146,33 @@
                 </div>
             </div>
             <div class="row solutions-deliver-row">
-                @foreach ($capabilities as $capability)
-                <div class="col-12 col-md-6 col-lg wow move-up section-space--mt_30 d-flex">
-                    <a href="{{ route('capabilities.show', $capability->slug) }}" class="solution-deliver-card w-100" aria-label="Learn more about our {{ $capability->title }}">
-                        <span class="solution-deliver-card__icon" aria-hidden="true">
-                            <img src="{{ asset('uploads/'.$capability->icon) }}" alt="{{ $capability->title }}" loading="lazy">
-                        </span>
-                        <h6 class="solution-deliver-card__title">{{ $capability->title }}</h6>
-                        <span class="solution-deliver-card__divider" aria-hidden="true"></span>
-                        @if ($capability->short_description)
-                        <p class="solution-deliver-card__text">{{ $capability->short_description }}</p>
-                        @endif
-                    </a>
-                </div>
-                @endforeach
-            </div>
+    @foreach ($capabilities as $capability)
+    <div class="col-12 col-md-6 col-lg-3 wow move-up section-space--mt_30 d-flex">
+        <a href="{{ route('capabilities.show', $capability->slug) }}"
+           class="solution-deliver-card w-100"
+           aria-label="Learn more about our {{ $capability->title }}">
+            
+            <span class="solution-deliver-card__icon" aria-hidden="true">
+                <img src="{{ asset('uploads/'.$capability->icon) }}"
+                     alt="{{ $capability->title }}"
+                     loading="lazy">
+            </span>
+
+            <h6 class="solution-deliver-card__title">
+                {{ $capability->title }}
+            </h6>
+
+            <span class="solution-deliver-card__divider" aria-hidden="true"></span>
+
+            @if ($capability->short_description)
+                <p class="solution-deliver-card__text">
+                    {{ $capability->short_description }}
+                </p>
+            @endif
+        </a>
+    </div>
+    @endforeach
+</div>
         </div>
     </div>
     <!--===========  Capabilities We Deliver End =============-->
@@ -186,12 +198,6 @@
                     <div class="why-choose-visual">
                         <div class="why-choose-visual__image">
                             <img class="img-fluid" src="{{ \App\Models\Setting::imageUrl($settings['what_we_offer_image'] ?? 'IT-Services-in-Nav-Mumbai.webp', 'what_we_offer_image') }}" alt="Why Choose Tectignis IT Solutions" loading="lazy">
-                        </div>
-                        <div class="why-choose-card">
-                            <span class="why-choose-card__dots" aria-hidden="true"></span>
-                            <span class="why-choose-card__watermark" aria-hidden="true">G</span>
-                            <h4 class="why-choose-card__title">Why Choose Tectignis</h4>
-                            <p class="why-choose-card__text">Empowering businesses with innovative IT solutions, delivered with trust, transparency, and excellence.</p>
                         </div>
                     </div>
                 </div>

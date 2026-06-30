@@ -253,10 +253,11 @@
             </div>
             @php
                 $contactFaqs = [
-                    ['q' => 'How quickly will you respond to my enquiry?', 'a' => 'We respond to every enquiry within 24 hours on working days. For urgent requirements, call us directly and our team will assist you right away.'],
-                    ['q' => 'Do you work with clients outside Navi Mumbai?', 'a' => 'Yes. Headquartered in Navi Mumbai, we deliver services PAN India and partner with clients across 25+ countries through our global delivery model.'],
-                    ['q' => 'What types of IT services do you offer?', 'a' => 'We provide custom software development, AI, cloud solutions, networking and infrastructure, cybersecurity, and ongoing managed IT support.'],
-                    ['q' => 'Is the initial consultation free?', 'a' => 'Absolutely. Your first consultation is completely free — we discuss your goals and recommend the right approach with no obligation.'],
+                    ['q' => 'How quickly will you respond to my enquiry?', 'a' => 'We respond to all enquiries within 24 business hours. For urgent requirements, you can call us directly or submit the contact form, and our team will get back to you as quickly as possible.'],
+                    ['q' => 'Do you work with clients outside Navi Mumbai?', 'a' => 'Yes. While our headquarters are in Navi Mumbai, we provide IT services across India and support clients worldwide through remote collaboration and global delivery.'],
+                    ['q' => 'Is the initial consultation free?', 'a' => 'Yes. We offer a free initial consultation to understand your business objectives, discuss your requirements, and recommend the most suitable technology solution.'],
+                    ['q' => 'How long does a typical project take?', 'a' => 'Project timelines depend on the scope and complexity. Most projects are delivered within 2–12 weeks, while enterprise solutions may require additional development phases. A detailed timeline is shared before development begins.'],
+                    
                 ];
             @endphp
             <div class="contact-faq__grid">
