@@ -50,6 +50,7 @@
                             ['admin.faq-categories.index', 'FAQ Categories', 'folder'],
                             ['admin.downloads.index', 'Downloads', 'download'],
                             ['admin.job-openings.index', 'Job Openings', 'briefcase'],
+                            ['admin.careers-content.edit', 'Careers Page', 'briefcase'],
                         ],
                         'Home Sections' => [
                             ['admin.why-choose-features.index', 'Why Choose Us', 'check-circle'],

@@ -39,6 +39,7 @@ trait ManagesServiceContent
         $this->syncItemIcons($request, $content, 'features_strip', 'items');
         $this->syncItemIcons($request, $content, 'sub_services', 'items');
         $this->syncItemIcons($request, $content, 'process', 'steps');
+        $this->syncItemIcons($request, $content, 'why_choose', 'cards');
 
         // Single why-choose image (replace-on-upload, delete the old file).
         $current = $service?->content['why_choose']['image'] ?? null;
@@ -50,7 +51,8 @@ trait ManagesServiceContent
 
         // Drop empty repeater rows and reindex every list.
         $content['hero']['bullets'] = $this->cleanStrings($content['hero']['bullets'] ?? []);
-        $content['why_choose']['points'] = $this->cleanStrings($content['why_choose']['points'] ?? []);
+        $content['why_choose']['cards'] = $this->cleanRows($content['why_choose']['cards'] ?? [], ['title', 'description', 'icon']);
+        unset($content['why_choose']['points']);
         $content['features_strip']['items'] = $this->cleanRows($content['features_strip']['items'] ?? [], ['label', 'icon']);
         $content['sub_services']['items'] = $this->cleanRows($content['sub_services']['items'] ?? [], ['title', 'description', 'icon']);
         $content['process']['steps'] = $this->cleanRows($content['process']['steps'] ?? [], ['title', 'description', 'icon']);

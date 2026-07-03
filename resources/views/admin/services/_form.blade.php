@@ -166,13 +166,22 @@
     </div>
     <input type="hidden" name="content[why_choose][image]" value="{{ $cat('why_choose.image') }}">
     <div>
-        <label class="mb-2 block text-sm font-medium text-slate-700">Reasons (ticked points)</label>
+        <label class="mb-2 block text-sm font-medium text-slate-700">Reason cards</label>
+        <p class="mb-2 text-xs text-slate-400">Each card shows an icon, a title and an optional description. Upload an icon image per card; leave it empty to use a default icon.</p>
+        @php
+            $whyCards = $cat('why_choose.cards', []);
+            if (! $whyCards) {
+                $whyCards = array_values(array_map(
+                    fn ($point) => ['title' => $point],
+                    array_filter((array) $cat('why_choose.points', []), 'filled'),
+                ));
+            }
+        @endphp
         @include('admin.services.partials._repeater', [
-            'prefix' => 'content[why_choose][points]',
-            'rows' => $cat('why_choose.points', []),
-            'rowView' => 'admin.services.partials._text-row',
-            'empty' => '',
-            'extra' => ['placeholder' => 'Reason to choose us'],
+            'prefix' => 'content[why_choose][cards]',
+            'rows' => $whyCards,
+            'rowView' => 'admin.services.partials._card-row',
+            'extra' => ['titlePlaceholder' => 'Reason to choose us'],
             'addLabel' => 'Add reason',
         ])
     </div>
@@ -205,15 +214,6 @@
 
 {{-- ───────────────────────── Advanced ───────────────────────── --}}
 <x-admin.service-panel title="Advanced & SEO" :open="false">
-    <div>
-        <label class="mb-1 block text-sm font-medium text-slate-700">Full Description (HTML)</label>
-        <textarea name="description" rows="5" class="{{ $inputClass }} font-mono">{{ old('description', $s?->description) }}</textarea>
-    </div>
-    <div>
-        <label class="mb-1 block text-sm font-medium text-slate-700">Custom Page HTML (body)</label>
-        <p class="mb-1 text-xs text-slate-400">When filled, this raw HTML replaces the default detail-page layout. Leave empty to use the standard template.</p>
-        <textarea name="body" rows="8" class="{{ $inputClass }} font-mono">{{ old('body', $s?->body) }}</textarea>
-    </div>
     <div>
         <label class="mb-1 block text-sm font-medium text-slate-700">SEO Title</label>
         <input type="text" name="seo_title" value="{{ old('seo_title', $s?->seo_title) }}" class="{{ $inputClass }}">

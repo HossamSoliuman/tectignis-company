@@ -474,7 +474,7 @@
                             @endforeach
                         </ul>
                         @endif
-                        <a href="{{ route('case-studies.index') }}" class="cs-card__link">Read Case Study <span aria-hidden="true">→</span></a>
+                        <a href="{{ route('case-studies.show', $caseStudy->slug) }}" class="cs-card__link">Read Case Study <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
                 @endforeach

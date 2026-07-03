@@ -37,6 +37,7 @@ Route::get('/careers', [PageController::class, 'careers'])->name('careers');
 Route::post('/careers', [CareersController::class, 'submit'])->middleware('throttle:10,1')->name('careers.submit');
 
 Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
+Route::get('/case-studies/{caseStudy:slug}', [CaseStudyController::class, 'show'])->name('case-studies.show');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');

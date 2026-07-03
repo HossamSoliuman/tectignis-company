@@ -22,7 +22,7 @@
             <div class="row svc-cases__grid">
                 @foreach ($caseStudies as $caseStudy)
                     <div class="col-lg-4 col-md-6 wow move-up">
-                        <a href="{{ route('case-studies.index') }}" class="svc-case-card"
+                        <a href="{{ route('case-studies.show', $caseStudy->slug) }}" class="svc-case-card"
                             @if ($caseStudy->image) style="background-image:linear-gradient(180deg, rgba(12,10,38,0.15) 0%, rgba(12,10,38,0.92) 100%), url('{{ asset('uploads/'.$caseStudy->image) }}');" @endif>
                             <div class="svc-case-card__content">
                                 @if ($caseStudy->category)

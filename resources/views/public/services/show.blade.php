@@ -27,6 +27,7 @@
              Each component reads $service->content[...] / the pivots and renders
              nothing when off or empty. --}}
         <x-public.service.hero :service="$service" />              {{-- Hero + stats --}}
+        <x-public.service.features-strip :service="$service" />    {{-- Feature / trust strip --}}
         <x-public.service.sub-services :service="$service" />      {{-- Our {Service} Services --}}
         <x-public.service.process :service="$service" />           {{-- Process stepper --}}
         <x-public.service.tech-stack :service="$service" />        {{-- Technologies We Use --}}

@@ -7,6 +7,7 @@
     $intro = $hero['intro'] ?? $service->short_description;
     $ctaPrimary = $hero['cta_primary_label'] ?? 'Get Free Consultation';
     $ctaSecondary = $hero['cta_secondary_label'] ?? 'View Our Work';
+    $bullets = array_values(array_filter($hero['bullets'] ?? [], fn ($b) => filled($b)));
 
     // Stats row (icon + value + label). Falls back to sensible agency defaults
     // so every service hero shows proof points even before custom content.
@@ -38,6 +39,14 @@
                 <h1 class="svc-hero__title">{!! $headingHtml !!}</h1>
                 @if (filled($intro))
                     <p class="svc-hero__intro">{{ $intro }}</p>
+                @endif
+
+                @if (count($bullets))
+                    <ul class="svc-hero__bullets">
+                        @foreach ($bullets as $bullet)
+                            <li><i class="fas fa-check-circle" aria-hidden="true"></i><span>{{ $bullet }}</span></li>
+                        @endforeach
+                    </ul>
                 @endif
 
                 <div class="svc-hero__buttons">

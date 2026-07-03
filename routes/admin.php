@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CapabilityController;
+use App\Http\Controllers\Admin\CareersContentController;
 use App\Http\Controllers\Admin\CaseStudyCategoryController;
 use App\Http\Controllers\Admin\CaseStudyController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -47,6 +48,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+
+        Route::get('careers-content', [CareersContentController::class, 'edit'])->name('careers-content.edit');
+        Route::put('careers-content', [CareersContentController::class, 'update'])->name('careers-content.update');
 
         Route::get('mail', [MailController::class, 'edit'])->name('mail.edit');
         Route::put('mail', [MailController::class, 'update'])->name('mail.update');
