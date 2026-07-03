@@ -10,22 +10,22 @@
 
 @php
     $careersHeroImage = \App\Models\Setting::get('careers_hero_image');
-    $careerStats = [
+    $careerStats = \App\Models\Setting::json('careers_stats', [
         ['icon' => 'fas fa-users', 'value' => '200+', 'label' => 'Team Members'],
         ['icon' => 'fas fa-user-tie', 'value' => '50+', 'label' => 'Hiring Experts'],
         ['icon' => 'fas fa-award', 'value' => '10+', 'label' => 'Years of Excellence'],
         ['icon' => 'fas fa-smile', 'value' => '95%', 'label' => 'Employee Satisfaction'],
         ['icon' => 'fas fa-book-open', 'value' => 'Continuous', 'label' => 'Learning'],
         ['icon' => 'fas fa-balance-scale', 'value' => 'Work-Life', 'label' => 'Balance'],
-    ];
-    $careerBenefits = [
+    ]);
+    $careerBenefits = \App\Models\Setting::json('careers_benefits', [
         ['icon' => 'fas fa-chart-line', 'title' => 'Growth', 'text' => 'Continuous learning opportunities and career advancement.'],
         ['icon' => 'fas fa-lightbulb', 'title' => 'Innovation', 'text' => 'Work on cutting-edge technologies and solve real-world challenges.'],
         ['icon' => 'fas fa-handshake', 'title' => 'Culture', 'text' => 'Inclusive, collaborative, and transparent work environment.'],
         ['icon' => 'fas fa-clock', 'title' => 'Flexibility', 'text' => 'Flexible work arrangements and work-life balance.'],
         ['icon' => 'fas fa-heart', 'title' => 'Wellness', 'text' => 'Health & wellness programs for a happy you.'],
         ['icon' => 'fas fa-gift', 'title' => 'Rewards', 'text' => 'Competitive salary, performance bonuses, and recognition.'],
-    ];
+    ]);
     $experienceOptions = ['Fresher', '1–2 years', '3–5 years', '5–8 years', '8+ years'];
     $noticePeriodOptions = ['Immediate', '15 days', '30 days', '60 days', '90 days'];
     $applyModalOpen = $errors->any() && old('con_form') === 'career';

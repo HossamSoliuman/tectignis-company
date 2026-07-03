@@ -112,6 +112,11 @@ trait ValidatesServiceData
             'content.why_choose.cta_label' => ['nullable', 'string', 'max:60'],
             'content.why_choose.points' => ['nullable', 'array'],
             'content.why_choose.points.*' => ['nullable', 'string', 'max:200'],
+            'content.why_choose.cards' => ['nullable', 'array'],
+            'content.why_choose.cards.*.icon' => ['nullable', 'string', 'max:255'],
+            'content.why_choose.cards.*.icon_file' => ['nullable', 'image', 'max:2048'],
+            'content.why_choose.cards.*.title' => ['nullable', 'string', 'max:200'],
+            'content.why_choose.cards.*.description' => ['nullable', 'string', 'max:1000'],
 
             // Section I — FAQ accordion
             'content.faq.enabled' => ['nullable', 'boolean'],

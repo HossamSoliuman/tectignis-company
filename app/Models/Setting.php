@@ -34,6 +34,20 @@ class Setting extends Model
     }
 
     /**
+     * Decode a JSON-encoded setting value into an array, returning $default when
+     * the setting is missing or does not decode to a non-empty array.
+     *
+     * @param  array<mixed>  $default
+     * @return array<mixed>
+     */
+    public static function json(string $key, array $default = []): array
+    {
+        $decoded = json_decode((string) static::get($key), true);
+
+        return is_array($decoded) && $decoded !== [] ? $decoded : $default;
+    }
+
+    /**
      * All settings as a key => value map. Memoized per-request via once() and
      * cached across requests; both layers are flushed by FlushesSiteCache when
      * any setting is saved or deleted.

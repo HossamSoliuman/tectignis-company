@@ -26,7 +26,7 @@
                 <div class="row mesonry-list">
                     @foreach ($caseStudies as $caseStudy)
                         <div class="col-lg-4 col-md-6 cat--2">
-                            <a href="{{ route('case-studies.index') }}" class="projects-wrap style-01">
+                            <a href="{{ route('case-studies.show', $caseStudy->slug) }}" class="projects-wrap style-01">
                                 <div class="projects-image-box">
                                     <div class="projects-image">
                                         @if ($caseStudy->image)

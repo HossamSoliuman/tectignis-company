@@ -40,7 +40,7 @@
                                 @if ($caseStudy->short_description)
                                     <p class="ind-case-card__text">{{ \Illuminate\Support\Str::limit($caseStudy->short_description, 100) }}</p>
                                 @endif
-                                <a href="{{ route('case-studies.index') }}" class="ind-case-card__link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="{{ route('case-studies.show', $caseStudy->slug) }}" class="ind-case-card__link">Read More <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>

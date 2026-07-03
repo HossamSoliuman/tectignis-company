@@ -38,8 +38,9 @@
                             </span>
                             <div class="svc-why-card__body">
                                 <h3 class="svc-why-card__title">{{ $card['title'] }}</h3>
-                                @if (filled($card['text'] ?? null))
-                                    <p class="svc-why-card__text">{{ $card['text'] }}</p>
+                                @php $cardText = $card['text'] ?? $card['description'] ?? null; @endphp
+                                @if (filled($cardText))
+                                    <p class="svc-why-card__text">{{ $cardText }}</p>
                                 @endif
                             </div>
                         </div>
