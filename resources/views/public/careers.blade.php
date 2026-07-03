@@ -41,10 +41,10 @@
                 <div class="col-lg-6">
                     <span class="car-hero__eyebrow">Careers</span>
                     <h1 class="car-hero__title">Build Your Career.<br><span>Shape the Future.</span></h1>
-                    <p class="car-hero__intro">Join our team of innovators and problem solvers who are building smart solutions and transforming businesses around the world.</p>
+                    <p class="car-hero__intro">Join a team that's building innovative software, AI-powered solutions, cloud platforms, and digital experiences for businesses worldwide. At Tectignis, you'll work on meaningful projects, learn continuously, and grow with cutting-edge technologies.</p>
                     <div class="car-hero__buttons">
                         <a href="#open-positions" class="svc-btn svc-btn--primary">View Open Positions <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-                        <a href="#why-join" class="svc-btn svc-btn--ghost">Why Join Us? <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+                        <a href="#why-join" class="svc-btn svc-btn--ghost">Why Join Tectignis? <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-6 car-hero__media">

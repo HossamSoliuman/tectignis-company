@@ -27,7 +27,14 @@
 
         {{-- Header --}}
         <div class="testi-header">
-            <p class="testi-pretitle">CLIENT TESTIMONIALS</p>
+            <div class="industries-serve-pretitle">
+                    <span class="industries-serve-pretitle__line"></span>
+                    <span class="industries-serve-pretitle__dot"></span>
+                    <span>{{ $settings['cap_overline'] ?? 'CLIENT TESTIMONIALS' }}</span>
+                    <span class="industries-serve-pretitle__dot"></span>
+                    <span class="industries-serve-pretitle__line"></span>
+                </div>
+ 
             <h2 class="testi-title">What Our Clients Say</h2>
             <p class="testi-subtitle">Trusted by businesses across industries. Here's what our clients have to say about their experience.</p>
         </div>

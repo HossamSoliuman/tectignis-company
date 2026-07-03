@@ -1240,7 +1240,7 @@ body {
     background: #f6f6fa;
     border: 1px solid var(--svc-line);
     border-radius: 10px;
-    padding: 14px 16px;
+    padding: 14px 11px;
     font-size: 15px;
     color: var(--svc-dark);
     transition: border-color 0.2s, background 0.2s;
@@ -3200,8 +3200,8 @@ body {
    ========================================================= */
 
 .testi-section {
-    background: #F8FAFC;
-    padding: 80px 0;
+    /*background: #F8FAFC;*/
+    padding-bottom: 80px;
 }
 
 /* --- Header --- */
@@ -3560,19 +3560,38 @@ body {
     position: relative;
 }
 
+/*.gp-list__pin {*/
+/*    position: absolute;*/
+/*    left: -29px;*/
+/*    top: 9px;*/
+/*    width: 22px;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.gp-list__pin svg {*/
+/*    width: 16px;*/
+/*    height: 16px;*/
+/*    background: #fff;*/
+/*}*/
+
 .gp-list__pin {
-    position: absolute;
-    left: -24px;
-    top: 9px;
-    width: 22px;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
     display: flex;
+    align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    background: rgba(25, 181, 165, 0.12);
+    color: #19B5A5;
 }
 
 .gp-list__pin svg {
     width: 16px;
     height: 16px;
-    background: #fff;
+    background: transparent;
+    display: block;
 }
 
 .gp-list--india .gp-list__pin { color: #19587F; }

@@ -139,7 +139,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <span class="solutions-deliver-overline">{{ $settings['cap_overline'] ?? '/// Capabilities We Deliver ///' }}</span>
+                        <div class="industries-serve-pretitle">
+                    <span class="industries-serve-pretitle__line"></span>
+                    <span class="industries-serve-pretitle__dot"></span>
+                    <span>{{ $settings['cap_overline'] ?? 'Capabilities We Deliver' }}</span>
+                    <span class="industries-serve-pretitle__dot"></span>
+                    <span class="industries-serve-pretitle__line"></span>
+                </div>
                         <h3 class="heading mt-15">{{ $settings['cap_heading'] ?? 'Business-focused Capabilities Built for' }} <span class="text-color-primary">{{ $settings['cap_heading_highlight'] ?? 'Impact' }}</span></h3>
                         <p class="solutions-deliver-subtitle mt-15">{{ $settings['cap_subtitle'] ?? 'We deliver end-to-end IT capabilities tailored to your business needs, designed to drive efficiency, security, and growth.' }}</p>
                     </div>
@@ -186,7 +192,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <span class="why-choose-badge">{{ $settings['why_badge'] ?? 'Why Choose Us' }}</span>
+                        <div class="industries-serve-pretitle">
+                    <span class="industries-serve-pretitle__line"></span>
+                    <span class="industries-serve-pretitle__dot"></span>
+                    <span>{{ $settings['why_badge'] ?? 'Why Choose Us' }}</span>
+                    <span class="industries-serve-pretitle__dot"></span>
+                    <span class="industries-serve-pretitle__line"></span>
+                </div>
+                        
                         <h3 class="heading mt-15">{{ $settings['why_heading'] ?? 'Why Choose' }} <span class="text-color-primary">{{ $settings['why_heading_highlight'] ?? 'Tectignis?' }}</span></h3>
                         <p class="why-choose-subtitle mt-15">{{ $settings['why_subtitle'] ?? 'We combine expertise, technology, and a customer-first approach to deliver solutions that drive real results for your business.' }}</p>
                     </div>
@@ -338,7 +351,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">{{ $settings['tech_sub_heading'] ?? 'Tools & Platforms' }}</h6>
+                        <div class="industries-serve-pretitle">
+                            <span class="industries-serve-pretitle__line"></span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span>{{ $settings['tech_sub_heading'] ?? 'Tools & Platforms' }}</span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span class="industries-serve-pretitle__line"></span>
+                        </div> 
+                        
+                        
                         <h3 class="heading">{{ $settings['tech_heading'] ?? 'Technology' }} <span class="text-color-primary">{{ $settings['tech_heading_highlight'] ?? 'Stack' }}</span></h3>
                     </div>
                 </div>
@@ -395,7 +416,14 @@
     <section class="cs-section section-space--ptb_80">
         <div class="container">
             <div class="cs-header">
-                <span class="cs-header__badge">{{ $settings['cs_badge'] ?? 'CASE STUDIES' }}</span>
+                                        <div class="industries-serve-pretitle">
+                            <span class="industries-serve-pretitle__line"></span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span>{{ $settings['cs_badge'] ?? 'CASE STUDIES' }}</span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span class="industries-serve-pretitle__line"></span>
+                        </div> 
+         
                 <h2 class="cs-header__title">{{ $settings['cs_heading'] ?? 'Real Stories. Real Impact.' }}</h2>
                 <p class="cs-header__subtitle">{{ $settings['cs_subtitle'] ?? 'Explore how our solutions have helped businesses overcome challenges, improve operations, and achieve measurable results.' }}</p>
             </div>
@@ -459,16 +487,20 @@
     </section>
     <!--=========== Case Studies End =============-->
 
-    <!--====================  Testimonials ====================-->
-    <x-public.testimonials :testimonials="$testimonials" />
-    <!--====================  End of Testimonials ====================-->
 
     <!--=========== Global Presence Start ===========-->
     <section class="gp-section section-space--ptb_80">
         <div class="container">
             {{-- Header --}}
             <div class="gp-header">
-                <span class="gp-pretitle">{{ $settings['gp_pretitle'] ?? 'Global Presence' }}</span>
+                <div class="industries-serve-pretitle">
+                            <span class="industries-serve-pretitle__line"></span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span>{{ $settings['gp_pretitle'] ?? 'Global Presence' }}</span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span class="industries-serve-pretitle__line"></span>
+                        </div> 
+               
                 <h2 class="gp-title">{{ $settings['gp_heading'] ?? 'Serving Clients Worldwide, Delivering Excellence' }} <span class="gp-title__accent">{{ $settings['gp_heading_highlight'] ?? 'Everywhere.' }}</span></h2>
                 <p class="gp-subtitle">{{ $settings['gp_subtitle'] ?? 'We combine local expertise with a global mindset to deliver innovative IT solutions that help your business grow, scale and succeed.' }}</p>
             </div>
@@ -506,7 +538,7 @@
                         </span>
                         <span class="gp-stat__body">
                             <span class="gp-stat__num">{{ $settings['gp_india_projects'] ?? '100+' }}</span>
-                            <span class="gp-stat__label">Projects Across India</span>
+                            <span class="gp-stat__label">Projects Delivered</span>
                         </span>
                     </div>
                 </aside>
@@ -548,6 +580,7 @@
                             <circle class="gp-node__dot" r="5"/>
                         </g>
                     </svg>
+
                 </div>
 
                 {{-- Right sidebar: Global --}}
@@ -582,7 +615,7 @@
                         </span>
                         <span class="gp-stat__body">
                             <span class="gp-stat__num">{{ $settings['gp_countries_served'] ?? '25+' }}</span>
-                            <span class="gp-stat__label">Countries Served</span>
+                            <span class="gp-stat__label">Businesses Served</span>
                         </span>
                     </div>
                 </aside>
@@ -610,15 +643,26 @@
         </div>
     </section>
     <!--=========== Global Presence End ===========-->
+    
+    <!--====================  Testimonials ====================-->
+    <x-public.testimonials :testimonials="$testimonials" />
+    <!--====================  End of Testimonials ====================-->
 
     <!--=========== Resources & Insights Start ===========-->
     @if ($recentPosts->isNotEmpty())
-    <div class="feature-images-wrapper bg-gray section-space--ptb_60">
+    <div class="feature-images-wrapper bg-gray section-space--ptb_80">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">{{ $settings['res_sub_heading'] ?? 'Stay Informed' }}</h6>
+                         <div class="industries-serve-pretitle">
+                            <span class="industries-serve-pretitle__line"></span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span>{{ $settings['res_sub_heading'] ?? 'Stay Informed' }}</span>
+                            <span class="industries-serve-pretitle__dot"></span>
+                            <span class="industries-serve-pretitle__line"></span>
+                        </div> 
+                       
                         <h3 class="heading">{{ $settings['res_heading'] ?? 'Resources &' }} <span class="text-color-primary">{{ $settings['res_heading_highlight'] ?? 'Insights' }}</span></h3>
                     </div>
                 </div>

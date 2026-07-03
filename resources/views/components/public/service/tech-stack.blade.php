@@ -16,24 +16,23 @@
         <div class="container">
             <div class="svc-section-head text-center">
                 @if (filled($subtitle))
-                    <span class="svc-eyebrow">{{ $subtitle }}</span>
+                    <span class="svc-eyebrow">{{ $subtitle }}</span><br>
                 @endif
                 <h2 class="svc-section-title">{{ $heading }}</h2>
             </div>
 
-            <div class="svc-tech__grid">
+                        <div class="row tech-stack-row">
                 @foreach ($techStacks as $tech)
-                    <div class="svc-tech-card wow move-up">
-                        <div class="svc-tech-card__logo-wrap">
+                <div class="col-lg-2 col-md-3 col-4 wow move-up">
+                    <div class="tech-stack-card">
+                        <div class="tech-stack-card__logo">
                             @if ($tech->logo)
-                                <img class="svc-tech-card__logo" src="{{ asset('uploads/'.$tech->logo) }}"
-                                    alt="{{ $tech->name }}" loading="lazy">
-                            @else
-                                <span class="svc-tech-card__fallback"><i class="fas fa-microchip"></i></span>
+                                <img src="{{ asset('uploads/'.$tech->logo) }}" alt="{{ $tech->name }}" loading="lazy">
                             @endif
                         </div>
-                        <span class="svc-tech-card__name">{{ $tech->name }}</span>
+                        <p class="tech-stack-card__name">{{ $tech->name }}</p>
                     </div>
+                </div>
                 @endforeach
             </div>
         </div>
