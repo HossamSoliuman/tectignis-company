@@ -10,9 +10,9 @@
 @if (($section['enabled'] ?? true) && count($items))
     <section class="svc-section svc-sub-services">
         <div class="container">
-            <div class="svc-section-head text-center">
+            <div class="svc-section-head">
                 @if (filled($subtitle))
-                    <span class="svc-eyebrow">{{ $subtitle }}</span><br>
+                    <span class="svc-eyebrow">{{ $subtitle }}</span>
                 @endif
                 <h2 class="svc-section-title">{{ $heading }}</h2>
             </div>
