@@ -46,7 +46,7 @@
                 <x-admin.icon name="calendar" class="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
                 <div>
                     <span class="block text-xs font-semibold uppercase tracking-wide text-slate-400">Date</span>
-                    <span class="text-slate-700">{{ $lead->created_at->format('M d, Y H:i') }}</span>
+                    <span class="text-slate-700">{{ $lead->created_at->timezone(config('app.timezone'))->format('M d, Y H:i \G\M\T P') }}</span>
                 </div>
             </div>
         </div>

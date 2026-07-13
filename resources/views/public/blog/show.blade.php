@@ -28,7 +28,7 @@
                     <h1 class="res-hero__title">{{ $post->title }}</h1>
                     <div class="res-hero__meta">
                         <span><i class="far fa-user" aria-hidden="true"></i> By {{ $post->author ?: 'Tectignis Team' }}</span>
-                        <span><i class="far fa-calendar" aria-hidden="true"></i> {{ $post->published_at->format('M d, Y') }}</span>
+                        <span><i class="far fa-calendar" aria-hidden="true"></i> {{ $post->published_at->timezone(config('app.timezone'))->format('M d, Y H:i \G\M\T P') }}</span>
                         @if ($post->category)
                             <span class="res-hero__topic">{{ $post->category }}</span>
                         @endif
@@ -105,7 +105,7 @@
                                         </span>
                                         <div>
                                             <a href="{{ route('blog.show', $popular->slug) }}" class="res-pop__title">{{ $popular->title }}</a>
-                                            <span class="res-pop__date">{{ $popular->published_at->format('M d, Y') }}</span>
+                                            <span class="res-pop__date">{{ $popular->published_at->timezone(config('app.timezone'))->format('M d, Y H:i \G\M\T P') }}</span>
                                         </div>
                                     </li>
                                 @endforeach

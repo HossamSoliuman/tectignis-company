@@ -45,7 +45,7 @@
                         </td>
                         <td class="px-4 py-3 font-medium text-slate-800">{{ $post->title }}</td>
                         <td class="px-4 py-3 text-slate-500">{{ $post->slug }}</td>
-                        <td class="px-4 py-3 text-slate-500">{{ $post->published_at?->format('M d, Y') ?? '—' }}</td>
+                        <td class="px-4 py-3 text-slate-500">{{ $post->published_at?->timezone(config('app.timezone'))->format('M d, Y H:i \G\M\T P') ?? '—' }}</td>
                         <td class="px-4 py-3">
                             <x-admin.status-badge :active="$post->is_published" activeLabel="Published" inactiveLabel="Draft" />
                         </td>

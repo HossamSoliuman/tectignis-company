@@ -31,9 +31,11 @@
         <x-public.service.sub-services :service="$service" />      {{-- Our {Service} Services --}}
         <x-public.service.process :service="$service" />           {{-- Process stepper --}}
         <x-public.service.tech-stack :service="$service" />        {{-- Technologies We Use --}}
+        <x-public.service.industries :service="$service" />        {{-- Industries We Serve --}}
         <x-public.service.why-choose :service="$service" />        {{-- Why Choose Tectignis --}}
         <x-public.service.case-studies :service="$service" />      {{-- Recent Success Stories --}}
         <x-public.service.faq :service="$service" />               {{-- FAQ + selling points --}}
+        <x-public.cta :service="$service" />                       {{-- CTA band --}}
         <x-public.service.lets-start :service="$service" />        {{-- Let's Start contact --}}
     @endif
 @endsection

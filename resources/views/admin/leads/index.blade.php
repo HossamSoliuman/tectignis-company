@@ -45,7 +45,7 @@
                         <td class="px-4 py-3">
                             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">{{ $lead->source ?? 'contact' }}</span>
                         </td>
-                        <td class="px-4 py-3 text-slate-500">{{ $lead->created_at->format('M d, Y H:i') }}</td>
+                        <td class="px-4 py-3 text-slate-500">{{ $lead->created_at->timezone(config('app.timezone'))->format('M d, Y H:i \G\M\T P') }}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center justify-end gap-1">
                                 <a href="{{ route('admin.leads.show', $lead) }}"

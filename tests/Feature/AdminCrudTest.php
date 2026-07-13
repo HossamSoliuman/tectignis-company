@@ -5,6 +5,7 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Config;
 
 uses(RefreshDatabase::class);
 
@@ -168,6 +169,24 @@ it('orders blog posts by sort order then newest', function () {
     $first = BlogPost::factory()->create(['sort_order' => 1, 'published_at' => now()->subWeek()]);
 
     expect(BlogPost::ordered()->pluck('id')->all())->toBe([$first->id, $second->id]);
+});
+
+it('shows admin table timestamps with the configured GMT offset', function () {
+    Config::set('app.timezone', 'Asia/Kolkata');
+
+    $post = BlogPost::factory()->create([
+        'title' => 'Timestamped Post',
+        'published_at' => now()->setDate(2026, 7, 13)->setTime(10, 15),
+    ]);
+
+    $expectedTimestamp = $post->fresh()->published_at
+        ->timezone(config('app.timezone'))
+        ->format('M d, Y H:i \G\M\T P');
+
+    $this->actingAs(adminUser())
+        ->get(route('admin.blog.index'))
+        ->assertOk()
+        ->assertSee($expectedTimestamp);
 });
 
 it('unauthenticated user cannot access admin crud', function () {

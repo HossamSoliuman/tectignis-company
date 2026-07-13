@@ -125,6 +125,11 @@
 {{-- D · Process --}}
 <x-admin.service-panel title="Process stepper" :section="'process'" :content="$content">
     <x-admin.section-heading-fields prefix="process" :content="$content" :inputClass="$inputClass" />
+    <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Lead paragraph</label>
+        <textarea name="content[process][lead]" rows="2" class="{{ $inputClass }}"
+            placeholder="A clear, proven path from first conversation to launch and beyond">{{ $cat('process.lead') }}</textarea>
+    </div>
     @include('admin.services.partials._repeater', [
         'prefix' => 'content[process][steps]',
         'rows' => $cat('process.steps', []),

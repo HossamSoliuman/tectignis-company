@@ -34,7 +34,7 @@
                     <tr class="transition hover:bg-slate-50">
                         <td class="max-w-sm truncate px-4 py-3 font-medium text-slate-800">{{ $insight->title }}</td>
                         <td class="px-4 py-3 text-slate-500">{{ $insight->topic ?? '—' }}</td>
-                        <td class="px-4 py-3 text-slate-500">{{ $insight->published_at?->format('M d, Y') ?? '—' }}</td>
+                        <td class="px-4 py-3 text-slate-500">{{ $insight->published_at?->timezone(config('app.timezone'))->format('M d, Y H:i \G\M\T P') ?? '—' }}</td>
                         <td class="px-4 py-3">
                             <x-admin.status-badge :active="$insight->is_published" />
                         </td>

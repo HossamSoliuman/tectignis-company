@@ -10,11 +10,14 @@
     </a>
     <div class="res-card__body">
         <div class="res-card__meta">
+            @php
+                $displayDate = $date?->timezone(config('app.timezone'));
+            @endphp
             @if ($topic)
                 <span class="res-card__topic">{{ $topic }}</span>
             @endif
-            @if ($date)
-                <span class="res-card__date"><i class="far fa-calendar" aria-hidden="true"></i> {{ $date->format('M d, Y') }}</span>
+            @if ($displayDate)
+                <span class="res-card__date"><i class="far fa-calendar" aria-hidden="true"></i> {{ $displayDate->format('M d, Y H:i \G\M\T P') }}</span>
             @endif
         </div>
         <h3 class="res-card__title"><a href="{{ $url }}">{{ $title }}</a></h3>

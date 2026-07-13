@@ -103,7 +103,7 @@
                                         </span>
                                         <div>
                                             <a href="{{ route('blog.show', $popular->slug) }}" class="res-pop__title">{{ $popular->title }}</a>
-                                            <span class="res-pop__date">{{ $popular->published_at->format('M d, Y') }}</span>
+                                            <span class="res-pop__date">{{ $popular->published_at->timezone(config('app.timezone'))->format('M d, Y H:i \G\M\T P') }}</span>
                                         </div>
                                     </li>
                                 @endforeach

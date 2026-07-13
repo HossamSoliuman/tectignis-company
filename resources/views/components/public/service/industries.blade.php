@@ -12,36 +12,31 @@
 @endphp
 
 @if (($section['enabled'] ?? true) && $industries->isNotEmpty())
-    <div class="feature-images-wrapper bg-gray section-space--ptb_100">
+    <section class="svc-section svc-industries">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title-wrap text-center section-space--mb_40">
-                        @if (filled($subtitle))
-                            <h6 class="section-sub-title mb-20">{{ $subtitle }}</h6>
-                        @endif
-                        <h3 class="heading">{{ $heading }}</h3>
-                    </div>
-                </div>
+            <div class="svc-section-head text-center">
+                @if (filled($subtitle))
+                    <span class="svc-eyebrow">{{ $subtitle }}</span>
+                @endif
+                <h2 class="svc-section-title">{{ $heading }}</h2>
             </div>
-            <div class="row row--30">
+
+            <div class="row svc-industries__grid">
                 @foreach ($industries as $industry)
-                    <div class="col-lg-3 col-md-4 col-sm-6 wow move-up section-space--mt_30">
-                        <a href="{{ route('industries.show', $industry->slug) }}" class="ht-box-images style-03 d-block text-center p-4 h-100">
-                            <div class="image-box-wrap">
+                    <div class="col-lg-2 col-md-4 col-6 wow move-up">
+                        <a href="{{ route('industries.show', $industry->slug) }}" class="svc-industries__card">
+                            <span class="svc-industries__icon">
                                 @if ($industry->icon)
-                                    <div class="box-image mb-20">
-                                        <i class="{{ $industry->icon }} fa-2x text-color-primary"></i>
-                                    </div>
+                                    <i class="{{ $industry->icon }}"></i>
                                 @endif
-                                <div class="content">
-                                    <h6 class="heading">{{ $industry->name }}</h6>
-                                </div>
+                            </span>
+                            <div class="svc-industries__body">
+                                <h3 class="svc-industries__title">{{ $industry->name }}</h3>
                             </div>
                         </a>
                     </div>
                 @endforeach
             </div>
         </div>
-    </div>
+    </section>
 @endif

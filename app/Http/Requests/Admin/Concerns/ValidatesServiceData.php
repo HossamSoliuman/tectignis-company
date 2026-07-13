@@ -82,6 +82,7 @@ trait ValidatesServiceData
             'content.process.enabled' => ['nullable', 'boolean'],
             'content.process.heading' => ['nullable', 'string', 'max:200'],
             'content.process.subtitle' => ['nullable', 'string', 'max:500'],
+            'content.process.lead' => ['nullable', 'string', 'max:1000'],
             'content.process.steps' => ['nullable', 'array'],
             'content.process.steps.*.icon' => ['nullable', 'string', 'max:255'],
             'content.process.steps.*.icon_file' => ['nullable', 'image', 'max:2048'],

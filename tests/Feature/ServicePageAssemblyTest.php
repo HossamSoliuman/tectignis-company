@@ -20,7 +20,7 @@ function fullyPopulatedService(array $overrides = []): Service
             'hero' => ['heading' => 'Rich Hero Heading', 'intro' => 'Hero intro copy.', 'bullets' => ['Hero Bullet One']],
             'features_strip' => ['enabled' => true, 'items' => [['icon' => null, 'label' => 'On-Time Delivery']]],
             'sub_services' => ['enabled' => true, 'heading' => 'What We Offer', 'items' => [['title' => 'Sub Service Card', 'description' => 'Desc.']]],
-            'process' => ['enabled' => true, 'heading' => 'Our Process', 'steps' => [['title' => 'Process Step One', 'description' => 'Step desc.']]],
+            'process' => ['enabled' => true, 'heading' => 'Our Process', 'lead' => 'Custom process lead paragraph.', 'steps' => [['title' => 'Process Step One', 'description' => 'Step desc.']]],
             'tech' => ['enabled' => true, 'heading' => 'Technologies'],
             'industries' => ['enabled' => true, 'heading' => 'Industries'],
             'case_studies' => ['enabled' => true, 'heading' => 'Success Stories'],
@@ -47,9 +47,13 @@ it('renders every section for a fully populated service', function () {
         ->assertSee('What We Offer')
         ->assertSee('Sub Service Card')
         ->assertSee('Our Process')
+        ->assertSee('Custom process lead paragraph.')
         ->assertSee('Process Step One')
         ->assertSee('AttachedTech')
         ->assertSee('AttachedIndustry')
+        ->assertSee('col-lg-2 col-md-4 col-sm-6', false)
+        ->assertSee('svc-industries__grid', false)
+        ->assertSee('svc-industries__card', false)
         ->assertSee('Recent Case Study')
         ->assertSee('Why Choose Point One')
         ->assertSee('A Frequent Question?')

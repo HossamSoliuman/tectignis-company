@@ -87,6 +87,7 @@ it('creates a service with every content section, toggles, pivots and uploads', 
             'process' => [
                 'enabled' => '1',
                 'heading' => 'Our Process',
+                'lead' => 'A process paragraph that is editable.',
                 'steps' => [
                     ['title' => 'Discovery', 'description' => 'Requirements.'],
                 ],
@@ -99,7 +100,10 @@ it('creates a service with every content section, toggles, pivots and uploads', 
                 'heading' => 'Why Choose Us',
                 'cta_label' => 'Get a Quote',
                 'image_file' => UploadedFile::fake()->image('why.png'),
-                'points' => ['Experienced team', ''],
+                'cards' => [
+                    ['title' => 'Experienced team', 'description' => 'Delivery depth.'],
+                    ['title' => '', 'description' => ''],
+                ],
             ],
             'faq' => [
                 'enabled' => '1',
@@ -114,7 +118,7 @@ it('creates a service with every content section, toggles, pivots and uploads', 
 
     $this->actingAs($this->admin)
         ->post(route('admin.services.store'), $payload)
-        ->assertRedirect(route('admin.services.index'));
+        ->assertRedirect(route('admin.services.edit', Service::firstWhere('slug', 'custom-software-development')));
 
     $service = Service::firstWhere('slug', 'custom-software-development');
     $content = $service->content;
@@ -125,9 +129,11 @@ it('creates a service with every content section, toggles, pivots and uploads', 
 
     // Empty repeater rows stripped + reindexed.
     expect($content['hero']['bullets'])->toBe(['Scalable', 'Secure'])
+        ->and($content['process']['lead'])->toBe('A process paragraph that is editable.')
         ->and($content['features_strip']['items'])->toHaveCount(1)
         ->and($content['sub_services']['items'])->toHaveCount(1)
-        ->and($content['why_choose']['points'])->toBe(['Experienced team'])
+        ->and($content['why_choose']['cards'])->toHaveCount(1)
+        ->and($content['why_choose']['cards'][0]['title'])->toBe('Experienced team')
         ->and($content['faq']['items'])->toHaveCount(1);
 
     // Per-item icon + why-choose image stored as files; transient keys dropped.

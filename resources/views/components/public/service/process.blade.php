@@ -5,6 +5,7 @@
     $steps = array_values(array_filter($section['steps'] ?? [], fn ($s) => filled($s['title'] ?? null)));
     $heading = $section['heading'] ?? 'Our Simple '.count($steps).'-Step Process';
     $subtitle = $section['subtitle'] ?? 'How We Work';
+    $lead = $section['lead'] ?? 'A clear, proven path from first conversation to launch and beyond - so you always know exactly what happens next.';
     // Icons cycled per step when no custom upload is provided, so the
     // "line of icons" always reads as a coherent journey.
     $fallbackIcons = ['fas fa-search', 'fas fa-pencil-ruler', 'fas fa-code', 'fas fa-vial', 'fas fa-rocket', 'fas fa-headset'];
@@ -19,7 +20,9 @@
                         <span class="svc-eyebrow">{{ $subtitle }}</span>
                     @endif
                     <h2 class="svc-section-title">{{ $heading }}</h2>
-                    <p class="svc-process__lead">A clear, proven path from first conversation to launch and beyond — so you always know exactly what happens next.</p>
+                    @if (filled($lead))
+                        <p class="svc-process__lead">{{ $lead }}</p>
+                    @endif
                 </div>
 
                 <div class="col-lg-12 svc-process__steps">
