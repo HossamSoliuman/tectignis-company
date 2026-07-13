@@ -14,16 +14,15 @@
     <section class="svc-section svc-process">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 svc-process__intro wow move-up">
+                <div class="col-lg-12 svc-process__intro wow move-up text-center">
                     @if (filled($subtitle))
                         <span class="svc-eyebrow">{{ $subtitle }}</span>
                     @endif
                     <h2 class="svc-section-title">{{ $heading }}</h2>
                     <p class="svc-process__lead">A clear, proven path from first conversation to launch and beyond — so you always know exactly what happens next.</p>
-                    <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Start Your Project</a>
                 </div>
 
-                <div class="col-lg-8 svc-process__steps">
+                <div class="col-lg-12 svc-process__steps">
                     <div class="row flex-nowrap">
                         @foreach ($steps as $index => $step)
                             <div class="col wow move-up">
@@ -45,6 +44,13 @@
                         @endforeach
                     </div>
                 </div>
+                
+                <!-- CTA -->
+<div class="col-12 text-center mt-5">
+    <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">
+        Start Your Project
+    </a>
+</div>
             </div>
         </div>
     </section>

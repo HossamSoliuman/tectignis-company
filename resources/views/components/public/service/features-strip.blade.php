@@ -15,7 +15,7 @@
                             @if (filled($item['icon'] ?? null))
                                 <div class="icon mb-15">
                                     <img class="img-fluid" src="{{ asset('uploads/'.$item['icon']) }}"
-                                        alt="{{ $item['label'] }}" loading="lazy" style="max-height:48px;width:auto;display:inline-block;">
+                                        alt="{{ $item['label'] }}" loading="lazy" style="max-height:128px;width:auto;display:inline-block;">
                                 </div>
                             @endif
                             <h6 class="heading mb-0">{{ $item['label'] }}</h6>

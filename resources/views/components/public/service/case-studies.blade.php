@@ -11,7 +11,7 @@
 @if (($section['enabled'] ?? true) && $caseStudies->isNotEmpty())
     <section class="svc-section svc-cases">
         <div class="container">
-            <div class="svc-cases__head wow move-up">
+            <div class="svc-cases__head wow move-up text-center">
                 @if (filled($subtitle))
                     <span class="svc-eyebrow">{{ $subtitle }}</span>
                 @endif

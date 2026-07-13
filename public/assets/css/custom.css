@@ -685,7 +685,7 @@ body {
 
 /* Heading + eyebrow on a single row, compact spacing. */
 .svc-sub-services .svc-section-head {
-    max-width: none;
+    /*max-width: none;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -771,7 +771,7 @@ body {
 }
 
 .svc-process__intro {
-    padding-right: 30px;
+    padding-bottom: 45px;
 }
 
 .svc-process__lead {
@@ -1002,7 +1002,6 @@ body {
 
 /* ---------- Case studies ---------- */
 .svc-cases__head {
-    max-width: 620px;
     margin-bottom: 46px;
 }
 
@@ -7609,6 +7608,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
    (white card · circular light-blue icon chip · accent underline)
    ============================================================ */
 .svc-card-grid {
+    padding-top: 45px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 28px;
@@ -7648,7 +7648,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
     transition: background 0.25s ease, color 0.25s ease;
 }
 .svc-card:hover .svc-card__icon {
-    background: var(--about-primary, #19587F);
+    /*background: var(--about-primary, #19587F);*/
     color: #fff;
 }
 .svc-card__icon i { font-size: 28px; line-height: 1; }
