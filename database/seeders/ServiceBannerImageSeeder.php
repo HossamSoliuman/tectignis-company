@@ -72,6 +72,16 @@ class ServiceBannerImageSeeder extends Seeder
             'structured-cabling' => 'structured-cabling-banner.png',
             'workstation-solutions' => 'workstation-solutions-banner.png',
             'amc-services' => 'amc-services-banner.png',
+
+            // Cloud & security
+            'aws-consulting' => 'aws-consulting-banner.png',
+            'microsoft-azure-consulting' => 'microsoft-azure-consulting-banner.png',
+            'google-cloud-services' => 'google-cloud-services-banner.png',
+            'cloud-migration-services' => 'cloud-migration-services-banner.png',
+            'cyber-security-consulting' => 'cyber-security-consulting-banner.png',
+            'vapt-services' => 'vapt-services-banner.png',
+            'firewall-configuration-management' => 'firewall-configuration-management-banner.png',
+            'soc-support' => 'soc-security-operations-center-banner.png',
         ];
     }
 }
