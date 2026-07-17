@@ -122,6 +122,23 @@ it('builds complete content for every service and renders each page', function (
         });
 });
 
+it('uses the dedicated hospital management hero image', function () {
+    $this->seed([
+        TechStackSeeder::class,
+        IndustrySeeder::class,
+        ProductionContentSeeder::class,
+    ]);
+
+    $service = Service::query()->where('slug', 'hospital-management')->firstOrFail();
+
+    expect($service->banner_image)->toBe('services/hospital-management-software-hero.png');
+    $this->assertFileExists(public_path('uploads/services/hospital-management-software-hero.png'));
+
+    $this->get(route('services.show', $service->slug))
+        ->assertOk()
+        ->assertSee(asset('uploads/services/hospital-management-software-hero.png'), false);
+});
+
 it('does not modify pre-existing software development content', function () {
     $softwareCapability = Capability::factory()->create([
         'slug' => 'software-development',

@@ -34,6 +34,7 @@ class WebDevelopmentContentSeeder extends Seeder
             [
                 'slug' => 'hospital-management',
                 'title' => 'Hospital Management Software',
+                'banner_image' => 'services/hospital-management-software-hero.png',
                 'sort_order' => 1,
                 'short_description' => 'Integrated hospital software for appointments, OPD, billing, pharmacy, laboratory, and patient records.',
                 'seo_title' => 'Hospital Management Software in Navi Mumbai | Tectignis',

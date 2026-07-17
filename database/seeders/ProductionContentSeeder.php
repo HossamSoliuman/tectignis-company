@@ -13,6 +13,8 @@ class ProductionContentSeeder extends Seeder
             AiAutomationContentSeeder::class,
             CloudSecurityContentSeeder::class,
             InfrastructureSurveillanceContentSeeder::class,
+            // Runs last: content seeders reset banner_image, so relink after them.
+            ServiceBannerImageSeeder::class,
         ]);
     }
 }
