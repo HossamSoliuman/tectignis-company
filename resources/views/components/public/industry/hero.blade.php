@@ -19,7 +19,7 @@
     }
 @endphp
 
-<section class="ind-hero">
+<section class="ind-hero ind-hero--industry">
     <span class="ind-hero__blob" aria-hidden="true"></span>
     <div class="container">
         <nav class="ind-breadcrumb" aria-label="Breadcrumb">

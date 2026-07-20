@@ -4439,6 +4439,11 @@ body {
     border-radius: 150px 16px 16px 16px;
     box-shadow: 0 30px 60px rgba(20, 19, 46, 0.16);
 }
+.ind-hero--industry .ind-hero__image {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+}
 .ind-hero__image--placeholder {
     display: flex;
     align-items: center;

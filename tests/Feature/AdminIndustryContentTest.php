@@ -188,6 +188,7 @@ it('renders the public industry page with the rich sections', function () {
         'slug' => 'corporate-offices',
         'name' => 'Corporate Offices',
         'body' => null,
+        'banner_image' => 'industries/manufacturing-banner.png',
         'content' => [
             'hero' => ['heading' => 'Smart Technology. Stronger Corporate Offices.', 'highlight' => 'Corporate Offices.'],
             'challenges' => ['enabled' => true, 'heading' => 'New-Age Challenges.', 'items' => ['Hybrid workforces']],
@@ -201,6 +202,8 @@ it('renders the public industry page with the rich sections', function () {
 
     $this->get(route('industries.show', $industry->slug))
         ->assertOk()
+        ->assertSee('ind-hero--industry', false)
+        ->assertSee('uploads/industries/manufacturing-banner.png', false)
         ->assertSee('Stronger')
         ->assertSee('New-Age Challenges.')
         ->assertSee('Cybersecurity')

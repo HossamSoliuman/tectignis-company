@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             CapabilitySeeder::class,
             SolutionSeeder::class,
             IndustrySeeder::class,
+            IndustryBannerImageSeeder::class,
             StatSeeder::class,
             TechStackSeeder::class,
             // ServiceSeeder attaches TechStack/Industry pivots by name, so it must
