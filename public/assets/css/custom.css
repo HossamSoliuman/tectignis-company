@@ -4607,16 +4607,17 @@ body {
 .ind-stat__icon img { width: 26px; height: 26px; object-fit: contain; }
 .ind-stat__value {
     display: block;
-    font-size: 34px;
+    font-size: clamp(26px, 1.55vw, 30px);
     font-weight: 700;
     color: var(--svc-dark);
-    line-height: 1.1;
+    line-height: 1.2;
 }
 .ind-stat__label {
     display: block;
-    font-size: 13.5px;
+    font-size: clamp(14px, 0.8vw, 15px);
     color: var(--svc-body);
     margin-top: 6px;
+    line-height: 1.5;
 }
 
 /* ---------- Success stories ---------- */
