@@ -3,6 +3,8 @@
 use App\Models\Industry;
 use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\IndustryBannerImageSeeder;
+use Database\Seeders\IndustryContentSeeder;
+use Database\Seeders\IndustrySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -60,4 +62,48 @@ test('links legacy industry slugs to their banner images', function () {
         expect(Industry::query()->where('slug', $slug)->value('banner_image'))
             ->toBe("industries/{$bannerImage}");
     }
+});
+
+test('creates complete rich content for every industry and remains idempotent', function () {
+    $this->seed(IndustrySeeder::class);
+    $this->seed(IndustryContentSeeder::class);
+
+    $requiredSections = [
+        'hero',
+        'trust',
+        'challenges',
+        'solutions',
+        'stats',
+        'case_studies',
+        'solutions_grid',
+        'faq',
+        'cta_band',
+    ];
+
+    Industry::query()->ordered()->get()->each(function (Industry $industry) use ($requiredSections): void {
+        foreach ($requiredSections as $section) {
+            expect($industry->content)->toHaveKey($section);
+        }
+
+        expect($industry->seo_title)->not->toBeEmpty()
+            ->and($industry->seo_description)->not->toBeEmpty()
+            ->and($industry->seo_keywords)->not->toBeEmpty()
+            ->and($industry->content['hero']['features'])->toHaveCount(4)
+            ->and($industry->content['hero']['badges'])->toHaveCount(4)
+            ->and($industry->content['challenges']['items'])->toHaveCount(6)
+            ->and($industry->content['solutions']['cards'])->toHaveCount(6)
+            ->and($industry->content['stats']['items'])->toHaveCount(6)
+            ->and($industry->content['solutions_grid']['items'])->toHaveCount(8)
+            ->and($industry->content['faq']['items'])->toHaveCount(4);
+
+        $this->get(route('industries.show', $industry->slug))
+            ->assertOk()
+            ->assertSeeText($industry->content['hero']['heading'])
+            ->assertSeeText($industry->content['solutions']['cards'][0]['title']);
+    });
+
+    $this->seed(IndustryContentSeeder::class);
+
+    expect(Industry::query()->count())->toBe(13)
+        ->and(Industry::query()->whereNotNull('content')->count())->toBe(13);
 });
