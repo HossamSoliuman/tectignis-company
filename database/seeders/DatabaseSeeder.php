@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             CapabilitySeeder::class,
             SolutionSeeder::class,
+            SolutionContentSeeder::class,
             SolutionBannerImageSeeder::class,
             IndustrySeeder::class,
             IndustryBannerImageSeeder::class,
