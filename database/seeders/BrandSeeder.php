@@ -10,28 +10,35 @@ class BrandSeeder extends Seeder
     public function run(): void
     {
         $brands = [
-            ['slug' => 'canara-bank', 'name' => 'Canara Bank'],
-            ['slug' => 'go-best-dentist', 'name' => 'Go Best Dentist'],
-            ['slug' => 'tajushashariapect-tectignis', 'name' => 'Tajushashariapect'],
-            ['slug' => 'lic', 'name' => 'LIC'],
-            ['slug' => 'jewelmyne', 'name' => 'Jewelmyne'],
-            ['slug' => 'alignocare-tectignis', 'name' => 'Alignocare'],
-            ['slug' => 'perfect-packing-solution', 'name' => 'Perfect Packing Solution'],
-            ['slug' => 'syncat', 'name' => 'Syncat'],
-            ['slug' => 'harmony-school', 'name' => 'Harmony School'],
-            ['slug' => 'gov-of-maharashtra', 'name' => 'Government of Maharashtra'],
-            ['slug' => 'reliance-petroleum', 'name' => 'Reliance Petroleum'],
-            ['slug' => 'hp', 'name' => 'HP'],
-            ['slug' => 'shree-aai-pratishtahan', 'name' => 'Shree Aai Pratishtahan'],
-            ['slug' => 'raul-engineering', 'name' => 'Raul Engineering'],
+            ['name' => 'Alada', 'logo' => 'brands/alada-logo-without-background-png-2-zloeocpd.png'],
+            ['name' => 'JPCL', 'logo' => 'brands/jpcl-logo-1-j8eulht5.jpg'],
+            ['name' => 'Canara Bank', 'logo' => 'brands/canara-bank.webp'],
+            ['name' => 'Go Best Dentist', 'logo' => 'brands/go-best-dentist.webp'],
+            ['name' => 'LIC', 'logo' => 'brands/lic.webp'],
+            ['name' => 'Jewelmyne', 'logo' => 'brands/jewelmyne.webp'],
+            ['name' => 'Alignocare', 'logo' => 'brands/alignocare-tectignis.webp'],
         ];
+
+        $obsoleteSeededLogos = [
+            'brands/tajushashariapect-tectignis.webp',
+            'brands/perfect-packing-solution.webp',
+            'brands/syncat.webp',
+            'brands/harmony-school.webp',
+            'brands/gov-of-maharashtra.webp',
+            'brands/reliance-petroleum.webp',
+            'brands/hp.webp',
+            'brands/shree-aai-pratishtahan.webp',
+            'brands/raul-engineering.webp',
+        ];
+
+        Brand::query()->whereIn('logo', $obsoleteSeededLogos)->delete();
 
         foreach ($brands as $index => $brand) {
             Brand::updateOrCreate(
-                ['logo' => 'brands/'.$brand['slug'].'.webp'],
+                ['logo' => $brand['logo']],
                 [
                     'name' => $brand['name'],
-                    'logo' => 'brands/'.$brand['slug'].'.webp',
+                    'logo' => $brand['logo'],
                     'sort_order' => $index + 1,
                     'is_active' => true,
                 ]
