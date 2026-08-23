@@ -29,7 +29,11 @@ class LoginController extends Controller
             ]);
         }
 
-        if (! Auth::user()->isAdmin()) {
+        $user = Auth::user();
+
+        // Two independent doors share this login: the website CMS (`role`) and
+        // the operations portal (`portal_role`). Holding either one is enough.
+        if (! $user->isAdmin() && ! $user->hasPortalAccess()) {
             Auth::logout();
 
             throw ValidationException::withMessages([
@@ -39,7 +43,9 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.dashboard'));
+        $home = $user->isAdmin() ? route('admin.dashboard') : route('admin.portal.dashboard');
+
+        return redirect()->intended($home);
     }
 
     public function destroy(Request $request): RedirectResponse

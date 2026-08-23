@@ -39,12 +39,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('login', [LoginController::class, 'store'])->name('login.store');
     });
 
-    Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/', DashboardController::class)->name('dashboard');
+    // Shared by both doors: a portal-only employee still needs to sign out and
+    // manage their own account without holding any CMS rights.
+    Route::middleware('auth')->group(function () {
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         Route::get('account', [AccountController::class, 'edit'])->name('account.edit');
         Route::put('account', [AccountController::class, 'update'])->name('account.update');
+    });
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/', DashboardController::class)->name('dashboard');
 
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
@@ -80,4 +85,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('leads', LeadController::class)->only(['index', 'show', 'destroy']);
         Route::resource('redirects', RedirectController::class);
     });
+
+    require __DIR__.'/portal.php';
 });

@@ -23,7 +23,26 @@
             </div>
             <nav class="sidebar-nav flex-1 space-y-4 overflow-y-auto px-3 py-4 text-sm">
                 @php
-                    $navGroups = [
+                    // Two products share this shell. CMS groups are hidden from
+                    // portal-only staff, and Operations is hidden from anyone
+                    // without a portal role — nobody sees a link they'd get a
+                    // 403 from.
+                    $navUser = auth()->user();
+                    $showCms = (bool) $navUser?->isAdmin();
+                    $showPortal = (bool) $navUser?->hasPortalAccess();
+
+                    $portalGroups = [
+                        'Operations' => [
+                            ['admin.portal.dashboard', 'Portal Dashboard', 'chart-bar'],
+                            ['admin.portal.my-work', 'My Work', 'check-circle'],
+                            ['admin.portal.tasks.index', 'Tasks', 'clipboard-list'],
+                            ['admin.portal.daily-work.index', 'Daily Work', 'calendar'],
+                            ['admin.portal.employees.index', 'Employees', 'users'],
+                            ['admin.portal.departments.index', 'Departments', 'office'],
+                        ],
+                    ];
+
+                    $cmsGroups = [
                         '' => [
                             ['admin.dashboard', 'Dashboard', 'grid'],
                         ],
@@ -65,9 +84,14 @@
                         'Administration' => [
                             ['admin.settings.index', 'Settings', 'cog'],
                             ['admin.mail.edit', 'Email & Forms', 'envelope'],
-                            ['admin.account.edit', 'My Account', 'user'],
                         ],
                     ];
+
+                    $navGroups = array_merge(
+                        $showPortal ? $portalGroups : [],
+                        $showCms ? $cmsGroups : [],
+                        ['Account' => [['admin.account.edit', 'My Account', 'user']]],
+                    );
                 @endphp
                 @foreach ($navGroups as $groupLabel => $items)
                     <div class="space-y-0.5">
@@ -104,24 +128,28 @@
                     <h1 class="text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3">
-                    @php $unreadLeads = \App\Models\Lead::where('is_read', false)->count(); @endphp
-                    <a href="{{ route('admin.leads.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
-                        title="Leads inbox" aria-label="Leads inbox{{ $unreadLeads ? ', ' . $unreadLeads . ' unread' : '' }}">
-                        <x-admin.icon name="bell" class="h-5 w-5" />
-                        @if ($unreadLeads > 0)
-                            <span class="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-semibold text-white">
-                                {{ $unreadLeads > 9 ? '9+' : $unreadLeads }}
-                            </span>
-                        @endif
-                    </a>
-                    <div class="h-6 w-px bg-slate-200"></div>
+                    @if (auth()->user()?->isAdmin())
+                        @php $unreadLeads = \App\Models\Lead::where('is_read', false)->count(); @endphp
+                        <a href="{{ route('admin.leads.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                            title="Leads inbox" aria-label="Leads inbox{{ $unreadLeads ? ', ' . $unreadLeads . ' unread' : '' }}">
+                            <x-admin.icon name="bell" class="h-5 w-5" />
+                            @if ($unreadLeads > 0)
+                                <span class="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-semibold text-white">
+                                    {{ $unreadLeads > 9 ? '9+' : $unreadLeads }}
+                                </span>
+                            @endif
+                        </a>
+                        <div class="h-6 w-px bg-slate-200"></div>
+                    @endif
                     <div class="flex items-center gap-2.5">
                         <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-xs font-semibold text-white">
                             {{ Str::upper(Str::substr(auth()->user()?->name ?? 'A', 0, 1)) }}
                         </span>
                         <div class="hidden leading-tight sm:block">
                             <p class="text-sm font-semibold text-slate-800">{{ auth()->user()?->name }}</p>
-                            <p class="text-xs text-slate-400">Super Admin</p>
+                            <p class="text-xs text-slate-400">
+                                {{ auth()->user()?->isAdmin() ? 'Super Admin' : (auth()->user()?->portalRole()?->label() ?? 'User') }}
+                            </p>
                         </div>
                     </div>
                     <form method="post" action="{{ route('admin.logout') }}">

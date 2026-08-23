@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsurePortalAccess;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\HandleRedirects;
 use App\Http\Middleware\SecurityHeaders;
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'admin' => EnsureUserIsAdmin::class,
+            'portal' => EnsurePortalAccess::class,
         ]);
         // HandleRedirects must run before SubstituteBindings so that paths now
         // served only by the catch-all CMS route (e.g. the removed /services

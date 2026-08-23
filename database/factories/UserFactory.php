@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Portal\PortalRole;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -40,6 +41,28 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Operations portal access at the given role, with no website CMS rights.
+     */
+    public function portal(PortalRole $role = PortalRole::Employee): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'role' => 'portal',
+            'portal_role' => $role->value,
+        ]);
+    }
+
+    /**
+     * A user who works in both the CMS and the portal.
+     */
+    public function adminWithPortal(PortalRole $role = PortalRole::Director): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'role' => 'admin',
+            'portal_role' => $role->value,
         ]);
     }
 }

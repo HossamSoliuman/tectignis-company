@@ -1,5 +1,10 @@
 <?php
 
+use App\Enums\Portal\PortalRole;
+use App\Models\Portal\Employee;
+use App\Models\User;
+use Tests\TestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,7 +16,7 @@
 |
 */
 
-pest()->extend(Tests\TestCase::class)
+pest()->extend(TestCase::class)
  // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
 
@@ -44,4 +49,18 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+/**
+ * A signed-in portal user at the given role, together with the employee record
+ * behind it — the starting point for almost every portal feature test.
+ *
+ * @return array{0: User, 1: Employee}
+ */
+function portalUser(PortalRole $role = PortalRole::Director): array
+{
+    $user = User::factory()->portal($role)->create();
+    $employee = Employee::factory()->create(['user_id' => $user->id]);
+
+    return [$user, $employee];
 }

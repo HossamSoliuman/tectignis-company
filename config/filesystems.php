@@ -47,6 +47,22 @@ return [
             'report' => false,
         ],
 
+        /*
+         * Confidential operations-portal documents (tender papers, financials,
+         * OEM letters). Never web-accessible: every read goes through
+         * `admin.portal.files.show`, which checks the owning record's policy
+         * first. Swapping PORTAL_FILESYSTEM_DISK to "s3" moves the whole module
+         * to cloud storage without touching application code.
+         */
+        'portal' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/portal'),
+            'serve' => false,
+            'visibility' => 'private',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

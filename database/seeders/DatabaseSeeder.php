@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\Portal\PortalSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -43,6 +44,8 @@ class DatabaseSeeder extends Seeder
             ProcessStepSeeder::class,
             ResourceContentSeeder::class,
             RedirectSeeder::class,
+            // Operations portal: org structure and the first director account.
+            PortalSeeder::class,
         ]);
     }
 }
