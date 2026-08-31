@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Portal\ActivityLog;
 use App\Models\Portal\DailyWorkUpdate;
 use App\Models\Portal\Employee;
+use App\Models\Portal\OemFollowup;
+use App\Models\Portal\Tender;
+use App\Models\Portal\TenderDocument;
 use App\Services\Portal\OverdueService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -35,7 +39,60 @@ class DashboardController extends Controller
                 ? ActivityLog::with('user:id,name')->latest('created_at')->limit(12)->get()
                 : new Collection,
             'manages' => $manages,
+            ...$this->tenderPicture($scopeId),
         ]);
+    }
+
+    /**
+     * The bid side of the day (§4, Phase 2): what is live, what closes soon,
+     * what paperwork is missing and which OEM nobody has chased.
+     *
+     * @return array<string, mixed>
+     */
+    private function tenderPicture(?int $scopeId): array
+    {
+        // Same visibility rule as the tenders index, so the dashboard count and
+        // the list it links to can never disagree.
+        $visible = fn (Builder $query): Builder => $query->when(
+            $scopeId !== null,
+            fn (Builder $builder) => $builder->where(function (Builder $inner) use ($scopeId): void {
+                $inner->forOwner($scopeId)
+                    ->orWhereHas('tasks', fn (Builder $tasks) => $tasks->where('assigned_to_id', $scopeId));
+            }),
+        );
+
+        $closingSoon = $visible(Tender::query())
+            ->closingSoon()
+            ->with('owner:id,name')
+            ->orderBy('submission_deadline_at')
+            ->limit(8)
+            ->get();
+
+        $visibleTenderIds = $visible(Tender::query())->select('id');
+
+        return [
+            'tenderCounts' => [
+                'active' => $visible(Tender::query())->active()->count(),
+                'closing_soon' => $visible(Tender::query())->closingSoon()->count(),
+                'deadline_passed' => $visible(Tender::query())->deadlinePassed()->count(),
+                'document_gaps' => TenderDocument::query()
+                    ->missingMandatory()
+                    ->whereIn('tender_id', $visibleTenderIds)
+                    ->count(),
+                'oem_due' => OemFollowup::query()
+                    ->due()
+                    ->where(fn (Builder $query) => $query->whereNull('tender_id')->orWhereIn('tender_id', $visibleTenderIds))
+                    ->count(),
+            ],
+            'closingSoonTenders' => $closingSoon,
+            'dueOemFollowups' => OemFollowup::query()
+                ->due()
+                ->where(fn (Builder $query) => $query->whereNull('tender_id')->orWhereIn('tender_id', $visibleTenderIds))
+                ->with('tender:id,code,title')
+                ->orderByRaw('next_followup_at is null, next_followup_at')
+                ->limit(8)
+                ->get(),
+        ];
     }
 
     /**

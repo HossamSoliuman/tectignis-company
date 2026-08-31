@@ -31,9 +31,11 @@ class StoreTenderRequest extends FormRequest
             'submission_deadline_at' => ['nullable', 'date', 'after_or_equal:submission_start_at'],
             'estimated_value' => ['nullable', 'numeric', 'min:0'],
             'emd_required' => ['nullable', 'boolean'],
-            'emd_amount' => ['nullable', 'numeric', 'min:0', 'required_if:emd_required,1'],
+            // prepareForValidation() casts the flags to real booleans, so the
+            // condition must compare against `true`, not the posted "1".
+            'emd_amount' => ['nullable', 'numeric', 'min:0', 'required_if:emd_required,true'],
             'fee_required' => ['nullable', 'boolean'],
-            'fee_amount' => ['nullable', 'numeric', 'min:0', 'required_if:fee_required,1'],
+            'fee_amount' => ['nullable', 'numeric', 'min:0', 'required_if:fee_required,true'],
             'assigned_employee_id' => ['nullable', 'integer', 'exists:portal_employees,id'],
             'technical_owner_id' => ['nullable', 'integer', 'exists:portal_employees,id'],
             'sales_owner_id' => ['nullable', 'integer', 'exists:portal_employees,id'],

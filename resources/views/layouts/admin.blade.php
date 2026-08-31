@@ -36,6 +36,8 @@
                             ['admin.portal.dashboard', 'Portal Dashboard', 'chart-bar'],
                             ['admin.portal.my-work', 'My Work', 'check-circle'],
                             ['admin.portal.tasks.index', 'Tasks', 'clipboard-list'],
+                            ['admin.portal.tenders.index', 'Tenders', 'briefcase'],
+                            ['admin.portal.oem-followups.index', 'OEM Follow-ups', 'share'],
                             ['admin.portal.daily-work.index', 'Daily Work', 'calendar'],
                             ['admin.portal.employees.index', 'Employees', 'users'],
                             ['admin.portal.departments.index', 'Departments', 'office'],

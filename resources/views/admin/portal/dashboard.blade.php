@@ -37,20 +37,77 @@
             :href="route('admin.portal.tasks.index', ['status' => \App\Enums\Portal\TaskStatus::Completed->value])" />
     </div>
 
-    {{-- Modules arriving in later phases. Shown as placeholders so the shape of
-         the finished dashboard is visible, never as fake numbers. --}}
+    {{-- Bid side of the day. Sales pipeline is still a placeholder — a shape to
+         fill in Phase 3, never a fake number. --}}
+    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <x-portal.kpi-card label="Active Tenders" :value="$tenderCounts['active']" icon="briefcase" tone="violet"
+            :hint="$tenderCounts['deadline_passed'] > 0 ? $tenderCounts['deadline_passed'].' past deadline' : null"
+            :href="route('admin.portal.tenders.index', ['active' => 1])" />
+        <x-portal.kpi-card label="Closing Soon" :value="$tenderCounts['closing_soon']" icon="clock"
+            :tone="$tenderCounts['closing_soon'] > 0 ? 'amber' : 'slate'"
+            :href="route('admin.portal.tenders.index', ['closing_soon' => 1])" />
+        <x-portal.kpi-card label="Document Gaps" :value="$tenderCounts['document_gaps']" icon="document-text"
+            :tone="$tenderCounts['document_gaps'] > 0 ? 'rose' : 'slate'" hint="mandatory, still missing"
+            :href="route('admin.portal.tenders.index', ['active' => 1])" />
+        <x-portal.kpi-card label="OEM Chases Due" :value="$tenderCounts['oem_due']" icon="share"
+            :tone="$tenderCounts['oem_due'] > 0 ? 'amber' : 'slate'"
+            :href="route('admin.portal.oem-followups.index', ['due' => 1])" />
+    </div>
+
     <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        @foreach ([['Active Tenders', 'briefcase', 'Phase 2'], ['OEM Follow-ups Due', 'share', 'Phase 2'], ['Sales Pipeline', 'trending-up', 'Phase 3']] as [$label, $icon, $phase])
-            <div class="flex items-center gap-4 rounded-xl border border-dashed border-slate-200 bg-slate-50/60 p-4">
-                <span class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-slate-300 ring-1 ring-slate-200">
-                    <x-admin.icon :name="$icon" class="h-5 w-5" />
-                </span>
-                <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">{{ $label }}</p>
-                    <p class="text-sm font-medium text-slate-400">Arrives in {{ $phase }}</p>
-                </div>
+        <div class="flex items-center gap-4 rounded-xl border border-dashed border-slate-200 bg-slate-50/60 p-4">
+            <span class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-slate-300 ring-1 ring-slate-200">
+                <x-admin.icon name="trending-up" class="h-5 w-5" />
+            </span>
+            <div>
+                <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Sales Pipeline</p>
+                <p class="text-sm font-medium text-slate-400">Arrives in Phase 3</p>
             </div>
-        @endforeach
+        </div>
+    </div>
+
+    <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <x-portal.panel title="Tenders Closing Soon" icon="briefcase" :count="$closingSoonTenders->count()"
+            :action="route('admin.portal.tenders.index', ['closing_soon' => 1])">
+            <ul class="divide-y divide-slate-100">
+                @forelse ($closingSoonTenders as $tender)
+                    <li class="flex items-center justify-between gap-3 px-4 py-3">
+                        <div class="min-w-0">
+                            <a href="{{ route('admin.portal.tenders.show', $tender) }}" class="block truncate text-sm font-medium text-slate-800 hover:text-fuchsia-700">
+                                {{ $tender->title }}
+                            </a>
+                            <p class="truncate text-xs text-slate-400">
+                                {{ $tender->code }} · {{ $tender->owner?->name ?? 'Unassigned' }} · {{ $tender->completion_percent }}% ready
+                            </p>
+                        </div>
+                        <x-portal.due-date :date="$tender->submission_deadline_at" class="shrink-0 text-right" />
+                    </li>
+                @empty
+                    <li><x-portal.empty-state message="No tender deadlines in the next few days." icon="briefcase" /></li>
+                @endforelse
+            </ul>
+        </x-portal.panel>
+
+        <x-portal.panel title="OEM Follow-ups Due" icon="share" :count="$dueOemFollowups->count()"
+            :action="route('admin.portal.oem-followups.index', ['due' => 1])">
+            <ul class="divide-y divide-slate-100">
+                @forelse ($dueOemFollowups as $followup)
+                    <li class="flex items-center justify-between gap-3 px-4 py-3">
+                        <div class="min-w-0">
+                            <a href="{{ route('admin.portal.oem-followups.show', $followup) }}" class="block truncate text-sm font-medium text-slate-800 hover:text-fuchsia-700">
+                                {{ $followup->oem_name }}
+                            </a>
+                            <p class="truncate text-xs text-slate-400">
+                                {{ $followup->requirement_type->label() }} · {{ $followup->tender?->code ?? 'Standalone' }}
+                            </p>
+                        </div>
+                        <x-portal.due-date :date="$followup->next_followup_at ?? $followup->required_by" class="shrink-0 text-right" />
+                    </li>
+                @empty
+                    <li><x-portal.empty-state message="Every OEM has been chased." icon="share" /></li>
+                @endforelse
+            </ul>
+        </x-portal.panel>
     </div>
 
     <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">

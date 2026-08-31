@@ -22,17 +22,15 @@ class EligibilityEvaluator
      */
     public function evaluate(Tender $tender): EligibilityStatus
     {
-        $statuses = $tender->checklistItems()->pluck('status');
-
-        if ($statuses->isEmpty()) {
+        if (! $tender->checklistItems()->exists()) {
             return EligibilityStatus::UnderReview;
         }
 
-        if ($statuses->contains(ChecklistItemStatus::NotMet->value)) {
+        if ($tender->checklistItems()->where('status', ChecklistItemStatus::NotMet)->exists()) {
             return EligibilityStatus::NotEligible;
         }
 
-        if ($statuses->contains(ChecklistItemStatus::Pending->value)) {
+        if ($tender->checklistItems()->where('status', ChecklistItemStatus::Pending)->exists()) {
             return EligibilityStatus::UnderReview;
         }
 
