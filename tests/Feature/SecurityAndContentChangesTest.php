@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Capability;
+use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -44,16 +45,18 @@ it('renders editable core values copy from settings', function () {
         ->assertSee('My Bespoke Values Subtitle');
 });
 
-it('keeps a capability live on the listing while hiding it from the header menu', function () {
-    Capability::factory()->create(['is_active' => true, 'show_in_menu' => true, 'title' => 'Visible Capability XYZ', 'slug' => 'visible-cap-xyz']);
-    Capability::factory()->create(['is_active' => true, 'show_in_menu' => false, 'title' => 'Hidden Capability QWE', 'slug' => 'hidden-cap-qwe']);
+it('keeps a capability live on the listing while hiding its services from the header menu', function () {
+    $visible = Capability::factory()->create(['is_active' => true, 'show_in_menu' => true, 'category' => 'software_development', 'title' => 'Visible Capability XYZ', 'slug' => 'visible-cap-xyz']);
+    $hidden = Capability::factory()->create(['is_active' => true, 'show_in_menu' => false, 'category' => 'software_development', 'title' => 'Hidden Capability QWE', 'slug' => 'hidden-cap-qwe']);
+    Service::factory()->create(['capability_id' => $visible->id, 'title' => 'Visible Menu Service XYZ']);
+    Service::factory()->create(['capability_id' => $hidden->id, 'title' => 'Hidden Menu Service QWE']);
 
-    // The contact page renders the header mega-menu but does not list capabilities itself.
+    // The contact page renders the header mega-menu but does not list services itself.
     $this->get(route('contact'))
-        ->assertSee('Visible Capability XYZ')
-        ->assertDontSee('Hidden Capability QWE');
+        ->assertSee('Visible Menu Service XYZ')
+        ->assertDontSee('Hidden Menu Service QWE');
 
-    // Both remain publicly reachable on the capabilities listing.
+    // Both capabilities remain publicly reachable on the capabilities listing.
     $this->get(route('capabilities.index'))
         ->assertSee('Visible Capability XYZ')
         ->assertSee('Hidden Capability QWE');

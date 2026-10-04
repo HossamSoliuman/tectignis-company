@@ -7,7 +7,6 @@
     @if ($insight->seo_keywords)
         <meta name="keywords" content="{{ $insight->seo_keywords }}">
     @endif
-    <link rel="canonical" href="{{ route('insights.show', $insight->slug) }}">
     <meta property="og:title" content="{{ $insight->seo_title ?: $insight->title }}">
     <meta property="og:description" content="{{ $insight->seo_description ?: $insight->excerpt }}">
     @if ($insight->image)

@@ -4,12 +4,11 @@
 
 @section('seo')
     <meta name="description" content="Find answers to common questions about our services, solutions, and how we can help your business grow — from Tectignis IT Solutions.">
-    <link rel="canonical" href="{{ route('faqs') }}">
 @endsection
 
 @php
-    $sitePhone = \App\Models\Setting::get('site_phone', '+91 9987705688');
-    $siteEmail = \App\Models\Setting::get('site_email', 'info@tectignis.in');
+    $sitePhone = $company->phone();
+    $siteEmail = $company->email();
     $totalFaqs = $faqCategories->sum(fn ($category) => $category->faqs->count());
 @endphp
 

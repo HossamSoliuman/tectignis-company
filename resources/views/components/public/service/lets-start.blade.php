@@ -5,9 +5,10 @@
     $heading = $section['heading'] ?? "Let's Start Something Great";
     $subtitle = $section['subtitle'] ?? 'Get In Touch';
     $text = $section['text'] ?? 'Tell us about your project and our team will get back to you within one business day with the next steps.';
-    $phone = \App\Models\Setting::get('site_phone') ?: '+91 9987705688';
-    $email = \App\Models\Setting::get('site_email') ?: 'info@tectignis.in';
-    $address = \App\Models\Setting::get('site_address') ?: 'Aashiyana CHS, Sector 11, Plot 29, Kamothe, Navi Mumbai - 410206';
+    $company ??= app(\App\Support\CompanyProfile::class);
+    $phone = $company->phone();
+    $email = $company->email();
+    $address = $company->address();
 @endphp
 
 <section class="svc-section svc-start">

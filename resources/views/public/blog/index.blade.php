@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="Stay updated with the latest IT industry trends, tips and insights from Tectignis IT Solutions on software, AI, cloud and security.">
-    <link rel="canonical" href="{{ route('blog.index') }}">
 @endsection
 
 @section('content')

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreStatRequest extends FormRequest
 {
@@ -15,6 +16,7 @@ class StoreStatRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'key' => ['nullable', 'string', 'max:50', 'alpha_dash', Rule::unique('stats', 'key')],
             'value' => ['required', 'string', 'max:50'],
             'label' => ['required', 'string', 'max:255'],
             'sort_order' => ['nullable', 'integer', 'min:0'],

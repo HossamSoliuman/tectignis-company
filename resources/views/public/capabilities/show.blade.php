@@ -7,7 +7,6 @@
     @if ($capability->seo_keywords)
         <meta name="keywords" content="{{ $capability->seo_keywords }}">
     @endif
-    <link rel="canonical" href="{{ route('capabilities.show', $capability->slug) }}">
     <meta property="og:title" content="{{ $capability->seo_title ?: $capability->title.' | Tectignis IT Solutions' }}">
     <meta property="og:description" content="{{ $capability->seo_description ?: $capability->short_description }}">
     <meta property="og:url" content="{{ route('capabilities.show', $capability->slug) }}">

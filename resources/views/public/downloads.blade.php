@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="Download free resources from Tectignis — company brochures, whitepapers, case studies, datasheets, presentations and guides to support your digital transformation journey.">
-    <link rel="canonical" href="{{ route('downloads') }}">
 @endsection
 
 @php

@@ -7,7 +7,6 @@
     @if ($post->seo_keywords)
         <meta name="keywords" content="{{ $post->seo_keywords }}">
     @endif
-    <link rel="canonical" href="{{ route('blog.show', $post->slug) }}">
     <meta property="og:title" content="{{ $post->seo_title ?: $post->title }}">
     <meta property="og:description" content="{{ $post->seo_description ?: $post->excerpt }}">
     @if ($post->image)

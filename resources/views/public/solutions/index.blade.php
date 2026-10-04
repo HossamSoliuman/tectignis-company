@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="Business-focused solutions from Tectignis IT Solutions — ERP, CRM, HRMS, AI, Cloud, Cybersecurity, Automation and Smart Security tailored to your industry.">
-    <link rel="canonical" href="{{ route('solutions.index') }}">
 @endsection
 
 @section('breadcrumb')

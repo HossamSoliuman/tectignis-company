@@ -7,7 +7,6 @@
     @if ($industry->seo_keywords)
         <meta name="keywords" content="{{ $industry->seo_keywords }}">
     @endif
-    <link rel="canonical" href="{{ route('industries.show', $industry->slug) }}">
     <meta property="og:title" content="{{ $industry->seo_title ?: $industry->name.' Industry Solutions | Tectignis IT Solutions' }}">
     <meta property="og:description" content="{{ $industry->seo_description ?: $industry->short_description }}">
     <meta property="og:url" content="{{ route('industries.show', $industry->slug) }}">

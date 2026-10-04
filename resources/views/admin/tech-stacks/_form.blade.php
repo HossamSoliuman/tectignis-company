@@ -15,6 +15,16 @@
     </div>
 
     <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Category *</label>
+        <select name="category" required
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+            @foreach (\App\Enums\TechStackCategory::options() as $value => $label)
+                <option value="{{ $value }}" @selected(old('category', $s?->category?->value ?? 'infrastructure') === $value)>{{ $label }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div>
         <x-admin.image-field name="logo" label="Logo" :current="$s?->logo" />
     </div>
 

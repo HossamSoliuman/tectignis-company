@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TechStackCategory;
 use App\Models\Concerns\HasOrderableScopes;
 use Database\Factories\TechStackFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ class TechStack extends Model
     use HasFactory, HasOrderableScopes;
 
     protected $fillable = [
-        'name', 'logo', 'sort_order', 'is_active', 'show_on_home',
+        'name', 'category', 'logo', 'sort_order', 'is_active', 'show_on_home',
     ];
 
     protected function casts(): array
@@ -22,6 +23,7 @@ class TechStack extends Model
         return [
             'is_active' => 'boolean',
             'show_on_home' => 'boolean',
+            'category' => TechStackCategory::class,
             'sort_order' => 'integer',
         ];
     }

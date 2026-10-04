@@ -5,7 +5,6 @@
 @section('seo')
     <meta name="keywords" content="Expertise in IT Services, Custom Software Development, Network Security, Digital Marketing Services, Web Development Navi Mumbai, IT Solutions PAN India, IT Expertise in Navi Mumbai, Software Development Mumbai, Digital Marketing India, IT Solutions PAN India, Networking Services India, Web App Development India">
     <meta name="description" content="Explore the expertise of Tectignis IT Solutions Pvt Ltd. We provide world-class IT solutions with specialized skills in software development, networking, and security, serving Navi Mumbai & PAN India.">
-    <link rel="canonical" href="{{ route('capabilities.index') }}">
 @endsection
 
 @section('breadcrumb')

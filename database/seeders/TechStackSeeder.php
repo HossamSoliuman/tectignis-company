@@ -35,10 +35,22 @@ class TechStackSeeder extends Seeder
             'Panduit', 'CommScope', 'Belden', 'Legrand', 'Schneider Electric',
         ];
 
+        $categories = [
+            'frontend' => ['React', 'Vue.js', 'Angular', 'Next.js'],
+            'backend' => ['Node.js', 'PHP', 'Laravel', 'Python', 'Django', 'Java', '.NET'],
+            'mobile' => ['Flutter', 'React Native', 'Kotlin', 'Swift'],
+            'ecommerce' => ['WordPress', 'Shopify', 'Magento'],
+            'database' => ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis'],
+            'cloud_devops' => ['AWS', 'Azure', 'Google Cloud', 'Docker', 'Kubernetes'],
+            'ai_ml' => ['TensorFlow', 'PyTorch', 'OpenAI', 'LangChain'],
+        ];
+
         foreach ($technologies as $index => $name) {
+            $category = collect($categories)->search(fn (array $names): bool => in_array($name, $names, true)) ?: 'infrastructure';
+
             TechStack::updateOrCreate(
                 ['name' => $name],
-                ['sort_order' => $index + 1, 'is_active' => true],
+                ['category' => $category, 'sort_order' => $index + 1, 'is_active' => true],
             );
         }
     }

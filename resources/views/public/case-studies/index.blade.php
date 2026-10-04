@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="Discover our successful case studies. Tectignis delivers measurable results with software, AI, cloud and security solutions for businesses across India.">
-    <link rel="canonical" href="{{ route('case-studies.index') }}">
 @endsection
 
 @section('breadcrumb')

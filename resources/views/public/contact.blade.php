@@ -4,19 +4,17 @@
 
 @section('seo')
     <meta name="description" content="Have a question or need assistance? Contact Tectignis IT Solutions Pvt Ltd, a leading IT solutions provider in Navi Mumbai offering services PAN India.">
-    <link rel="canonical" href="{{ route('contact') }}">
 @endsection
 
 @section('content')
 
     @php
-        $contactSettings = \App\Models\Setting::values();
-        $contactPhone = $contactSettings['site_phone'] ?? '+91 9987705688';
+        $contactPhone = $company->phone();
         $contactPhoneHref = preg_replace('/[^+\d]/', '', $contactPhone);
-        $contactEmail = $contactSettings['site_email'] ?? 'info@tectignis.in';
-        $contactAddress = $contactSettings['site_address'] ?? 'Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai - 410206';
-        $contactHours = $contactSettings['business_hours'] ?? 'Mon – Sat: 9:30 AM – 6:30 PM';
-        $contactWhatsapp = preg_replace('/\D/', '', $contactSettings['social_whatsapp'] ?? '');
+        $contactEmail = $company->email();
+        $contactAddress = $company->address();
+        $contactHours = $company->businessHours() ?? 'Mon – Sat: 9:30 AM – 6:30 PM';
+        $contactWhatsappUrl = $company->whatsappUrl() ?? 'https://wa.me/'.preg_replace('/\D/', '', $contactPhone);
     @endphp
 
     <!--============ Contact Hero Start ============-->
@@ -93,7 +91,7 @@
                     ['icon' => '<path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>', 'title' => 'Trusted Experts', 'text' => 'A decade of delivering secure, enterprise-grade IT solutions.'],
                     ['icon' => '<path d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>', 'title' => 'Tailored Solutions', 'text' => 'Custom plans built around your exact business requirements.'],
                     ['icon' => '<path d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/>', 'title' => 'Clear Communication', 'text' => 'No jargon — straightforward guidance at every stage of your project.'],
-                    ['icon' => '<path d="M2.25 18 9 11.25l4.306 4.307a11.95 11.95 0 0 1 5.814-5.519l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/>', 'title' => 'Proven Results', 'text' => '350+ projects delivered with measurable business impact.'],
+                    ['icon' => '<path d="M2.25 18 9 11.25l4.306 4.307a11.95 11.95 0 0 1 5.814-5.519l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/>', 'title' => 'Proven Results', 'text' => $company->statValue('projects', '150+').' projects delivered for businesses across industries.'],
                 ];
             @endphp
             <div class="contact-benefits__grid">
@@ -211,7 +209,7 @@
                             <p class="contact-info-card__text">{{ $contactHours }}</p>
                         </div>
                     </div>
-                    <a href="https://wa.me/{{ $contactWhatsapp ?: '919987705688' }}" target="_blank" rel="noopener" class="contact-info-card contact-info-card--whatsapp">
+                    <a href="{{ $contactWhatsappUrl }}" target="_blank" rel="noopener" class="contact-info-card contact-info-card--whatsapp">
                         <span class="contact-info-card__icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.512 5.26l-.999 3.648 3.737-.981a9.875 9.875 0 0 0 .239.274zm5.392-.745c-2.831 0-5.13-2.299-5.13-5.13 0-.265.021-.526.062-.781h2.005c.038.255.06.516.06.781a3.005 3.005 0 0 0 3.003 3.003c.265 0 .526-.022.781-.06v2.005a5.16 5.16 0 0 1-.781.06z"/></svg>
                         </span>
@@ -236,12 +234,9 @@
                     <h3 class="contact-statbar__title">A track record you can trust</h3>
                 </div>
                 @php
-                    $contactStats = [
-                        ['num' => '10+', 'label' => 'Years of Expertise'],
-                        ['num' => '350+', 'label' => 'Projects Delivered'],
-                        ['num' => '98%', 'label' => 'Client Satisfaction'],
-                        ['num' => '24/7', 'label' => 'Support Availability'],
-                    ];
+                    $contactStats = $company->stats()
+                        ->take(4)
+                        ->map(fn ($stat): array => ['num' => $stat->value, 'label' => $stat->label]);
                 @endphp
                 @foreach ($contactStats as $stat)
                     <div class="contact-stat">

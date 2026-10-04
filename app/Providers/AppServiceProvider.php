@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
+use App\Enums\Pillar;
 use App\Models\Capability;
+use App\Models\Industry;
+use App\Models\Service;
 use App\Models\Setting;
+use App\Support\CompanyProfile;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(CompanyProfile::class);
     }
 
     /**
@@ -24,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->shareCompanyProfile();
         $this->composeHeaderNavigation();
+        $this->composeFooter();
         $this->applySmtpSettings();
     }
 
@@ -63,23 +70,66 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Feed the public header's "Capabilities" mega-menu with the live, admin-managed
-     * capabilities (rendered as headers, in their stored order) each followed by the
-     * services attached to that capability, also in their stored order.
+     * Expose the single company-facts source to every public template.
+     */
+    private function shareCompanyProfile(): void
+    {
+        View::composer(['layouts.public', 'public.*', 'components.public.*', 'components.seo.*'], function (\Illuminate\View\View $view): void {
+            $view->with('company', $this->app->make(CompanyProfile::class));
+        });
+    }
+
+    /**
+     * Feed the public header with the four business pillars (spec §3), each holding
+     * the live, admin-managed services of the capabilities mapped onto it, plus the
+     * active industries.
      *
-     * Only capabilities flagged `show_in_menu` appear here, so the admin can keep a
-     * capability live on the site while removing it from the header mega-menu.
+     * Only capabilities flagged `show_in_menu` contribute services, so the admin can
+     * keep a capability live on the site while removing it from the mega-menu.
      */
     private function composeHeaderNavigation(): void
     {
         View::composer('components.public.header', function (\Illuminate\View\View $view): void {
-            $navCapabilities = Cache::rememberForever('site.nav', fn () => Capability::active()
-                ->where('show_in_menu', true)
-                ->ordered()
-                ->with(['services' => fn ($query) => $query->active()])
-                ->get(['id', 'slug', 'title']));
+            $nav = Cache::rememberForever('site.nav', fn (): array => [
+                'pillars' => $this->groupCapabilitiesByPillar(),
+                'industries' => Industry::active()->ordered()->get(['id', 'slug', 'name']),
+            ]);
 
-            $view->with('navCapabilities', $navCapabilities);
+            $view->with('navPillars', $nav['pillars']);
+            $view->with('navIndustries', $nav['industries']);
         });
+    }
+
+    /**
+     * Feed the footer's Industries column.
+     */
+    private function composeFooter(): void
+    {
+        View::composer('components.public.footer', function (\Illuminate\View\View $view): void {
+            $view->with('footerIndustries', Cache::rememberForever(
+                'site.footer',
+                fn () => Industry::active()->ordered()->limit(6)->get(['id', 'slug', 'name']),
+            ));
+        });
+    }
+
+    /**
+     * @return Collection<int, array{pillar: Pillar, services: Collection<int, Service>}>
+     */
+    private function groupCapabilitiesByPillar(): Collection
+    {
+        $capabilities = Capability::active()
+            ->where('show_in_menu', true)
+            ->ordered()
+            ->with(['services' => fn ($query) => $query->active()])
+            ->get(['id', 'slug', 'title', 'category']);
+
+        return collect(Pillar::cases())->map(fn (Pillar $pillar): array => [
+            'pillar' => $pillar,
+            'services' => $capabilities
+                ->filter(fn (Capability $capability): bool => Pillar::forCapabilityCategory($capability->category) === $pillar)
+                ->flatMap(fn (Capability $capability) => $capability->services)
+                ->values(),
+        ]);
     }
 }

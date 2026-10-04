@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="{{ $caseStudy->short_description ?: 'Case study: '.$caseStudy->title }}">
-    <link rel="canonical" href="{{ route('case-studies.show', $caseStudy->slug) }}">
     <meta property="og:title" content="{{ $caseStudy->title }}">
     <meta property="og:description" content="{{ $caseStudy->short_description }}">
     @if ($caseStudy->image)

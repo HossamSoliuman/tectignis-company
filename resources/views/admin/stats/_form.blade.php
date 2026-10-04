@@ -20,6 +20,14 @@
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
     </div>
 
+    <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Key</label>
+        <input type="text" name="key" value="{{ old('key', $s?->key) }}" placeholder="projects"
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
+        <p class="mt-1 text-xs text-slate-500">Used by the site to show this figure wherever it appears (projects, clients, industries, countries, years, support). Leave blank for extra stats.</p>
+        @error('key') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
+    </div>
+
     <div class="flex items-center gap-2">
         <input type="hidden" name="is_active" value="0">
         <input type="checkbox" id="is_active" name="is_active" value="1"

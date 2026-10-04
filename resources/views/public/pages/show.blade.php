@@ -9,7 +9,6 @@
     @if ($page->seo_keywords)
         <meta name="keywords" content="{{ $page->seo_keywords }}">
     @endif
-    <link rel="canonical" href="{{ route('pages.show', $page->slug) }}">
     <meta property="og:title" content="{{ $page->seo_title ?: $page->title.' | Tectignis IT Solutions' }}">
     @if ($page->seo_description)
         <meta property="og:description" content="{{ $page->seo_description }}">

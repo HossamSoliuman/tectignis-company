@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="Tectignis IT Solutions delivers technology expertise across Manufacturing, Healthcare, Education, Retail, Real Estate, Logistics, Hospitality and Corporate sectors.">
-    <link rel="canonical" href="{{ route('industries.index') }}">
 @endsection
 
 @section('breadcrumb')

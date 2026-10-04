@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="Explore expert perspectives, industry trends, and actionable insights from the Tectignis team — covering Cloud, AI, Security, Infrastructure and Data.">
-    <link rel="canonical" href="{{ route('technology-insights') }}">
 @endsection
 
 @section('content')

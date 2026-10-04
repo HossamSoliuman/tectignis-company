@@ -6,33 +6,50 @@
 ])
 
 @php
-    $siteName = 'Tectignis IT Solutions';
+    $company ??= app(\App\Support\CompanyProfile::class);
+    $siteName = $company->name();
     $siteUrl = url('/');
-    $logo = asset('assets/images/logo/logo-dark.webp');
-    $phone = \App\Models\Setting::get('phone', '+91 9987705688');
-    $email = \App\Models\Setting::get('email', 'info@tectignis.in');
+    $logo = $company->logoUrl();
+    preg_match('/\b(\d{6})\b/', $company->address(), $postalMatch);
 
     $org = [
         '@context' => 'https://schema.org',
-        '@type' => ['Organization', 'LocalBusiness'],
+        '@type' => 'Organization',
+        '@id' => $siteUrl.'#organization',
         'name' => $siteName,
+        'legalName' => $company->legalName(),
         'url' => $siteUrl,
         'logo' => $logo,
-        'telephone' => $phone,
-        'email' => $email,
-        'address' => [
+        'description' => $company->tagline(),
+        'telephone' => $company->phone(),
+        'email' => $company->email(),
+        'address' => array_filter([
             '@type' => 'PostalAddress',
-            'streetAddress' => 'Aashiyana CHS Shop No 05, Sector 11, Plot No 29',
-            'addressLocality' => 'Kamothe, Navi Mumbai',
+            'streetAddress' => $company->address(),
+            'addressLocality' => 'Navi Mumbai',
             'addressRegion' => 'Maharashtra',
-            'postalCode' => '410209',
+            'postalCode' => $postalMatch[1] ?? null,
             'addressCountry' => 'IN',
+        ]),
+        'contactPoint' => [
+            '@type' => 'ContactPoint',
+            'contactType' => 'sales',
+            'telephone' => $company->phone(),
+            'email' => $company->email(),
+            'areaServed' => ['IN', 'US', 'AE', 'GB', 'CA', 'EU'],
+            'availableLanguage' => ['English', 'Hindi'],
         ],
-        'sameAs' => [
-            'https://www.facebook.com/tectignis/',
-            'https://www.linkedin.com/company/tectignis',
-            'https://twitter.com/tectignis',
-        ],
+        'sameAs' => $company->profileUrls(),
+    ];
+
+    $website = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        '@id' => $siteUrl.'#website',
+        'name' => $siteName,
+        'url' => $siteUrl,
+        'publisher' => ['@id' => $siteUrl.'#organization'],
+        'inLanguage' => 'en',
     ];
 
     $serviceSchema = null;
@@ -83,7 +100,8 @@
     }
 @endphp
 
-<script type="application/ld+json">{!! json_encode($org, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode($org, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_HEX_TAG) !!}</script>
+<script type="application/ld+json">{!! json_encode($website, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_HEX_TAG) !!}</script>
 
 @if ($serviceSchema)
 <script type="application/ld+json">{!! json_encode($serviceSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>

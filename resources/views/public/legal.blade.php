@@ -4,7 +4,6 @@
 
 @section('seo')
     <meta name="description" content="{{ $title }} of Tectignis IT Solutions Pvt Ltd.">
-    <link rel="canonical" href="{{ route('legal.show', $slug) }}">
 @endsection
 
 @push('styles')

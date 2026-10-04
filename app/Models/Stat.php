@@ -13,7 +13,7 @@ class Stat extends Model
     use HasFactory, HasOrderableScopes;
 
     protected $fillable = [
-        'value', 'label', 'sort_order', 'is_active',
+        'key', 'value', 'label', 'sort_order', 'is_active',
     ];
 
     protected function casts(): array

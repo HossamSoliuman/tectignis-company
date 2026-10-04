@@ -25,6 +25,8 @@ trait FlushesSiteCache
         'site.footer_services',
         'site.home',
         'site.redirects',
+        'site.stats',
+        'site.footer',
     ];
 
     protected static function bootFlushesSiteCache(): void

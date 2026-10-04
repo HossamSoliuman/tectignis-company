@@ -8,7 +8,7 @@
     <meta name="revisit-after" content="7 days">
     <meta property="og:locale" content="en_US" />
     <meta property="twitter:account_id" content="29759031" />
-    <meta name="email" content="info@tectignis.in">
+    <meta name="email" content="{{ $company->email() }}">
     <meta name="robots" content="index, follow">
     <meta name="copyright" content="Copyright Tectignis IT solutions - all rights reserved" />
     <meta name="document-type" content="Public">
@@ -22,6 +22,14 @@
     {{-- Page title + SEO meta (per-page) --}}
     <title>@yield('title', 'Tectignis IT Solutions | Software, AI, Cloud & Security')</title>
     @yield('seo')
+
+    {{-- Self-referencing canonical (spec §7, §20). Pages may override via @section('canonical'). --}}
+    @php
+        $currentPage = (int) request()->query('page', 1);
+        $canonicalUrl = trim($__env->yieldContent('canonical'))
+            ?: url()->current().($currentPage > 1 ? '?page='.$currentPage : '');
+    @endphp
+    <link rel="canonical" href="{{ $canonicalUrl }}">
     @stack('head')
 
     @php $siteSettings = \App\Models\Setting::values(); @endphp
@@ -101,9 +109,9 @@
     @endif
 
     <div id="main-wrapper">
-        <div class=" site-wrapper-reveal">
+        <main id="main-content" class="site-wrapper-reveal" tabindex="-1">
             @yield('content')
-        </div>
+        </main>
 
         {{-- Footer --}}
         <x-public.footer />

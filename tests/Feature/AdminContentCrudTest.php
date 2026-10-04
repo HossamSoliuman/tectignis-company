@@ -92,11 +92,12 @@ it('admin can create a technology', function () {
     $this->actingAs(contentAdmin())
         ->post(route('admin.tech-stacks.store'), [
             'name' => 'React',
+            'category' => 'frontend',
             'sort_order' => '1',
             'is_active' => '1',
         ])->assertRedirect(route('admin.tech-stacks.index'));
 
-    $this->assertDatabaseHas('tech_stacks', ['name' => 'React']);
+    $this->assertDatabaseHas('tech_stacks', ['name' => 'React', 'category' => 'frontend']);
 });
 
 it('admin can create a stat', function () {

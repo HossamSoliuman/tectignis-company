@@ -5,7 +5,6 @@
 @section('seo')
     <meta name="keywords" content="Careers, IT Jobs Navi Mumbai, Software Developer Jobs, Networking Jobs India, Digital Marketing Careers, IT Careers PAN India">
     <meta name="description" content="Explore exciting career opportunities at Tectignis IT Solutions Pvt Ltd. Join our innovative team based in Navi Mumbai, serving clients PAN India with top-tier IT solutions.">
-    <link rel="canonical" href="{{ route('careers') }}">
 @endsection
 
 @php

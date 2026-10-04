@@ -86,6 +86,27 @@ class Setting extends Model
         return asset($dir.'/'.$value);
     }
 
+    /**
+     * Intrinsic [width, height] of an image setting, used to reserve layout
+     * space (spec §13). Resolves the file the same way as imageUrl().
+     *
+     * @return array{0: int, 1: int}|null
+     */
+    public static function imageSize(?string $value, ?string $key = null): ?array
+    {
+        if (! $value) {
+            return null;
+        }
+
+        $path = is_file(public_path('uploads/'.$value))
+            ? public_path('uploads/'.$value)
+            : public_path((self::IMAGE_DIRS[$key] ?? 'assets/images').'/'.$value);
+
+        $size = is_file($path) ? @getimagesize($path) : false;
+
+        return $size ? [$size[0], $size[1]] : null;
+    }
+
     public static function set(string $key, mixed $value, string $group = 'general'): void
     {
         static::updateOrCreate(['key' => $key], ['value' => $value, 'group' => $group]);

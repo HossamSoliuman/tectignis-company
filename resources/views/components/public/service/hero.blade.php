@@ -9,15 +9,17 @@
     $ctaSecondary = $hero['cta_secondary_label'] ?? 'View Our Work';
     $bullets = array_values(array_filter($hero['bullets'] ?? [], fn ($b) => filled($b)));
 
-    // Stats row (icon + value + label). Falls back to sensible agency defaults
-    // so every service hero shows proof points even before custom content.
+    // Stats row (icon + value + label). Falls back to the approved master
+    // company stats so every service hero shows the same verified figures.
     $stats = array_values(array_filter($hero['stats'] ?? [], fn ($s) => filled($s['value'] ?? null)));
     if (! count($stats)) {
-        $stats = [
-            ['icon' => 'fas fa-rocket', 'value' => '250+', 'label' => 'Projects Delivered'],
-            ['icon' => 'fas fa-user-friends', 'value' => '180+', 'label' => 'Happy Clients'],
-            ['icon' => 'fas fa-award', 'value' => '10+', 'label' => 'Years of Experience'],
-        ];
+        $company ??= app(\App\Support\CompanyProfile::class);
+        $statIcons = ['projects' => 'fas fa-rocket', 'clients' => 'fas fa-user-friends', 'industries' => 'fas fa-industry'];
+        $stats = collect($statIcons)
+            ->map(fn (string $icon, string $key): ?array => ($stat = $company->stat($key)) ? ['icon' => $icon, 'value' => $stat->value, 'label' => $stat->label] : null)
+            ->filter()
+            ->values()
+            ->all();
     }
 
     // Highlight the service name inside the heading when it appears there.

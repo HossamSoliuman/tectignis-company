@@ -21,7 +21,7 @@ class CapabilityFactory extends Factory
 
         return [
             'slug' => (string) str($title)->slug(),
-            'category' => fake()->word(),
+            'category' => fake()->randomElement(Capability::CATEGORIES),
             'title' => $title,
             'short_description' => fake()->sentence(),
             'description' => '<p>'.fake()->paragraph().'</p>',
