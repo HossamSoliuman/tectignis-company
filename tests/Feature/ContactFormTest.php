@@ -20,7 +20,7 @@ it('valid enquiry creates a lead with every submitted field and shows the thank-
         ->country->toBe('United Arab Emirates')
         ->phone->toBe('+971 50 123 4567')
         ->service->toBe('Cloud Migration')
-        ->budget->toBe('5k-10k')
+        ->budget->toBe('500-1k')
         ->timeline->toBe('1-3-months')
         ->source->toBe('contact')
         ->page_url->toBe('https://tectignis.test/services/cloud')
