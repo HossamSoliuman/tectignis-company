@@ -21,106 +21,111 @@
                 <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-purple-600 text-sm font-bold text-white shadow-lg shadow-purple-600/30">T</span>
                 Tectignis
             </div>
-            <nav class="sidebar-nav flex-1 space-y-4 overflow-y-auto px-3 py-4 text-sm">
+            <nav class="sidebar-nav flex-1 space-y-1 overflow-y-auto px-3 py-4 text-sm">
                 @php
                     // Two products share this shell. CMS groups are hidden from
                     // portal-only staff, and Operations is hidden from anyone
                     // without a portal role — nobody sees a link they'd get a
-                    // 403 from.
+                    // 403 from. Leads live outside the CMS so Sales and
+                    // Read-only users (spec §26.7) get them without content rights.
                     $navUser = auth()->user();
                     $showCms = (bool) $navUser?->isAdmin();
                     $showLeads = (bool) $navUser?->canViewLeads();
                     $showSuperAdmin = (bool) $navUser?->isSuperAdmin();
                     $showPortal = (bool) $navUser?->hasPortalAccess();
 
-                    $portalGroups = [
-                        'Operations' => [
-                            ['admin.portal.dashboard', 'Portal Dashboard', 'chart-bar'],
-                            ['admin.portal.my-work', 'My Work', 'check-circle'],
-                            ['admin.portal.tasks.index', 'Tasks', 'clipboard-list'],
-                            ['admin.portal.tenders.index', 'Tenders', 'briefcase'],
-                            ['admin.portal.oem-followups.index', 'OEM Follow-ups', 'share'],
-                            ['admin.portal.daily-work.index', 'Daily Work', 'calendar'],
-                            ['admin.portal.employees.index', 'Employees', 'users'],
-                            ['admin.portal.departments.index', 'Departments', 'office'],
-                        ],
-                    ];
-
-                    $cmsGroups = [
-                        '' => [
-                            ['admin.dashboard', 'Dashboard', 'grid'],
-                        ],
-                        'Website Management' => [
-                            ['admin.settings.index', 'Home', 'home'],
-                            ['admin.stats.index', 'Stats', 'chart-pie'],
-                            ['admin.pages.index', 'Pages', 'document-duplicate'],
-                            ['admin.case-studies.index', 'Case Studies', 'photograph'],
-                            ['admin.case-study-categories.index', 'Case Study Categories', 'folder'],
-                            ['admin.testimonials.index', 'Testimonials', 'chat-alt'],
-                            ['admin.brands.index', 'Trusted Technology Partner', 'tag'],
-                        ],
-                        'Services & Capabilities' => [
-                            ['admin.capabilities.index', 'Capabilities', 'cube'],
-                            ['admin.services.index', 'Services', 'briefcase'],
-                            ['admin.solutions.index', 'Solutions', 'puzzle'],
-                            ['admin.industries.index', 'Industries', 'office'],
-                            ['admin.tech-stacks.index', 'Tech Stacks', 'chip'],
-                        ],
-                        'Resources' => [
-                            ['admin.blog.index', 'Blog Posts', 'document-text'],
-                            ['admin.insights.index', 'Technology Insights', 'light-bulb'],
-                            ['admin.faqs.index', 'FAQs', 'question-mark-circle'],
-                            ['admin.faq-categories.index', 'FAQ Categories', 'folder'],
-                            ['admin.downloads.index', 'Downloads', 'download'],
-                            ['admin.job-openings.index', 'Job Openings', 'briefcase'],
-                            ['admin.careers-content.edit', 'Careers Page', 'briefcase'],
-                        ],
-                        'Home Sections' => [
-                            ['admin.why-choose-features.index', 'Why Choose Us', 'check-circle'],
-                            ['admin.office-locations.index', 'Office Locations', 'office'],
-                            ['admin.global-advantages.index', 'Global Advantages', 'globe'],
-                            ['admin.process-steps.index', 'Process Steps', 'trending-up'],
-                        ],
-                        'Marketing' => [
-                            ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
-                        ],
-                        'Administration' => [
-                            ['admin.settings.index', 'Settings', 'cog'],
-                            ['admin.mail.edit', 'Email & Forms', 'envelope'],
-                        ],
-                    ];
-
-                    // Leads live outside the CMS so Sales and Read-only users
-                    // (spec §26.7) get them without any content rights.
-                    $salesGroups = ['Sales' => [['admin.leads.index', 'Leads', 'inbox']]];
-
-                    $superAdminGroups = ['Access & Security' => [
-                        ['admin.users.index', 'Users & Roles', 'users'],
-                        ['admin.captcha.edit', 'CAPTCHA', 'shield-check'],
-                    ]];
-
-                    $navGroups = array_merge(
-                        $showPortal ? $portalGroups : [],
-                        $showLeads ? $salesGroups : [],
-                        $showCms ? $cmsGroups : [],
-                        $showSuperAdmin ? $superAdminGroups : [],
-                        ['Account' => [['admin.account.edit', 'My Account', 'user']]],
+                    // Group items are [route, label, extra route patterns that also mark it active].
+                    $isActive = fn (string $route, array $alsoActiveOn = []): bool => request()->routeIs(
+                        Str::endsWith($route, '.index') ? Str::beforeLast($route, '.').'.*' : $route,
+                        ...$alsoActiveOn,
                     );
+
+                    $topLinks = array_filter([
+                        $showCms ? ['admin.dashboard', 'Dashboard', 'grid'] : null,
+                        $showLeads ? ['admin.leads.index', 'Leads', 'inbox'] : null,
+                    ]);
+
+                    $navGroups = array_values(array_filter([
+                        $showPortal ? ['Operations', 'clipboard-list', [
+                            ['admin.portal.dashboard', 'Overview'],
+                            ['admin.portal.my-work', 'My Work'],
+                            ['admin.portal.tasks.index', 'Tasks'],
+                            ['admin.portal.tenders.index', 'Tenders'],
+                            ['admin.portal.oem-followups.index', 'OEM Follow-ups'],
+                            ['admin.portal.daily-work.index', 'Daily Work'],
+                            ['admin.portal.employees.index', 'Employees'],
+                            ['admin.portal.departments.index', 'Departments'],
+                        ]] : null,
+                        $showCms ? ['Homepage', 'home', [
+                            ['admin.stats.index', 'Stats'],
+                            ['admin.why-choose-features.index', 'Why Choose Us'],
+                            ['admin.process-steps.index', 'Process Steps'],
+                            ['admin.global-advantages.index', 'Global Advantages'],
+                            ['admin.office-locations.index', 'Office Locations'],
+                            ['admin.testimonials.index', 'Testimonials'],
+                            ['admin.brands.index', 'Technology Partners'],
+                        ]] : null,
+                        $showCms ? ['What We Offer', 'cube', [
+                            ['admin.services.index', 'Services'],
+                            ['admin.solutions.index', 'Solutions'],
+                            ['admin.capabilities.index', 'Capabilities'],
+                            ['admin.industries.index', 'Industries'],
+                            ['admin.tech-stacks.index', 'Tech Stacks'],
+                        ]] : null,
+                        $showCms ? ['Content', 'document-text', [
+                            ['admin.pages.index', 'Pages'],
+                            ['admin.blog.index', 'Blog Posts'],
+                            ['admin.insights.index', 'Insights'],
+                            ['admin.case-studies.index', 'Case Studies', ['admin.case-study-categories.*']],
+                            ['admin.faqs.index', 'FAQs', ['admin.faq-categories.*']],
+                            ['admin.downloads.index', 'Downloads'],
+                        ]] : null,
+                        $showCms ? ['Careers', 'briefcase', [
+                            ['admin.job-openings.index', 'Job Openings'],
+                            ['admin.careers-content.edit', 'Careers Page'],
+                        ]] : null,
+                        ($showCms || $showSuperAdmin) ? ['Settings', 'cog', array_merge(
+                            $showCms ? [
+                                ['admin.settings.index', 'Site Settings'],
+                                ['admin.mail.edit', 'Email & Forms'],
+                                ['admin.redirects.index', 'Redirects'],
+                            ] : [],
+                            $showSuperAdmin ? [
+                                ['admin.users.index', 'Users & Roles'],
+                                ['admin.captcha.edit', 'CAPTCHA'],
+                            ] : [],
+                        )] : null,
+                    ]));
                 @endphp
-                @foreach ($navGroups as $groupLabel => $items)
-                    <div class="space-y-0.5">
-                        @if ($groupLabel !== '')
-                            <p class="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-widest text-slate-400">{{ $groupLabel }}</p>
-                        @endif
-                        @foreach ($items as [$route, $label, $icon])
-                            @php $active = request()->routeIs(Str::endsWith($route, '.index') ? Str::beforeLast($route, '.').'.*' : $route); @endphp
-                            <a href="{{ route($route) }}"
-                                class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-purple-50 text-purple-700 ring-1 ring-purple-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
-                                <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-purple-600' : 'text-slate-400 group-hover:text-purple-600' }}" />
-                                <span>{{ $label }}</span>
-                            </a>
-                        @endforeach
-                    </div>
+
+                @foreach ($topLinks as [$route, $label, $icon])
+                    @php $active = $isActive($route); @endphp
+                    <a href="{{ route($route) }}"
+                        class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-purple-50 text-purple-700 ring-1 ring-purple-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                        <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-purple-600' : 'text-slate-400 group-hover:text-purple-600' }}" />
+                        <span>{{ $label }}</span>
+                    </a>
+                @endforeach
+
+                @foreach ($navGroups as [$groupLabel, $groupIcon, $items])
+                    @php $groupActive = collect($items)->contains(fn (array $item): bool => $isActive($item[0], $item[2] ?? [])); @endphp
+                    <details class="group/nav" @if ($groupActive || count($navGroups) === 1) open @endif>
+                        <summary
+                            class="group flex cursor-pointer list-none items-center gap-3 rounded-lg px-3 py-2 font-medium transition [&::-webkit-details-marker]:hidden {{ $groupActive ? 'text-purple-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                            <x-admin.icon :name="$groupIcon" class="h-5 w-5 shrink-0 {{ $groupActive ? 'text-purple-600' : 'text-slate-400 group-hover:text-purple-600' }}" />
+                            <span class="flex-1">{{ $groupLabel }}</span>
+                            <x-admin.icon name="chevron-right" class="h-4 w-4 shrink-0 text-slate-400 transition-transform group-open/nav:rotate-90" />
+                        </summary>
+                        <div class="ml-5 mt-0.5 space-y-0.5 border-l border-slate-200 py-0.5 pl-3">
+                            @foreach ($items as $item)
+                                @php $active = $isActive($item[0], $item[2] ?? []); @endphp
+                                <a href="{{ route($item[0]) }}"
+                                    class="block rounded-lg px-3 py-1.5 transition {{ $active ? 'bg-purple-50 font-medium text-purple-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900' }}">
+                                    {{ $item[1] }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </details>
                 @endforeach
             </nav>
         </aside>
@@ -155,7 +160,7 @@
                         </a>
                         <div class="h-6 w-px bg-slate-200"></div>
                     @endif
-                    <div class="flex items-center gap-2.5">
+                    <a href="{{ route('admin.account.edit') }}" class="flex items-center gap-2.5 rounded-lg px-1.5 py-1 transition hover:bg-slate-100" title="My account">
                         <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-xs font-semibold text-white">
                             {{ Str::upper(Str::substr(auth()->user()?->name ?? 'A', 0, 1)) }}
                         </span>
@@ -168,7 +173,7 @@
                                     : (auth()->user()?->portalRole()?->label() ?? 'User') }}
                             </p>
                         </div>
-                    </div>
+                    </a>
                     <form method="post" action="{{ route('admin.logout') }}">
                         @csrf
                         <button type="submit"

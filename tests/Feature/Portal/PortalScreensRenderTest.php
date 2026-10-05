@@ -87,7 +87,7 @@ it('shows a CMS admin with portal access both sets of navigation', function () {
     $this->actingAs($user)->get(route('admin.portal.dashboard'))
         ->assertOk()
         ->assertSee('Operations')
-        ->assertSee('Website Management');
+        ->assertSee('Homepage');
 });
 
 it('gives a portal-only user a working logout and account page', function () {

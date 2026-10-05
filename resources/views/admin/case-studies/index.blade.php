@@ -11,6 +11,10 @@
         </h2>
         <div class="flex items-center gap-2">
             <x-admin.search-form placeholder="Search case studies…" />
+            <a href="{{ route('admin.case-study-categories.index') }}"
+                class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">
+                <x-admin.icon name="folder" class="h-4 w-4" /> Categories
+            </a>
             <a href="{{ route('admin.case-studies.create') }}"
                 class="inline-flex items-center gap-1.5 rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-fuchsia-700">
                 <x-admin.icon name="plus" class="h-4 w-4" /> New Case Study
