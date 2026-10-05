@@ -321,6 +321,19 @@ body {
     padding-right: 8px;
 }
 
+/* Industries list is long: split it into two columns so the panel
+   stays short instead of running off the bottom of the viewport. */
+.navigation-menu > ul > li .megamenu--industries,
+.navigation-menu > ul > li.has-children:hover .megamenu--industries {
+    width: min(600px, calc(100vw - 40px));
+}
+
+.navigation-menu > ul > li .megamenu--industries > li > ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 8px;
+}
+
 /* Wide Capabilities mega panel: keep the multi-column grid but center it
    under the bar and clamp it inside the viewport so it cannot overflow. */
 .navigation-menu > ul > li .megamenu.megamenu--services,

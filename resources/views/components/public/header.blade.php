@@ -111,7 +111,7 @@
                                                     </li>
                                                     <li class="has-children">
                                                         <a href="{{ route('industries.index') }}"><span>Industries</span></a>
-                                                        <ul class="megamenu megamenu--mega">
+                                                        <ul class="megamenu megamenu--mega megamenu--industries">
                                                             <li>
                                                                 <h2 class="page-list-title">Industries We Serve</h2>
                                                                 <ul>
