@@ -11,6 +11,8 @@
             ->map(fn ($status): array => [$status->value, $status->label(), $statusCounts[$status->value] ?? 0])
             ->prepend([null, 'All', $statusCounts->sum()]);
         $hasFilters = collect(request()->except(['page', 'per_page', 'sort', 'direction', 'status', 'trashed']))->filter(fn ($v) => filled($v))->isNotEmpty();
+        $activeFilterCount = collect(request()->only(['service', 'country', 'assigned_to', 'source', 'date_from', 'date_to']))->filter(fn ($v) => filled($v))->count();
+        $initials = fn (string $name): string => Str::of($name)->squish()->explode(' ')->take(2)->map(fn (string $part): string => Str::upper(Str::substr($part, 0, 1)))->implode('');
 
         // Sorting links keep every other parameter (spec §28.4).
         $sortUrl = function (string $column) {
@@ -30,7 +32,7 @@
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $leads->total() }}</span>
         </h2>
         <div class="flex flex-wrap items-center gap-2">
-            <x-admin.search-form placeholder="Name, company, email, phone, ID…" />
+            <x-admin.search-form placeholder="Search leads…" />
             @if ($canExport)
                 <a href="{{ route('admin.leads.export', request()->except(['page', 'per_page'])) }}"
                     class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-fuchsia-300 hover:bg-fuchsia-50 hover:text-fuchsia-700">
@@ -48,26 +50,26 @@
 
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         {{-- Toggles the filter panel below without JavaScript --}}
-        <input type="checkbox" id="lead-filters-toggle" class="peer sr-only" @checked($hasFilters)>
+        <input type="checkbox" id="lead-filters-toggle" class="peer sr-only" @checked($activeFilterCount > 0)>
 
         {{-- Pipeline: one tab per status with live counts for the current filters --}}
-        <div class="flex items-center gap-3 border-b border-slate-200 px-2">
+        <div class="flex items-center gap-3 border-b border-slate-200 px-3">
             <nav class="-mb-px flex flex-1 gap-1 overflow-x-auto" aria-label="Lead status">
                 @foreach ($statusTabs as [$statusValue, $statusLabel, $count])
                     @php $isCurrent = $activeStatus === $statusValue; @endphp
                     <a href="{{ request()->fullUrlWithQuery(['status' => $statusValue, 'page' => null]) }}"
-                        class="inline-flex shrink-0 items-center gap-2 border-b-2 px-3 py-3 text-sm font-medium transition {{ $isCurrent ? 'border-fuchsia-600 text-fuchsia-700' : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-800' }}"
+                        class="inline-flex shrink-0 items-center gap-1.5 border-b-2 px-3 py-3.5 text-sm font-medium transition {{ $isCurrent ? 'border-fuchsia-600 text-fuchsia-700' : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-800' }}"
                         @if ($isCurrent) aria-current="page" @endif>
                         {{ $statusLabel }}
-                        <span class="rounded-full px-1.5 py-0.5 text-[11px] font-semibold leading-none {{ $isCurrent ? 'bg-fuchsia-100 text-fuchsia-700' : ($count ? 'bg-slate-100 text-slate-600' : 'bg-slate-50 text-slate-400') }}">{{ number_format($count) }}</span>
+                        <span class="min-w-5 rounded-full px-1.5 py-0.5 text-center text-[11px] font-semibold leading-none {{ $isCurrent ? 'bg-fuchsia-100 text-fuchsia-700' : ($count ? 'bg-slate-100 text-slate-600' : 'text-slate-300') }}">{{ number_format($count) }}</span>
                     </a>
                 @endforeach
             </nav>
             <label for="lead-filters-toggle"
-                class="mr-2 inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-800">
-                <x-admin.icon name="search" class="h-4 w-4 text-slate-400" /> Filters
-                @if ($hasFilters)
-                    <span class="h-2 w-2 rounded-full bg-fuchsia-500" title="Filters active"></span>
+                class="inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition {{ $activeFilterCount ? 'border-fuchsia-200 bg-fuchsia-50 text-fuchsia-700 hover:bg-fuchsia-100' : 'border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800' }}">
+                <x-admin.icon name="funnel" class="h-4 w-4 {{ $activeFilterCount ? 'text-fuchsia-500' : 'text-slate-400' }}" /> Filters
+                @if ($activeFilterCount)
+                    <span class="rounded-full bg-fuchsia-600 px-1.5 py-0.5 text-[11px] font-semibold leading-none text-white">{{ $activeFilterCount }}</span>
                 @endif
             </label>
         </div>
@@ -135,58 +137,83 @@
         </form>
 
         <div class="overflow-x-auto">
-            <table class="w-full min-w-[56rem] text-sm">
-                <thead class="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
+            <table class="w-full min-w-[60rem] text-sm">
+                <thead class="border-b border-slate-200 bg-slate-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                     <tr>
-                        <th class="w-8 py-3 pl-4 pr-0"><span class="sr-only">Read</span></th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('name') }}" class="hover:text-slate-800">Lead {{ $sortIcon('name') }}</a></th>
+                        <th class="py-3 pl-5 pr-4"><a href="{{ $sortUrl('name') }}" class="hover:text-slate-800">Lead {{ $sortIcon('name') }}</a></th>
                         <th class="px-4 py-3"><a href="{{ $sortUrl('company') }}" class="hover:text-slate-800">Company {{ $sortIcon('company') }}</a></th>
-                        <th class="px-4 py-3">Service / Source</th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('country') }}" class="hover:text-slate-800">Country {{ $sortIcon('country') }}</a></th>
+                        <th class="px-4 py-3">Source</th>
                         <th class="px-4 py-3"><a href="{{ $sortUrl('status') }}" class="hover:text-slate-800">Status {{ $sortIcon('status') }}</a></th>
                         <th class="px-4 py-3">Assigned</th>
                         <th class="px-4 py-3"><a href="{{ $sortUrl('created_at') }}" class="hover:text-slate-800">Received {{ $sortIcon('created_at') }}</a></th>
-                        <th class="px-4 py-3 text-right">Actions</th>
+                        <th class="py-3 pl-4 pr-5"><span class="sr-only">Actions</span></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse ($leads as $lead)
-                        <tr class="transition hover:bg-slate-50">
-                            <td class="py-3 pl-4 pr-0">
-                                @unless ($lead->is_read)
-                                    <span class="block h-2 w-2 rounded-full bg-fuchsia-500" title="Unread"></span>
-                                    <span class="sr-only">Unread</span>
-                                @endunless
+                        @php
+                            $receivedAt = $lead->created_at->timezone(config('app.timezone'));
+                            $leadUrl = route('admin.leads.show', $lead);
+                        @endphp
+                        <tr class="transition {{ $lead->is_read ? 'hover:bg-slate-50' : 'bg-fuchsia-50/30 hover:bg-fuchsia-50/60' }}">
+                            <td class="py-3 pl-5 pr-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="relative shrink-0">
+                                        <span class="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold {{ $lead->is_read ? 'bg-slate-100 text-slate-500' : 'bg-fuchsia-100 text-fuchsia-700' }}">{{ $initials($lead->name) }}</span>
+                                        @unless ($lead->is_read)
+                                            <span class="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-fuchsia-500 ring-2 ring-white" title="Unread"></span>
+                                            <span class="sr-only">Unread</span>
+                                        @endunless
+                                    </span>
+                                    <div class="min-w-0 max-w-64">
+                                        <a href="{{ $leadUrl }}" class="block truncate {{ $lead->is_read ? 'font-medium text-slate-700' : 'font-semibold text-slate-900' }} hover:text-fuchsia-700">{{ $lead->name }}</a>
+                                        <div class="truncate text-xs text-slate-500">
+                                            <span class="font-mono text-slate-400">{{ $lead->reference() }}</span> · {{ $lead->email ?? $lead->phone ?? '—' }}
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                             <td class="px-4 py-3">
-                                <a href="{{ route('admin.leads.show', $lead) }}" class="{{ ! $lead->is_read ? 'font-semibold text-slate-900' : 'font-medium text-slate-700' }} hover:text-fuchsia-700">{{ $lead->name }}</a>
-                                <div class="text-xs text-slate-400">{{ $lead->reference() }} · {{ $lead->email ?? $lead->phone ?? '—' }}</div>
-                            </td>
-                            <td class="px-4 py-3 text-slate-600">{{ $lead->company ?? '—' }}</td>
-                            <td class="px-4 py-3 text-slate-600">
-                                @if ($lead->service)
-                                    {{ $lead->service }}
-                                    <div class="text-xs text-slate-400">{{ $lead->sourceLabel() }}</div>
+                                @if ($lead->company || $lead->country)
+                                    <div class="max-w-48 truncate text-slate-700">{{ $lead->company ?? $lead->country }}</div>
+                                    @if ($lead->company && $lead->country)
+                                        <div class="max-w-48 truncate text-xs text-slate-500">{{ $lead->country }}</div>
+                                    @endif
                                 @else
-                                    <span class="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">{{ $lead->sourceLabel() }}</span>
+                                    <span class="text-slate-300">—</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 text-slate-600">{{ $lead->country ?? '—' }}</td>
                             <td class="px-4 py-3">
-                                <span class="rounded-full px-2 py-0.5 text-xs font-medium {{ $lead->status->badgeClasses() }}">{{ $lead->status->label() }}</span>
-                            </td>
-                            <td class="px-4 py-3 text-slate-600">{{ $lead->assignee?->name ?? '—' }}</td>
-                            @php $receivedAt = $lead->created_at->timezone(config('app.timezone')); @endphp
-                            <td class="whitespace-nowrap px-4 py-3 text-slate-600">
-                                {{ $receivedAt->format('M d, Y') }}
-                                <div class="text-xs text-slate-400">{{ $receivedAt->format('H:i') }}</div>
+                                <div class="flex items-center gap-1.5 whitespace-nowrap text-slate-700">
+                                    <x-admin.icon name="{{ $lead->sourceEnum()?->icon() ?? 'inbox' }}" class="h-4 w-4 shrink-0 text-slate-400" />
+                                    {{ $lead->sourceLabel() }}
+                                </div>
+                                @if ($lead->service)
+                                    <div class="max-w-48 truncate pl-5.5 text-xs text-slate-500">{{ $lead->service }}</div>
+                                @endif
                             </td>
                             <td class="px-4 py-3">
-                                <div class="flex items-center justify-end gap-1">
-                                    <a href="{{ route('admin.leads.show', $lead) }}"
-                                        class="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-medium text-slate-600 transition hover:border-fuchsia-300 hover:bg-fuchsia-50 hover:text-fuchsia-700">
-                                        <x-admin.icon name="eye" class="h-3.5 w-3.5" /> View
-                                    </a>
+                                <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium {{ $lead->status->badgeClasses() }}">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+                                    {{ $lead->status->label() }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">
+                                @if ($lead->assignee)
+                                    <div class="flex items-center gap-2 whitespace-nowrap text-slate-700">
+                                        <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[10px] font-semibold text-slate-600">{{ $initials($lead->assignee->name) }}</span>
+                                        {{ $lead->assignee->name }}
+                                    </div>
+                                @else
+                                    <span class="text-xs text-slate-400">Unassigned</span>
+                                @endif
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-3">
+                                <time datetime="{{ $receivedAt->toIso8601String() }}" class="block text-slate-700">{{ $receivedAt->diffForHumans() }}</time>
+                                <div class="text-xs text-slate-500">{{ $receivedAt->format('M d, Y · H:i') }}</div>
+                            </td>
+                            <td class="py-3 pl-4 pr-5">
+                                <div class="flex items-center justify-end gap-0.5">
                                     @if ($trashed)
                                         @can('restore', $lead)
                                             <form action="{{ route('admin.leads.restore', $lead) }}" method="POST">
@@ -195,9 +222,14 @@
                                                 <button type="submit" class="inline-flex items-center gap-1 rounded-lg border border-emerald-200 px-2.5 py-1.5 text-xs font-medium text-emerald-700 transition hover:bg-emerald-50">Restore</button>
                                             </form>
                                         @endcan
-                                    @else
+                                    @endif
+                                    <a href="{{ $leadUrl }}" title="View lead" aria-label="View {{ $lead->name }}"
+                                        class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-fuchsia-50 hover:text-fuchsia-700">
+                                        <x-admin.icon name="eye" class="h-4 w-4" />
+                                    </a>
+                                    @if (! $trashed)
                                         @can('delete', $lead)
-                                            <x-admin.delete-button :action="route('admin.leads.destroy', $lead)" confirm="Move this lead to the trash?" />
+                                            <x-admin.delete-button :action="route('admin.leads.destroy', $lead)" confirm="Move this lead to the trash?" :icon-only="true" />
                                         @endcan
                                     @endif
                                 </div>
@@ -205,8 +237,14 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="px-4 py-10 text-center text-slate-400">
-                                {{ $hasFilters || $activeStatus ? 'No leads match these filters.' : ($trashed ? 'The trash is empty.' : 'No leads yet.') }}
+                            <td colspan="7" class="px-4 py-16 text-center">
+                                <x-admin.icon name="{{ $trashed ? 'trash' : 'inbox' }}" class="mx-auto h-8 w-8 text-slate-300" />
+                                <p class="mt-2 text-sm font-medium text-slate-600">
+                                    {{ $hasFilters || $activeStatus ? 'No leads match these filters.' : ($trashed ? 'The trash is empty.' : 'No leads yet.') }}
+                                </p>
+                                @if ($hasFilters || $activeStatus)
+                                    <a href="{{ route('admin.leads.index', array_filter(['trashed' => request('trashed')])) }}" class="mt-1 inline-block text-sm font-medium text-fuchsia-600 hover:text-fuchsia-700">Clear filters</a>
+                                @endif
                             </td>
                         </tr>
                     @endforelse

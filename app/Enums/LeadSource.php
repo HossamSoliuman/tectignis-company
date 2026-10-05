@@ -25,6 +25,20 @@ enum LeadSource: string
     }
 
     /**
+     * Admin icon name (see the x-admin.icon component).
+     */
+    public function icon(): string
+    {
+        return match ($this) {
+            self::Contact => 'envelope',
+            self::Consultation => 'chat-alt',
+            self::Career => 'briefcase',
+            self::Newsletter => 'bell',
+            self::Download => 'download',
+        };
+    }
+
+    /**
      * Project enquiries (contact page, consultation/quote modal, service pages)
      * as opposed to sign-ups, downloads and job applications.
      */
