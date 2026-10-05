@@ -115,4 +115,18 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Queue Lead Emails
+    |--------------------------------------------------------------------------
+    |
+    | Lead notifications and visitor acknowledgements are pushed onto the queue
+    | (with retries) when this is enabled. Only turn it on where a queue worker
+    | is running; otherwise they are sent during the request, with failures
+    | logged and the lead always kept.
+    |
+    */
+
+    'queue_lead_emails' => (bool) env('MAIL_QUEUE_LEAD_EMAILS', false),
+
 ];

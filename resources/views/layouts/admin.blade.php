@@ -29,6 +29,8 @@
                     // 403 from.
                     $navUser = auth()->user();
                     $showCms = (bool) $navUser?->isAdmin();
+                    $showLeads = (bool) $navUser?->canViewLeads();
+                    $showSuperAdmin = (bool) $navUser?->isSuperAdmin();
                     $showPortal = (bool) $navUser?->hasPortalAccess();
 
                     $portalGroups = [
@@ -79,8 +81,7 @@
                             ['admin.global-advantages.index', 'Global Advantages', 'globe'],
                             ['admin.process-steps.index', 'Process Steps', 'trending-up'],
                         ],
-                        'Sales & Marketing' => [
-                            ['admin.leads.index', 'Leads (Inbox)', 'inbox'],
+                        'Marketing' => [
                             ['admin.redirects.index', 'Redirects', 'switch-horizontal'],
                         ],
                         'Administration' => [
@@ -89,9 +90,20 @@
                         ],
                     ];
 
+                    // Leads live outside the CMS so Sales and Read-only users
+                    // (spec §26.7) get them without any content rights.
+                    $salesGroups = ['Sales' => [['admin.leads.index', 'Leads', 'inbox']]];
+
+                    $superAdminGroups = ['Access & Security' => [
+                        ['admin.users.index', 'Users & Roles', 'users'],
+                        ['admin.captcha.edit', 'CAPTCHA', 'shield-check'],
+                    ]];
+
                     $navGroups = array_merge(
                         $showPortal ? $portalGroups : [],
+                        $showLeads ? $salesGroups : [],
                         $showCms ? $cmsGroups : [],
+                        $showSuperAdmin ? $superAdminGroups : [],
                         ['Account' => [['admin.account.edit', 'My Account', 'user']]],
                     );
                 @endphp
@@ -130,7 +142,7 @@
                     <h1 class="text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3">
-                    @if (auth()->user()?->isAdmin())
+                    @if (auth()->user()?->canViewLeads())
                         @php $unreadLeads = \App\Models\Lead::where('is_read', false)->count(); @endphp
                         <a href="{{ route('admin.leads.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
                             title="Leads inbox" aria-label="Leads inbox{{ $unreadLeads ? ', ' . $unreadLeads . ' unread' : '' }}">
@@ -150,7 +162,10 @@
                         <div class="hidden leading-tight sm:block">
                             <p class="text-sm font-semibold text-slate-800">{{ auth()->user()?->name }}</p>
                             <p class="text-xs text-slate-400">
-                                {{ auth()->user()?->isAdmin() ? 'Super Admin' : (auth()->user()?->portalRole()?->label() ?? 'User') }}
+                                @php $headerRole = auth()->user()?->userRole(); @endphp
+                                {{ $headerRole && $headerRole !== \App\Enums\UserRole::PortalOnly
+                                    ? $headerRole->label()
+                                    : (auth()->user()?->portalRole()?->label() ?? 'User') }}
                             </p>
                         </div>
                     </div>

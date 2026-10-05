@@ -62,11 +62,7 @@ it('emails the configured contact recipient on contact submission', function () 
     Mail::fake();
     Setting::set('mail_to_contact', 'sales@example.com', 'mail');
 
-    $this->post(route('contact.submit'), [
-        'con_name' => 'Jane Doe',
-        'con_email' => 'jane@example.com',
-        'con_message' => 'I need a quote.',
-    ])->assertRedirect();
+    $this->post(route('contact.submit'), validEnquiry())->assertRedirect();
 
     Mail::assertSent(LeadNotificationMail::class, fn (LeadNotificationMail $mail) => $mail->hasTo('sales@example.com'));
 });

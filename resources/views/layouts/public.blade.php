@@ -138,32 +138,6 @@
     <script src="{{ asset('assets/js/plugins/plugins.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}?v={{ filemtime(public_path('assets/js/main.js')) }}"></script>
 
-    {{-- reCAPTCHA v3: attach a token to lead forms before submit --}}
-    @if ($siteSettings['recaptcha_site_key'] ?? false)
-        <script src="https://www.google.com/recaptcha/api.js?render={{ $siteSettings['recaptcha_site_key'] }}"></script>
-        <script>
-            document.querySelectorAll('form[action*="contact"], form[action*="careers"], form[action*="downloads"]').forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.dataset.recaptchaDone) { return; }
-                    event.preventDefault();
-                    grecaptcha.ready(function () {
-                        grecaptcha.execute('{{ $siteSettings['recaptcha_site_key'] }}', { action: 'lead' }).then(function (token) {
-                            var input = form.querySelector('input[name="g-recaptcha-response"]');
-                            if (!input) {
-                                input = document.createElement('input');
-                                input.type = 'hidden';
-                                input.name = 'g-recaptcha-response';
-                                form.appendChild(input);
-                            }
-                            input.value = token;
-                            form.dataset.recaptchaDone = '1';
-                            form.submit();
-                        });
-                    });
-                });
-            });
-        </script>
-    @endif
     @stack('scripts')
 
 </body>

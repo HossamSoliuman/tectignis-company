@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreGlobalAdvantageRequest;
 use App\Http\Requests\Admin\UpdateGlobalAdvantageRequest;
 use App\Models\GlobalAdvantage;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class GlobalAdvantageController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $advantages = GlobalAdvantage::ordered()->get();
+        $advantages = $this->paginateTable($request, GlobalAdvantage::ordered(), ['title', 'description']);
 
         return view('admin.global-advantages.index', compact('advantages'));
     }

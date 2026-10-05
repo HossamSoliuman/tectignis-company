@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Mail\LeadNotificationMail;
 use App\Models\Lead;
+use App\Rules\Recaptcha;
+use App\Services\RecaptchaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -14,6 +16,7 @@ class NewsletterController extends Controller
     {
         $data = $request->validate([
             'email' => ['required', 'email', 'max:255'],
+            RecaptchaService::RESPONSE_FIELD => [new Recaptcha],
         ]);
 
         $lead = Lead::create([

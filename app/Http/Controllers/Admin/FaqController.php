@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreFaqRequest;
 use App\Http\Requests\Admin\UpdateFaqRequest;
@@ -9,12 +10,15 @@ use App\Models\Faq;
 use App\Models\FaqCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $faqs = Faq::with('category')->orderBy('faq_category_id')->orderBy('sort_order')->get();
+        $faqs = $this->paginateTable($request, Faq::with('category')->orderBy('faq_category_id')->orderBy('sort_order'), ['question', 'answer']);
 
         return view('admin.faqs.index', compact('faqs'));
     }

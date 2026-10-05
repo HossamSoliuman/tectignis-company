@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProcessStepRequest;
 use App\Http\Requests\Admin\UpdateProcessStepRequest;
 use App\Models\ProcessStep;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ProcessStepController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $steps = ProcessStep::ordered()->get();
+        $steps = $this->paginateTable($request, ProcessStep::ordered(), ['title', 'description']);
 
         return view('admin.process-steps.index', compact('steps'));
     }

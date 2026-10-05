@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\ManagesServiceContent;
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreServiceRequest;
@@ -12,15 +13,17 @@ use App\Models\Service;
 use App\Models\TechStack;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class ServiceController extends Controller
 {
     use ManagesServiceContent, UploadsFiles;
+    use PaginatesTables;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $services = Service::ordered()->get();
+        $services = $this->paginateTable($request, Service::ordered(), ['title', 'slug']);
 
         return view('admin.services.index', compact('services'));
     }

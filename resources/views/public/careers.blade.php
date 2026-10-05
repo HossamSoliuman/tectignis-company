@@ -239,6 +239,8 @@
                         </label>
                     </div>
 
+                    <x-public.recaptcha />
+
                     <button type="submit" class="consult-form__submit">Submit Application</button>
                 </form>
             </div>

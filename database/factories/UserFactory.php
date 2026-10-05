@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Portal\PortalRole;
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +42,26 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * A website admin user at the given role.
+     */
+    public function role(UserRole $role): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'role' => $role->value,
+        ]);
+    }
+
+    /**
+     * Grant the separate lead export permission.
+     */
+    public function canExportLeads(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'can_export_leads' => true,
         ]);
     }
 

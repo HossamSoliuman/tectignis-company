@@ -29,8 +29,16 @@ class SettingsSeeder extends Seeder
             ['key' => 'site_gtm_id', 'value' => 'GTM-TFWTXHQ4', 'group' => 'integrations'],
             ['key' => 'google_search_console_verification', 'value' => null, 'group' => 'integrations'],
             ['key' => 'meta_pixel_id', 'value' => null, 'group' => 'integrations'],
-            ['key' => 'recaptcha_site_key', 'value' => null, 'group' => 'integrations'],
-            ['key' => 'recaptcha_secret_key', 'value' => null, 'group' => 'integrations'],
+
+            // captcha (Super Admin only; the secret is stored encrypted)
+            ['key' => 'recaptcha_site_key', 'value' => null, 'group' => 'captcha'],
+            ['key' => 'recaptcha_secret_key', 'value' => null, 'group' => 'captcha'],
+            ['key' => 'recaptcha_enabled', 'value' => '0', 'group' => 'captcha'],
+            ['key' => 'recaptcha_updated_by', 'value' => null, 'group' => 'captcha'],
+            ['key' => 'recaptcha_updated_at', 'value' => null, 'group' => 'captcha'],
+
+            // mail
+            ['key' => 'lead_acknowledgement_enabled', 'value' => '0', 'group' => 'mail'],
 
             // smtp
             ['key' => 'smtp_host', 'value' => null, 'group' => 'smtp'],

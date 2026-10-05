@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCaseStudyRequest;
@@ -10,14 +11,16 @@ use App\Models\CaseStudy;
 use App\Models\CaseStudyCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CaseStudyController extends Controller
 {
+    use PaginatesTables;
     use UploadsFiles;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $caseStudies = CaseStudy::with('category')->ordered()->get();
+        $caseStudies = $this->paginateTable($request, CaseStudy::with('category')->ordered(), ['title', 'slug']);
 
         return view('admin.case-studies.index', compact('caseStudies'));
     }

@@ -48,6 +48,7 @@ class MailController extends Controller
             'smtp' => collect(self::SMTP_KEYS)->mapWithKeys(fn (string $key) => [$key => $values->get($key)]),
             'recipients' => collect(self::RECIPIENT_KEYS)->mapWithKeys(fn (string $key) => [$key => $values->get($key)]),
             'siteEmail' => $values->get('site_email'),
+            'acknowledgementEnabled' => $values->get('lead_acknowledgement_enabled') === '1',
         ]);
     }
 
@@ -66,7 +67,10 @@ class MailController extends Controller
             'mail_to_consultation' => ['nullable', 'email', 'max:255'],
             'mail_to_career' => ['nullable', 'email', 'max:255'],
             'mail_to_newsletter' => ['nullable', 'email', 'max:255'],
+            'lead_acknowledgement_enabled' => ['nullable', 'boolean'],
         ]);
+
+        Setting::set('lead_acknowledgement_enabled', $request->boolean('lead_acknowledgement_enabled') ? '1' : '0', 'mail');
 
         foreach (self::SMTP_KEYS as $key) {
             Setting::set($key, $data[$key] ?? null, 'smtp');

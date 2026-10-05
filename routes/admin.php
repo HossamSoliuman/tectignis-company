@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CapabilityController;
+use App\Http\Controllers\Admin\CaptchaSettingsController;
 use App\Http\Controllers\Admin\CareersContentController;
 use App\Http\Controllers\Admin\CaseStudyCategoryController;
 use App\Http\Controllers\Admin\CaseStudyController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\InsightController;
 use App\Http\Controllers\Admin\JobOpeningController;
 use App\Http\Controllers\Admin\LeadController;
+use App\Http\Controllers\Admin\LeadExportController;
+use App\Http\Controllers\Admin\LeadNoteController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\OfficeLocationController;
 use App\Http\Controllers\Admin\PageController;
@@ -28,7 +31,9 @@ use App\Http\Controllers\Admin\SolutionController;
 use App\Http\Controllers\Admin\StatController;
 use App\Http\Controllers\Admin\TechStackController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WhyChooseFeatureController;
+use App\Models\Lead;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login', [LoginController::class, 'show'])->name('login');
@@ -46,6 +51,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('account', [AccountController::class, 'edit'])->name('account.edit');
         Route::put('account', [AccountController::class, 'update'])->name('account.update');
+    });
+
+    // Leads (spec §26.6–26.7): reachable by Sales and Read-only users who have
+    // no CMS rights; individual actions are checked by LeadPolicy.
+    Route::middleware(['auth', 'can:viewAny,'.Lead::class])->group(function () {
+        Route::get('leads/export', LeadExportController::class)->name('leads.export');
+        Route::get('leads', [LeadController::class, 'index'])->name('leads.index');
+        Route::get('leads/{lead}', [LeadController::class, 'show'])->withTrashed()->name('leads.show');
+        Route::patch('leads/{lead}', [LeadController::class, 'update'])->name('leads.update');
+        Route::delete('leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');
+        Route::patch('leads/{lead}/restore', [LeadController::class, 'restore'])->withTrashed()->name('leads.restore');
+        Route::post('leads/{lead}/notes', [LeadNoteController::class, 'store'])->name('leads.notes.store');
+    });
+
+    // Super Admin only: CAPTCHA keys (spec §28.2) and admin users.
+    Route::middleware(['auth', 'can:manage-captcha'])->group(function () {
+        Route::get('settings/captcha', [CaptchaSettingsController::class, 'edit'])->name('captcha.edit');
+        Route::put('settings/captcha', [CaptchaSettingsController::class, 'update'])->name('captcha.update');
+        Route::post('settings/captcha/test', [CaptchaSettingsController::class, 'test'])->name('captcha.test');
+    });
+
+    Route::middleware(['auth', 'can:manage-users'])->group(function () {
+        Route::resource('users', UserController::class)->except(['show']);
     });
 
     Route::middleware(['auth', 'admin'])->group(function () {
@@ -82,7 +110,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('office-locations', OfficeLocationController::class);
         Route::resource('global-advantages', GlobalAdvantageController::class);
         Route::resource('process-steps', ProcessStepController::class);
-        Route::resource('leads', LeadController::class)->only(['index', 'show', 'destroy']);
         Route::resource('redirects', RedirectController::class);
     });
 

@@ -2,47 +2,33 @@
 
 namespace App\Rules;
 
-use App\Models\Setting;
+use App\Services\RecaptchaService;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Request;
 
 class Recaptcha implements ValidationRule
 {
     /**
-     * Verify a reCAPTCHA v3 token with Google. The check is skipped entirely
-     * when no secret key is configured, and fails open on network errors so a
-     * Google outage never blocks a lead.
+     * Run even when the token field is missing, so a bot cannot bypass the
+     * check by leaving it out.
+     */
+    public bool $implicit = true;
+
+    /**
+     * Verify a reCAPTCHA v2 widget response with Google. Passes untouched when
+     * an administrator has switched CAPTCHA off or no keys are configured.
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $secret = Setting::get('recaptcha_secret_key');
+        $recaptcha = app(RecaptchaService::class);
 
-        if (! $secret) {
+        if (! $recaptcha->isEnabled()) {
             return;
         }
 
-        if (! is_string($value) || $value === '') {
-            $fail('The reCAPTCHA verification failed. Please try again.');
-
-            return;
-        }
-
-        try {
-            $response = Http::asForm()
-                ->timeout(5)
-                ->connectTimeout(3)
-                ->post('https://www.google.com/recaptcha/api/siteverify', [
-                    'secret' => $secret,
-                    'response' => $value,
-                ]);
-        } catch (ConnectionException) {
-            return;
-        }
-
-        if (! $response->json('success')) {
-            $fail('The reCAPTCHA verification failed. Please try again.');
+        if (! $recaptcha->verify(is_string($value) ? $value : null, Request::ip())) {
+            $fail('Please confirm you are not a robot and try again.');
         }
     }
 }

@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRedirectRequest;
 use App\Http\Requests\Admin\UpdateRedirectRequest;
 use App\Models\Redirect;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class RedirectController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $redirects = Redirect::latest()->get();
+        $redirects = $this->paginateTable($request, Redirect::latest(), ['from_path', 'to_path']);
 
         return view('admin.redirects.index', compact('redirects'));
     }

@@ -141,6 +141,8 @@
                         <input id="dl_email" name="email" type="email" placeholder="Enter your email address" value="{{ old('email') }}">
                     </div>
 
+                    <x-public.recaptcha />
+
                     <button type="submit" class="consult-form__submit">Submit &amp; Download</button>
                     <p class="res-news__note" style="color: #9b9bad;">We respect your privacy. Your information is safe with us.</p>
                 </form>

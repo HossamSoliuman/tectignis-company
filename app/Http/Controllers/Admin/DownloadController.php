@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreDownloadRequest;
@@ -9,14 +10,16 @@ use App\Http\Requests\Admin\UpdateDownloadRequest;
 use App\Models\Download;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class DownloadController extends Controller
 {
+    use PaginatesTables;
     use UploadsFiles;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $downloads = Download::ordered()->get();
+        $downloads = $this->paginateTable($request, Download::ordered(), ['title', 'category']);
 
         return view('admin.downloads.index', compact('downloads'));
     }

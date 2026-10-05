@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreWhyChooseFeatureRequest;
 use App\Http\Requests\Admin\UpdateWhyChooseFeatureRequest;
 use App\Models\WhyChooseFeature;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class WhyChooseFeatureController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $features = WhyChooseFeature::ordered()->get();
+        $features = $this->paginateTable($request, WhyChooseFeature::ordered(), ['title', 'text']);
 
         return view('admin.why-choose-features.index', compact('features'));
     }

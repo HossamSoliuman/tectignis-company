@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreFaqCategoryRequest;
 use App\Http\Requests\Admin\UpdateFaqCategoryRequest;
 use App\Models\FaqCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class FaqCategoryController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $categories = FaqCategory::withCount('faqs')->ordered()->get();
+        $categories = $this->paginateTable($request, FaqCategory::withCount('faqs')->ordered(), ['name']);
 
         return view('admin.faq-categories.index', compact('categories'));
     }

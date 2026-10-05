@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\ManagesIndustryContent;
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreIndustryRequest;
@@ -10,14 +11,16 @@ use App\Http\Requests\Admin\UpdateIndustryRequest;
 use App\Models\Industry;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class IndustryController extends Controller
 {
     use ManagesIndustryContent, UploadsFiles;
+    use PaginatesTables;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $industries = Industry::ordered()->get();
+        $industries = $this->paginateTable($request, Industry::ordered(), ['name', 'slug']);
 
         return view('admin.industries.index', compact('industries'));
     }

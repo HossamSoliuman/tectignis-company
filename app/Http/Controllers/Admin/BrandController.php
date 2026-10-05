@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBrandRequest;
@@ -9,14 +10,16 @@ use App\Http\Requests\Admin\UpdateBrandRequest;
 use App\Models\Brand;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
+    use PaginatesTables;
     use UploadsFiles;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $brands = Brand::ordered()->get();
+        $brands = $this->paginateTable($request, Brand::ordered(), ['name', 'url']);
 
         return view('admin.brands.index', compact('brands'));
     }

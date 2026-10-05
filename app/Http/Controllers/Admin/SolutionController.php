@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\ManagesSolutionContent;
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSolutionRequest;
@@ -10,14 +11,16 @@ use App\Http\Requests\Admin\UpdateSolutionRequest;
 use App\Models\Solution;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class SolutionController extends Controller
 {
     use ManagesSolutionContent, UploadsFiles;
+    use PaginatesTables;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $solutions = Solution::ordered()->get();
+        $solutions = $this->paginateTable($request, Solution::ordered(), ['title', 'slug']);
 
         return view('admin.solutions.index', compact('solutions'));
     }

@@ -13,9 +13,17 @@ class SettingsController extends Controller
 {
     use UploadsFiles;
 
+    /**
+     * Groups managed on their own screens. CAPTCHA keys are Super-Admin-only
+     * (spec §28.2), so they can neither be shown nor written from here.
+     *
+     * @var list<string>
+     */
+    private const EXCLUDED_GROUPS = ['smtp', 'mail', 'captcha'];
+
     public function index(): View
     {
-        $settings = Setting::whereNotIn('group', ['smtp', 'mail'])
+        $settings = Setting::whereNotIn('group', self::EXCLUDED_GROUPS)
             ->orderBy('group')->orderBy('key')->get()->groupBy('group');
 
         return view('admin.settings.index', compact('settings'));
@@ -31,7 +39,7 @@ class SettingsController extends Controller
         ]);
 
         foreach ($data['settings'] ?? [] as $key => $value) {
-            Setting::where('key', $key)->update(['value' => $value]);
+            Setting::where('key', $key)->where('group', '!=', 'captcha')->update(['value' => $value]);
         }
 
         $imageKeys = array_unique(array_merge(
@@ -53,7 +61,7 @@ class SettingsController extends Controller
      */
     private function syncImageSetting(Request $request, string $key): void
     {
-        $setting = Setting::where('key', $key)->first();
+        $setting = Setting::where('key', $key)->whereNotIn('group', self::EXCLUDED_GROUPS)->first();
 
         if (! $setting) {
             return;

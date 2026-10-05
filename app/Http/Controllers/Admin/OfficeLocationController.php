@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreOfficeLocationRequest;
 use App\Http\Requests\Admin\UpdateOfficeLocationRequest;
 use App\Models\OfficeLocation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class OfficeLocationController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $locations = OfficeLocation::orderBy('region')->ordered()->get();
+        $locations = $this->paginateTable($request, OfficeLocation::orderBy('region')->ordered(), ['city', 'region', 'type']);
 
         return view('admin.office-locations.index', compact('locations'));
     }

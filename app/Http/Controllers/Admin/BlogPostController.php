@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogPostRequest;
@@ -9,15 +10,17 @@ use App\Http\Requests\Admin\UpdateBlogPostRequest;
 use App\Models\BlogPost;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class BlogPostController extends Controller
 {
+    use PaginatesTables;
     use UploadsFiles;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $posts = BlogPost::ordered()->get();
+        $posts = $this->paginateTable($request, BlogPost::ordered(), ['title', 'slug', 'category']);
 
         return view('admin.blog.index', compact('posts'));
     }

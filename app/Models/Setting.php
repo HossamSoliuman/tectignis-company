@@ -6,6 +6,7 @@ use App\Models\Concerns\FlushesSiteCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Once;
 
 class Setting extends Model
 {
@@ -27,6 +28,16 @@ class Setting extends Model
         'site_logo_dark' => 'assets/images/logo',
         'site_favicon' => 'assets/images/logo',
     ];
+
+    /**
+     * Also drop the per-request once() memo behind values(), so a setting saved
+     * earlier in the same request is read back fresh.
+     */
+    protected static function booted(): void
+    {
+        static::saved(static fn () => Once::flush());
+        static::deleted(static fn () => Once::flush());
+    }
 
     public static function get(string $key, mixed $default = null): mixed
     {

@@ -8529,3 +8529,176 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     .tx-card:hover, .tx-card:focus-within, .tx-industry-card:hover { transform: none; }
     .tx-card:hover .tx-case-card__media img { transform: none; }
 }
+
+
+/* =========================================================
+   Project enquiry form (spec §11.2) – shared by the contact
+   page, the consultation modal and service pages – plus the
+   reCAPTCHA v2 widget and the thank-you page.
+   ========================================================= */
+.enquiry-form__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.enquiry-form__full,
+.enquiry-form__actions { grid-column: 1 / -1; }
+.consult-modal .enquiry-form__grid .consult-field input,
+.consult-modal .enquiry-form__grid .consult-field select,
+.consult-modal .enquiry-form__grid .consult-field textarea { padding: 11px 12px; }
+.consult-modal .enquiry-form__grid .consult-field textarea { min-height: 88px; resize: vertical; }
+
+.enquiry-form optgroup { font-weight: 600; color: #6b7280; }
+.enquiry-form optgroup option { color: #111827; font-weight: 400; }
+
+.contact-field .enquiry-consent,
+.consult-field .enquiry-consent,
+.enquiry-form--service .enquiry-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #5a6270;
+    cursor: pointer;
+}
+.contact-field .enquiry-consent input,
+.consult-field .enquiry-consent input,
+.enquiry-form--service .enquiry-consent input {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    padding: 0;
+    box-shadow: none;
+    accent-color: var(--about-primary, #2c73a0);
+}
+.enquiry-consent a { color: var(--about-primary, #2c73a0); font-weight: 600; }
+.enquiry-form--service .row { row-gap: 16px; }
+
+.form-recaptcha { min-height: 78px; }
+.form-recaptcha .g-recaptcha { transform-origin: 0 0; }
+@media (max-width: 360px) {
+    .form-recaptcha .g-recaptcha { transform: scale(0.86); }
+}
+
+.res-news__form .form-recaptcha { margin: 0 0 12px; overflow: hidden; }
+.res-news__error { margin: 8px 0 0; font-size: 13px; color: #b3243b; }
+
+@media (max-width: 575px) {
+    .enquiry-form__grid { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* ---------- Consultation modal: field styling ---------- */
+.consult-modal .enquiry-form__grid .consult-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.consult-modal .enquiry-form__grid .consult-field .enquiry-consent { white-space: normal; overflow: visible; }
+.consult-modal .enquiry-form__grid .consult-field input:not([type="checkbox"]),
+.consult-modal .enquiry-form__grid .consult-field select,
+.consult-modal .enquiry-form__grid .consult-field textarea {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--about-heading);
+    background-color: #f7f9fc;
+    border: 1px solid #dfe5ee;
+    border-radius: 8px;
+    padding: 0 14px;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+.consult-modal .enquiry-form__grid .consult-field input:not([type="checkbox"]),
+.consult-modal .enquiry-form__grid .consult-field select { height: 44px; }
+.consult-modal .enquiry-form__grid .consult-field select {
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 38px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+.consult-modal .enquiry-form__grid .consult-field textarea { padding: 11px 14px; min-height: 84px; resize: vertical; }
+.consult-modal .enquiry-form__grid .consult-field input:not([type="checkbox"]):hover,
+.consult-modal .enquiry-form__grid .consult-field select:hover,
+.consult-modal .enquiry-form__grid .consult-field textarea:hover { border-color: #c5cfdc; }
+.consult-modal .enquiry-form__grid .consult-field input:not([type="checkbox"]):focus,
+.consult-modal .enquiry-form__grid .consult-field select:focus,
+.consult-modal .enquiry-form__grid .consult-field textarea:focus {
+    background-color: #fff;
+    border-color: var(--about-primary);
+    box-shadow: 0 0 0 3px rgba(44, 115, 160, 0.14);
+}
+.consult-modal .enquiry-form__grid .consult-field input::placeholder,
+.consult-modal .enquiry-form__grid .consult-field textarea::placeholder { color: #9aa0ad; }
+
+/* Consultation modal on desktop: a wider three-column layout so the whole
+   form fits in the viewport without scrolling. Built on a six-track grid so
+   regular fields take a third, the budget/timeline pair takes half each, and
+   the reCAPTCHA widget and submit button share the last row. */
+@media (min-width: 992px) {
+    #consultation-modal .consult-modal__dialog { max-width: 800px; padding: 24px 28px; }
+    #consultation-modal .consult-modal__header { margin-bottom: 18px; }
+    .consult-modal .enquiry-form__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px 16px; }
+    .consult-modal .enquiry-form__grid > .consult-field { grid-column: span 2; }
+    .consult-modal .enquiry-form__grid > .enquiry-form__pair { grid-column: span 3; }
+    .consult-modal .enquiry-form__grid > .enquiry-form__full,
+    .consult-modal .enquiry-form__grid > .enquiry-form__actions { grid-column: 1 / -1; }
+    .consult-modal .enquiry-form__grid > .enquiry-form__captcha { grid-column: span 3; }
+    .consult-modal .enquiry-form__captcha .form-recaptcha { min-height: 0; }
+    .consult-modal .enquiry-form__grid > .enquiry-form__captcha + .enquiry-form__actions { grid-column: span 3; display: flex; align-items: center; }
+    .consult-modal .enquiry-form__captcha:not(:has(.form-recaptcha)) { display: none; }
+    .consult-modal .enquiry-form__grid > .enquiry-form__captcha:not(:has(.form-recaptcha)) + .enquiry-form__actions { grid-column: 1 / -1; }
+    #consultation-modal .consult-form__submit { margin-top: 0; }
+}
+
+/* Short desktop viewports: tighten vertical rhythm further. */
+@media (min-width: 992px) and (max-height: 720px) {
+    #consultation-modal { padding: 14px 24px; }
+    #consultation-modal .consult-modal__dialog { padding: 18px 24px; }
+    #consultation-modal .consult-modal__header { margin-bottom: 10px; }
+    #consultation-modal .consult-modal__icon { width: 40px; height: 40px; }
+    #consultation-modal .consult-modal__icon svg { width: 20px; height: 20px; }
+    .consult-modal .enquiry-form__grid { row-gap: 10px; }
+    .consult-modal .enquiry-form__grid .consult-field input:not([type="checkbox"]),
+    .consult-modal .enquiry-form__grid .consult-field select { height: 40px; }
+    .consult-modal .enquiry-form__grid .consult-field textarea { min-height: 64px; }
+}
+
+.thank-you { padding: 120px 0 100px; background: linear-gradient(180deg, #f5f8fc 0%, #fff 100%); }
+.thank-you__card {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 40px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #e6ebf2;
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(17, 38, 74, 0.08);
+}
+.thank-you__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    color: #1b7d4f;
+    background: #eafaf0;
+}
+.thank-you__icon svg { width: 36px; height: 36px; }
+.thank-you__title { margin: 0 0 12px; font-size: 30px; font-weight: 700; color: var(--about-heading, #0f1b2d); }
+.thank-you__text { margin: 0 0 28px; font-size: 16px; line-height: 1.7; color: var(--about-body, #4b5563); }
+.thank-you__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+@media (max-width: 575px) {
+    .thank-you { padding: 80px 0 60px; }
+    .thank-you__card { padding: 36px 20px; }
+    .thank-you__title { font-size: 24px; }
+}

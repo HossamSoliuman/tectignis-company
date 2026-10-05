@@ -31,9 +31,10 @@ class LoginController extends Controller
 
         $user = Auth::user();
 
-        // Two independent doors share this login: the website CMS (`role`) and
-        // the operations portal (`portal_role`). Holding either one is enough.
-        if (! $user->isAdmin() && ! $user->hasPortalAccess()) {
+        // Two independent doors share this login: the website admin (`role` —
+        // CMS and/or Leads) and the operations portal (`portal_role`). Holding
+        // either one is enough.
+        if (! $user->hasAdminAreaAccess()) {
             Auth::logout();
 
             throw ValidationException::withMessages([
@@ -43,9 +44,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        $home = $user->isAdmin() ? route('admin.dashboard') : route('admin.portal.dashboard');
-
-        return redirect()->intended($home);
+        return redirect()->intended($user->adminHomeUrl());
     }
 
     public function destroy(Request $request): RedirectResponse

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\Download;
 use App\Models\Lead;
+use App\Rules\Recaptcha;
+use App\Services\RecaptchaService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,6 +27,7 @@ class DownloadController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:20'],
             'email' => ['nullable', 'email', 'max:255'],
+            RecaptchaService::RESPONSE_FIELD => [new Recaptcha],
         ], [], [
             'download_id' => 'resource',
         ]);

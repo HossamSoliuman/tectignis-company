@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTechStackRequest;
@@ -9,14 +10,16 @@ use App\Http\Requests\Admin\UpdateTechStackRequest;
 use App\Models\TechStack;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class TechStackController extends Controller
 {
+    use PaginatesTables;
     use UploadsFiles;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $techStacks = TechStack::ordered()->get();
+        $techStacks = $this->paginateTable($request, TechStack::ordered(), ['name', 'category']);
 
         return view('admin.tech-stacks.index', compact('techStacks'));
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreInsightRequest;
@@ -9,15 +10,17 @@ use App\Http\Requests\Admin\UpdateInsightRequest;
 use App\Models\Insight;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class InsightController extends Controller
 {
+    use PaginatesTables;
     use UploadsFiles;
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $insights = Insight::ordered()->get();
+        $insights = $this->paginateTable($request, Insight::ordered(), ['title', 'slug', 'topic']);
 
         return view('admin.insights.index', compact('insights'));
     }

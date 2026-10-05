@@ -9,7 +9,7 @@
             'home' => ['title' => 'Home Page', 'icon' => 'home', 'description' => 'Headings, sub-headings and images for every section of the home page.'],
             'about' => ['title' => 'About Page', 'icon' => 'light-bulb', 'description' => 'Editable copy for the About page, including the "Our Core Values" section.'],
             'social' => ['title' => 'Social Media', 'icon' => 'share', 'description' => 'Profile links shown in the footer. Leave a field empty to hide its icon.'],
-            'integrations' => ['title' => 'Integrations & Tracking', 'icon' => 'chart-bar', 'description' => 'Google Analytics, Tag Manager, Search Console, Meta Pixel and reCAPTCHA keys.'],
+            'integrations' => ['title' => 'Integrations & Tracking', 'icon' => 'chart-bar', 'description' => 'Google Analytics, Tag Manager, Search Console and Meta Pixel. reCAPTCHA keys are under Access & Security → CAPTCHA.'],
             'smtp' => ['title' => 'Email (SMTP)', 'icon' => 'envelope', 'description' => 'Outgoing mail server. When a host is set, these settings override the default mail configuration.'],
             'legal' => ['title' => 'Legal Pages', 'icon' => 'scale', 'description' => 'HTML content for the Privacy Policy and Terms & Conditions pages.'],
             'seo' => ['title' => 'SEO', 'icon' => 'trending-up', 'description' => 'Search engine directives such as robots.txt.'],

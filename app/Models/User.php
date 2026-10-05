@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Portal\PortalRole;
+use App\Enums\UserRole;
 use App\Models\Portal\Employee;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,12 +28,78 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'can_export_leads',
         'portal_role',
     ];
 
+    /**
+     * The website admin access level, or null for an unrecognised value.
+     */
+    public function userRole(): ?UserRole
+    {
+        return UserRole::tryFrom((string) $this->role);
+    }
+
+    /**
+     * Whether this user may manage website content (the CMS).
+     */
     public function isAdmin(): bool
     {
-        return in_array($this->role, ['admin', 'editor'], true);
+        return $this->userRole()?->hasCmsAccess() ?? false;
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->userRole()?->isSuperAdmin() ?? false;
+    }
+
+    public function canViewLeads(): bool
+    {
+        return $this->userRole()?->canViewLeads() ?? false;
+    }
+
+    /**
+     * Export is granted per user on top of view access; Super Admins always have it.
+     */
+    public function canExportLeads(): bool
+    {
+        return $this->isSuperAdmin() || ($this->canViewLeads() && $this->can_export_leads);
+    }
+
+    /**
+     * Users a lead can be assigned to: everyone allowed to work leads.
+     *
+     * @return Builder<User>
+     */
+    public static function leadAssignees(): Builder
+    {
+        $roles = collect(UserRole::cases())
+            ->filter(fn (UserRole $role): bool => $role->canManageLeads())
+            ->map(fn (UserRole $role): string => $role->value)
+            ->values()
+            ->all();
+
+        return static::query()->whereIn('role', $roles)->orderBy('name');
+    }
+
+    /**
+     * Whether this user may sign in to the admin area through either door.
+     */
+    public function hasAdminAreaAccess(): bool
+    {
+        return $this->isAdmin() || $this->canViewLeads() || $this->hasPortalAccess();
+    }
+
+    /**
+     * Where to land after signing in, based on what this user can reach.
+     */
+    public function adminHomeUrl(): string
+    {
+        return match (true) {
+            $this->isAdmin() => route('admin.dashboard'),
+            $this->canViewLeads() => route('admin.leads.index'),
+            default => route('admin.portal.dashboard'),
+        };
     }
 
     /**
@@ -95,6 +163,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'can_export_leads' => 'boolean',
         ];
     }
 }

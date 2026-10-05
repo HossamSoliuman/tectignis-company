@@ -7,10 +7,12 @@ use App\Models\Capability;
 use App\Models\Industry;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\User;
 use App\Support\CompanyProfile;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,10 +31,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->defineAdminGates();
         $this->shareCompanyProfile();
         $this->composeHeaderNavigation();
         $this->composeFooter();
         $this->applySmtpSettings();
+    }
+
+    /**
+     * Super-Admin-only areas: CAPTCHA keys (spec §28.2) and admin users.
+     */
+    private function defineAdminGates(): void
+    {
+        Gate::define('manage-captcha', fn (User $user): bool => $user->isSuperAdmin());
+        Gate::define('manage-users', fn (User $user): bool => $user->isSuperAdmin());
     }
 
     /**

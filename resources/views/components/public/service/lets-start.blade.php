@@ -47,46 +47,8 @@
 
                 <div class="col-lg-7 svc-start__form-col wow move-up">
                     <div class="svc-start__form">
-                        @if (session('status'))
-                            <div class="alert alert-success">{{ session('status') }}</div>
-                        @endif
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form action="{{ route('contact.submit') }}" method="post">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input class="svc-input" name="con_name" type="text" placeholder="Full Name *"
-                                        value="{{ old('con_name') }}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="svc-input" name="con_email" type="email" placeholder="Email *"
-                                        value="{{ old('con_email') }}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="svc-input" name="con_phone" type="text" placeholder="Phone Number *"
-                                        value="{{ old('con_phone') }}" maxlength="20" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="svc-input" name="con_subject" type="text" placeholder="Subject *"
-                                        value="{{ old('con_subject', $service->title.' Enquiry') }}" required>
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="svc-input svc-input--area" name="con_message" rows="4"
-                                        placeholder="Tell us about your project *" required>{{ old('con_message') }}</textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button class="svc-btn svc-btn--primary svc-btn--block" type="submit">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
+                        <x-public.enquiry-form form-id="service-enquiry" source="contact" variant="service"
+                            :subject="$service->title.' Enquiry'" submit-label="Send Enquiry" />
                     </div>
                 </div>
             </div>

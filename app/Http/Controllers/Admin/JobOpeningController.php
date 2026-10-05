@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreJobOpeningRequest;
 use App\Http\Requests\Admin\UpdateJobOpeningRequest;
 use App\Models\JobOpening;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class JobOpeningController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $jobOpenings = JobOpening::ordered()->get();
+        $jobOpenings = $this->paginateTable($request, JobOpening::ordered(), ['title', 'department', 'location']);
 
         return view('admin.job-openings.index', compact('jobOpenings'));
     }

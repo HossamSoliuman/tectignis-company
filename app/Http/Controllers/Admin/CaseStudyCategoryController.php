@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCaseStudyCategoryRequest;
 use App\Http\Requests\Admin\UpdateCaseStudyCategoryRequest;
 use App\Models\CaseStudyCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CaseStudyCategoryController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $categories = CaseStudyCategory::withCount('caseStudies')->ordered()->get();
+        $categories = $this->paginateTable($request, CaseStudyCategory::withCount('caseStudies')->ordered(), ['name']);
 
         return view('admin.case-study-categories.index', compact('categories'));
     }

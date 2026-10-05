@@ -2,6 +2,8 @@
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Support\Facades\Route;
 
 uses(RefreshDatabase::class);
 
@@ -47,4 +49,21 @@ it('admin can logout', function () {
         ->assertRedirect();
 
     $this->assertGuest();
+});
+
+it('redirects back to the login form with a message when the csrf token has expired', function () {
+    Route::post('/_test/expired-token', fn () => throw new TokenMismatchException)->middleware('web');
+
+    $this->from(route('login'))
+        ->post('/_test/expired-token', ['email' => 'admin@test.com', 'password' => 'secret'])
+        ->assertRedirect(route('login'))
+        ->assertSessionHasErrors('session')
+        ->assertSessionHasInput('email', 'admin@test.com')
+        ->assertSessionMissing('_old_input.password');
+});
+
+it('keeps the 419 status for json requests with an expired csrf token', function () {
+    Route::post('/_test/expired-token', fn () => throw new TokenMismatchException)->middleware('web');
+
+    $this->postJson('/_test/expired-token')->assertStatus(419);
 });

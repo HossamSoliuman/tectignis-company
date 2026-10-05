@@ -118,58 +118,7 @@
                     <h2 class="about-section-heading">Tell us about your <span class="text-color-primary">project</span></h2>
                     <p class="contact-form-card__desc">Fill in the form below and our team will get back to you with tailored solutions.</p>
 
-                    @if (session('status'))
-                        <div class="alert alert-success" id="contact-status" role="status" tabindex="-1">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75m6 2.25a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                            <span>{{ session('status') }}</span>
-                        </div>
-                    @endif
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form class="contact-form" id="contact-lead-form" action="{{ route('contact.submit') }}" method="post">
-                        @csrf
-                        <div class="contact-form__grid">
-                            <div class="contact-field">
-                                <label for="con_name">Full Name *</label>
-                                <input id="con_name" name="con_name" type="text" placeholder="John Doe" value="{{ old('con_name') }}" required>
-                            </div>
-                            <div class="contact-field">
-                                <label for="con_company">Company Name</label>
-                                <input id="con_company" name="con_company" type="text" placeholder="Your company" value="{{ old('con_company') }}">
-                            </div>
-                            <div class="contact-field">
-                                <label for="con_email">Email Address *</label>
-                                <input id="con_email" name="con_email" type="email" placeholder="you@company.com" value="{{ old('con_email') }}" required>
-                            </div>
-                            <div class="contact-field">
-                                <label for="con_phone">Mobile Number *</label>
-                                <input id="con_phone" name="con_phone" type="text" placeholder="+91 00000 00000" value="{{ old('con_phone') }}" maxlength="20" required>
-                            </div>
-                            <div class="contact-field contact-field--full">
-                                <label for="con_subject">Service of Interest</label>
-                                <select id="con_subject" name="con_subject">
-                                    <option value="" {{ old('con_subject') ? '' : 'selected' }}>Select a service</option>
-                                    @foreach (['Software Development', 'Artificial Intelligence', 'Cloud Solutions', 'Networking & Infrastructure', 'Cybersecurity', 'IT Consulting', 'Other'] as $service)
-                                        <option value="{{ $service }}" @selected(old('con_subject') === $service)>{{ $service }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="contact-field contact-field--full">
-                                <label for="con_message">Message *</label>
-                                <textarea id="con_message" name="con_message" rows="5" placeholder="Tell us about your requirements..." required>{{ old('con_message') }}</textarea>
-                            </div>
-                        </div>
-                        <button class="about-btn about-btn--primary contact-form__submit" type="submit">Send Message <span aria-hidden="true">→</span></button>
-                        <p class="contact-form__privacy">By submitting this form, you agree to our privacy policy. We never share your information.</p>
-                    </form>
+                    <x-public.enquiry-form form-id="contact-page" source="contact" variant="page" submit-label="Send Enquiry" id="contact-lead-form" />
                 </div>
 
                 <div class="contact-info wow move-up">
@@ -319,17 +268,3 @@
         ])->all(),
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endpush
-
-@if (session('status'))
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var status = document.getElementById('contact-status');
-                if (status) {
-                    status.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    status.focus({ preventScroll: true });
-                }
-            });
-        </script>
-    @endpush
-@endif

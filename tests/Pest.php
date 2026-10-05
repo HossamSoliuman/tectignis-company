@@ -52,6 +52,29 @@ function something()
 }
 
 /**
+ * A complete, valid project enquiry form submission (spec §11.2).
+ *
+ * @param  array<string, mixed>  $overrides
+ * @return array<string, mixed>
+ */
+function validEnquiry(array $overrides = []): array
+{
+    return array_merge([
+        'name' => 'Jane Doe',
+        'email' => 'jane@acme.example',
+        'company' => 'Acme Corp',
+        'country' => 'United Arab Emirates',
+        'phone' => '+971 50 123 4567',
+        'service' => 'Cloud Migration',
+        'message' => 'We want to move our ERP workloads to Azure next quarter.',
+        'budget' => '15k-50k',
+        'timeline' => '1-3-months',
+        'consent' => '1',
+        'source' => 'contact',
+    ], $overrides);
+}
+
+/**
  * A signed-in portal user at the given role, together with the employee record
  * behind it — the starting point for almost every portal feature test.
  *

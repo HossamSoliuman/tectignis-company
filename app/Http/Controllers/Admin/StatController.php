@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreStatRequest;
 use App\Http\Requests\Admin\UpdateStatRequest;
 use App\Models\Stat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class StatController extends Controller
 {
-    public function index(): View
+    use PaginatesTables;
+
+    public function index(Request $request): View
     {
-        $stats = Stat::ordered()->get();
+        $stats = $this->paginateTable($request, Stat::ordered(), ['label', 'key', 'value']);
 
         return view('admin.stats.index', compact('stats'));
     }

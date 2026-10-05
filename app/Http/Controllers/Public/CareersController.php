@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Mail\LeadNotificationMail;
 use App\Models\Lead;
+use App\Rules\Recaptcha;
+use App\Services\RecaptchaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,7 @@ class CareersController extends Controller
             'con_notice_period' => ['nullable', 'string', 'max:50'],
             'con_resume' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
             'con_message' => ['nullable', 'string', 'max:5000'],
+            RecaptchaService::RESPONSE_FIELD => [new Recaptcha],
         ], [], [
             'con_name' => 'full name',
             'con_email' => 'email address',

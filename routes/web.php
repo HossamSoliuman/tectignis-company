@@ -51,6 +51,7 @@ Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->middlewa
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->middleware('throttle:10,1')->name('contact.submit');
+Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
 
 Route::get('/legal/{slug}', [PageController::class, 'legal'])->name('legal.show');
 
