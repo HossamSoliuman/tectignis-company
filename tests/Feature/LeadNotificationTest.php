@@ -31,7 +31,7 @@ it('includes qualification, attribution and an admin link in the notification', 
     $lead = Lead::factory()->enquiry()->create([
         'company' => 'Globex',
         'country' => 'Canada',
-        'budget' => '50k-100k',
+        'budget' => '10k-25k',
         'timeline' => 'immediate',
         'utm_source' => 'linkedin',
         'utm_campaign' => 'canada-ai',
@@ -42,7 +42,7 @@ it('includes qualification, attribution and an admin link in the notification', 
     expect($html)
         ->toContain('Globex')
         ->toContain('Canada')
-        ->toContain('US$50,000 – 100,000')
+        ->toContain('US$10,000 – 25,000')
         ->toContain('Immediate')
         ->toContain('linkedin')
         ->toContain('canada-ai')

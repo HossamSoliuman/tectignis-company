@@ -7,21 +7,21 @@ namespace App\Enums;
  */
 enum LeadBudget: string
 {
-    case Under5k = 'under-5k';
-    case From5kTo15k = '5k-15k';
-    case From15kTo50k = '15k-50k';
-    case From50kTo100k = '50k-100k';
-    case Over100k = 'over-100k';
+    case Under1k = 'under-1k';
+    case From1kTo5k = '1k-5k';
+    case From5kTo10k = '5k-10k';
+    case From10kTo25k = '10k-25k';
+    case Over25k = 'over-25k';
     case NotSure = 'not-sure';
 
     public function label(): string
     {
         return match ($this) {
-            self::Under5k => 'Under US$5,000',
-            self::From5kTo15k => 'US$5,000 – 15,000',
-            self::From15kTo50k => 'US$15,000 – 50,000',
-            self::From50kTo100k => 'US$50,000 – 100,000',
-            self::Over100k => 'Over US$100,000',
+            self::Under1k => 'Under US$1,000',
+            self::From1kTo5k => 'US$1,000 – 5,000',
+            self::From5kTo10k => 'US$5,000 – 10,000',
+            self::From10kTo25k => 'US$10,000 – 25,000',
+            self::Over25k => 'Over US$25,000',
             self::NotSure => 'Not sure yet',
         };
     }
