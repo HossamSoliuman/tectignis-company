@@ -8494,7 +8494,9 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     gap: 32px 24px;
     padding-bottom: 44px;
 }
-.tx-footer__logo img { width: auto; max-height: 45px; }
+.tx-footer__logo { display: inline-block; max-width: 100%; }
+/* Scale the logo down to its grid column so it never spills into the next one. */
+.tx-footer__logo img { display: block; width: auto; height: auto; max-width: 100%; max-height: 45px; }
 .tx-footer__tagline { margin: 18px 0 20px; line-height: 1.65; }
 .tx-footer__socials { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .tx-footer__socials a {
