@@ -7873,6 +7873,25 @@ button.mobile-navigation-icon {
     .tx-header-actions .tx-btn--primary { padding: 8px 12px; font-size: 13px; }
     button.mobile-navigation-icon { margin-left: 8px; }
 }
+
+/* Desktop nav: never wrap a label onto two lines ("Our Work"), and tighten
+   the logo/menu spacing on laptop widths so the menu and CTAs fit one row. */
+.navigation-menu > ul > li > a { white-space: nowrap; }
+@media (min-width: 1500px) and (max-width: 1599px) {
+    .navigation-menu > ul > li { margin: 0 16px; }
+    .header-bottom-left-wrap .navigation-menu > ul > li:first-child { margin: 0 16px 0 0; }
+}
+@media (min-width: 1200px) and (max-width: 1499px) {
+    .header__logo { flex-basis: auto; flex-shrink: 0; margin-right: 12px; }
+    .header__logo > a img { width: 200px; }
+    .navigation-menu > ul > li { margin: 0 10px; }
+    .header-bottom-left-wrap .navigation-menu > ul > li:first-child { margin: 0 10px 0 0; }
+    .navigation-menu > ul > li > a { font-size: 15px; }
+}
+/* Both CTAs open the same modal, so drop the secondary one where space runs out. */
+@media (min-width: 1200px) and (max-width: 1299px) {
+    .tx-header-actions .tx-btn--outline { display: none !important; }
+}
 .tx-mega__icon i { color: #fff; font-size: 15px; }
 .tx-mega__message {
     margin: 10px 0 6px;
