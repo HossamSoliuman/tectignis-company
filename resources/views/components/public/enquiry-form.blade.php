@@ -60,8 +60,9 @@
 
         <div class="{{ $s['field'] }}">
             <label for="{{ $id('phone') }}" class="{{ $s['label'] }}">Phone / WhatsApp <span class="consult-field__optional">(Optional)</span></label>
-            <input id="{{ $id('phone') }}" class="{{ $s['control'] }}" name="phone" type="tel" autocomplete="tel"
-                placeholder="{{ $variant === 'service' ? 'Phone / WhatsApp (optional)' : '+91 98765 43210' }}" value="{{ $value('phone') }}" maxlength="25">
+            <x-public.phone-input :id="$id('phone')" :variant="$variant" :input-class="$s['control']"
+                :value="$value('phone')" :country="$value('phone_country')"
+                :placeholder="$variant === 'service' ? 'Phone / WhatsApp (optional)' : null" />
         </div>
 
         <div class="{{ $s['field'] }}">

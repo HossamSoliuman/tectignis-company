@@ -67,10 +67,35 @@ it('rejects invalid enquiry values', function (string $field, mixed $value) {
     'unapproved service' => ['service', 'Time travel'],
     'too-short description' => ['message', 'Need help.'],
     'non-international phone' => ['phone', 'call me maybe'],
+    'unknown phone country' => ['phone_country', 'XX'],
     'unknown budget' => ['budget', 'a-lot'],
     'unknown timeline' => ['timeline', 'someday'],
     'consent not given' => ['consent', '0'],
 ]);
+
+it('stores the phone number with the dialling code picked beside it', function (string $phoneCountry, string $phone, string $stored) {
+    $this->post(route('contact.submit'), validEnquiry(['phone_country' => $phoneCountry, 'phone' => $phone]))
+        ->assertRedirect(route('contact.thank-you'));
+
+    expect(Lead::sole()->phone)->toBe($stored);
+})->with([
+    'national number' => ['IN', '98765 43210', '+91 98765 43210'],
+    'trunk zero dropped' => ['GB', '07400 123456', '+44 7400 123456'],
+    'italian leading zero kept' => ['IT', '06 1234 5678', '+39 06 1234 5678'],
+    'already international' => ['IN', '+971 50 123 4567', '+971 50 123 4567'],
+    '00 international prefix' => ['IN', '00971 50 123 4567', '+971 50 123 4567'],
+]);
+
+it('refills the phone number and its country code after a validation error', function () {
+    $this->from(route('contact'))
+        ->post(route('contact.submit'), validEnquiry(['form_id' => 'consultation-modal', 'phone_country' => 'AE', 'phone' => '50 123 4567', 'company' => '']))
+        ->assertRedirect(route('contact'));
+
+    $this->get(route('contact'))
+        ->assertOk()
+        ->assertSee('name="phone_country" value="AE"', false)
+        ->assertSee('value="50 123 4567"', false);
+});
 
 it('consultation modal submissions are stored as consultation leads', function () {
     $this->post(route('contact.submit'), validEnquiry(['source' => 'consultation', 'form_id' => 'consultation-modal']))
@@ -116,6 +141,7 @@ it('renders the enquiry form on the contact page', function () {
         ->assertOk()
         ->assertSee('name="company"', false)
         ->assertSee('name="country"', false)
+        ->assertSee('name="phone_country"', false)
         ->assertSee('name="consent"', false)
         ->assertSee('Cloud Migration');
 });

@@ -23,6 +23,29 @@ class ContactRequest extends FormRequest
     }
 
     /**
+     * Prefix a national phone number with the dialling code picked beside it,
+     * dropping the trunk "0" (07400… → +44 7400…) that only applies in-country.
+     * Numbers already in international form are kept as typed.
+     */
+    protected function prepareForValidation(): void
+    {
+        $phone = trim((string) $this->input('phone'));
+        $dialCode = Countries::dialCode((string) $this->input('phone_country'));
+
+        if (str_starts_with($phone, '00')) {
+            $phone = '+'.substr($phone, 2);
+        }
+
+        if ($phone !== '' && $dialCode !== null && ! str_starts_with($phone, '+')) {
+            // Italy, the Vatican and San Marino keep the leading 0 after the country code.
+            $national = in_array($dialCode, ['+39', '+378'], true) ? $phone : ltrim($phone, '0');
+            $phone = $dialCode.' '.$national;
+        }
+
+        $this->merge(['phone' => $phone !== '' ? $phone : null]);
+    }
+
+    /**
      * @return array<string, array<int, mixed>>
      */
     public function rules(): array
@@ -33,6 +56,7 @@ class ContactRequest extends FormRequest
             'company' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', Rule::in(Countries::all())],
             'phone' => ['nullable', 'string', 'max:25', 'regex:/^\+?[0-9][0-9\s().-]{5,23}$/'],
+            'phone_country' => ['nullable', 'string', Rule::in(Countries::isoCodes())],
             'service' => ['required', 'string', Rule::in(EnquiryServices::all())],
             'message' => ['required', 'string', 'min:20', 'max:5000'],
             'budget' => ['nullable', Rule::enum(LeadBudget::class)],
@@ -68,7 +92,7 @@ class ContactRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'phone.regex' => 'Please enter the phone number in international format, e.g. +91 98765 43210.',
+            'phone.regex' => 'Please enter a valid phone number, e.g. 98765 43210.',
             'message.min' => 'Please tell us a little more about your project (at least :min characters).',
             'consent.accepted' => 'Please agree to the privacy policy so we can respond to your enquiry.',
         ];
