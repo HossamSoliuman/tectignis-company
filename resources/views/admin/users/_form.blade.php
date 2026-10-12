@@ -49,6 +49,16 @@
         </label>
     </div>
 
+    <div class="flex items-start gap-2">
+        <input type="hidden" name="can_export_applications" value="0">
+        <input type="checkbox" id="can_export_applications" name="can_export_applications" value="1" class="mt-1 rounded border-slate-300"
+            @checked(old('can_export_applications', $user->can_export_applications))>
+        <label for="can_export_applications" class="text-sm text-slate-700">
+            <span class="font-medium">Can export job applications to CSV</span>
+            <span class="block text-xs text-slate-500">Applies to roles with Careers access. Super Admins can always export.</span>
+        </label>
+    </div>
+
     @if ($user->exists && $user->portalRole())
         <p class="rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-500">
             Operations portal access ({{ $user->portalRole()->label() }}) is managed separately under Operations → Employees.

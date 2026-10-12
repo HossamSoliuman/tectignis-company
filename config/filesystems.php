@@ -63,6 +63,17 @@ return [
             'report' => false,
         ],
 
+        // Candidate CVs (spec §26.13): outside the web root, only ever streamed
+        // through the authorised Careers admin download route.
+        'careers' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/careers'),
+            'serve' => false,
+            'visibility' => 'private',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

@@ -9,6 +9,7 @@
             'sky' => 'bg-sky-100 text-sky-700',
             'emerald' => 'bg-emerald-100 text-emerald-700',
             'amber' => 'bg-amber-100 text-amber-700',
+            'rose' => 'bg-rose-100 text-rose-700',
             'slate' => 'bg-slate-100 text-slate-600',
         ];
     @endphp
@@ -36,6 +37,7 @@
                     <th class="px-4 py-3">Email</th>
                     <th class="px-4 py-3">Role</th>
                     <th class="px-4 py-3">Lead export</th>
+                    <th class="px-4 py-3">Application export</th>
                     <th class="px-4 py-3">Portal</th>
                     <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
@@ -57,6 +59,9 @@
                         <td class="px-4 py-3">
                             <x-admin.status-badge :active="$user->canExportLeads()" activeLabel="Allowed" inactiveLabel="No" />
                         </td>
+                        <td class="px-4 py-3">
+                            <x-admin.status-badge :active="$user->canExportApplications()" activeLabel="Allowed" inactiveLabel="No" />
+                        </td>
                         <td class="px-4 py-3 text-slate-500">{{ $user->portalRole()?->label() ?? '—' }}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center justify-end gap-1">
@@ -69,7 +74,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-4 py-10 text-center text-slate-400">No users match your search.</td>
+                        <td colspan="7" class="px-4 py-10 text-center text-slate-400">No users match your search.</td>
                     </tr>
                 @endforelse
             </tbody>

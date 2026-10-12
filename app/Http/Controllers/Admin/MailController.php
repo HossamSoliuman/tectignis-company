@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\JobApplicationAcknowledgementMail;
 use App\Models\Setting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -28,7 +29,8 @@ class MailController extends Controller
     ];
 
     /**
-     * Per-form recipient settings (group "mail"). Each maps to a lead source.
+     * Per-form recipient settings (group "mail"). Each maps to a lead source,
+     * except `mail_to_career`, the HR mailbox for job applications.
      *
      * @var list<string>
      */
@@ -49,6 +51,7 @@ class MailController extends Controller
             'recipients' => collect(self::RECIPIENT_KEYS)->mapWithKeys(fn (string $key) => [$key => $values->get($key)]),
             'siteEmail' => $values->get('site_email'),
             'acknowledgementEnabled' => $values->get('lead_acknowledgement_enabled') === '1',
+            'applicationAcknowledgementEnabled' => JobApplicationAcknowledgementMail::isEnabled(),
         ]);
     }
 
@@ -68,9 +71,11 @@ class MailController extends Controller
             'mail_to_career' => ['nullable', 'email', 'max:255'],
             'mail_to_newsletter' => ['nullable', 'email', 'max:255'],
             'lead_acknowledgement_enabled' => ['nullable', 'boolean'],
+            'application_acknowledgement_enabled' => ['nullable', 'boolean'],
         ]);
 
         Setting::set('lead_acknowledgement_enabled', $request->boolean('lead_acknowledgement_enabled') ? '1' : '0', 'mail');
+        Setting::set('application_acknowledgement_enabled', $request->boolean('application_acknowledgement_enabled') ? '1' : '0', 'mail');
 
         foreach (self::SMTP_KEYS as $key) {
             Setting::set($key, $data[$key] ?? null, 'smtp');

@@ -2,76 +2,116 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Http\Controllers\Admin\Concerns\UploadsFiles;
+use App\Enums\JobOpeningStatus;
 use App\Http\Controllers\Controller;
-use App\Mail\LeadNotificationMail;
-use App\Models\Lead;
-use App\Rules\Recaptcha;
-use App\Services\RecaptchaService;
+use App\Http\Requests\Public\StoreJobApplicationRequest;
+use App\Mail\JobApplicationNotificationMail;
+use App\Models\Designation;
+use App\Models\JobApplication;
+use App\Models\JobApplicationActivity;
+use App\Models\JobOpening;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Throwable;
 
+/**
+ * The public careers pages and application form (spec §26.9–26.11). An
+ * application is stored in the Careers module, never as a lead (spec §27).
+ */
 class CareersController extends Controller
 {
-    use UploadsFiles;
-
-    public function submit(Request $request): RedirectResponse
+    public function index(): View
     {
-        $data = $request->validate([
-            'con_name' => ['required', 'string', 'max:255'],
-            'con_email' => ['required', 'email', 'max:255'],
-            'con_phone' => ['required', 'string', 'max:20'],
-            'con_position' => ['nullable', 'string', 'max:255'],
-            'con_experience' => ['nullable', 'string', 'max:50'],
-            'con_location' => ['nullable', 'string', 'max:255'],
-            'con_notice_period' => ['nullable', 'string', 'max:50'],
-            'con_resume' => ['nullable', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
-            'con_message' => ['nullable', 'string', 'max:5000'],
-            RecaptchaService::RESPONSE_FIELD => [new Recaptcha],
-        ], [], [
-            'con_name' => 'full name',
-            'con_email' => 'email address',
-            'con_phone' => 'phone number',
-            'con_position' => 'position',
-            'con_experience' => 'total experience',
-            'con_location' => 'current location',
-            'con_notice_period' => 'notice period',
-            'con_resume' => 'resume',
-            'con_message' => 'message',
+        return view('public.careers.index', [
+            'jobOpenings' => JobOpening::open()->ordered()->get(),
+            'designations' => $this->activeDesignations(),
         ]);
+    }
 
-        $details = [];
-        foreach ([
-            'Total Experience' => $data['con_experience'] ?? null,
-            'Current Location' => $data['con_location'] ?? null,
-            'Notice Period' => $data['con_notice_period'] ?? null,
-        ] as $label => $value) {
-            if (filled($value)) {
-                $details[] = $label.': '.$value;
-            }
+    /**
+     * A posting's own page. Closed postings stay readable without the form;
+     * drafts are not public.
+     */
+    public function show(JobOpening $jobOpening): View
+    {
+        abort_if($jobOpening->status === JobOpeningStatus::Draft, 404);
+
+        return view('public.careers.show', [
+            'jobOpening' => $jobOpening,
+            'designations' => $this->activeDesignations(),
+            'otherOpenings' => JobOpening::open()->ordered()->whereKeyNot($jobOpening->getKey())->limit(4)->get(),
+        ]);
+    }
+
+    public function submit(StoreJobApplicationRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $resume = $request->file('resume');
+
+        // Unguessable name and a content-derived extension; the client's file
+        // name is only kept as a label.
+        $path = $resume->storeAs('resumes/'.now()->format('Y/m'), Str::random(40).'.'.$resume->extension(), JobApplication::RESUME_DISK);
+
+        if ($path === false) {
+            return back()
+                ->withInput($request->except('resume'))
+                ->withErrors(['resume' => 'We could not save your CV. Please try again.'], 'application');
         }
 
-        $message = implode("\n", $details);
-        if (filled($data['con_message'] ?? null)) {
-            $message .= ($message !== '' ? "\n\n" : '').$data['con_message'];
+        try {
+            $application = JobApplication::create([
+                ...collect($data)->only([
+                    'name', 'email', 'phone', 'location', 'experience', 'current_role', 'notice_period',
+                    'linkedin_url', 'portfolio_url', 'cover_letter',
+                ])->all(),
+                ...$this->appliedFor($data),
+                'resume_path' => $path,
+                'resume_name' => Str::limit($resume->getClientOriginalName(), 250, ''),
+                'resume_mime' => $resume->getMimeType(),
+                'resume_size' => $resume->getSize(),
+                'consented_at' => now(),
+            ]);
+        } catch (Throwable $e) {
+            Storage::disk(JobApplication::RESUME_DISK)->delete($path);
+
+            throw $e;
         }
 
-        $resumePath = $request->hasFile('con_resume')
-            ? $this->storeUpload($request->file('con_resume'), 'resumes')
-            : null;
+        $application->recordActivity(JobApplicationActivity::CREATED);
 
-        $lead = Lead::create([
-            'name' => $data['con_name'],
-            'email' => $data['con_email'],
-            'phone' => $data['con_phone'],
-            'subject' => filled($data['con_position'] ?? null) ? 'Application: '.$data['con_position'] : 'Job Application',
-            'message' => $message !== '' ? $message : 'Job application submitted from the careers page.',
-            'attachment' => $resumePath,
-            'source' => 'career',
-        ]);
+        JobApplicationNotificationMail::dispatchFor($application);
 
-        LeadNotificationMail::dispatchFor($lead);
+        return back()->with('career_status', 'Thank you! Your application '.$application->reference().' has been received. Our HR team will be in touch if your profile is a match.');
+    }
 
-        return back()->with('career_status', 'Application submitted! We will be in touch shortly.');
+    /**
+     * Snapshot the vacancy and designation names so the record survives
+     * later renames and deactivations (spec §28.9).
+     *
+     * @param  array<string, mixed>  $data
+     * @return array{job_opening_id: ?int, job_title: ?string, designation_id: int, designation_name: string}
+     */
+    private function appliedFor(array $data): array
+    {
+        $opening = filled($data['job_opening_id'] ?? null) ? JobOpening::find($data['job_opening_id']) : null;
+        $designation = Designation::findOrFail($data['designation_id']);
+
+        return [
+            'job_opening_id' => $opening?->id,
+            'job_title' => $opening?->title,
+            'designation_id' => $designation->id,
+            'designation_name' => $designation->name,
+        ];
+    }
+
+    /**
+     * @return Collection<int, Designation>
+     */
+    private function activeDesignations(): Collection
+    {
+        return Designation::active()->ordered()->get(['id', 'name']);
     }
 }

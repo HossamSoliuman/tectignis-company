@@ -33,8 +33,9 @@ Route::get('/solutions/{slug}', [SolutionController::class, 'show'])->name('solu
 Route::get('/industries', [IndustryController::class, 'index'])->name('industries.index');
 Route::get('/industries/{slug}', [IndustryController::class, 'show'])->name('industries.show');
 
-Route::get('/careers', [PageController::class, 'careers'])->name('careers');
+Route::get('/careers', [CareersController::class, 'index'])->name('careers');
 Route::post('/careers', [CareersController::class, 'submit'])->middleware('throttle:10,1')->name('careers.submit');
+Route::get('/careers/{jobOpening:slug}', [CareersController::class, 'show'])->name('careers.show');
 
 Route::get('/case-studies', [CaseStudyController::class, 'index'])->name('case-studies.index');
 Route::get('/case-studies/{caseStudy:slug}', [CaseStudyController::class, 'show'])->name('case-studies.show');

@@ -26,7 +26,7 @@
             'mail_to_default' => 'Default recipient',
             'mail_to_contact' => 'Project enquiries (sales mailbox)',
             'mail_to_consultation' => 'Consultation / quote requests',
-            'mail_to_career' => 'Job applications',
+            'mail_to_career' => 'Job applications (HR mailbox)',
             'mail_to_newsletter' => 'Newsletter sign-ups',
         ];
     @endphp
@@ -104,22 +104,30 @@
             </div>
         </div>
 
-        {{-- Visitor acknowledgement (spec §26.4) --}}
+        {{-- Visitor and candidate acknowledgements (spec §26.4, §26.11) --}}
         <div class="mb-8">
             <div class="mb-3">
                 <h3 class="flex items-center gap-2 text-sm font-semibold text-slate-800">
                     <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-fuchsia-50 text-fuchsia-600">
                         <x-admin.icon name="check-circle" class="h-4 w-4" />
                     </span>
-                    Visitor Acknowledgement
+                    Acknowledgement Emails
                 </h3>
-                <p class="mt-1 pl-9 text-xs text-slate-400">Sent from the website mailbox to the visitor after a project enquiry. It confirms receipt without promising a response time.</p>
+                <p class="mt-1 pl-9 text-xs text-slate-400">Sent from the website mailbox to confirm receipt, without promising a response time.</p>
             </div>
-            <div class="flex items-start gap-2 rounded-xl border border-slate-200 bg-white p-4">
-                <input type="hidden" name="lead_acknowledgement_enabled" value="0">
-                <input type="checkbox" id="lead_acknowledgement_enabled" name="lead_acknowledgement_enabled" value="1" class="mt-1 rounded border-slate-300"
-                    @checked(old('lead_acknowledgement_enabled', $acknowledgementEnabled))>
-                <label for="lead_acknowledgement_enabled" class="text-sm font-medium text-slate-700">Email visitors an acknowledgement when they submit an enquiry</label>
+            <div class="space-y-3 rounded-xl border border-slate-200 bg-white p-4">
+                <div class="flex items-start gap-2">
+                    <input type="hidden" name="lead_acknowledgement_enabled" value="0">
+                    <input type="checkbox" id="lead_acknowledgement_enabled" name="lead_acknowledgement_enabled" value="1" class="mt-1 rounded border-slate-300"
+                        @checked(old('lead_acknowledgement_enabled', $acknowledgementEnabled))>
+                    <label for="lead_acknowledgement_enabled" class="text-sm font-medium text-slate-700">Email visitors an acknowledgement when they submit an enquiry</label>
+                </div>
+                <div class="flex items-start gap-2">
+                    <input type="hidden" name="application_acknowledgement_enabled" value="0">
+                    <input type="checkbox" id="application_acknowledgement_enabled" name="application_acknowledgement_enabled" value="1" class="mt-1 rounded border-slate-300"
+                        @checked(old('application_acknowledgement_enabled', $applicationAcknowledgementEnabled))>
+                    <label for="application_acknowledgement_enabled" class="text-sm font-medium text-slate-700">Email candidates an acknowledgement when they apply for a job</label>
+                </div>
             </div>
         </div>
 

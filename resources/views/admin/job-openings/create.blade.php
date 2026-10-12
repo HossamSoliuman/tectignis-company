@@ -2,7 +2,7 @@
 @section('title', 'Create Job Opening')
 @section('content')
     <div class="mb-4"><a href="{{ route('admin.job-openings.index') }}" class="inline-flex items-center gap-1.5 text-sm font-medium text-fuchsia-600 hover:underline"><x-admin.icon name="arrow-left" class="h-4 w-4" /> Back</a></div>
-    <form action="{{ route('admin.job-openings.store') }}" method="POST" class="max-w-2xl space-y-6">
+    <form action="{{ route('admin.job-openings.store') }}" method="POST" class="max-w-3xl space-y-6">
         @csrf
         @include('admin.job-openings._form')
         <div class="flex justify-end">

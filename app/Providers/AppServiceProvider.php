@@ -45,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::define('manage-captcha', fn (User $user): bool => $user->isSuperAdmin());
         Gate::define('manage-users', fn (User $user): bool => $user->isSuperAdmin());
+        Gate::define('access-careers', fn (User $user): bool => $user->hasCareersAccess());
     }
 
     /**

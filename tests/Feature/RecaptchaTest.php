@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Download;
+use App\Models\JobApplication;
 use App\Models\Lead;
 use App\Models\Setting;
 use App\Services\RecaptchaService;
@@ -113,8 +114,9 @@ it('protects the careers, newsletter and download forms too', function () {
     $this->post(route('downloads.request'), ['download_id' => $download->id, 'name' => 'Sam', 'phone' => '9876543210'])
         ->assertSessionHasErrors('g-recaptcha-response');
 
-    $this->post(route('careers.submit'), ['con_name' => 'Sam', 'con_email' => 'sam@example.com', 'con_phone' => '9876543210'])
-        ->assertSessionHasErrors('g-recaptcha-response');
+    $this->post(route('careers.submit'), ['name' => 'Sam', 'email' => 'sam@example.com', 'phone' => '9876543210'])
+        ->assertSessionHasErrorsIn('application', 'g-recaptcha-response');
 
-    expect(Lead::count())->toBe(0);
+    expect(Lead::count())->toBe(0)
+        ->and(JobApplication::count())->toBe(0);
 });

@@ -7,6 +7,7 @@ use App\Models\Capability;
 use App\Models\CaseStudy;
 use App\Models\Industry;
 use App\Models\Insight;
+use App\Models\JobOpening;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Setting;
@@ -25,6 +26,7 @@ class SitemapController extends Controller
         $posts = BlogPost::published()->latest('published_at')->get();
         $insights = Insight::published()->latest('published_at')->get();
         $caseStudies = CaseStudy::active()->ordered()->get();
+        $jobOpenings = JobOpening::open()->ordered()->get(['id', 'slug', 'updated_at']);
 
         $staticPages = [
             ['url' => route('home'), 'changefreq' => 'weekly', 'priority' => '1.0'],
@@ -42,7 +44,7 @@ class SitemapController extends Controller
         ];
 
         $content = view('sitemap', compact(
-            'staticPages', 'capabilities', 'services', 'solutions', 'industries', 'pages', 'posts', 'insights', 'caseStudies'
+            'staticPages', 'capabilities', 'services', 'solutions', 'industries', 'pages', 'posts', 'insights', 'caseStudies', 'jobOpenings'
         ))->render();
 
         return response($content, 200)->header('Content-Type', 'application/xml');

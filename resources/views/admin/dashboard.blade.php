@@ -6,6 +6,7 @@
     @php
         $cardMeta = [
             'Total Leads' => ['icon' => 'users', 'route' => 'admin.leads.index', 'chip' => 'bg-purple-100 text-purple-600'],
+            'Job Applications' => ['icon' => 'briefcase', 'route' => 'admin.job-applications.index', 'chip' => 'bg-sky-100 text-sky-600'],
             'Blog Posts' => ['icon' => 'document-text', 'route' => 'admin.blog.index', 'chip' => 'bg-blue-100 text-blue-600'],
             'Services' => ['icon' => 'briefcase', 'route' => 'admin.services.index', 'chip' => 'bg-emerald-100 text-emerald-600'],
             'Case Studies' => ['icon' => 'photograph', 'route' => 'admin.case-studies.index', 'chip' => 'bg-orange-100 text-orange-600'],
@@ -14,7 +15,7 @@
     @endphp
 
     {{-- Stat cards --}}
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6">
         @foreach ($cards as $label => $card)
             @php $meta = $cardMeta[$label]; @endphp
             <a href="{{ route($meta['route']) }}"

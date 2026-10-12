@@ -70,4 +70,12 @@
         <priority>0.3</priority>
     </url>
     @endforeach
+    @foreach ($jobOpenings as $jobOpening)
+    <url>
+        <loc>{{ route('careers.show', $jobOpening) }}</loc>
+        <lastmod>{{ $jobOpening->updated_at->toAtomString() }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    @endforeach
 </urlset>

@@ -120,10 +120,10 @@ return [
     | Queue Lead Emails
     |--------------------------------------------------------------------------
     |
-    | Lead notifications and visitor acknowledgements are pushed onto the queue
-    | (with retries) when this is enabled. Only turn it on where a queue worker
-    | is running; otherwise they are sent during the request, with failures
-    | logged and the lead always kept.
+    | Lead and job application notifications and their acknowledgements are
+    | pushed onto the queue (with retries) when this is enabled. Only turn it
+    | on where a queue worker is running; otherwise they are sent during the
+    | request, with failures logged and the submission always kept.
     |
     */
 

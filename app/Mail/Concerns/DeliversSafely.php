@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 /**
- * Lead-related mail must never break or undo a form submission (spec §26.4):
- * the lead is already stored, so delivery problems are only logged.
+ * Form notification mail must never break or undo a submission (spec §26.4,
+ * §26.11): the lead or application is already stored, so delivery problems
+ * are only logged.
  *
  * With `mail.queue_lead_emails` on, mail goes to the queue and is retried
  * ({@see $tries}, {@see $backoff}); a final failure lands in {@see failed()}.
@@ -50,8 +51,18 @@ trait DeliversSafely
     public function failed(Throwable $exception): void
     {
         Log::error('Failed to send '.class_basename($this), [
-            'lead_id' => $this->lead->id ?? null,
+            ...$this->failureContext(),
             'error' => $exception->getMessage(),
         ]);
+    }
+
+    /**
+     * Identifies the stored record in the failure log entry.
+     *
+     * @return array<string, int|null>
+     */
+    protected function failureContext(): array
+    {
+        return ['lead_id' => $this->lead->id ?? null];
     }
 }

@@ -25,6 +25,7 @@ class StoreUserRequest extends FormRequest
             'password' => ['required', 'string', Password::min(8), 'confirmed'],
             'role' => ['required', Rule::enum(UserRole::class)],
             'can_export_leads' => ['nullable', 'boolean'],
+            'can_export_applications' => ['nullable', 'boolean'],
         ];
     }
 }

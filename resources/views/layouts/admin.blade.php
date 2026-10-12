@@ -27,10 +27,12 @@
                     // portal-only staff, and Operations is hidden from anyone
                     // without a portal role — nobody sees a link they'd get a
                     // 403 from. Leads live outside the CMS so Sales and
-                    // Read-only users (spec §26.7) get them without content rights.
+                    // Read-only users (spec §26.7) get them without content
+                    // rights, and Careers likewise for HR (spec §27).
                     $navUser = auth()->user();
                     $showCms = (bool) $navUser?->isAdmin();
                     $showLeads = (bool) $navUser?->canViewLeads();
+                    $showCareers = (bool) $navUser?->hasCareersAccess();
                     $showSuperAdmin = (bool) $navUser?->isSuperAdmin();
                     $showPortal = (bool) $navUser?->hasPortalAccess();
 
@@ -80,8 +82,10 @@
                             ['admin.faqs.index', 'FAQs', ['admin.faq-categories.*']],
                             ['admin.downloads.index', 'Downloads'],
                         ]] : null,
-                        $showCms ? ['Careers', 'briefcase', [
+                        $showCareers ? ['Careers', 'briefcase', [
+                            ['admin.job-applications.index', 'Applications'],
                             ['admin.job-openings.index', 'Job Openings'],
+                            ['admin.designations.index', 'Designations'],
                             ['admin.careers-content.edit', 'Careers Page'],
                         ]] : null,
                         ($showCms || $showSuperAdmin) ? ['Settings', 'cog', array_merge(
@@ -147,6 +151,19 @@
                     <h1 class="text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
                 </div>
                 <div class="flex items-center gap-2 sm:gap-3">
+                    @if (auth()->user()?->hasCareersAccess() && ! auth()->user()->canViewLeads())
+                        @php $unreadApplications = \App\Models\JobApplication::unarchived()->where('is_read', false)->count(); @endphp
+                        <a href="{{ route('admin.job-applications.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                            title="New applications" aria-label="New applications{{ $unreadApplications ? ', ' . $unreadApplications . ' unread' : '' }}">
+                            <x-admin.icon name="bell" class="h-5 w-5" />
+                            @if ($unreadApplications > 0)
+                                <span class="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-semibold text-white">
+                                    {{ $unreadApplications > 9 ? '9+' : $unreadApplications }}
+                                </span>
+                            @endif
+                        </a>
+                        <div class="h-6 w-px bg-slate-200"></div>
+                    @endif
                     @if (auth()->user()?->canViewLeads())
                         @php $unreadLeads = \App\Models\Lead::where('is_read', false)->count(); @endphp
                         <a href="{{ route('admin.leads.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"

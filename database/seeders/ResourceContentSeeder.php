@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\JobOpeningStatus;
 use App\Models\Download;
 use App\Models\Faq;
 use App\Models\FaqCategory;
@@ -116,11 +117,11 @@ class ResourceContentSeeder extends Seeder
     private function seedJobOpenings(): void
     {
         $openings = [
-            ['title' => 'Senior Software Developer', 'department' => 'Development', 'icon' => 'fas fa-code'],
-            ['title' => 'AI/ML Engineer', 'department' => 'AI & Automation', 'icon' => 'fas fa-robot'],
-            ['title' => 'UI/UX Designer', 'department' => 'Design', 'icon' => 'fas fa-pen-nib'],
-            ['title' => 'DevOps Engineer', 'department' => 'DevOps', 'icon' => 'fas fa-cogs'],
-            ['title' => 'HR Executive', 'department' => 'Human Resources', 'icon' => 'fas fa-user-tie'],
+            ['title' => 'Senior Software Developer', 'department' => 'Development', 'icon' => 'fas fa-code', 'experience' => '4–6 years', 'skills' => 'Laravel, PHP, MySQL, REST APIs, Vue or React'],
+            ['title' => 'AI/ML Engineer', 'department' => 'AI & Automation', 'icon' => 'fas fa-robot', 'experience' => '2–4 years', 'skills' => 'Python, LLM integration, Machine learning, Data pipelines'],
+            ['title' => 'UI/UX Designer', 'department' => 'Design', 'icon' => 'fas fa-pen-nib', 'experience' => '2–4 years', 'skills' => 'Figma, User research, Design systems, Prototyping'],
+            ['title' => 'DevOps Engineer', 'department' => 'DevOps', 'icon' => 'fas fa-cogs', 'experience' => '3–5 years', 'skills' => 'Linux, Docker, CI/CD, AWS or Azure'],
+            ['title' => 'HR Executive', 'department' => 'Human Resources', 'icon' => 'fas fa-user-tie', 'experience' => '1–3 years', 'skills' => 'Recruitment, Onboarding, HR operations'],
         ];
 
         foreach ($openings as $sortOrder => $opening) {
@@ -131,7 +132,7 @@ class ResourceContentSeeder extends Seeder
                     'location' => 'Navi Mumbai, India',
                     'employment_type' => 'Full-time',
                     'sort_order' => $sortOrder,
-                    'is_active' => true,
+                    'status' => JobOpeningStatus::Published,
                 ],
             );
         }

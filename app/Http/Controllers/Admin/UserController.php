@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 
 /**
  * Super Admin management of website admin users and their roles (spec §26.7):
- * who can edit content, work leads, only view leads, or export them.
+ * who can edit content, work leads or applications, only view leads, or
+ * export either.
  */
 class UserController extends Controller
 {
@@ -24,7 +25,7 @@ class UserController extends Controller
     {
         $users = $this->paginateTable(
             $request,
-            User::query()->select(['id', 'name', 'email', 'role', 'can_export_leads', 'portal_role', 'created_at'])->orderBy('name'),
+            User::query()->select(['id', 'name', 'email', 'role', 'can_export_leads', 'can_export_applications', 'portal_role', 'created_at'])->orderBy('name'),
             ['name', 'email'],
         );
 
@@ -41,6 +42,7 @@ class UserController extends Controller
         User::create([
             ...$request->safe()->only(['name', 'email', 'password', 'role']),
             'can_export_leads' => $request->boolean('can_export_leads'),
+            'can_export_applications' => $request->boolean('can_export_applications'),
         ]);
 
         return redirect()->route('admin.users.index')->with('status', 'User created.');
@@ -56,6 +58,7 @@ class UserController extends Controller
         $data = [
             ...$request->safe()->only(['name', 'email', 'role']),
             'can_export_leads' => $request->boolean('can_export_leads'),
+            'can_export_applications' => $request->boolean('can_export_applications'),
         ];
 
         if ($request->filled('password')) {

@@ -6,7 +6,6 @@ use App\Models\Faq;
 use App\Models\FaqCategory;
 use App\Models\Insight;
 use App\Models\JobOpening;
-use App\Models\Lead;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -124,50 +123,17 @@ it('faqs page returns 200 and shows active faqs grouped by category', function (
         ->assertDontSee('Hidden question?');
 });
 
-it('careers page lists active job openings only', function () {
+it('careers page lists open job openings only', function () {
     $job = JobOpening::factory()->create(['title' => 'Senior Software Developer']);
-    JobOpening::factory()->create(['title' => 'Closed Position', 'is_active' => false]);
+    JobOpening::factory()->draft()->create(['title' => 'Draft Position']);
+    JobOpening::factory()->closed()->create(['title' => 'Closed Position']);
 
     $this->get(route('careers'))
         ->assertOk()
         ->assertSee($job->title)
+        ->assertSee(route('careers.show', $job))
+        ->assertDontSee('Draft Position')
         ->assertDontSee('Closed Position');
-});
-
-it('careers application stores a lead with resume attachment', function () {
-    $this->from(route('careers'))
-        ->post(route('careers.submit'), [
-            'con_form' => 'career',
-            'con_name' => 'John Applicant',
-            'con_email' => 'john@example.com',
-            'con_phone' => '9876543210',
-            'con_position' => 'Senior Software Developer',
-            'con_experience' => '3–5 years',
-            'con_location' => 'Mumbai',
-            'con_notice_period' => '30 days',
-            'con_resume' => UploadedFile::fake()->create('resume.pdf', 100, 'application/pdf'),
-            'con_message' => 'Looking forward to joining.',
-        ])
-        ->assertRedirect(route('careers'))
-        ->assertSessionHas('career_status');
-
-    $lead = Lead::where('source', 'career')->first();
-
-    expect($lead)->not->toBeNull()
-        ->and($lead->subject)->toBe('Application: Senior Software Developer')
-        ->and($lead->message)->toContain('Total Experience: 3–5 years')
-        ->and($lead->attachment)->toStartWith('resumes/');
-
-    @unlink(public_path('uploads/'.$lead->attachment));
-});
-
-it('careers application rejects non-document resumes', function () {
-    $this->post(route('careers.submit'), [
-        'con_name' => 'John Applicant',
-        'con_email' => 'john@example.com',
-        'con_phone' => '9876543210',
-        'con_resume' => UploadedFile::fake()->image('photo.png'),
-    ])->assertSessionHasErrors('con_resume');
 });
 
 it('newsletter subscription stores a lead', function () {
@@ -279,20 +245,27 @@ it('admin can create update and delete a job opening', function () {
             'department' => 'AI & Automation',
             'location' => 'Navi Mumbai, India',
             'employment_type' => 'Full-time',
-            'is_active' => '1',
+            'experience' => '2–4 years',
+            'skills' => 'Python',
+            'status' => 'published',
         ])->assertRedirect(route('admin.job-openings.index'));
 
     $job = JobOpening::where('title', 'AI/ML Engineer')->first();
-    expect($job)->not->toBeNull();
+    expect($job)->not->toBeNull()
+        ->and($job->slug)->toBe('ai-ml-engineer');
 
     $this->actingAs($admin)
         ->put(route('admin.job-openings.update', $job), [
             'title' => 'Senior AI/ML Engineer',
+            'department' => 'AI & Automation',
+            'location' => 'Navi Mumbai, India',
             'employment_type' => 'Full-time',
-            'is_active' => '1',
+            'experience' => '4–6 years',
+            'skills' => 'Python',
+            'status' => 'published',
         ])->assertRedirect(route('admin.job-openings.index'));
 
-    $this->assertDatabaseHas('job_openings', ['id' => $job->id, 'title' => 'Senior AI/ML Engineer']);
+    $this->assertDatabaseHas('job_openings', ['id' => $job->id, 'title' => 'Senior AI/ML Engineer', 'slug' => 'ai-ml-engineer']);
 
     $this->actingAs($admin)
         ->delete(route('admin.job-openings.destroy', $job))
@@ -309,4 +282,6 @@ it('guests cannot access the admin resource pages', function (string $routeName)
     'faq categories' => 'admin.faq-categories.index',
     'downloads' => 'admin.downloads.index',
     'job openings' => 'admin.job-openings.index',
+    'job applications' => 'admin.job-applications.index',
+    'designations' => 'admin.designations.index',
 ]);

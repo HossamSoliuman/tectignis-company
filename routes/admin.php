@@ -10,12 +10,16 @@ use App\Http\Controllers\Admin\CareersContentController;
 use App\Http\Controllers\Admin\CaseStudyCategoryController;
 use App\Http\Controllers\Admin\CaseStudyController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DesignationController;
 use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GlobalAdvantageController;
 use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\InsightController;
+use App\Http\Controllers\Admin\JobApplicationController;
+use App\Http\Controllers\Admin\JobApplicationExportController;
+use App\Http\Controllers\Admin\JobApplicationNoteController;
 use App\Http\Controllers\Admin\JobOpeningController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\LeadExportController;
@@ -65,6 +69,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('leads/{lead}/notes', [LeadNoteController::class, 'store'])->name('leads.notes.store');
     });
 
+    // Careers (spec §26.8, §28.10): job openings, designations and candidate
+    // applications. Reachable by HR, who has no CMS or Leads rights; candidate
+    // data never appears in Leads (spec §27). Application actions are checked
+    // by JobApplicationPolicy.
+    Route::middleware(['auth', 'can:access-careers'])->group(function () {
+        Route::get('job-applications/export', JobApplicationExportController::class)->name('job-applications.export');
+        Route::get('job-applications', [JobApplicationController::class, 'index'])->name('job-applications.index');
+        Route::get('job-applications/{jobApplication}', [JobApplicationController::class, 'show'])->name('job-applications.show');
+        Route::patch('job-applications/{jobApplication}', [JobApplicationController::class, 'update'])->name('job-applications.update');
+        Route::delete('job-applications/{jobApplication}', [JobApplicationController::class, 'destroy'])->name('job-applications.destroy');
+        Route::patch('job-applications/{jobApplication}/archive', [JobApplicationController::class, 'archive'])->name('job-applications.archive');
+        Route::patch('job-applications/{jobApplication}/unarchive', [JobApplicationController::class, 'unarchive'])->name('job-applications.unarchive');
+        Route::get('job-applications/{jobApplication}/resume', [JobApplicationController::class, 'resume'])->name('job-applications.resume');
+        Route::post('job-applications/{jobApplication}/notes', [JobApplicationNoteController::class, 'store'])->name('job-applications.notes.store');
+
+        Route::resource('job-openings', JobOpeningController::class)->except(['show'])->parameters(['job-openings' => 'jobOpening']);
+        Route::patch('designations/{designation}/toggle', [DesignationController::class, 'toggle'])->name('designations.toggle');
+        Route::resource('designations', DesignationController::class)->except(['show']);
+
+        Route::get('careers-content', [CareersContentController::class, 'edit'])->name('careers-content.edit');
+        Route::put('careers-content', [CareersContentController::class, 'update'])->name('careers-content.update');
+    });
+
     // Super Admin only: CAPTCHA keys (spec §28.2) and admin users.
     Route::middleware(['auth', 'can:manage-captcha'])->group(function () {
         Route::get('settings/captcha', [CaptchaSettingsController::class, 'edit'])->name('captcha.edit');
@@ -82,9 +109,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
 
-        Route::get('careers-content', [CareersContentController::class, 'edit'])->name('careers-content.edit');
-        Route::put('careers-content', [CareersContentController::class, 'update'])->name('careers-content.update');
-
         Route::get('mail', [MailController::class, 'edit'])->name('mail.edit');
         Route::put('mail', [MailController::class, 'update'])->name('mail.update');
         Route::post('mail/test', [MailController::class, 'test'])->name('mail.test');
@@ -101,7 +125,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('faq-categories', FaqCategoryController::class)->parameters(['faq-categories' => 'faqCategory']);
         Route::resource('faqs', FaqController::class);
         Route::resource('downloads', DownloadController::class);
-        Route::resource('job-openings', JobOpeningController::class)->parameters(['job-openings' => 'jobOpening']);
         Route::resource('case-studies', CaseStudyController::class);
         Route::resource('case-study-categories', CaseStudyCategoryController::class)->parameters(['case-study-categories' => 'caseStudyCategory']);
         Route::resource('testimonials', TestimonialController::class);

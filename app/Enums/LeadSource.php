@@ -3,13 +3,13 @@
 namespace App\Enums;
 
 /**
- * The public form a lead came in through.
+ * The public form a lead came in through. Job applications are not leads:
+ * they live in the Careers module (spec §27).
  */
 enum LeadSource: string
 {
     case Contact = 'contact';
     case Consultation = 'consultation';
-    case Career = 'career';
     case Newsletter = 'newsletter';
     case Download = 'download';
 
@@ -18,7 +18,6 @@ enum LeadSource: string
         return match ($this) {
             self::Contact => 'Contact Enquiry',
             self::Consultation => 'Consultation Request',
-            self::Career => 'Job Application',
             self::Newsletter => 'Newsletter Subscription',
             self::Download => 'Resource Download',
         };
@@ -32,7 +31,6 @@ enum LeadSource: string
         return match ($this) {
             self::Contact => 'envelope',
             self::Consultation => 'chat-alt',
-            self::Career => 'briefcase',
             self::Newsletter => 'bell',
             self::Download => 'download',
         };
@@ -40,7 +38,7 @@ enum LeadSource: string
 
     /**
      * Project enquiries (contact page, consultation/quote modal, service pages)
-     * as opposed to sign-ups, downloads and job applications.
+     * as opposed to sign-ups and downloads.
      */
     public function isEnquiry(): bool
     {

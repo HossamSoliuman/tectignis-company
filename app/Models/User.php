@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'role',
         'can_export_leads',
+        'can_export_applications',
         'portal_role',
     ];
 
@@ -83,11 +84,44 @@ class User extends Authenticatable
     }
 
     /**
+     * Job openings, designations and candidate applications (spec §26.8).
+     */
+    public function hasCareersAccess(): bool
+    {
+        return $this->userRole()?->hasCareersAccess() ?? false;
+    }
+
+    /**
+     * Candidate export is granted per user on top of careers access; Super
+     * Admins always have it.
+     */
+    public function canExportApplications(): bool
+    {
+        return $this->isSuperAdmin() || ($this->hasCareersAccess() && $this->can_export_applications);
+    }
+
+    /**
+     * Users an application can be assigned to: everyone with careers access.
+     *
+     * @return Builder<User>
+     */
+    public static function applicationAssignees(): Builder
+    {
+        $roles = collect(UserRole::cases())
+            ->filter(fn (UserRole $role): bool => $role->hasCareersAccess())
+            ->map(fn (UserRole $role): string => $role->value)
+            ->values()
+            ->all();
+
+        return static::query()->whereIn('role', $roles)->orderBy('name');
+    }
+
+    /**
      * Whether this user may sign in to the admin area through either door.
      */
     public function hasAdminAreaAccess(): bool
     {
-        return $this->isAdmin() || $this->canViewLeads() || $this->hasPortalAccess();
+        return $this->isAdmin() || $this->canViewLeads() || $this->hasCareersAccess() || $this->hasPortalAccess();
     }
 
     /**
@@ -98,6 +132,7 @@ class User extends Authenticatable
         return match (true) {
             $this->isAdmin() => route('admin.dashboard'),
             $this->canViewLeads() => route('admin.leads.index'),
+            $this->hasCareersAccess() => route('admin.job-applications.index'),
             default => route('admin.portal.dashboard'),
         };
     }
@@ -164,6 +199,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'can_export_leads' => 'boolean',
+            'can_export_applications' => 'boolean',
         ];
     }
 }

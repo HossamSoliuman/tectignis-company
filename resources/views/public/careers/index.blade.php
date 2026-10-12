@@ -25,9 +25,8 @@
         ['icon' => 'fas fa-heart', 'title' => 'Wellness', 'text' => 'Health & wellness programs for a happy you.'],
         ['icon' => 'fas fa-gift', 'title' => 'Rewards', 'text' => 'Competitive salary, performance bonuses, and recognition.'],
     ]);
-    $experienceOptions = ['Fresher', '1–2 years', '3–5 years', '5–8 years', '8+ years'];
-    $noticePeriodOptions = ['Immediate', '15 days', '30 days', '60 days', '90 days'];
-    $applyModalOpen = $errors->any() && old('con_form') === 'career';
+    $applyModalOpen = $errors->getBag('application')->any();
+    $applyModalJob = $applyModalOpen ? $jobOpenings->firstWhere('id', (int) old('job_opening_id')) : null;
 @endphp
 
 @section('content')
@@ -102,14 +101,14 @@
             <p class="res-section-sub">Find the opportunity that's right for you.</p>
 
             @if (session('career_status'))
-                <div class="alert alert-success mb-4">{{ session('career_status') }}</div>
+                <div class="alert alert-success mb-4" role="status">{{ session('career_status') }}</div>
             @endif
 
             @forelse ($jobOpenings as $job)
                 <div class="car-job">
                     <div class="car-job__icon"><i class="{{ $job->icon ?: 'fas fa-briefcase' }}" aria-hidden="true"></i></div>
                     <div class="car-job__info">
-                        <h3 class="car-job__title">{{ $job->title }}</h3>
+                        <h3 class="car-job__title"><a href="{{ route('careers.show', $job) }}">{{ $job->title }}</a></h3>
                         @if ($job->department)
                             <span class="car-job__dept">{{ $job->department }}</span>
                         @endif
@@ -119,10 +118,16 @@
                             <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> {{ $job->location }}</span>
                         @endif
                         <span><i class="far fa-clock" aria-hidden="true"></i> {{ $job->employment_type }}</span>
+                        @if ($job->experience)
+                            <span><i class="fas fa-user-graduate" aria-hidden="true"></i> {{ $job->experience }}</span>
+                        @endif
                     </div>
-                    <button type="button" class="car-job__apply js-apply-open" data-position="{{ $job->title }}">
-                        Apply Now <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                    </button>
+                    <div class="car-job__actions">
+                        <a href="{{ route('careers.show', $job) }}" class="car-job__details">View Details</a>
+                        <button type="button" class="car-job__apply js-apply-open" data-job-id="{{ $job->id }}" data-position="{{ $job->title }}">
+                            Apply Now <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
             @empty
                 <div class="res-empty">
@@ -140,7 +145,7 @@
                 </div>
                 <div class="car-cta__actions">
                     <a href="#open-positions" class="svc-btn svc-btn--ghost">View Open Positions</a>
-                    <button type="button" class="svc-btn svc-btn--primary js-apply-open" data-position="">Send Your Resume <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+                    <button type="button" class="svc-btn svc-btn--primary js-apply-open" data-job-id="" data-position="">Send Your Resume <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
@@ -157,7 +162,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg>
                 </span>
                 <div class="consult-modal__heading">
-                    <h3 class="consult-modal__title" id="apply-modal-title" data-apply-title>Apply Now</h3>
+                    <h3 class="consult-modal__title" id="apply-modal-title" data-apply-title>{{ $applyModalJob ? 'Apply for '.$applyModalJob->title : ($applyModalOpen ? 'Send Your Resume' : 'Apply Now') }}</h3>
                     <p class="consult-modal__desc">Fill in your details and our HR team will get in touch with you.</p>
                 </div>
                 <button type="button" class="consult-modal__close" data-apply-close aria-label="Close">
@@ -166,83 +171,7 @@
             </div>
 
             <div class="consult-modal__body">
-                @if ($applyModalOpen)
-                    <div class="consult-modal__alert consult-modal__alert--error">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form class="consult-form" action="{{ route('careers.submit') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="con_form" value="career">
-                    <input type="hidden" name="con_position" value="{{ old('con_position') }}" data-apply-position-field>
-
-                    <div class="car-form-grid">
-                        <div class="consult-field">
-                            <label for="apply_name">Full Name <span aria-hidden="true">*</span></label>
-                            <input id="apply_name" name="con_name" type="text" placeholder="Enter your full name" value="{{ old('con_name') }}" required>
-                        </div>
-                        <div class="consult-field">
-                            <label for="apply_email">Email Address <span aria-hidden="true">*</span></label>
-                            <input id="apply_email" name="con_email" type="email" placeholder="Enter your email" value="{{ old('con_email') }}" required>
-                        </div>
-                        <div class="consult-field">
-                            <label for="apply_phone">Phone Number <span aria-hidden="true">*</span></label>
-                            <input id="apply_phone" name="con_phone" type="text" placeholder="Enter your phone number" value="{{ old('con_phone') }}" maxlength="20" required>
-                        </div>
-                        <div class="consult-field">
-                            <label for="apply_experience">Total Experience</label>
-                            <select id="apply_experience" name="con_experience">
-                                <option value="" {{ old('con_experience') ? '' : 'selected' }}>Select experience</option>
-                                @foreach ($experienceOptions as $option)
-                                    <option value="{{ $option }}" @selected(old('con_experience') === $option)>{{ $option }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="consult-field">
-                            <label for="apply_location">Current Location</label>
-                            <input id="apply_location" name="con_location" type="text" placeholder="Enter your current location" value="{{ old('con_location') }}">
-                        </div>
-                        <div class="consult-field">
-                            <label for="apply_notice">Notice Period</label>
-                            <select id="apply_notice" name="con_notice_period">
-                                <option value="" {{ old('con_notice_period') ? '' : 'selected' }}>Select notice period</option>
-                                @foreach ($noticePeriodOptions as $option)
-                                    <option value="{{ $option }}" @selected(old('con_notice_period') === $option)>{{ $option }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="consult-field car-form-grid__full">
-                            <label>Resume / CV</label>
-                            <div class="car-drop" data-apply-drop>
-                                <input type="file" name="con_resume" accept=".pdf,.doc,.docx" data-apply-file>
-                                <div class="car-drop__icon"><i class="fas fa-cloud-upload-alt" aria-hidden="true"></i></div>
-                                <p class="car-drop__text">Drag &amp; drop your file here, or <span>browse files</span></p>
-                                <p class="car-drop__hint">PDF, DOC, DOCX (Max. 5MB)</p>
-                                <p class="car-drop__file" data-apply-filename hidden></p>
-                            </div>
-                        </div>
-
-                        <div class="consult-field car-form-grid__full">
-                            <label for="apply_message">Additional Message <span class="consult-field__optional">(Optional)</span></label>
-                            <textarea id="apply_message" name="con_message" rows="3" placeholder="Tell us something about yourself">{{ old('con_message') }}</textarea>
-                        </div>
-
-                        <label class="car-consent car-form-grid__full">
-                            <input type="checkbox" required>
-                            <span>I agree to the <a href="{{ route('legal.show', 'privacy-policy') }}" target="_blank">Privacy Policy</a> and <a href="{{ route('legal.show', 'terms-and-conditions') }}" target="_blank">Terms &amp; Conditions</a>.</span>
-                        </label>
-                    </div>
-
-                    <x-public.recaptcha />
-
-                    <button type="submit" class="consult-form__submit">Submit Application</button>
-                </form>
+                <x-public.application-form :designations="$designations" id-prefix="apply" />
             </div>
         </div>
     </div>
@@ -255,13 +184,10 @@
             if (!modal) { return; }
 
             var titleEl = modal.querySelector('[data-apply-title]');
-            var positionField = modal.querySelector('[data-apply-position-field]');
-            var fileInput = modal.querySelector('[data-apply-file]');
-            var fileName = modal.querySelector('[data-apply-filename]');
-            var dropZone = modal.querySelector('[data-apply-drop]');
+            var jobField = modal.querySelector('[data-apply-job-field]');
 
-            function openModal(position) {
-                positionField.value = position || '';
+            function openModal(jobId, position) {
+                if (jobField) { jobField.value = jobId || ''; }
                 titleEl.textContent = position ? 'Apply for ' + position : 'Send Your Resume';
                 modal.setAttribute('data-open', 'true');
                 modal.setAttribute('aria-hidden', 'false');
@@ -278,7 +204,7 @@
 
             document.querySelectorAll('.js-apply-open').forEach(function (trigger) {
                 trigger.addEventListener('click', function () {
-                    openModal(trigger.getAttribute('data-position'));
+                    openModal(trigger.getAttribute('data-job-id'), trigger.getAttribute('data-position'));
                 });
             });
 
@@ -292,23 +218,6 @@
 
             if (modal.hasAttribute('data-open')) {
                 document.body.style.overflow = 'hidden';
-                var oldPosition = positionField.value;
-                titleEl.textContent = oldPosition ? 'Apply for ' + oldPosition : 'Send Your Resume';
-            }
-
-            // Resume drop zone feedback
-            if (fileInput) {
-                fileInput.addEventListener('change', function () {
-                    var hasFile = fileInput.files.length > 0;
-                    fileName.hidden = !hasFile;
-                    fileName.textContent = hasFile ? fileInput.files[0].name : '';
-                });
-                ['dragenter', 'dragover'].forEach(function (evt) {
-                    dropZone.addEventListener(evt, function () { dropZone.classList.add('is-dragover'); });
-                });
-                ['dragleave', 'drop'].forEach(function (evt) {
-                    dropZone.addEventListener(evt, function () { dropZone.classList.remove('is-dragover'); });
-                });
             }
         })();
     </script>

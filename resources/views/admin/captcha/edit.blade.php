@@ -59,7 +59,7 @@
                 <input type="checkbox" id="enabled" name="enabled" value="1" class="mt-1 rounded border-slate-300" @checked(old('enabled', $enabled))>
                 <label for="enabled" class="text-sm text-slate-700">
                     <span class="font-medium">Enable CAPTCHA on public forms</span>
-                    <span class="block text-xs text-slate-500">Contact, consultation/quote, service enquiry, careers, newsletter and download forms. Submissions that fail the check are rejected and no lead is created.</span>
+                    <span class="block text-xs text-slate-500">Contact, consultation/quote, service enquiry, careers, newsletter and download forms. Submissions that fail the check are rejected and no lead or application is created.</span>
                 </label>
             </div>
 

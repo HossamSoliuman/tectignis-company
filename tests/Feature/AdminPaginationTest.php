@@ -67,4 +67,5 @@ it('renders every paginated CMS listing', function (string $route) {
     'admin.office-locations.index', 'admin.pages.index', 'admin.process-steps.index', 'admin.redirects.index',
     'admin.services.index', 'admin.solutions.index', 'admin.stats.index', 'admin.tech-stacks.index',
     'admin.testimonials.index', 'admin.why-choose-features.index', 'admin.users.index',
+    'admin.designations.index', 'admin.job-applications.index',
 ]);

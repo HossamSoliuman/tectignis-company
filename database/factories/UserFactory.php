@@ -66,6 +66,16 @@ class UserFactory extends Factory
     }
 
     /**
+     * Grant the separate candidate export permission.
+     */
+    public function canExportApplications(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'can_export_applications' => true,
+        ]);
+    }
+
+    /**
      * Operations portal access at the given role, with no website CMS rights.
      */
     public function portal(PortalRole $role = PortalRole::Employee): static

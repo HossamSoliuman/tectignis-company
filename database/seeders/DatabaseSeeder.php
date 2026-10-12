@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             GlobalAdvantageSeeder::class,
             ProcessStepSeeder::class,
             ResourceContentSeeder::class,
+            DesignationSeeder::class,
             RedirectSeeder::class,
             // Operations portal: org structure and the first director account.
             PortalSeeder::class,

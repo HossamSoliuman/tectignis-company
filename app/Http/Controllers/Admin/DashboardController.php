@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\CaseStudy;
+use App\Models\JobApplication;
 use App\Models\Lead;
 use App\Models\Page;
 use App\Models\PageVisit;
@@ -27,6 +28,7 @@ class DashboardController extends Controller
 
         $cards = [
             'Total Leads' => $this->cardStat(Lead::class, $since),
+            'Job Applications' => $this->cardStat(JobApplication::class, $since),
             'Blog Posts' => $this->cardStat(BlogPost::class, $since),
             'Services' => $this->cardStat(Service::class, $since),
             'Case Studies' => $this->cardStat(CaseStudy::class, $since),

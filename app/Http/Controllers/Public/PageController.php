@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\FaqCategory;
-use App\Models\JobOpening;
 use App\Models\Page;
 use App\Models\Setting;
 use Illuminate\Contracts\View\View;
@@ -14,13 +13,6 @@ class PageController extends Controller
     public function about(): View
     {
         return view('public.about');
-    }
-
-    public function careers(): View
-    {
-        $jobOpenings = JobOpening::active()->ordered()->get();
-
-        return view('public.careers', compact('jobOpenings'));
     }
 
     public function faqs(): View
