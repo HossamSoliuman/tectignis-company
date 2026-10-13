@@ -7956,7 +7956,9 @@ button.mobile-navigation-icon {
 }
 @media (max-width: 575px) {
     .tx-header-actions .tx-btn--primary { padding: 8px 12px; font-size: 13px; }
-    button.mobile-navigation-icon { margin-left: 8px; }
+    button.mobile-navigation-icon { margin-left: 8px; margin-right: 4px; }
+    .header-bottom-wrap > .container-fluid { padding-left: 20px; padding-right: 20px; }
+    .header-bottom-wrap .header { padding-top: 6px; padding-bottom: 6px; }
 }
 
 /* Desktop nav: never wrap a label onto two lines ("Our Work"), and tighten
