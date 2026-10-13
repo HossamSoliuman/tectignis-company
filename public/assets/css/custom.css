@@ -8137,6 +8137,15 @@ button.mobile-navigation-icon {
     background-clip: text;
     color: transparent;
 }
+.tx-hero__line { display: block; }
+/* Keep each heading line on one row, scaling the type to the column width. */
+.tx-hero--single-line .tx-hero__content { container-type: inline-size; }
+.tx-hero--single-line .tx-hero__title { font-size: min(5.8cqi, 56px); }
+.tx-hero--single-line .tx-hero__line,
+.tx-hero--single-line .tx-hero__highlight { white-space: nowrap; width: fit-content; }
+@media (min-width: 768px) {
+    .tx-hero--single-line .tx-hero__desc { font-size: clamp(15px, 1.05vw, 17px); }
+}
 .tx-hero__desc {
     max-width: 580px;
     margin: 20px 0 0;
@@ -8171,8 +8180,9 @@ button.mobile-navigation-icon {
 }
 @media (max-width: 575px) {
     .tx-hero__actions .tx-btn { width: 100%; white-space: normal; }
-    .tx-hero__trust { gap: 16px 24px; }
-    .tx-hero__trust-value { font-size: 22px; }
+    .tx-hero__trust { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+    .tx-hero__trust-value { font-size: 18px; }
+    .tx-hero__trust-label { font-size: 11px; line-height: 1.3; }
 }
 
 /* ---------- Trust bar ---------- */

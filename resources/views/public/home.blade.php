@@ -39,6 +39,7 @@
 
     {{-- 01 Hero --}}
     <x-public.hero
+        class="tx-hero--single-line"
         :overline="$settings['hero_sub_heading'] ?? null"
         :title="$settings['hero_heading_line1'] ?? 'Build, Modernize & Secure'"
         :highlight="$settings['hero_heading_line2'] ?? 'Your Business With Technology'"

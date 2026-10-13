@@ -33,7 +33,7 @@
                 @endif
 
                 <h1 class="tx-hero__title">
-                    {{ $title }}
+                    <span class="tx-hero__line">{{ $title }}</span>
                     @if ($highlight)
                         <span class="tx-hero__highlight">{{ $highlight }}</span>
                     @endif

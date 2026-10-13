@@ -1,5 +1,5 @@
 {{--
-    Site header (spec §4.1): Solutions | Industries | Our Work | Resources |
+    Site header (spec §4.1): Home | Solutions | Industries | Our Work | Resources |
     Company | Contact, with the four business pillars in the Solutions mega-menu
     and the primary "Book a Technical Consultation" CTA.
     $navPillars / $navIndustries come from the composer in AppServiceProvider.
@@ -67,6 +67,9 @@
                                         <div class="header__navigation d-none d-xl-block">
                                             <nav class="navigation-menu primary--menu" aria-label="Main">
                                                 <ul>
+                                                    <li>
+                                                        <a href="{{ route('home') }}"><span>Home</span></a>
+                                                    </li>
                                                     <li class="has-children">
                                                         <a href="{{ route('capabilities.index') }}"><span>Solutions</span></a>
                                                         <ul class="megamenu megamenu--mega megamenu--services tx-mega" style="--cap-count: {{ count($navPillars) }}">
@@ -212,6 +215,9 @@
         <div class="mobile-menu-overlay__body">
             <nav class="offcanvas-navigation" aria-label="Mobile">
                 <ul>
+                    <li>
+                        <a href="{{ route('home') }}">Home</a>
+                    </li>
                     <li class="has-children">
                         <a href="{{ route('capabilities.index') }}">Solutions</a>
                         <ul class="sub-menu">
