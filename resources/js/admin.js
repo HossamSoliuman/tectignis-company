@@ -189,3 +189,43 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
+// Bulk selection: [data-bulk-all] toggles every [data-bulk-item] inside the
+// [data-bulk-scope]; the [data-bulk-bar] shows only while something is selected.
+(function initBulkSelection() {
+    const items = () => [...document.querySelectorAll('[data-bulk-scope] [data-bulk-item]')];
+
+    function sync() {
+        const all = items();
+        const selected = all.filter((item) => item.checked).length;
+        const bar = document.querySelector('[data-bulk-bar]');
+        const toggle = document.querySelector('[data-bulk-scope] [data-bulk-all]');
+
+        if (bar) {
+            bar.hidden = selected === 0;
+            bar.querySelector('[data-bulk-count]').textContent = String(selected);
+        }
+
+        if (toggle) {
+            toggle.checked = all.length > 0 && selected === all.length;
+            toggle.indeterminate = selected > 0 && selected < all.length;
+        }
+    }
+
+    document.addEventListener('change', (e) => {
+        if (e.target.closest('[data-bulk-all]')) {
+            items().forEach((item) => {
+                item.checked = e.target.checked;
+            });
+            sync();
+            return;
+        }
+
+        if (e.target.closest('[data-bulk-item]')) {
+            sync();
+        }
+    });
+
+    // Browsers may restore checkbox state on back navigation.
+    window.addEventListener('pageshow', sync);
+})();

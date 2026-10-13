@@ -6,6 +6,7 @@ use App\Enums\LeadSource;
 use App\Enums\LeadStatus;
 use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BulkDestroyLeadsRequest;
 use App\Http\Requests\Admin\LeadFilterRequest;
 use App\Http\Requests\Admin\UpdateLeadRequest;
 use App\Models\Lead;
@@ -14,7 +15,9 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 /**
  * The Leads module (spec §26.6): a filterable pipeline of website enquiries,
@@ -120,6 +123,27 @@ class LeadController extends Controller
         $lead->delete();
 
         return redirect()->route('admin.leads.index')->with('status', 'Lead moved to trash.');
+    }
+
+    /**
+     * Move the selected leads to the trash, auditing each one.
+     */
+    public function bulkDestroy(BulkDestroyLeadsRequest $request): RedirectResponse
+    {
+        $leads = Lead::query()->whereKey($request->validated('ids'))->get();
+
+        foreach ($leads as $lead) {
+            Gate::authorize('delete', $lead);
+        }
+
+        DB::transaction(function () use ($leads, $request): void {
+            foreach ($leads as $lead) {
+                $lead->recordActivity(LeadActivity::DELETED, $request->user());
+                $lead->delete();
+            }
+        });
+
+        return back()->with('status', $leads->count().' '.Str::plural('lead', $leads->count()).' moved to trash.');
     }
 
     public function restore(Lead $lead): RedirectResponse

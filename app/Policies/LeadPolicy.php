@@ -34,6 +34,14 @@ class LeadPolicy
         return $user->isSuperAdmin();
     }
 
+    /**
+     * Move several selected leads to the trash at once.
+     */
+    public function deleteAny(User $user): bool
+    {
+        return $user->isSuperAdmin();
+    }
+
     public function restore(User $user, Lead $lead): bool
     {
         return $user->isSuperAdmin();

@@ -6,6 +6,7 @@
     @php
         $canExport = auth()->user()->can('export', \App\Models\Lead::class);
         $isSuperAdmin = auth()->user()->isSuperAdmin();
+        $canBulkDelete = ! $trashed && auth()->user()->can('deleteAny', \App\Models\Lead::class);
         $activeStatus = $filters['status'] ?? null;
         $statusTabs = collect($statuses)
             ->map(fn ($status): array => [$status->value, $status->label(), $statusCounts[$status->value] ?? 0])
@@ -136,16 +137,39 @@
             </div>
         </form>
 
-        <div class="overflow-x-auto">
-            <table class="w-full min-w-[60rem] text-sm">
+        @if ($canBulkDelete)
+            {{-- Row checkboxes join this form through their form attribute, since rows hold their own delete forms --}}
+            <form id="lead-bulk-form" action="{{ route('admin.leads.bulk-destroy') }}" method="POST"
+                onsubmit="return confirm('Move the selected leads to the trash?')"
+                data-bulk-bar hidden
+                class="flex items-center justify-between gap-3 border-b border-fuchsia-100 bg-fuchsia-50/70 px-5 py-2.5">
+                @csrf
+                @method('DELETE')
+                <span class="text-sm font-medium text-fuchsia-800"><span data-bulk-count>0</span> selected</span>
+                <button type="submit"
+                    class="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-white px-3 py-1.5 text-sm font-medium text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50">
+                    <x-admin.icon name="trash" class="h-4 w-4" /> Delete selected
+                </button>
+            </form>
+        @endif
+
+        {{-- Columns fold away as the card narrows instead of scrolling sideways; folded details move into the lead cell --}}
+        <div class="@container overflow-x-auto" @if ($canBulkDelete) data-bulk-scope @endif>
+            <table class="w-full text-sm">
                 <thead class="border-b border-slate-200 bg-slate-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                     <tr>
-                        <th class="py-3 pl-5 pr-4"><a href="{{ $sortUrl('name') }}" class="hover:text-slate-800">Lead {{ $sortIcon('name') }}</a></th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('company') }}" class="hover:text-slate-800">Company {{ $sortIcon('company') }}</a></th>
-                        <th class="px-4 py-3">Source</th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('status') }}" class="hover:text-slate-800">Status {{ $sortIcon('status') }}</a></th>
-                        <th class="px-4 py-3">Assigned</th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('created_at') }}" class="hover:text-slate-800">Received {{ $sortIcon('created_at') }}</a></th>
+                        @if ($canBulkDelete)
+                            <th class="w-10 py-3 pl-5 pr-1">
+                                <input type="checkbox" data-bulk-all aria-label="Select all leads on this page"
+                                    class="h-4 w-4 cursor-pointer rounded border-slate-300 text-fuchsia-600 accent-fuchsia-600 focus:ring-fuchsia-400">
+                            </th>
+                        @endif
+                        <th class="py-3 {{ $canBulkDelete ? 'pl-3' : 'pl-5' }} pr-4"><a href="{{ $sortUrl('name') }}" class="hover:text-slate-800">Lead {{ $sortIcon('name') }}</a></th>
+                        <th class="hidden px-4 py-3 @4xl:table-cell"><a href="{{ $sortUrl('company') }}" class="hover:text-slate-800">Company {{ $sortIcon('company') }}</a></th>
+                        <th class="hidden px-4 py-3 @6xl:table-cell">Source</th>
+                        <th class="hidden px-4 py-3 @2xl:table-cell"><a href="{{ $sortUrl('status') }}" class="hover:text-slate-800">Status {{ $sortIcon('status') }}</a></th>
+                        <th class="hidden px-4 py-3 @5xl:table-cell">Assigned</th>
+                        <th class="hidden px-4 py-3 @2xl:table-cell"><a href="{{ $sortUrl('created_at') }}" class="hover:text-slate-800">Received {{ $sortIcon('created_at') }}</a></th>
                         <th class="py-3 pl-4 pr-5"><span class="sr-only">Actions</span></th>
                     </tr>
                 </thead>
@@ -155,8 +179,15 @@
                             $receivedAt = $lead->created_at->timezone(config('app.timezone'));
                             $leadUrl = route('admin.leads.show', $lead);
                         @endphp
-                        <tr class="transition {{ $lead->is_read ? 'hover:bg-slate-50' : 'bg-fuchsia-50/30 hover:bg-fuchsia-50/60' }}">
-                            <td class="py-3 pl-5 pr-4">
+                        <tr class="transition has-checked:bg-fuchsia-50 {{ $lead->is_read ? 'hover:bg-slate-50' : 'bg-fuchsia-50/30 hover:bg-fuchsia-50/60' }}">
+                            @if ($canBulkDelete)
+                                <td class="w-10 py-3 pl-5 pr-1">
+                                    <input type="checkbox" name="ids[]" value="{{ $lead->id }}" form="lead-bulk-form" data-bulk-item
+                                        aria-label="Select {{ $lead->name }}"
+                                        class="h-4 w-4 cursor-pointer rounded border-slate-300 text-fuchsia-600 accent-fuchsia-600 focus:ring-fuchsia-400">
+                                </td>
+                            @endif
+                            <td class="py-3 {{ $canBulkDelete ? 'pl-3' : 'pl-5' }} pr-4">
                                 <div class="flex items-center gap-3">
                                     <span class="relative shrink-0">
                                         <span class="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold {{ $lead->is_read ? 'bg-slate-100 text-slate-500' : 'bg-fuchsia-100 text-fuchsia-700' }}">{{ $initials($lead->name) }}</span>
@@ -170,10 +201,20 @@
                                         <div class="truncate text-xs text-slate-500">
                                             <span class="font-mono text-slate-400">{{ $lead->reference() }}</span> · {{ $lead->email ?? $lead->phone ?? '—' }}
                                         </div>
+                                        @if ($lead->company)
+                                            <div class="truncate text-xs text-slate-500 @4xl:hidden">{{ $lead->company }}</div>
+                                        @endif
+                                        <div class="mt-1 flex flex-wrap items-center gap-2 @2xl:hidden">
+                                            <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium {{ $lead->status->badgeClasses() }}">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+                                                {{ $lead->status->label() }}
+                                            </span>
+                                            <time datetime="{{ $receivedAt->toIso8601String() }}" class="text-xs text-slate-500">{{ $receivedAt->diffForHumans() }}</time>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="hidden px-4 py-3 @4xl:table-cell">
                                 @if ($lead->company || $lead->country)
                                     <div class="max-w-48 truncate text-slate-700">{{ $lead->company ?? $lead->country }}</div>
                                     @if ($lead->company && $lead->country)
@@ -183,7 +224,7 @@
                                     <span class="text-slate-300">—</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="hidden px-4 py-3 @6xl:table-cell">
                                 <div class="flex items-center gap-1.5 whitespace-nowrap text-slate-700">
                                     <x-admin.icon name="{{ $lead->sourceEnum()?->icon() ?? 'inbox' }}" class="h-4 w-4 shrink-0 text-slate-400" />
                                     {{ $lead->sourceLabel() }}
@@ -192,13 +233,13 @@
                                     <div class="max-w-48 truncate pl-5.5 text-xs text-slate-500">{{ $lead->service }}</div>
                                 @endif
                             </td>
-                            <td class="px-4 py-3">
-                                <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium {{ $lead->status->badgeClasses() }}">
+                            <td class="hidden px-4 py-3 @2xl:table-cell">
+                                <span class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium {{ $lead->status->badgeClasses() }}">
                                     <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
                                     {{ $lead->status->label() }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="hidden px-4 py-3 @5xl:table-cell">
                                 @if ($lead->assignee)
                                     <div class="flex items-center gap-2 whitespace-nowrap text-slate-700">
                                         <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[10px] font-semibold text-slate-600">{{ $initials($lead->assignee->name) }}</span>
@@ -208,7 +249,7 @@
                                     <span class="text-xs text-slate-400">Unassigned</span>
                                 @endif
                             </td>
-                            <td class="whitespace-nowrap px-4 py-3">
+                            <td class="hidden whitespace-nowrap px-4 py-3 @2xl:table-cell">
                                 <time datetime="{{ $receivedAt->toIso8601String() }}" class="block text-slate-700">{{ $receivedAt->diffForHumans() }}</time>
                                 <div class="text-xs text-slate-500">{{ $receivedAt->format('M d, Y · H:i') }}</div>
                             </td>
@@ -237,7 +278,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-4 py-16 text-center">
+                            <td colspan="8" class="px-4 py-16 text-center">
                                 <x-admin.icon name="{{ $trashed ? 'trash' : 'inbox' }}" class="mx-auto h-8 w-8 text-slate-300" />
                                 <p class="mt-2 text-sm font-medium text-slate-600">
                                     {{ $hasFilters || $activeStatus ? 'No leads match these filters.' : ($trashed ? 'The trash is empty.' : 'No leads yet.') }}

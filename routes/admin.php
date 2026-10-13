@@ -62,6 +62,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'can:viewAny,'.Lead::class])->group(function () {
         Route::get('leads/export', LeadExportController::class)->name('leads.export');
         Route::get('leads', [LeadController::class, 'index'])->name('leads.index');
+        Route::delete('leads', [LeadController::class, 'bulkDestroy'])->name('leads.bulk-destroy');
         Route::get('leads/{lead}', [LeadController::class, 'show'])->withTrashed()->name('leads.show');
         Route::patch('leads/{lead}', [LeadController::class, 'update'])->name('leads.update');
         Route::delete('leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');

@@ -170,6 +170,42 @@ it('super admin soft-deletes and restores leads with an audit trail', function (
     expect($lead->activities()->pluck('type')->all())->toContain(LeadActivity::DELETED, LeadActivity::RESTORED);
 });
 
+it('super admin moves several selected leads to the trash at once', function () {
+    $admin = leadUser(UserRole::SuperAdmin);
+    [$first, $second, $kept] = Lead::factory()->count(3)->create();
+
+    $this->actingAs($admin)
+        ->from(route('admin.leads.index', ['status' => 'new']))
+        ->delete(route('admin.leads.bulk-destroy'), ['ids' => [$first->id, $second->id]])
+        ->assertRedirect(route('admin.leads.index', ['status' => 'new']))
+        ->assertSessionHas('status', '2 leads moved to trash.');
+
+    $this->assertSoftDeleted($first);
+    $this->assertSoftDeleted($second);
+    $this->assertNotSoftDeleted($kept);
+    expect($first->activities()->pluck('type')->all())->toContain(LeadActivity::DELETED);
+});
+
+it('shows selection checkboxes only to users who can bulk delete', function () {
+    Lead::factory()->create();
+
+    $this->actingAs(leadUser(UserRole::SuperAdmin))->get(route('admin.leads.index'))->assertSee('lead-bulk-form');
+    $this->actingAs(leadUser())->get(route('admin.leads.index'))->assertDontSee('lead-bulk-form');
+});
+
+it('forbids bulk delete for non super admins and requires a selection', function () {
+    $lead = Lead::factory()->create();
+
+    $this->actingAs(leadUser())
+        ->delete(route('admin.leads.bulk-destroy'), ['ids' => [$lead->id]])
+        ->assertForbidden();
+    $this->assertNotSoftDeleted($lead);
+
+    $this->actingAs(leadUser(UserRole::SuperAdmin))
+        ->delete(route('admin.leads.bulk-destroy'), ['ids' => []])
+        ->assertSessionHasErrors('ids');
+});
+
 it('sorts by an allowed column only', function () {
     Lead::factory()->create(['company' => 'Zeta']);
     Lead::factory()->create(['company' => 'Alpha']);
