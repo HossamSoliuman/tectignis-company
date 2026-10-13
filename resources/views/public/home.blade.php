@@ -127,12 +127,12 @@
         </div>
     </section>
 
-    {{-- 05 Featured Work --}}
+    {{-- 05 Recent Projects --}}
     @if ($caseStudies->isNotEmpty())
         <section class="tx-section" id="work">
             <div class="container">
                 <x-public.section-heading
-                    :pretitle="$settings['cs_badge'] ?? 'Featured Work'"
+                    :pretitle="$settings['cs_badge'] ?? 'Recent Projects'"
                     :title="$settings['cs_heading'] ?? 'Real Stories. Real Impact.'"
                     :subtitle="$settings['cs_subtitle'] ?? null"
                 />

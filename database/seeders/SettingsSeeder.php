@@ -254,7 +254,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'tech_sub_heading', 'value' => 'Tools & Platforms', 'group' => 'home'],
             ['key' => 'tech_heading', 'value' => 'Technology', 'group' => 'home'],
             ['key' => 'tech_heading_highlight', 'value' => 'Stack', 'group' => 'home'],
-            ['key' => 'cs_badge', 'value' => 'Featured Work', 'group' => 'home'],
+            ['key' => 'cs_badge', 'value' => 'Recent Projects', 'group' => 'home'],
             ['key' => 'cs_heading', 'value' => 'Real Stories. Real Impact.', 'group' => 'home'],
             ['key' => 'cs_subtitle', 'value' => 'Explore how our solutions have helped businesses overcome challenges, improve operations, and achieve measurable results.', 'group' => 'home'],
             ['key' => 'gp_pretitle', 'value' => 'Global Presence', 'group' => 'home'],

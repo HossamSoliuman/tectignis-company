@@ -138,16 +138,17 @@
             </div>
         </form>
 
-        <div class="overflow-x-auto">
-            <table class="w-full min-w-[60rem] text-sm">
+        {{-- Columns fold away as the card narrows instead of scrolling sideways; folded details move into the candidate cell --}}
+        <div class="@container overflow-x-auto">
+            <table class="w-full text-sm">
                 <thead class="border-b border-slate-200 bg-slate-50/70 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                     <tr>
                         <th class="py-3 pl-5 pr-4"><a href="{{ $sortUrl('name') }}" class="hover:text-slate-800">Candidate {{ $sortIcon('name') }}</a></th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('job_title') }}" class="hover:text-slate-800">Applied for {{ $sortIcon('job_title') }}</a></th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('experience') }}" class="hover:text-slate-800">Experience {{ $sortIcon('experience') }}</a></th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('status') }}" class="hover:text-slate-800">Status {{ $sortIcon('status') }}</a></th>
-                        <th class="px-4 py-3">Assigned</th>
-                        <th class="px-4 py-3"><a href="{{ $sortUrl('created_at') }}" class="hover:text-slate-800">Received {{ $sortIcon('created_at') }}</a></th>
+                        <th class="hidden px-4 py-3 @4xl:table-cell"><a href="{{ $sortUrl('job_title') }}" class="hover:text-slate-800">Applied for {{ $sortIcon('job_title') }}</a></th>
+                        <th class="hidden px-4 py-3 @6xl:table-cell"><a href="{{ $sortUrl('experience') }}" class="hover:text-slate-800">Experience {{ $sortIcon('experience') }}</a></th>
+                        <th class="hidden px-4 py-3 @2xl:table-cell"><a href="{{ $sortUrl('status') }}" class="hover:text-slate-800">Status {{ $sortIcon('status') }}</a></th>
+                        <th class="hidden px-4 py-3 @5xl:table-cell">Assigned</th>
+                        <th class="hidden px-4 py-3 @2xl:table-cell"><a href="{{ $sortUrl('created_at') }}" class="hover:text-slate-800">Received {{ $sortIcon('created_at') }}</a></th>
                         <th class="py-3 pl-4 pr-5"><span class="sr-only">Actions</span></th>
                     </tr>
                 </thead>
@@ -172,28 +173,39 @@
                                         <div class="truncate text-xs text-slate-500">
                                             <span class="font-mono text-slate-400">{{ $application->reference() }}</span> · {{ $application->email }}
                                         </div>
+                                        <div class="truncate text-xs text-slate-500 @4xl:hidden">{{ $application->appliedFor() }}</div>
+                                        @if ($application->experienceLabel() || $application->location)
+                                            <div class="truncate text-xs text-slate-500 @6xl:hidden">{{ collect([$application->experienceLabel(), $application->location])->filter()->implode(' · ') }}</div>
+                                        @endif
+                                        <div class="mt-1 flex flex-wrap items-center gap-2 @2xl:hidden">
+                                            <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium {{ $application->status->badgeClasses() }}">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
+                                                {{ $application->status->label() }}
+                                            </span>
+                                            <time datetime="{{ $receivedAt->toIso8601String() }}" class="text-xs text-slate-500">{{ $receivedAt->diffForHumans() }}</time>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="hidden px-4 py-3 @4xl:table-cell">
                                 <div class="max-w-56 truncate text-slate-700">{{ $application->appliedFor() }}</div>
                                 @if ($application->designation_name)
                                     <div class="max-w-56 truncate text-xs text-slate-500">{{ $application->designation_name }}</div>
                                 @endif
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="hidden px-4 py-3 @6xl:table-cell">
                                 <div class="whitespace-nowrap text-slate-700">{{ $application->experienceLabel() ?? '—' }}</div>
                                 @if ($application->location)
                                     <div class="max-w-40 truncate text-xs text-slate-500">{{ $application->location }}</div>
                                 @endif
                             </td>
-                            <td class="px-4 py-3">
-                                <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium {{ $application->status->badgeClasses() }}">
+                            <td class="hidden px-4 py-3 @2xl:table-cell">
+                                <span class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-medium {{ $application->status->badgeClasses() }}">
                                     <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
                                     {{ $application->status->label() }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="hidden px-4 py-3 @5xl:table-cell">
                                 @if ($application->assignee)
                                     <div class="flex items-center gap-2 whitespace-nowrap text-slate-700">
                                         <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-[10px] font-semibold text-slate-600">{{ $initials($application->assignee->name) }}</span>
@@ -203,7 +215,7 @@
                                     <span class="text-xs text-slate-400">Unassigned</span>
                                 @endif
                             </td>
-                            <td class="whitespace-nowrap px-4 py-3">
+                            <td class="hidden whitespace-nowrap px-4 py-3 @2xl:table-cell">
                                 <time datetime="{{ $receivedAt->toIso8601String() }}" class="block text-slate-700">{{ $receivedAt->diffForHumans() }}</time>
                                 <div class="text-xs text-slate-500">{{ $receivedAt->format('M d, Y · H:i') }}</div>
                             </td>
