@@ -1,9 +1,7 @@
-@props(['service'])
+@props(['service', 'caseStudies'])
 
 @php
     $section = $service->content['case_studies'] ?? [];
-    // Section shows the three most recent active case studies globally.
-    $caseStudies = \App\Models\CaseStudy::with('category')->active()->latest()->limit(3)->get();
     $heading = $section['heading'] ?? 'Our Recent Success Stories';
     $subtitle = $section['subtitle'] ?? 'Proof of Work';
 @endphp

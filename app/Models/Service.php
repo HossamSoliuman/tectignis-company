@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Concerns\HasContentScopes;
 use Database\Factories\ServiceFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +18,7 @@ class Service extends Model
 
     protected $fillable = [
         'slug', 'capability_id', 'category', 'title', 'short_description', 'description', 'body', 'content',
-        'icon', 'banner_image', 'sort_order', 'is_active',
+        'icon', 'banner_image', 'sort_order', 'is_active', 'is_featured',
         'seo_title', 'seo_description', 'seo_keywords',
     ];
 
@@ -43,9 +45,66 @@ class Service extends Model
     {
         return [
             'is_active' => 'boolean',
+            'is_featured' => 'boolean',
             'sort_order' => 'integer',
             'content' => 'array',
         ];
+    }
+
+    /**
+     * Services highlighted in the homepage core services section.
+     */
+    public function scopeFeatured(Builder $query): void
+    {
+        $query->where('is_featured', true);
+    }
+
+    /**
+     * Active services picked for the "Related Services" section, in the order
+     * they were picked. Falls back to other services under the same capability.
+     *
+     * @return Collection<int, Service>
+     */
+    public function relatedServices(int $limit = 6): Collection
+    {
+        $ids = array_map('intval', (array) ($this->content['related']['service_ids'] ?? []));
+
+        if ($ids !== []) {
+            return static::active()->whereKey($ids)->whereKeyNot($this->getKey())->get()
+                ->sortBy(fn (Service $service): int => array_search($service->id, $ids, true))
+                ->values()
+                ->take($limit);
+        }
+
+        if (! $this->capability_id) {
+            return new Collection;
+        }
+
+        return static::active()->ordered()
+            ->where('capability_id', $this->capability_id)
+            ->whereKeyNot($this->getKey())
+            ->limit($limit)
+            ->get();
+    }
+
+    /**
+     * Case studies for the "Success Stories" section: the ones picked in the
+     * admin, in the order picked, or else the three most recent.
+     *
+     * @return Collection<int, CaseStudy>
+     */
+    public function selectedCaseStudies(): Collection
+    {
+        $ids = array_map('intval', (array) ($this->content['case_studies']['ids'] ?? []));
+        $query = CaseStudy::with('category')->active();
+
+        if ($ids === []) {
+            return $query->latest()->limit(3)->get();
+        }
+
+        return $query->whereKey($ids)->get()
+            ->sortBy(fn (CaseStudy $caseStudy): int => array_search($caseStudy->id, $ids, true))
+            ->values();
     }
 
     /**

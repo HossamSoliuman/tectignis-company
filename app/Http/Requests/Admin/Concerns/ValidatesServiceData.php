@@ -26,6 +26,7 @@ trait ValidatesServiceData
             'banner_image' => ['nullable', 'file', 'image', 'max:4096'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['boolean'],
+            'is_featured' => ['boolean'],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:500'],
             'seo_keywords' => ['nullable', 'string', 'max:500'],
@@ -68,6 +69,24 @@ trait ValidatesServiceData
             'content.features_strip.items.*.icon_file' => ['nullable', 'image', 'max:2048'],
             'content.features_strip.items.*.label' => ['nullable', 'string', 'max:120'],
 
+            // Problems & solutions
+            'content.problems.enabled' => ['nullable', 'boolean'],
+            'content.problems.heading' => ['nullable', 'string', 'max:200'],
+            'content.problems.subtitle' => ['nullable', 'string', 'max:500'],
+            'content.problems.items' => ['nullable', 'array'],
+            'content.problems.items.*.problem' => ['nullable', 'string', 'max:300'],
+            'content.problems.items.*.solution' => ['nullable', 'string', 'max:1000'],
+
+            // Business benefits
+            'content.benefits.enabled' => ['nullable', 'boolean'],
+            'content.benefits.heading' => ['nullable', 'string', 'max:200'],
+            'content.benefits.subtitle' => ['nullable', 'string', 'max:500'],
+            'content.benefits.items' => ['nullable', 'array'],
+            'content.benefits.items.*.icon' => ['nullable', 'string', 'max:255'],
+            'content.benefits.items.*.icon_file' => ['nullable', 'image', 'max:2048'],
+            'content.benefits.items.*.title' => ['nullable', 'string', 'max:200'],
+            'content.benefits.items.*.description' => ['nullable', 'string', 'max:1000'],
+
             // Section C — Sub-services grid
             'content.sub_services.enabled' => ['nullable', 'boolean'],
             'content.sub_services.heading' => ['nullable', 'string', 'max:200'],
@@ -103,6 +122,8 @@ trait ValidatesServiceData
             'content.case_studies.enabled' => ['nullable', 'boolean'],
             'content.case_studies.heading' => ['nullable', 'string', 'max:200'],
             'content.case_studies.subtitle' => ['nullable', 'string', 'max:500'],
+            'content.case_studies.ids' => ['nullable', 'array'],
+            'content.case_studies.ids.*' => ['integer', 'exists:case_studies,id'],
 
             // Section H — Why choose
             'content.why_choose.enabled' => ['nullable', 'boolean'],
@@ -126,6 +147,13 @@ trait ValidatesServiceData
             'content.faq.items' => ['nullable', 'array'],
             'content.faq.items.*.question' => ['nullable', 'string', 'max:300'],
             'content.faq.items.*.answer' => ['nullable', 'string', 'max:2000'],
+
+            // Related services
+            'content.related.enabled' => ['nullable', 'boolean'],
+            'content.related.heading' => ['nullable', 'string', 'max:200'],
+            'content.related.subtitle' => ['nullable', 'string', 'max:500'],
+            'content.related.service_ids' => ['nullable', 'array'],
+            'content.related.service_ids.*' => ['integer', 'exists:services,id'],
 
             // Section J — CTA band
             'content.cta_band.enabled' => ['nullable', 'boolean'],

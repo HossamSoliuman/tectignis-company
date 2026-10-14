@@ -31,4 +31,14 @@ class ServiceFactory extends Factory
             'seo_description' => fake()->sentence(),
         ];
     }
+
+    /**
+     * A service shown in the homepage core services section.
+     */
+    public function featured(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'is_featured' => true,
+        ]);
+    }
 }

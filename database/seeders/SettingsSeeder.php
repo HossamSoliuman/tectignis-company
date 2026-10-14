@@ -61,7 +61,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'social_instagram', 'value' => 'https://www.instagram.com/tectignisofficial/', 'group' => 'social'],
             ['key' => 'social_linkedin', 'value' => 'https://in.linkedin.com/company/tectignis', 'group' => 'social'],
             ['key' => 'social_twitter', 'value' => 'https://x.com/ItTectignis', 'group' => 'social'],
-            ['key' => 'social_whatsapp', 'value' => '+919987705688', 'group' => 'social'],
+            ['key' => 'social_whatsapp', 'value' => '+919987805688', 'group' => 'social'],
 
             // legal
             ['key' => 'legal_privacy-policy', 'group' => 'legal', 'value' => '<h1>Privacy Policy</h1>
@@ -145,7 +145,7 @@ class SettingsSeeder extends Seeder
 <p>If you have any questions about this Privacy Policy or how we handle your data, please reach out:</p>
 <ul>
   <li><strong>Email:</strong> <a href="mailto:info@tectignis.in">info@tectignis.in</a></li>
-  <li><strong>Phone:</strong> +91 9987705688</li>
+  <li><strong>Phone:</strong> +91 9987805688</li>
   <li><strong>Address:</strong> Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai – 410206, Maharashtra, India</li>
 </ul>'],
 
@@ -207,20 +207,23 @@ class SettingsSeeder extends Seeder
 <p>For questions or concerns about these Terms, please contact us:</p>
 <ul>
   <li><strong>Email:</strong> <a href="mailto:info@tectignis.in">info@tectignis.in</a></li>
-  <li><strong>Phone:</strong> +91 9987705688</li>
+  <li><strong>Phone:</strong> +91 9987805688</li>
   <li><strong>Address:</strong> Aashiyana CHS Shop no 05, Sector 11, Plot no 29, Kamothe, Navi Mumbai – 410206, Maharashtra, India</li>
 </ul>'],
 
             ['key' => 'legal_cookie-policy', 'value' => null, 'group' => 'legal'],
 
             // home — hero
-            ['key' => 'hero_sub_heading', 'value' => 'Software · AI · Cloud · Cybersecurity · IT Infrastructure', 'group' => 'home'],
-            ['key' => 'hero_heading_line1', 'value' => 'Build, Modernize & Secure', 'group' => 'home'],
-            ['key' => 'hero_heading_line2', 'value' => 'Your Business With Technology', 'group' => 'home'],
-            ['key' => 'hero_info_heading', 'value' => 'Custom software, AI automation, cloud infrastructure, cybersecurity and IT solutions for growing businesses and enterprises.', 'group' => 'home'],
+            ['key' => 'hero_sub_heading', 'value' => 'Custom Software · Website Development · AI · Cloud', 'group' => 'home'],
+            ['key' => 'hero_heading_line1', 'value' => 'Custom Software & Websites', 'group' => 'home'],
+            ['key' => 'hero_heading_line2', 'value' => 'Built for Businesses Worldwide', 'group' => 'home'],
+            ['key' => 'hero_info_heading', 'value' => 'We design and build custom software, web applications and business websites for SMEs, startups and enterprises worldwide, delivered by an in-house team with a transparent process and long-term support.', 'group' => 'home'],
             ['key' => 'hero_btn_primary', 'value' => 'Book a Technical Consultation', 'group' => 'home'],
-            ['key' => 'hero_btn_secondary', 'value' => 'View Our Work', 'group' => 'home'],
-            ['key' => 'trust_heading', 'value' => 'Trusted by businesses across India and worldwide', 'group' => 'home'],
+            ['key' => 'hero_btn_secondary', 'value' => 'Send an Enquiry', 'group' => 'home'],
+            ['key' => 'trust_heading', 'value' => 'Trusted by businesses in India and internationally', 'group' => 'home'],
+            ['key' => 'core_pretitle', 'value' => 'Core Services', 'group' => 'home'],
+            ['key' => 'core_heading', 'value' => 'Software and Websites Built', 'group' => 'home'],
+            ['key' => 'core_heading_highlight', 'value' => 'Around Your Business', 'group' => 'home'],
             ['key' => 'pillars_pretitle', 'value' => 'What We Do', 'group' => 'home'],
             ['key' => 'pillars_heading', 'value' => 'Four Pillars. One Accountable Technology Partner.', 'group' => 'home'],
             ['key' => 'pillars_subtitle', 'value' => 'Tectignis helps businesses build, modernize and secure their technology through custom software, AI automation, cloud, cybersecurity and IT infrastructure solutions.', 'group' => 'home'],

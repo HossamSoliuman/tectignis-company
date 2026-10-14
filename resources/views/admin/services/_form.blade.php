@@ -10,6 +10,11 @@
 
     $capabilityOptions = \App\Models\Capability::ordered()->get(['id', 'title']);
 
+    $catalogServices = ($relatedServiceOptions ?? collect())->reject(fn ($option) => $option->id === $s?->id);
+    $catalogCaseStudies = $caseStudyOptions ?? collect();
+    $selectedRelated = collect(data_get($content, 'related.service_ids', []))->map(fn ($id) => (int) $id)->all();
+    $selectedCaseStudies = collect(data_get($content, 'case_studies.ids', []))->map(fn ($id) => (int) $id)->all();
+
     $inputClass = 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400';
 @endphp
 
@@ -56,6 +61,12 @@
         <input type="hidden" name="is_active" value="0">
         <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', $s?->is_active ?? true) ? 'checked' : '' }} class="rounded border-slate-300">
         <label for="is_active" class="text-sm font-medium text-slate-700">Active</label>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <input type="hidden" name="is_featured" value="0">
+        <input type="checkbox" id="is_featured" name="is_featured" value="1" {{ old('is_featured', $s?->is_featured ?? false) ? 'checked' : '' }} class="rounded border-slate-300">
+        <label for="is_featured" class="text-sm font-medium text-slate-700">Feature in homepage core services</label>
     </div>
 </div>
 
@@ -111,6 +122,17 @@
     ])
 </x-admin.service-panel>
 
+{{-- Problems & solutions --}}
+<x-admin.service-panel title="Problems & Solutions" :section="'problems'" :content="$content">
+    <x-admin.section-heading-fields prefix="problems" :content="$content" :inputClass="$inputClass" />
+    @include('admin.services.partials._repeater', [
+        'prefix' => 'content[problems][items]',
+        'rows' => $cat('problems.items', []),
+        'rowView' => 'admin.services.partials._problem-row',
+        'addLabel' => 'Add problem',
+    ])
+</x-admin.service-panel>
+
 {{-- C · Sub-services --}}
 <x-admin.service-panel title="Our Services (sub-services grid)" :section="'sub_services'" :content="$content">
     <x-admin.section-heading-fields prefix="sub_services" :content="$content" :inputClass="$inputClass" />
@@ -119,6 +141,18 @@
         'rows' => $cat('sub_services.items', []),
         'rowView' => 'admin.services.partials._card-row',
         'addLabel' => 'Add service card',
+    ])
+</x-admin.service-panel>
+
+{{-- Business benefits --}}
+<x-admin.service-panel title="Business Benefits" :section="'benefits'" :content="$content">
+    <x-admin.section-heading-fields prefix="benefits" :content="$content" :inputClass="$inputClass" />
+    @include('admin.services.partials._repeater', [
+        'prefix' => 'content[benefits][items]',
+        'rows' => $cat('benefits.items', []),
+        'rowView' => 'admin.services.partials._card-row',
+        'extra' => ['titlePlaceholder' => 'Benefit'],
+        'addLabel' => 'Add benefit',
     ])
 </x-admin.service-panel>
 
@@ -154,9 +188,9 @@
 </x-admin.service-panel>
 
 {{-- G · Case studies --}}
-<x-admin.service-panel title="Recent Success Stories" :section="'case_studies'" :content="$content"
-    note="Shows the 3 most recent active case studies, managed under Case Studies.">
+<x-admin.service-panel title="Recent Success Stories" :section="'case_studies'" :content="$content">
     <x-admin.section-heading-fields prefix="case_studies" :content="$content" :inputClass="$inputClass" />
+    <x-admin.attach-list name="content[case_studies][ids]" :items="$catalogCaseStudies" :selected="$selectedCaseStudies" label-key="title" empty="No case studies yet — add them under Case Studies." />
 </x-admin.service-panel>
 
 {{-- H · Why choose --}}
@@ -201,6 +235,12 @@
         'rowView' => 'admin.services.partials._faq-row',
         'addLabel' => 'Add question',
     ])
+</x-admin.service-panel>
+
+{{-- Related services --}}
+<x-admin.service-panel title="Related Services" :section="'related'" :content="$content">
+    <x-admin.section-heading-fields prefix="related" :content="$content" :inputClass="$inputClass" />
+    <x-admin.attach-list name="content[related][service_ids]" :items="$catalogServices" :selected="$selectedRelated" label-key="title" empty="No other services yet." />
 </x-admin.service-panel>
 
 {{-- J · CTA band --}}

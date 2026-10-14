@@ -10,6 +10,7 @@ use App\Models\CaseStudy;
 use App\Models\GlobalAdvantage;
 use App\Models\Industry;
 use App\Models\ProcessStep;
+use App\Models\Service;
 use App\Models\Setting;
 use App\Models\TechStack;
 use App\Models\Testimonial;
@@ -26,6 +27,7 @@ class HomeController extends Controller
     {
         $data = Cache::rememberForever('site.home', fn (): array => [
             'brands' => Brand::active()->ordered()->get(),
+            'coreServices' => Service::active()->featured()->ordered()->get(),
             'whyChooseFeatures' => WhyChooseFeature::active()->ordered()->get(),
             'caseStudies' => CaseStudy::with('category')->active()->ordered()->limit(6)->get(),
             'industries' => Industry::active()->ordered()->get(),

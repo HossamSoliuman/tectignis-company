@@ -41,14 +41,14 @@
     <x-public.hero
         class="tx-hero--single-line"
         :overline="$settings['hero_sub_heading'] ?? null"
-        :title="$settings['hero_heading_line1'] ?? 'Build, Modernize & Secure'"
-        :highlight="$settings['hero_heading_line2'] ?? 'Your Business With Technology'"
-        :description="$settings['hero_info_heading'] ?? 'Custom software, AI automation, cloud infrastructure, cybersecurity and IT solutions for growing businesses and enterprises.'"
+        :title="$settings['hero_heading_line1'] ?? 'Custom Software & Websites'"
+        :highlight="$settings['hero_heading_line2'] ?? 'Built for Businesses Worldwide'"
+        :description="$settings['hero_info_heading'] ?? 'We design and build custom software, web applications and business websites for SMEs, startups and enterprises worldwide, delivered by an in-house team with a transparent process and long-term support.'"
         :primary-label="$settings['hero_btn_primary'] ?? 'Book a Technical Consultation'"
-        :secondary-label="$settings['hero_btn_secondary'] ?? 'View Our Work'"
-        :secondary-url="route('case-studies.index')"
+        :secondary-label="$settings['hero_btn_secondary'] ?? 'Send an Enquiry'"
+        :secondary-url="route('contact').'#contact-lead-form'"
         :image="\App\Models\Setting::imageUrl($settings['hero_image'] ?? null, 'hero_image')"
-        image-alt="Tectignis software, AI, cloud and infrastructure solutions"
+        image-alt="Tectignis custom software and website development"
         :image-width="$heroImageWidth"
         :image-height="$heroImageHeight"
         :trust="$heroTrust"
@@ -58,13 +58,31 @@
     @if ($brands->isNotEmpty())
         <section class="tx-trust" aria-label="Clients and partners">
             <div class="container">
-                <p class="tx-trust__title">{{ $settings['trust_heading'] ?? 'Trusted by businesses across India and worldwide' }}</p>
+                <p class="tx-trust__title">{{ $settings['trust_heading'] ?? 'Trusted by businesses in India and internationally' }}</p>
             </div>
             <x-public.brands :brands="$brands" />
         </section>
     @endif
 
-    {{-- 03 Business Pillars --}}
+    {{-- 03 Core Services: the two priority services for international buyers --}}
+    @if ($coreServices->isNotEmpty())
+        <section class="tx-section tx-section--muted" id="core-services">
+            <div class="container">
+                <x-public.section-heading
+                    :pretitle="$settings['core_pretitle'] ?? 'Core Services'"
+                    :title="$settings['core_heading'] ?? 'Software and Websites Built'"
+                    :highlight="$settings['core_heading_highlight'] ?? 'Around Your Business'"
+                />
+                <div class="tx-grid tx-grid--2">
+                    @foreach ($coreServices as $coreService)
+                        <x-public.core-service-card :service="$coreService" />
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{-- Business Pillars --}}
     <section class="tx-section" id="solutions">
         <div class="container">
             <x-public.section-heading

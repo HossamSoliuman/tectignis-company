@@ -17,8 +17,8 @@ trait ManagesServiceContent
 {
     /** Sections that carry an on/off visibility toggle. */
     private const CONTENT_TOGGLES = [
-        'features_strip', 'sub_services', 'process', 'tech',
-        'industries', 'case_studies', 'why_choose', 'faq', 'cta_band',
+        'features_strip', 'problems', 'sub_services', 'benefits', 'process', 'tech',
+        'industries', 'case_studies', 'why_choose', 'faq', 'related', 'cta_band',
     ];
 
     /**
@@ -38,6 +38,7 @@ trait ManagesServiceContent
         // Per-item icon uploads (keep the existing filename when none is chosen).
         $this->syncItemIcons($request, $content, 'features_strip', 'items');
         $this->syncItemIcons($request, $content, 'sub_services', 'items');
+        $this->syncItemIcons($request, $content, 'benefits', 'items');
         $this->syncItemIcons($request, $content, 'process', 'steps');
         $this->syncItemIcons($request, $content, 'why_choose', 'cards');
 
@@ -57,6 +58,10 @@ trait ManagesServiceContent
         $content['sub_services']['items'] = $this->cleanRows($content['sub_services']['items'] ?? [], ['title', 'description', 'icon']);
         $content['process']['steps'] = $this->cleanRows($content['process']['steps'] ?? [], ['title', 'description', 'icon']);
         $content['faq']['items'] = $this->cleanRows($content['faq']['items'] ?? [], ['question', 'answer']);
+        $content['problems']['items'] = $this->cleanRows($content['problems']['items'] ?? [], ['problem', 'solution']);
+        $content['benefits']['items'] = $this->cleanRows($content['benefits']['items'] ?? [], ['title', 'description', 'icon']);
+        $content['case_studies']['ids'] = $this->cleanIds($content['case_studies']['ids'] ?? []);
+        $content['related']['service_ids'] = $this->cleanIds($content['related']['service_ids'] ?? []);
 
         $data['content'] = $content;
     }
@@ -105,6 +110,17 @@ trait ManagesServiceContent
         }
 
         return $clean;
+    }
+
+    /**
+     * Cast a list of picked record ids to integers, dropping duplicates.
+     *
+     * @param  array<int, mixed>  $ids
+     * @return list<int>
+     */
+    private function cleanIds(array $ids): array
+    {
+        return array_values(array_unique(array_map('intval', $ids)));
     }
 
     /**

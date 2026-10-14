@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreServiceRequest;
 use App\Http\Requests\Admin\UpdateServiceRequest;
+use App\Models\CaseStudy;
 use App\Models\Industry;
 use App\Models\Service;
 use App\Models\TechStack;
@@ -84,15 +85,18 @@ class ServiceController extends Controller
     }
 
     /**
-     * Shared catalogs available for per-service attachment (Sections E/F).
+     * Shared catalogs available for per-service attachment (tech stack,
+     * industries, case studies and related services).
      *
-     * @return array{techStacks: Collection<int, TechStack>, industries: Collection<int, Industry>}
+     * @return array{techStacks: Collection<int, TechStack>, industries: Collection<int, Industry>, caseStudyOptions: Collection<int, CaseStudy>, relatedServiceOptions: Collection<int, Service>}
      */
     private function catalogs(): array
     {
         return [
             'techStacks' => TechStack::ordered()->get(),
             'industries' => Industry::ordered()->get(),
+            'caseStudyOptions' => CaseStudy::ordered()->get(['id', 'title']),
+            'relatedServiceOptions' => Service::ordered()->get(['id', 'title']),
         ];
     }
 

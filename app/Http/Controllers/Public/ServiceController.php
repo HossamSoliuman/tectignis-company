@@ -18,6 +18,10 @@ class ServiceController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        return view('public.services.show', compact('service'));
+        return view('public.services.show', [
+            'service' => $service,
+            'caseStudies' => $service->selectedCaseStudies(),
+            'relatedServices' => $service->relatedServices(),
+        ]);
     }
 }

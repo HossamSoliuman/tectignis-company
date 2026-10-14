@@ -27,13 +27,16 @@
              nothing when off or empty. --}}
         <x-public.service.hero :service="$service" />              {{-- Hero + stats --}}
         <x-public.service.features-strip :service="$service" />    {{-- Feature / trust strip --}}
+        <x-public.service.problems :service="$service" />          {{-- Problems & solutions --}}
         <x-public.service.sub-services :service="$service" />      {{-- Our {Service} Services --}}
+        <x-public.service.benefits :service="$service" />          {{-- Business benefits --}}
         <x-public.service.process :service="$service" />           {{-- Process stepper --}}
         <x-public.service.tech-stack :service="$service" />        {{-- Technologies We Use --}}
         <x-public.service.industries :service="$service" />        {{-- Industries We Serve --}}
         <x-public.service.why-choose :service="$service" />        {{-- Why Choose Tectignis --}}
-        <x-public.service.case-studies :service="$service" />      {{-- Recent Success Stories --}}
+        <x-public.service.case-studies :service="$service" :case-studies="$caseStudies" />  {{-- Recent Success Stories --}}
         <x-public.service.faq :service="$service" />               {{-- FAQ + selling points --}}
+        <x-public.service.related :service="$service" :related-services="$relatedServices" />  {{-- Related services --}}
         <x-public.cta :service="$service" />                       {{-- CTA band --}}
         <x-public.service.lets-start :service="$service" />        {{-- Let's Start contact --}}
     @endif
