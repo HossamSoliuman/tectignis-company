@@ -9052,20 +9052,24 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     .tx-grid--2 { grid-template-columns: minmax(0, 1fr); }
 }
 
-.tx-core-card { padding: 32px 30px; }
+/* Each card shares its parent's rows, so the intro, lists, chips and actions line up across both cards. */
+.tx-core-card { display: grid; grid-template-rows: auto auto 1fr auto auto; padding: 32px 30px; }
+@supports (grid-template-rows: subgrid) {
+    .tx-core-card { grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; }
+}
 .tx-core-card__head { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
 .tx-core-card__icon { flex: 0 0 auto; margin-bottom: 0; }
 .tx-core-card__title { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--tx-ink); }
 .tx-core-card__text { margin: 0 0 22px; font-size: 15px; line-height: 1.65; color: var(--tx-body); }
+.tx-core-card__body { margin-bottom: 22px; border-top: 1px solid var(--tx-line); border-bottom: 1px solid var(--tx-line); }
 .tx-core-card__cols {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    margin-bottom: 22px;
-    padding: 20px 0;
-    border-top: 1px solid var(--tx-line);
-    border-bottom: 1px solid var(--tx-line);
+    gap: 28px;
+    padding: 22px 0;
 }
+.tx-core-card__chips { margin-bottom: 26px; }
+.tx-core-card__chips .tx-service-card__items { margin: 0; }
 .tx-core-card__label {
     margin: 0 0 12px;
     font-size: 13px;
@@ -9084,13 +9088,13 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    margin-top: auto;
+    align-self: end;
 }
 /* Sits above the whole-card link overlay so it opens the consultation form. */
 .tx-core-card__cta { position: relative; z-index: 1; }
 @media (max-width: 575px) {
     .tx-core-card { padding: 24px 20px; }
-    .tx-core-card__cols { grid-template-columns: minmax(0, 1fr); }
+    .tx-core-card__cols { grid-template-columns: minmax(0, 1fr); gap: 20px; }
     .tx-core-card__cta { width: 100%; }
 }
 
