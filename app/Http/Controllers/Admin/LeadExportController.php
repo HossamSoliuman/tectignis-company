@@ -34,6 +34,7 @@ class LeadExportController extends Controller
         'Assigned To' => 'assignee',
         'Message' => 'message',
         'Page URL' => 'page_url',
+        'Landing Page' => 'landing_page',
         'UTM Source' => 'utm_source',
         'UTM Medium' => 'utm_medium',
         'UTM Campaign' => 'utm_campaign',

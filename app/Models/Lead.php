@@ -29,7 +29,7 @@ class Lead extends Model
 
     protected $fillable = [
         'name', 'email', 'company', 'country', 'service', 'phone', 'subject', 'message', 'budget', 'timeline',
-        'attachment', 'source', 'page_url', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+        'attachment', 'source', 'page_url', 'landing_page', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
         'status', 'assigned_to', 'is_read', 'consented_at',
     ];
 
@@ -57,6 +57,16 @@ class Lead extends Model
     public function assignee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    /**
+     * The Google Ads landing page the enquiry was submitted from.
+     *
+     * @return BelongsTo<LandingPage, $this>
+     */
+    public function landingPage(): BelongsTo
+    {
+        return $this->belongsTo(LandingPage::class, 'landing_page', 'slug');
     }
 
     /**
@@ -108,7 +118,7 @@ class Lead extends Model
      */
     public function hasAttribution(): bool
     {
-        return filled($this->page_url) || collect(self::UTM_FIELDS)->contains(fn (string $field): bool => filled($this->{$field}));
+        return filled($this->page_url) || filled($this->landing_page) || collect(self::UTM_FIELDS)->contains(fn (string $field): bool => filled($this->{$field}));
     }
 
     /**
@@ -129,7 +139,7 @@ class Lead extends Model
      * optional; values are expected to be validated already.
      *
      * @param  Builder<Lead>  $query
-     * @param  array{q?: string|null, status?: string|null, service?: string|null, country?: string|null, assigned_to?: string|int|null, source?: string|null, date_from?: string|null, date_to?: string|null}  $filters
+     * @param  array{q?: string|null, status?: string|null, service?: string|null, country?: string|null, assigned_to?: string|int|null, source?: string|null, landing_page?: string|null, date_from?: string|null, date_to?: string|null}  $filters
      */
     public function scopeFilter(Builder $query, array $filters): void
     {
@@ -152,7 +162,7 @@ class Lead extends Model
             });
         }
 
-        foreach (['status', 'service', 'country', 'source'] as $column) {
+        foreach (['status', 'service', 'country', 'source', 'landing_page'] as $column) {
             if (filled($filters[$column] ?? null)) {
                 $query->where($column, $filters[$column]);
             }

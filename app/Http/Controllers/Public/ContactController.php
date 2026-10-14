@@ -42,6 +42,7 @@ class ContactController extends Controller
             'timeline' => $data['timeline'] ?? null,
             'source' => $source->value,
             'page_url' => $data['page_url'] ?? url()->previous(),
+            'landing_page' => $request->landingPageSlug(),
             'consented_at' => now(),
             ...CaptureLeadAttribution::fromSession($request),
         ]);
@@ -50,7 +51,7 @@ class ContactController extends Controller
 
         LeadNotificationMail::dispatchFor($lead);
 
-        Log::info('New lead from public form', ['lead_id' => $lead->id, 'source' => $source->value]);
+        Log::info('New lead from public form', ['lead_id' => $lead->id, 'source' => $source->value, 'landing_page' => $lead->landing_page]);
 
         return redirect()
             ->route('contact.thank-you')

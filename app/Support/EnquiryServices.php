@@ -18,6 +18,16 @@ final class EnquiryServices
     private const GENERAL = ['IT Consulting', 'Other / Not sure'];
 
     /**
+     * Enquiry-only options added to a pillar's primary services, e.g. the
+     * Website Development priority service that the landing pages preset.
+     *
+     * @var array<string, list<string>> pillar value => service names
+     */
+    private const EXTRA = [
+        'software-development' => ['Website Development'],
+    ];
+
+    /**
      * @return array<string, list<string>> group label => service names
      */
     public static function grouped(): array
@@ -25,7 +35,7 @@ final class EnquiryServices
         $groups = [];
 
         foreach (Pillar::cases() as $pillar) {
-            $groups[$pillar->label()] = $pillar->primaryServices();
+            $groups[$pillar->label()] = [...$pillar->primaryServices(), ...(self::EXTRA[$pillar->value] ?? [])];
         }
 
         $groups['General'] = self::GENERAL;

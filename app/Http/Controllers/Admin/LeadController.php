@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BulkDestroyLeadsRequest;
 use App\Http\Requests\Admin\LeadFilterRequest;
 use App\Http\Requests\Admin\UpdateLeadRequest;
+use App\Models\LandingPage;
 use App\Models\Lead;
 use App\Models\LeadActivity;
 use App\Models\User;
@@ -67,6 +68,7 @@ class LeadController extends Controller
             'countryOptions' => Lead::query()->whereNotNull('country')->distinct()->orderBy('country')->pluck('country'),
             'assignees' => User::leadAssignees()->get(['id', 'name']),
             'sources' => LeadSource::options(),
+            'landingPageOptions' => LandingPage::ordered()->pluck('title', 'slug'),
             'statuses' => LeadStatus::cases(),
         ]);
     }

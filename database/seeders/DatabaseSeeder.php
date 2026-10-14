@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             // ServiceSeeder attaches TechStack/Industry pivots by name, so it must
             // run after those tables are populated.
             ServiceSeeder::class,
+            LandingPageSeeder::class,
             BlogPostSeeder::class,
             CaseStudySeeder::class,
             TestimonialSeeder::class,

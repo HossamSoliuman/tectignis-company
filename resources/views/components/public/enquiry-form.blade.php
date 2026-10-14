@@ -4,6 +4,8 @@
     'variant' => 'page',
     'subject' => null,
     'submitLabel' => 'Send Enquiry',
+    'service' => null,
+    'landingPage' => null,
 ])
 
 @php
@@ -44,6 +46,9 @@
     @if ($subject)
         <input type="hidden" name="subject" value="{{ $subject }}">
     @endif
+    @if ($landingPage)
+        <input type="hidden" name="landing_page" value="{{ $landingPage }}">
+    @endif
 
     <div class="{{ $s['grid'] }}">
         <div class="{{ $s['field'] }}">
@@ -74,11 +79,11 @@
         <div class="{{ $s['field'] }}">
             <label for="{{ $id('service') }}" class="{{ $s['label'] }}">Service Required <span aria-hidden="true">*</span></label>
             <select id="{{ $id('service') }}" class="{{ $s['control'] }}" name="service" required>
-                <option value="" @selected(! $value('service'))>{{ $variant === 'service' ? 'Service Required *' : 'Choose a service' }}</option>
-                @foreach (\App\Support\EnquiryServices::grouped() as $group => $services)
+                <option value="" @selected(! $value('service', $service))>{{ $variant === 'service' ? 'Service Required *' : 'Choose a service' }}</option>
+                @foreach (\App\Support\EnquiryServices::grouped() as $group => $serviceOptions)
                     <optgroup label="{{ $group }}">
-                        @foreach ($services as $service)
-                            <option value="{{ $service }}" @selected($value('service') === $service)>{{ $service }}</option>
+                        @foreach ($serviceOptions as $serviceOption)
+                            <option value="{{ $serviceOption }}" @selected($value('service', $service) === $serviceOption)>{{ $serviceOption }}</option>
                         @endforeach
                     </optgroup>
                 @endforeach

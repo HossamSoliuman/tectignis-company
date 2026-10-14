@@ -69,6 +69,7 @@
                         ]] : null,
                         $showCms ? ['What We Offer', 'cube', [
                             ['admin.services.index', 'Services'],
+                            ['admin.landing-pages.index', 'Landing Pages'],
                             ['admin.solutions.index', 'Solutions'],
                             ['admin.capabilities.index', 'Capabilities'],
                             ['admin.industries.index', 'Industries'],

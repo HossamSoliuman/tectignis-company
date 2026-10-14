@@ -9,6 +9,7 @@ use App\Http\Controllers\Public\DownloadController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\IndustryController;
 use App\Http\Controllers\Public\InsightController;
+use App\Http\Controllers\Public\LandingPageController;
 use App\Http\Controllers\Public\NewsletterController;
 use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\ServiceController;
@@ -26,6 +27,8 @@ Route::get('/capabilities', [CapabilityController::class, 'index'])->name('capab
 Route::get('/capabilities/{slug}', [CapabilityController::class, 'show'])->name('capabilities.show');
 
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+
+Route::get('/lp/{slug}', [LandingPageController::class, 'show'])->name('landing-pages.show');
 
 Route::get('/solutions', [SolutionController::class, 'index'])->name('solutions.index');
 Route::get('/solutions/{slug}', [SolutionController::class, 'show'])->name('solutions.show');

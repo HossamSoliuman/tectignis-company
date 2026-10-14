@@ -20,7 +20,8 @@
             ['shield-check', 'Consent', $lead->consented_at?->timezone($timezone)->format('M d, Y H:i T'), null],
         ];
         $attribution = array_filter([
-            'Landing page' => $lead->page_url,
+            'Submitted from' => $lead->page_url,
+            'Ads landing page' => $lead->landing_page ? ($lead->landingPage?->title ?? $lead->landing_page) : null,
             'UTM source' => $lead->utm_source,
             'UTM medium' => $lead->utm_medium,
             'UTM campaign' => $lead->utm_campaign,

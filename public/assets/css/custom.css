@@ -9178,3 +9178,237 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
 @media (max-width: 767px) {
     .svc-problem, .svc-benefit, .svc-related-card { padding: 20px; }
 }
+
+/* ==========================================================================
+   Google Ads landing pages (minimal chrome, mobile-first)
+   ========================================================================== */
+.lp-body { background: #fff; padding-bottom: 76px; }
+
+.lp-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #fff;
+    border-bottom: 1px solid var(--svc-line);
+}
+.lp-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
+}
+.lp-header__logo { width: auto; height: 36px; }
+.lp-header__actions { display: flex; align-items: center; gap: 12px; }
+.lp-header__phone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    font-weight: 600;
+    color: var(--svc-dark);
+}
+.lp-header__phone:hover { color: var(--svc-primary); }
+.lp-header__phone i { color: var(--svc-primary); }
+.lp-header__phone-number,
+.lp-header__cta { display: none; }
+
+.lp-hero {
+    padding: 32px 0 48px;
+    background: linear-gradient(180deg, #EAF2F7 0%, #fff 100%);
+}
+.lp-hero__grid { display: grid; gap: 32px; }
+.lp-hero__title {
+    margin: 0 0 16px;
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--svc-dark);
+}
+.lp-hero__text { margin: 0 0 20px; font-size: 17px; line-height: 1.65; color: var(--svc-body); }
+.lp-hero__bullets { margin: 0 0 24px; padding: 0; list-style: none; display: grid; gap: 10px; }
+.lp-hero__bullets li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.5; color: var(--svc-dark); }
+.lp-hero__bullets i { margin-top: 3px; color: var(--svc-primary); }
+.lp-hero__buttons { display: grid; gap: 12px; }
+.lp-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 28px 0 0;
+}
+.lp-stat { display: flex; flex-direction: column-reverse; gap: 4px; }
+.lp-stat__value { margin: 0; font-size: 24px; font-weight: 700; color: var(--svc-primary); }
+.lp-stat__label { font-size: 13px; font-weight: 500; color: var(--svc-body); }
+
+.lp-hero__form { scroll-margin-top: 80px; outline: none; }
+.lp-form-card {
+    padding: 22px 18px;
+    background: #fff;
+    border: 1px solid var(--svc-line);
+    border-radius: 14px;
+    box-shadow: 0 18px 40px rgba(20, 19, 46, 0.08);
+}
+.lp-form-card__title { margin: 0 0 8px; font-size: 22px; font-weight: 700; color: var(--svc-dark); }
+.lp-form-card__text { margin: 0 0 20px; font-size: 15px; line-height: 1.6; color: var(--svc-body); }
+.lp-form-card .contact-form__grid { grid-template-columns: 1fr; gap: 16px; }
+.lp-form-card .contact-form__submit { width: 100%; justify-content: center; }
+
+.lp-section--soft { background: var(--svc-soft); }
+.lp-container--narrow { max-width: 860px; }
+.lp-grid { display: grid; gap: 20px; }
+
+.lp-project {
+    overflow: hidden;
+    height: 100%;
+    background: #fff;
+    border: 1px solid var(--svc-line);
+    border-radius: 14px;
+}
+.lp-project__image { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.lp-project__body { padding: 20px; }
+.lp-project__tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--svc-primary);
+    background: rgba(25, 88, 127, 0.08);
+    border-radius: 20px;
+}
+.lp-project__title { margin: 0 0 8px; font-size: 18px; font-weight: 700; color: var(--svc-dark); }
+.lp-project__text { margin: 0; font-size: 14px; line-height: 1.6; color: var(--svc-body); }
+
+.lp-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 16px; }
+.lp-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid var(--svc-line);
+    border-radius: 14px;
+}
+.lp-step__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--svc-primary);
+    border-radius: 12px;
+}
+.lp-step__title { margin: 0 0 6px; font-size: 17px; font-weight: 700; color: var(--svc-dark); }
+.lp-step__text { margin: 0; font-size: 14px; line-height: 1.6; color: var(--svc-body); }
+
+.lp-faq { display: grid; gap: 12px; }
+.lp-faq__item { background: #fff; border: 1px solid var(--svc-line); border-radius: 12px; }
+.lp-faq__question {
+    position: relative;
+    padding: 18px 48px 18px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--svc-dark);
+    cursor: pointer;
+    list-style: none;
+}
+.lp-faq__question::-webkit-details-marker { display: none; }
+.lp-faq__question::after {
+    content: "+";
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--svc-primary);
+}
+.lp-faq__item[open] .lp-faq__question::after { content: "\2212"; }
+.lp-faq__answer { padding: 0 20px 18px; font-size: 15px; line-height: 1.7; color: var(--svc-body); }
+
+.lp-cta { padding: 48px 0; background: linear-gradient(135deg, var(--svc-primary) 0%, #0F766E 100%); }
+.lp-cta__inner { text-align: center; }
+.lp-cta__title { margin: 0 0 24px; font-size: 26px; line-height: 1.25; font-weight: 700; color: #fff; }
+.lp-cta__buttons { display: grid; gap: 12px; }
+
+.lp-footer { padding: 32px 0 24px; background: var(--svc-navy); color: rgba(255, 255, 255, 0.75); font-size: 14px; }
+.lp-footer__contacts { margin: 0 0 24px; padding: 0; list-style: none; display: grid; gap: 12px; }
+.lp-footer__contacts li { display: flex; align-items: flex-start; gap: 10px; }
+.lp-footer__contacts i { margin-top: 3px; color: #fff; }
+.lp-footer__contacts a { color: rgba(255, 255, 255, 0.85); }
+.lp-footer__contacts a:hover { color: #fff; }
+.lp-footer__contacts address { margin: 0; font-style: normal; }
+.lp-footer__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.lp-footer__copyright { margin: 0; }
+.lp-footer__links { display: flex; flex-wrap: wrap; gap: 16px; }
+.lp-footer__links a { color: rgba(255, 255, 255, 0.85); text-decoration: underline; }
+.lp-footer__links a:hover { color: #fff; }
+
+.lp-sticky {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 60;
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: #fff;
+    box-shadow: 0 -8px 24px rgba(20, 19, 46, 0.1);
+    transition: transform 0.25s;
+}
+.lp-sticky.is-hidden { transform: translateY(110%); }
+.lp-sticky__call {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 50px;
+    color: var(--svc-primary);
+    border: 2px solid rgba(25, 88, 127, 0.25);
+    border-radius: 8px;
+}
+.lp-sticky__cta { flex: 1; }
+
+@media (min-width: 576px) {
+    .lp-hero__buttons { display: flex; flex-wrap: wrap; }
+    .lp-cta__buttons { display: flex; flex-wrap: wrap; justify-content: center; }
+    .lp-form-card { padding: 28px; }
+    .lp-form-card .contact-form__grid { grid-template-columns: 1fr 1fr; }
+    .lp-header__phone-number { display: inline; }
+}
+
+@media (min-width: 768px) {
+    .lp-grid--3 { grid-template-columns: repeat(2, 1fr); }
+    .lp-steps { grid-template-columns: repeat(2, 1fr); }
+    .lp-hero__title { font-size: 38px; }
+    .lp-footer__contacts { grid-template-columns: repeat(2, 1fr); }
+    .lp-footer__bottom { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+
+@media (min-width: 992px) {
+    .lp-body { padding-bottom: 0; }
+    .lp-sticky { display: none; }
+    .lp-header__cta { display: inline-flex; padding: 12px 22px; }
+    .lp-header__logo { height: 44px; }
+    .lp-hero { padding: 56px 0 72px; }
+    .lp-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; align-items: start; }
+    .lp-hero__copy { position: sticky; top: 104px; }
+    .lp-hero__title { font-size: 44px; }
+    .lp-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .lp-steps { grid-template-columns: repeat(3, 1fr); }
+    .lp-cta { padding: 64px 0; }
+    .lp-cta__title { font-size: 32px; }
+    .lp-footer__contacts { grid-template-columns: repeat(4, auto); justify-content: space-between; }
+}

@@ -12,7 +12,7 @@
             ->map(fn ($status): array => [$status->value, $status->label(), $statusCounts[$status->value] ?? 0])
             ->prepend([null, 'All', $statusCounts->sum()]);
         $hasFilters = collect(request()->except(['page', 'per_page', 'sort', 'direction', 'status', 'trashed']))->filter(fn ($v) => filled($v))->isNotEmpty();
-        $activeFilterCount = collect(request()->only(['service', 'country', 'assigned_to', 'source', 'date_from', 'date_to']))->filter(fn ($v) => filled($v))->count();
+        $activeFilterCount = collect(request()->only(['service', 'country', 'assigned_to', 'source', 'landing_page', 'date_from', 'date_to']))->filter(fn ($v) => filled($v))->count();
         $initials = fn (string $name): string => Str::of($name)->squish()->explode(' ')->take(2)->map(fn (string $part): string => Str::upper(Str::substr($part, 0, 1)))->implode('');
 
         // Sorting links keep every other parameter (spec §28.4).
@@ -75,7 +75,7 @@
             </label>
         </div>
 
-        <form method="GET" action="{{ route('admin.leads.index') }}" class="hidden grid-cols-1 gap-3 border-b border-slate-200 bg-slate-50/60 p-4 peer-checked:grid sm:grid-cols-2 lg:grid-cols-6">
+        <form method="GET" action="{{ route('admin.leads.index') }}" class="hidden grid-cols-1 gap-3 border-b border-slate-200 bg-slate-50/60 p-4 peer-checked:grid sm:grid-cols-2 lg:grid-cols-4">
             @foreach (['q', 'status', 'sort', 'direction', 'per_page', 'trashed'] as $keep)
                 @if (filled(request($keep)))
                     <input type="hidden" name="{{ $keep }}" value="{{ request($keep) }}">
@@ -120,6 +120,15 @@
                 </select>
             </div>
             <div>
+                <label for="f-landing-page" class="mb-1 block text-xs font-medium text-slate-500">Landing page</label>
+                <select id="f-landing-page" name="landing_page" class="{{ $input }}">
+                    <option value="">Any page</option>
+                    @foreach ($landingPageOptions as $slug => $title)
+                        <option value="{{ $slug }}" @selected(($filters['landing_page'] ?? null) === $slug)>{{ $title }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
                 <label for="f-from" class="mb-1 block text-xs font-medium text-slate-500">From</label>
                 <input id="f-from" type="date" name="date_from" value="{{ $filters['date_from'] ?? '' }}" class="{{ $input }}">
             </div>
@@ -127,7 +136,7 @@
                 <label for="f-to" class="mb-1 block text-xs font-medium text-slate-500">To</label>
                 <input id="f-to" type="date" name="date_to" value="{{ $filters['date_to'] ?? '' }}" class="{{ $input }}">
             </div>
-            <div class="flex items-center justify-end gap-2 sm:col-span-2 lg:col-span-6">
+            <div class="flex items-end justify-end gap-2 sm:col-span-2 lg:col-span-1">
                 @if ($hasFilters)
                     <a href="{{ route('admin.leads.index', array_filter(['trashed' => request('trashed')])) }}" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-500 hover:bg-slate-100">Clear</a>
                 @endif

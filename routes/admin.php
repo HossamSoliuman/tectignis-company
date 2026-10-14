@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\JobApplicationController;
 use App\Http\Controllers\Admin\JobApplicationExportController;
 use App\Http\Controllers\Admin\JobApplicationNoteController;
 use App\Http\Controllers\Admin\JobOpeningController;
+use App\Http\Controllers\Admin\LandingPageController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\LeadExportController;
 use App\Http\Controllers\Admin\LeadNoteController;
@@ -116,6 +117,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('capabilities', CapabilityController::class);
         Route::resource('services', ServiceController::class);
+        Route::resource('landing-pages', LandingPageController::class)->except(['show']);
         Route::resource('solutions', SolutionController::class);
         Route::resource('industries', IndustryController::class);
         Route::resource('tech-stacks', TechStackController::class)->parameters(['tech-stacks' => 'techStack']);

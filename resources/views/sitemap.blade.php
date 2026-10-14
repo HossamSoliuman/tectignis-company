@@ -23,6 +23,14 @@
         <priority>0.8</priority>
     </url>
     @endforeach
+    @foreach ($landingPages as $landingPage)
+    <url>
+        <loc>{{ route('landing-pages.show', $landingPage->slug) }}</loc>
+        <lastmod>{{ $landingPage->updated_at->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    @endforeach
     @foreach ($solutions as $solution)
     <url>
         <loc>{{ route('solutions.show', $solution->slug) }}</loc>

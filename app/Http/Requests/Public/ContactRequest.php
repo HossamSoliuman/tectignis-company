@@ -4,6 +4,7 @@ namespace App\Http\Requests\Public;
 
 use App\Enums\LeadBudget;
 use App\Enums\LeadTimeline;
+use App\Models\LandingPage;
 use App\Rules\Recaptcha;
 use App\Services\RecaptchaService;
 use App\Support\Countries;
@@ -66,6 +67,7 @@ class ContactRequest extends FormRequest
             'subject' => ['nullable', 'string', 'max:255'],
             'form_id' => ['nullable', 'string', 'max:50'],
             'page_url' => ['nullable', 'url', 'max:2048'],
+            'landing_page' => ['nullable', 'string', 'max:255'],
             RecaptchaService::RESPONSE_FIELD => [new Recaptcha],
         ];
     }
@@ -104,5 +106,16 @@ class ContactRequest extends FormRequest
     public function isConsultation(): bool
     {
         return $this->input('source') === 'consultation';
+    }
+
+    /**
+     * Slug of the active landing page the form was submitted from. An unknown
+     * value is dropped rather than rejected, so it can never block a lead.
+     */
+    public function landingPageSlug(): ?string
+    {
+        $slug = $this->validated('landing_page');
+
+        return filled($slug) ? LandingPage::where('slug', $slug)->value('slug') : null;
     }
 }

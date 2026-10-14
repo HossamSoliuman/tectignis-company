@@ -87,7 +87,7 @@ class AppServiceProvider extends ServiceProvider
      */
     private function shareCompanyProfile(): void
     {
-        View::composer(['layouts.public', 'public.*', 'components.public.*', 'components.seo.*'], function (\Illuminate\View\View $view): void {
+        View::composer(['layouts.public', 'layouts.landing', 'layouts.partials.*', 'public.*', 'components.public.*', 'components.seo.*'], function (\Illuminate\View\View $view): void {
             $view->with('company', $this->app->make(CompanyProfile::class));
         });
     }
