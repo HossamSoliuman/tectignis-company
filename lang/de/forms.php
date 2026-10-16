@@ -1,0 +1,132 @@
+<?php
+
+return [
+    'send_enquiry' => 'Anfrage senden',
+    'submit_request' => 'Anfrage absenden',
+    'optional' => '(Optional)',
+
+    'name' => 'Name',
+    'name_placeholder' => 'Name *',
+    'email' => 'Geschäftliche E-Mail',
+    'email_placeholder' => 'Geschäftliche E-Mail *',
+    'phone' => 'Telefon / WhatsApp',
+    'phone_placeholder' => 'Telefon / WhatsApp (optional)',
+    'company' => 'Unternehmen',
+    'company_placeholder' => 'Unternehmen *',
+    'service' => 'Gewünschte Leistung',
+    'service_placeholder' => 'Gewünschte Leistung *',
+    'service_choose' => 'Leistung auswählen',
+    'country' => 'Land',
+    'country_placeholder' => 'Land *',
+    'country_choose' => 'Wählen Sie Ihr Land',
+    'priority_markets' => 'Schwerpunktmärkte',
+    'all_countries' => 'Alle Länder',
+    'message' => 'Projektbeschreibung',
+    'message_placeholder' => 'Projektbeschreibung *',
+    'message_hint' => 'Ziele, Umfang, bestehende Systeme und alles, was wir sonst wissen sollten …',
+    'budget' => 'Budgetrahmen',
+    'budget_placeholder' => 'Budgetrahmen (optional)',
+    'budget_choose' => 'Rahmen auswählen',
+    'timeline' => 'Zeitrahmen',
+    'timeline_placeholder' => 'Zeitrahmen (optional)',
+    'timeline_choose' => 'Wann möchten Sie starten?',
+    'consent' => 'Ich stimme der :link zu und bin einverstanden, dass Tectignis mich zu dieser Anfrage kontaktiert.',
+    'privacy_policy' => 'Datenschutzerklärung',
+
+    'phone_input' => [
+        'country_code' => 'Ländervorwahl: :country',
+        'number' => 'Telefonnummer',
+        'search' => 'Länder durchsuchen',
+        'search_placeholder' => 'Land oder Vorwahl suchen',
+        'codes' => 'Ländervorwahlen',
+        'suggested' => 'Vorschläge',
+        'all' => 'Alle Länder',
+        'no_match' => 'Keine Länder entsprechen Ihrer Suche.',
+    ],
+
+    'consultation' => [
+        'title' => 'Technische Beratung buchen',
+        'text' => 'Erzählen Sie uns von Ihrem Projekt – ein Solution Engineer meldet sich bei Ihnen.',
+        'close' => 'Schließen',
+    ],
+
+    'budgets' => [
+        'under-100' => 'Unter 100 US$',
+        '100-500' => '100 – 500 US$',
+        '500-1k' => '500 – 1.000 US$',
+        '1k-5k' => '1.000 – 5.000 US$',
+        '5k-10k' => '5.000 – 10.000 US$',
+        'over-10k' => 'Über 10.000 US$',
+        'not-sure' => 'Noch unklar',
+    ],
+
+    'timelines' => [
+        'immediate' => 'Sofort',
+        '1-3-months' => '1–3 Monate',
+        '3-6-months' => '3–6 Monate',
+        '6-plus-months' => 'Mehr als 6 Monate',
+    ],
+
+    /*
+     * Display labels for the "Service Required" options. The submitted and
+     * stored value stays the English name.
+     */
+    'services_general' => 'Allgemein',
+    'services' => [
+        'custom-software' => 'Individuelle Software',
+        'web-apps' => 'Webanwendungen',
+        'saas' => 'SaaS',
+        'erpcrm' => 'ERP/CRM',
+        'mobile-apps' => 'Mobile Apps',
+        'e-commerce' => 'E-Commerce',
+        'website-development' => 'Website-Entwicklung',
+        'generative-ai' => 'Generative KI',
+        'ai-agents' => 'KI-Agenten',
+        'ocr' => 'OCR',
+        'chatbots' => 'Chatbots',
+        'business-automation' => 'Prozessautomatisierung',
+        'ai-integration' => 'KI-Integration',
+        'aws' => 'AWS',
+        'azure' => 'Azure',
+        'gcp' => 'GCP',
+        'cloud-migration' => 'Cloud-Migration',
+        'devops' => 'DevOps',
+        'vapt' => 'VAPT',
+        'firewall' => 'Firewall',
+        'networking' => 'Netzwerke',
+        'cctv' => 'Videoüberwachung',
+        'access-control' => 'Zutrittskontrolle',
+        'servers-storage' => 'Server & Storage',
+        'structured-cabling' => 'Strukturierte Verkabelung',
+        'amc' => 'AMC',
+        'it-consulting' => 'IT-Beratung',
+        'other-not-sure' => 'Sonstiges / Noch unklar',
+    ],
+
+    'attributes' => [
+        'email' => 'geschäftliche E-Mail',
+        'company' => 'Unternehmen',
+        'phone' => 'Telefon- / WhatsApp-Nummer',
+        'service' => 'gewünschte Leistung',
+        'message' => 'Projektbeschreibung',
+        'consent' => 'Datenschutzeinwilligung',
+        'captcha' => 'CAPTCHA',
+    ],
+
+    'messages' => [
+        'phone_regex' => 'Bitte geben Sie eine gültige Telefonnummer ein, z. B. 98765 43210.',
+        'message_min' => 'Bitte erzählen Sie uns etwas mehr über Ihr Projekt (mindestens :min Zeichen).',
+        'consent_accepted' => 'Bitte stimmen Sie der Datenschutzerklärung zu, damit wir auf Ihre Anfrage antworten können.',
+        'captcha' => 'Bitte bestätigen Sie, dass Sie kein Roboter sind, und versuchen Sie es erneut.',
+    ],
+
+    'thank_you' => [
+        'title' => 'Vielen Dank',
+        'heading' => 'Vielen Dank!',
+        'heading_name' => 'Vielen Dank, :name!',
+        'received' => 'Wir haben Ihre Anfrage erhalten.',
+        'received_service' => 'Wir haben Ihre Anfrage zu :service erhalten.',
+        'next' => 'Unser Team prüft Ihre Angaben und meldet sich bei Ihnen.',
+        'back_home' => 'Zurück zur Startseite',
+    ],
+];

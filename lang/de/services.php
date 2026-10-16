@@ -1,0 +1,75 @@
+<?php
+
+/*
+ * Service pages. The section headings come from each service's admin-managed
+ * content; these are only the fallbacks for empty fields and the fixed labels.
+ */
+return [
+    'title_suffix' => ':title | Tectignis IT Solutions',
+    'hero_heading' => ':title in Navi Mumbai',
+    'hero_primary' => 'Kostenlose Beratung',
+    'hero_secondary' => 'Referenzen ansehen',
+
+    'benefits_heading' => 'Ihr geschäftlicher Nutzen',
+    'benefits_subtitle' => 'Was Sie gewinnen',
+    'cases_heading' => 'Unsere aktuellen Erfolgsgeschichten',
+    'cases_subtitle' => 'Nachweislich umgesetzt',
+    'cases_lead' => 'Echte Projekte, echte Ergebnisse. Sehen Sie, wie wir Unternehmen wie Ihrem geholfen haben, Ideen in messbare Ergebnisse zu verwandeln.',
+    'case_link' => 'Fallstudie ansehen',
+    'faq_heading' => 'Häufig gestellte Fragen',
+    'faq_subtitle' => 'Noch Fragen?',
+    'faq_panel_heading' => 'Haben Sie noch Fragen?',
+    'faq_panel_text' => 'Sprechen Sie mit unserem Team und erhalten Sie klare, unverbindliche Antworten zu Ihrem Projekt.',
+    'faq_points' => [
+        'Kostenlose, unverbindliche Beratung',
+        'Transparente Festpreisangebote',
+        'Ein eigenes Projektteam',
+        'Langfristiger Support & Wartung',
+    ],
+    'lets_talk' => 'Sprechen wir',
+    'industries_heading' => 'Unsere Branchen',
+    'start_heading' => 'Lassen Sie uns etwas Großes beginnen',
+    'start_subtitle' => 'Kontakt aufnehmen',
+    'start_text' => 'Erzählen Sie uns von Ihrem Projekt – unser Team meldet sich innerhalb eines Werktages mit den nächsten Schritten.',
+    'call_us' => 'Rufen Sie uns an',
+    'email_us' => 'Schreiben Sie uns',
+    'visit_us' => 'Besuchen Sie uns',
+    'problems_heading' => 'Geschäftsprobleme, die wir lösen',
+    'problems_subtitle' => 'Probleme & Lösungen',
+    'process_heading' => 'Unser einfacher Prozess in :count Schritten',
+    'process_subtitle' => 'So arbeiten wir',
+    'start_project' => 'Projekt starten',
+    'related_heading' => 'Verwandte Leistungen',
+    'related_subtitle' => 'Mehr entdecken',
+    'learn_more' => 'Mehr erfahren',
+    'sub_services_heading' => 'Unsere Leistungen im Bereich :title',
+    'sub_services_subtitle' => 'Unser Angebot',
+    'tech_heading' => 'Technologien, die wir einsetzen',
+    'tech_subtitle' => 'Unser Stack',
+    'why_heading' => 'Warum Tectignis',
+    'why_subtitle' => 'Der Tectignis-Unterschied',
+
+    'cta_heading' => 'IT-Leistungen aller Art – ausgerichtet auf Ihren Erfolg',
+    'cta_button' => 'Sprechen wir',
+    'cta_band_heading' => 'Bereit für Ihr :title-Projekt?',
+    'cta_band_button' => 'Jetzt starten',
+
+    'core_problems' => 'Probleme, die wir lösen',
+    'core_gains' => 'Was Sie gewinnen',
+    'core_capabilities' => 'Kompetenzen in :title',
+    'explore' => 'Entdecken',
+    'explore_service' => ':title entdecken',
+    'read_case_study' => 'Fallstudie lesen',
+    'rated' => 'Bewertet mit :rating von 5',
+
+    'lead_cta_overline' => 'Sprechen wir über Ihr Projekt',
+    'lead_cta_title' => 'Bereit für die Transformation',
+    'lead_cta_highlight' => 'Ihres Unternehmens?',
+    'lead_cta_primary' => 'Technische Beratung buchen',
+    'lead_cta_secondary' => 'Projektbewertung anfordern',
+    'lead_cta_points' => [
+        'Direkter Austausch mit einem Solution Engineer',
+        'Klarer Umfang, Zeitplan und Kostenrahmen',
+        'Unverbindliches, vertrauliches Gespräch',
+    ],
+];

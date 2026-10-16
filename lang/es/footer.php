@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'label' => 'Pie de página',
+    'cta_title' => '¿Tiene un proyecto en mente?',
+    'cta_text' => 'Hable con un ingeniero de soluciones sobre software, IA, nube, ciberseguridad o infraestructura de TI.',
+    'company' => 'Empresa',
+    'about' => 'Quiénes somos',
+    'careers' => 'Empleo',
+    'contact' => 'Contacto',
+    'solutions' => 'Soluciones',
+    'saas' => 'Desarrollo de productos SaaS',
+    'industries' => 'Sectores',
+    'all_industries' => 'Todos los sectores',
+    'resources' => 'Recursos',
+    'blog' => 'Blog',
+    'case_studies' => 'Casos de éxito',
+    'insights' => 'Guías y análisis',
+    'downloads' => 'Descargas',
+    'faqs' => 'Preguntas frecuentes',
+    'global' => 'Presencia global',
+    'rights' => 'Todos los derechos reservados.',
+    'legal' => 'Legal',
+    'privacy' => 'Política de privacidad',
+    'terms' => 'Términos y condiciones',
+    'cookies' => 'Política de cookies',
+    'sitemap' => 'Mapa del sitio',
+];

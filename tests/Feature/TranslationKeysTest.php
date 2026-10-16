@@ -49,9 +49,14 @@ it('has every English key, with the same placeholders, in each language folder',
         $strings = languageStrings($code);
 
         foreach ($english as $key => $text) {
-            expect($strings)->toHaveKey($key, "lang/{$code} is missing {$key}");
+            expect(array_key_exists($key, $strings))->toBeTrue("lang/{$code} is missing {$key}");
+
+            if (! is_string($text)) {
+                continue;
+            }
+
             expect(placeholdersIn((string) $strings[$key]))
-                ->toBe(placeholdersIn((string) $text), "lang/{$code}: {$key} has different placeholders");
+                ->toBe(placeholdersIn($text), "lang/{$code}: {$key} has different placeholders");
         }
     }
 });
@@ -61,6 +66,20 @@ it('has a language folder for every enabled language', function () {
         expect(is_dir(lang_path($code)))->toBeTrue("lang/{$code} is missing");
     }
 });
+
+it('serves the fixed text in each language', function (string $code) {
+    config(["locales.supported.{$code}.enabled" => true]);
+
+    $sendEnquiry = trans('forms.send_enquiry', [], $code);
+
+    expect($sendEnquiry)->not->toBe(trans('forms.send_enquiry', [], 'en'));
+
+    $this->get("/{$code}/contact")
+        ->assertOk()
+        ->assertSee($sendEnquiry)
+        ->assertSee(trans('nav.contact_us', [], $code))
+        ->assertDontSee('Send Enquiry');
+})->with(['ar', 'es', 'fr', 'de']);
 
 it('shows no raw translation keys on the translated pages', function (string $url) {
     Service::factory()->create(['is_active' => true, 'slug' => 'custom-software-development']);

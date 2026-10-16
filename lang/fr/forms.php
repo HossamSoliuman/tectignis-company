@@ -1,0 +1,132 @@
+<?php
+
+return [
+    'send_enquiry' => 'Envoyer la demande',
+    'submit_request' => 'Soumettre la demande',
+    'optional' => '(Facultatif)',
+
+    'name' => 'Nom',
+    'name_placeholder' => 'Nom *',
+    'email' => 'E-mail professionnel',
+    'email_placeholder' => 'E-mail professionnel *',
+    'phone' => 'Téléphone / WhatsApp',
+    'phone_placeholder' => 'Téléphone / WhatsApp (facultatif)',
+    'company' => 'Entreprise',
+    'company_placeholder' => 'Entreprise *',
+    'service' => 'Service souhaité',
+    'service_placeholder' => 'Service souhaité *',
+    'service_choose' => 'Choisissez un service',
+    'country' => 'Pays',
+    'country_placeholder' => 'Pays *',
+    'country_choose' => 'Sélectionnez votre pays',
+    'priority_markets' => 'Marchés prioritaires',
+    'all_countries' => 'Tous les pays',
+    'message' => 'Description du projet',
+    'message_placeholder' => 'Description du projet *',
+    'message_hint' => 'Objectifs, périmètre, systèmes existants et tout ce que nous devrions savoir…',
+    'budget' => 'Fourchette de budget',
+    'budget_placeholder' => 'Fourchette de budget (facultatif)',
+    'budget_choose' => 'Sélectionnez une fourchette',
+    'timeline' => 'Délai',
+    'timeline_placeholder' => 'Délai (facultatif)',
+    'timeline_choose' => 'Quand souhaitez-vous démarrer ?',
+    'consent' => 'J’accepte la :link et j’accepte que Tectignis me contacte au sujet de cette demande.',
+    'privacy_policy' => 'Politique de confidentialité',
+
+    'phone_input' => [
+        'country_code' => 'Indicatif du pays : :country',
+        'number' => 'Numéro de téléphone',
+        'search' => 'Rechercher un pays',
+        'search_placeholder' => 'Rechercher un pays ou un indicatif',
+        'codes' => 'Indicatifs pays',
+        'suggested' => 'Suggestions',
+        'all' => 'Tous les pays',
+        'no_match' => 'Aucun pays ne correspond à votre recherche.',
+    ],
+
+    'consultation' => [
+        'title' => 'Réserver une consultation technique',
+        'text' => 'Présentez-nous votre projet et un ingénieur solutions reviendra vers vous.',
+        'close' => 'Fermer',
+    ],
+
+    'budgets' => [
+        'under-100' => 'Moins de 100 $ US',
+        '100-500' => '100 – 500 $ US',
+        '500-1k' => '500 – 1 000 $ US',
+        '1k-5k' => '1 000 – 5 000 $ US',
+        '5k-10k' => '5 000 – 10 000 $ US',
+        'over-10k' => 'Plus de 10 000 $ US',
+        'not-sure' => 'Je ne sais pas encore',
+    ],
+
+    'timelines' => [
+        'immediate' => 'Immédiat',
+        '1-3-months' => '1 à 3 mois',
+        '3-6-months' => '3 à 6 mois',
+        '6-plus-months' => 'Plus de 6 mois',
+    ],
+
+    /*
+     * Display labels for the "Service Required" options. The submitted and
+     * stored value stays the English name.
+     */
+    'services_general' => 'Général',
+    'services' => [
+        'custom-software' => 'Logiciel sur mesure',
+        'web-apps' => 'Applications web',
+        'saas' => 'SaaS',
+        'erpcrm' => 'ERP/CRM',
+        'mobile-apps' => 'Applications mobiles',
+        'e-commerce' => 'E-commerce',
+        'website-development' => 'Développement de sites web',
+        'generative-ai' => 'IA générative',
+        'ai-agents' => 'Agents IA',
+        'ocr' => 'OCR',
+        'chatbots' => 'Chatbots',
+        'business-automation' => 'Automatisation des processus',
+        'ai-integration' => 'Intégration de l’IA',
+        'aws' => 'AWS',
+        'azure' => 'Azure',
+        'gcp' => 'GCP',
+        'cloud-migration' => 'Migration vers le cloud',
+        'devops' => 'DevOps',
+        'vapt' => 'VAPT',
+        'firewall' => 'Pare-feu',
+        'networking' => 'Réseaux',
+        'cctv' => 'Vidéosurveillance',
+        'access-control' => 'Contrôle d’accès',
+        'servers-storage' => 'Serveurs et stockage',
+        'structured-cabling' => 'Câblage structuré',
+        'amc' => 'AMC',
+        'it-consulting' => 'Conseil informatique',
+        'other-not-sure' => 'Autre / Je ne sais pas',
+    ],
+
+    'attributes' => [
+        'email' => 'e-mail professionnel',
+        'company' => 'entreprise',
+        'phone' => 'numéro de téléphone / WhatsApp',
+        'service' => 'service souhaité',
+        'message' => 'description du projet',
+        'consent' => 'consentement de confidentialité',
+        'captcha' => 'CAPTCHA',
+    ],
+
+    'messages' => [
+        'phone_regex' => 'Veuillez saisir un numéro de téléphone valide, par exemple 98765 43210.',
+        'message_min' => 'Veuillez nous en dire un peu plus sur votre projet (au moins :min caractères).',
+        'consent_accepted' => 'Veuillez accepter la politique de confidentialité afin que nous puissions répondre à votre demande.',
+        'captcha' => 'Veuillez confirmer que vous n’êtes pas un robot, puis réessayer.',
+    ],
+
+    'thank_you' => [
+        'title' => 'Merci',
+        'heading' => 'Merci !',
+        'heading_name' => 'Merci, :name !',
+        'received' => 'Nous avons bien reçu votre demande.',
+        'received_service' => 'Nous avons bien reçu votre demande concernant :service.',
+        'next' => 'Notre équipe va étudier les informations transmises et reviendra vers vous.',
+        'back_home' => 'Retour à l’accueil',
+    ],
+];

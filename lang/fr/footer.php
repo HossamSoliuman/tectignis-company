@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'label' => 'Pied de page',
+    'cta_title' => 'Vous avez un projet en tête ?',
+    'cta_text' => 'Échangez avec un ingénieur solutions sur vos besoins en logiciels, IA, cloud, cybersécurité ou infrastructure informatique.',
+    'company' => 'Entreprise',
+    'about' => 'À propos',
+    'careers' => 'Carrières',
+    'contact' => 'Contact',
+    'solutions' => 'Solutions',
+    'saas' => 'Développement de produits SaaS',
+    'industries' => 'Secteurs',
+    'all_industries' => 'Tous les secteurs',
+    'resources' => 'Ressources',
+    'blog' => 'Blog',
+    'case_studies' => 'Études de cas',
+    'insights' => 'Guides et analyses',
+    'downloads' => 'Téléchargements',
+    'faqs' => 'FAQ',
+    'global' => 'International',
+    'rights' => 'Tous droits réservés.',
+    'legal' => 'Mentions légales',
+    'privacy' => 'Politique de confidentialité',
+    'terms' => 'Conditions générales',
+    'cookies' => 'Politique relative aux cookies',
+    'sitemap' => 'Plan du site',
+];

@@ -1,0 +1,75 @@
+<?php
+
+/*
+ * Service pages. The section headings come from each service's admin-managed
+ * content; these are only the fallbacks for empty fields and the fixed labels.
+ */
+return [
+    'title_suffix' => ':title | Tectignis IT Solutions',
+    'hero_heading' => 'Services de :title à Navi Mumbai',
+    'hero_primary' => 'Consultation gratuite',
+    'hero_secondary' => 'Voir nos réalisations',
+
+    'benefits_heading' => 'Bénéfices pour votre entreprise',
+    'benefits_subtitle' => 'Ce que vous y gagnez',
+    'cases_heading' => 'Nos réussites récentes',
+    'cases_subtitle' => 'Preuves à l’appui',
+    'cases_lead' => 'Des projets réels, des résultats réels. Découvrez comment nous avons aidé des entreprises comme la vôtre à transformer leurs idées en résultats mesurables.',
+    'case_link' => 'Voir l’étude de cas',
+    'faq_heading' => 'Questions fréquentes',
+    'faq_subtitle' => 'Des questions ?',
+    'faq_panel_heading' => 'Vous avez encore des questions ?',
+    'faq_panel_text' => 'Échangez avec notre équipe et obtenez des réponses claires et sans engagement, adaptées à votre projet.',
+    'faq_points' => [
+        'Consultation gratuite et sans engagement',
+        'Devis transparents au périmètre défini',
+        'Une équipe dédiée à votre projet',
+        'Support et maintenance sur le long terme',
+    ],
+    'lets_talk' => 'Parlons-en',
+    'industries_heading' => 'Nos secteurs d’activité',
+    'start_heading' => 'Lançons ensemble un beau projet',
+    'start_subtitle' => 'Contactez-nous',
+    'start_text' => 'Présentez-nous votre projet : notre équipe vous répondra sous un jour ouvré avec les prochaines étapes.',
+    'call_us' => 'Appelez-nous',
+    'email_us' => 'Écrivez-nous',
+    'visit_us' => 'Rendez-nous visite',
+    'problems_heading' => 'Les problématiques que nous résolvons',
+    'problems_subtitle' => 'Problèmes et solutions',
+    'process_heading' => 'Notre processus simple en :count étapes',
+    'process_subtitle' => 'Notre méthode',
+    'start_project' => 'Lancer votre projet',
+    'related_heading' => 'Services associés',
+    'related_subtitle' => 'Pour aller plus loin',
+    'learn_more' => 'En savoir plus',
+    'sub_services_heading' => 'Nos services de :title',
+    'sub_services_subtitle' => 'Ce que nous proposons',
+    'tech_heading' => 'Les technologies que nous utilisons',
+    'tech_subtitle' => 'Notre stack',
+    'why_heading' => 'Pourquoi choisir Tectignis',
+    'why_subtitle' => 'La différence Tectignis',
+
+    'cta_heading' => 'Des services informatiques complets, au service de votre réussite',
+    'cta_button' => 'Parlons-en',
+    'cta_band_heading' => 'Prêt à lancer votre projet de :title ?',
+    'cta_band_button' => 'Commencer',
+
+    'core_problems' => 'Les problèmes que nous résolvons',
+    'core_gains' => 'Ce que vous y gagnez',
+    'core_capabilities' => 'Expertises en :title',
+    'explore' => 'Découvrir',
+    'explore_service' => 'Découvrir :title',
+    'read_case_study' => 'Lire l’étude de cas',
+    'rated' => 'Noté :rating sur 5',
+
+    'lead_cta_overline' => 'Parlons de votre projet',
+    'lead_cta_title' => 'Prêt à transformer',
+    'lead_cta_highlight' => 'votre entreprise ?',
+    'lead_cta_primary' => 'Réserver une consultation technique',
+    'lead_cta_secondary' => 'Demander une évaluation de projet',
+    'lead_cta_points' => [
+        'Échangez directement avec un ingénieur solutions',
+        'Périmètre, délais et estimation des coûts clairs',
+        'Échange confidentiel et sans engagement',
+    ],
+];

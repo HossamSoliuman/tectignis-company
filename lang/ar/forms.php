@@ -1,0 +1,132 @@
+<?php
+
+return [
+    'send_enquiry' => 'إرسال الاستفسار',
+    'submit_request' => 'إرسال الطلب',
+    'optional' => '(اختياري)',
+
+    'name' => 'الاسم',
+    'name_placeholder' => 'الاسم *',
+    'email' => 'البريد الإلكتروني للعمل',
+    'email_placeholder' => 'البريد الإلكتروني للعمل *',
+    'phone' => 'الهاتف / WhatsApp',
+    'phone_placeholder' => 'الهاتف / WhatsApp (اختياري)',
+    'company' => 'الشركة',
+    'company_placeholder' => 'الشركة *',
+    'service' => 'الخدمة المطلوبة',
+    'service_placeholder' => 'الخدمة المطلوبة *',
+    'service_choose' => 'اختر خدمة',
+    'country' => 'الدولة',
+    'country_placeholder' => 'الدولة *',
+    'country_choose' => 'اختر دولتك',
+    'priority_markets' => 'الأسواق الرئيسية',
+    'all_countries' => 'جميع الدول',
+    'message' => 'وصف المشروع',
+    'message_placeholder' => 'وصف المشروع *',
+    'message_hint' => 'الأهداف والنطاق والأنظمة الحالية وأي شيء آخر ينبغي أن نعرفه…',
+    'budget' => 'نطاق الميزانية',
+    'budget_placeholder' => 'نطاق الميزانية (اختياري)',
+    'budget_choose' => 'اختر نطاقًا',
+    'timeline' => 'الجدول الزمني',
+    'timeline_placeholder' => 'الجدول الزمني (اختياري)',
+    'timeline_choose' => 'متى تريد البدء؟',
+    'consent' => 'أوافق على :link وعلى تواصل Tectignis معي بشأن هذا الاستفسار.',
+    'privacy_policy' => 'سياسة الخصوصية',
+
+    'phone_input' => [
+        'country_code' => 'رمز الدولة: :country',
+        'number' => 'رقم الهاتف',
+        'search' => 'البحث في الدول',
+        'search_placeholder' => 'ابحث عن دولة أو رمز',
+        'codes' => 'رموز الدول',
+        'suggested' => 'مقترحة',
+        'all' => 'جميع الدول',
+        'no_match' => 'لا توجد دول مطابقة لبحثك.',
+    ],
+
+    'consultation' => [
+        'title' => 'احجز استشارة تقنية',
+        'text' => 'أخبرنا عن مشروعك وسيتواصل معك أحد مهندسي الحلول.',
+        'close' => 'إغلاق',
+    ],
+
+    'budgets' => [
+        'under-100' => 'أقل من 100 دولار أمريكي',
+        '100-500' => '100 – 500 دولار أمريكي',
+        '500-1k' => '500 – 1,000 دولار أمريكي',
+        '1k-5k' => '1,000 – 5,000 دولار أمريكي',
+        '5k-10k' => '5,000 – 10,000 دولار أمريكي',
+        'over-10k' => 'أكثر من 10,000 دولار أمريكي',
+        'not-sure' => 'لم أحدد بعد',
+    ],
+
+    'timelines' => [
+        'immediate' => 'فورًا',
+        '1-3-months' => '1–3 أشهر',
+        '3-6-months' => '3–6 أشهر',
+        '6-plus-months' => 'أكثر من 6 أشهر',
+    ],
+
+    /*
+     * Display labels for the "Service Required" options. The submitted and
+     * stored value stays the English name.
+     */
+    'services_general' => 'عام',
+    'services' => [
+        'custom-software' => 'برمجيات مخصصة',
+        'web-apps' => 'تطبيقات الويب',
+        'saas' => 'SaaS',
+        'erpcrm' => 'ERP/CRM',
+        'mobile-apps' => 'تطبيقات الجوال',
+        'e-commerce' => 'التجارة الإلكترونية',
+        'website-development' => 'تطوير المواقع الإلكترونية',
+        'generative-ai' => 'الذكاء الاصطناعي التوليدي',
+        'ai-agents' => 'وكلاء الذكاء الاصطناعي',
+        'ocr' => 'OCR',
+        'chatbots' => 'روبوتات المحادثة',
+        'business-automation' => 'أتمتة الأعمال',
+        'ai-integration' => 'تكامل الذكاء الاصطناعي',
+        'aws' => 'AWS',
+        'azure' => 'Azure',
+        'gcp' => 'GCP',
+        'cloud-migration' => 'الترحيل إلى السحابة',
+        'devops' => 'DevOps',
+        'vapt' => 'VAPT',
+        'firewall' => 'جدار الحماية',
+        'networking' => 'الشبكات',
+        'cctv' => 'CCTV',
+        'access-control' => 'التحكم في الدخول',
+        'servers-storage' => 'الخوادم والتخزين',
+        'structured-cabling' => 'الكابلات المهيكلة',
+        'amc' => 'AMC',
+        'it-consulting' => 'استشارات تقنية المعلومات',
+        'other-not-sure' => 'أخرى / غير متأكد',
+    ],
+
+    'attributes' => [
+        'email' => 'البريد الإلكتروني للعمل',
+        'company' => 'الشركة',
+        'phone' => 'رقم الهاتف / WhatsApp',
+        'service' => 'الخدمة المطلوبة',
+        'message' => 'وصف المشروع',
+        'consent' => 'الموافقة على سياسة الخصوصية',
+        'captcha' => 'CAPTCHA',
+    ],
+
+    'messages' => [
+        'phone_regex' => 'يرجى إدخال رقم هاتف صحيح، مثل 98765 43210.',
+        'message_min' => 'يرجى إخبارنا بالمزيد عن مشروعك (:min حرفًا على الأقل).',
+        'consent_accepted' => 'يرجى الموافقة على سياسة الخصوصية حتى نتمكن من الرد على استفسارك.',
+        'captcha' => 'يرجى تأكيد أنك لست روبوتًا ثم المحاولة مرة أخرى.',
+    ],
+
+    'thank_you' => [
+        'title' => 'شكرًا لك',
+        'heading' => 'شكرًا لك!',
+        'heading_name' => 'شكرًا لك، :name!',
+        'received' => 'لقد تلقّينا استفسارك.',
+        'received_service' => 'لقد تلقّينا استفسارك بخصوص :service.',
+        'next' => 'سيراجع فريقنا التفاصيل التي شاركتها وسيتواصل معك.',
+        'back_home' => 'العودة إلى الرئيسية',
+    ],
+];

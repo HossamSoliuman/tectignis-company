@@ -1,0 +1,75 @@
+<?php
+
+/*
+ * Service pages. The section headings come from each service's admin-managed
+ * content; these are only the fallbacks for empty fields and the fixed labels.
+ */
+return [
+    'title_suffix' => ':title | Tectignis IT Solutions',
+    'hero_heading' => 'خدمات :title في نافي مومباي',
+    'hero_primary' => 'احصل على استشارة مجانية',
+    'hero_secondary' => 'شاهد أعمالنا',
+
+    'benefits_heading' => 'فوائد لأعمالك',
+    'benefits_subtitle' => 'ما الذي ستكسبه',
+    'cases_heading' => 'أحدث قصص نجاحنا',
+    'cases_subtitle' => 'أعمال موثّقة',
+    'cases_lead' => 'مشاريع حقيقية ونتائج حقيقية. اكتشف كيف ساعدنا شركات مثل شركتك على تحويل أفكارها إلى نتائج ملموسة.',
+    'case_link' => 'عرض دراسة الحالة',
+    'faq_heading' => 'الأسئلة الشائعة',
+    'faq_subtitle' => 'هل لديك أسئلة؟',
+    'faq_panel_heading' => 'هل ما زالت لديك أسئلة؟',
+    'faq_panel_text' => 'تحدّث إلى فريقنا واحصل على إجابات واضحة تناسب مشروعك، دون أي التزام.',
+    'faq_points' => [
+        'استشارة مجانية دون أي التزام',
+        'عروض أسعار واضحة بنطاق عمل محدد',
+        'فريق مخصص لمشروعك',
+        'دعم وصيانة على المدى الطويل',
+    ],
+    'lets_talk' => 'لنتحدث',
+    'industries_heading' => 'القطاعات التي نخدمها',
+    'start_heading' => 'لنبدأ شيئًا رائعًا',
+    'start_subtitle' => 'تواصل معنا',
+    'start_text' => 'أخبرنا عن مشروعك وسيعود إليك فريقنا خلال يوم عمل واحد بالخطوات التالية.',
+    'call_us' => 'اتصل بنا',
+    'email_us' => 'راسلنا',
+    'visit_us' => 'زرنا',
+    'problems_heading' => 'مشكلات الأعمال التي نحلّها',
+    'problems_subtitle' => 'المشكلات والحلول',
+    'process_heading' => 'عمليتنا البسيطة في :count خطوات',
+    'process_subtitle' => 'كيف نعمل',
+    'start_project' => 'ابدأ مشروعك',
+    'related_heading' => 'خدمات ذات صلة',
+    'related_subtitle' => 'اكتشف المزيد',
+    'learn_more' => 'اعرف المزيد',
+    'sub_services_heading' => 'خدمات :title لدينا',
+    'sub_services_subtitle' => 'ما نقدّمه',
+    'tech_heading' => 'التقنيات التي نستخدمها',
+    'tech_subtitle' => 'مجموعتنا التقنية',
+    'why_heading' => 'لماذا تختار Tectignis',
+    'why_subtitle' => 'ما يميّز Tectignis',
+
+    'cta_heading' => 'نقدّم جميع خدمات تقنية المعلومات التي تدعم نجاحك',
+    'cta_button' => 'لنتحدث',
+    'cta_band_heading' => 'هل أنت مستعد لبدء رحلتك مع :title؟',
+    'cta_band_button' => 'ابدأ الآن',
+
+    'core_problems' => 'المشكلات التي نحلّها',
+    'core_gains' => 'ما الذي ستكسبه',
+    'core_capabilities' => 'قدرات :title',
+    'explore' => 'استكشف',
+    'explore_service' => 'استكشف :title',
+    'read_case_study' => 'اقرأ دراسة الحالة',
+    'rated' => 'التقييم :rating من 5',
+
+    'lead_cta_overline' => 'لنتحدث عن مشروعك',
+    'lead_cta_title' => 'هل أنت مستعد لتطوير',
+    'lead_cta_highlight' => 'أعمالك؟',
+    'lead_cta_primary' => 'احجز استشارة تقنية',
+    'lead_cta_secondary' => 'اطلب تقييمًا لمشروعك',
+    'lead_cta_points' => [
+        'تحدّث مباشرة إلى مهندس حلول',
+        'نطاق عمل وجدول زمني وتقدير تكلفة واضح',
+        'نقاش سري دون أي التزام',
+    ],
+];

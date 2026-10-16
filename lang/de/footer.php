@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'label' => 'Fußzeile',
+    'cta_title' => 'Sie haben ein Projekt im Sinn?',
+    'cta_text' => 'Sprechen Sie mit einem Solution Engineer über Software, KI, Cloud, Cybersecurity oder IT-Infrastruktur.',
+    'company' => 'Unternehmen',
+    'about' => 'Über uns',
+    'careers' => 'Karriere',
+    'contact' => 'Kontakt',
+    'solutions' => 'Lösungen',
+    'saas' => 'SaaS-Produktentwicklung',
+    'industries' => 'Branchen',
+    'all_industries' => 'Alle Branchen',
+    'resources' => 'Ressourcen',
+    'blog' => 'Blog',
+    'case_studies' => 'Fallstudien',
+    'insights' => 'Leitfäden & Insights',
+    'downloads' => 'Downloads',
+    'faqs' => 'FAQ',
+    'global' => 'International',
+    'rights' => 'Alle Rechte vorbehalten.',
+    'legal' => 'Rechtliches',
+    'privacy' => 'Datenschutzerklärung',
+    'terms' => 'AGB',
+    'cookies' => 'Cookie-Richtlinie',
+    'sitemap' => 'Sitemap',
+];
