@@ -115,6 +115,11 @@ final class Locales
         return self::supported()[$code ?? self::current()]['dir'] ?? 'ltr';
     }
 
+    public static function isRtl(?string $code = null): bool
+    {
+        return self::direction($code) === 'rtl';
+    }
+
     public static function ogLocale(?string $code = null): string
     {
         return self::supported()[$code ?? self::current()]['og_locale'] ?? 'en_US';

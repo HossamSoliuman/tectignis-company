@@ -32,7 +32,7 @@
     $groups = $codes->groupBy(fn (array $code): string => $code['priority'] ? __('forms.phone_input.suggested') : __('forms.phone_input.all'));
 @endphp
 
-<div class="phone-field phone-field--{{ $variant }}" data-phone-field
+<div class="phone-field phone-field--{{ $variant }}" dir="ltr" data-phone-field
     data-code-label="{{ __('forms.phone_input.country_code') }}" data-number-label="{{ __('forms.phone_input.number') }}" @if ($country) data-phone-explicit @endif @if ($placeholder) data-phone-fixed-placeholder @endif>
     <input type="hidden" name="{{ $countryName }}" value="{{ $selected['iso'] }}" data-phone-country>
 
@@ -66,7 +66,7 @@
                             data-search="{{ mb_strtolower($code['label'].' '.$code['name'].' '.$code['iso'].' '.ltrim($code['dial'], '+').' '.($aliases[$code['iso']] ?? '')) }}">
                             <img class="phone-field__flag" src="{{ $flag($code['iso']) }}" alt="" width="20" height="15" loading="lazy">
                             <span class="phone-field__name">{{ $code['label'] }}</span>
-                            <span class="phone-field__code">{{ $code['dial'] }}</span>
+                            <span class="phone-field__code" dir="ltr">{{ $code['dial'] }}</span>
                             <svg class="phone-field__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </div>
                     @endforeach

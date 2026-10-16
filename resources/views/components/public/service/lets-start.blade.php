@@ -25,7 +25,7 @@
                             <span class="svc-start__contact-icon"><i class="fas fa-phone-alt"></i></span>
                             <div>
                                 <span class="svc-start__contact-label">{{ __('services.call_us') }}</span>
-                                <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">{{ $phone }}</a>
+                                <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}"><span dir="ltr">{{ $phone }}</span></a>
                             </div>
                         </li>
                         <li>

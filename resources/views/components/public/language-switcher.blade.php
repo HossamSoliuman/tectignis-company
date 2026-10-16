@@ -13,7 +13,7 @@
         <ul {{ $attributes->class('tx-lang-list') }} aria-label="{{ __('common.language') }}">
             @foreach ($languageLinks as $code => $link)
                 <li>
-                    <a href="{{ $link['url'] }}" hreflang="{{ $code }}" lang="{{ $code }}" @if ($link['current']) aria-current="true" @endif>{{ $link['name'] }}</a>
+                    <a href="{{ $link['url'] }}" hreflang="{{ $code }}" lang="{{ $code }}" dir="{{ \App\Support\Locales::direction($code) }}" @if ($link['current']) aria-current="true" @endif>{{ $link['name'] }}</a>
                 </li>
             @endforeach
         </ul>
@@ -29,7 +29,7 @@
             <ul class="tx-lang__menu">
                 @foreach ($languageLinks as $code => $link)
                     <li>
-                        <a href="{{ $link['url'] }}" hreflang="{{ $code }}" lang="{{ $code }}" @if ($link['current']) aria-current="true" @endif>{{ $link['name'] }}</a>
+                        <a href="{{ $link['url'] }}" hreflang="{{ $code }}" lang="{{ $code }}" dir="{{ \App\Support\Locales::direction($code) }}" @if ($link['current']) aria-current="true" @endif>{{ $link['name'] }}</a>
                     </li>
                 @endforeach
             </ul>

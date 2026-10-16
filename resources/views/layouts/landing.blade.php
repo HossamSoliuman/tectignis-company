@@ -24,7 +24,7 @@
             <div class="lp-header__actions">
                 <a class="lp-header__phone" href="{{ $company->phoneHref() }}" data-track="phone_click">
                     <i class="fas fa-phone-alt" aria-hidden="true"></i>
-                    <span class="lp-header__phone-number">{{ $company->phone() }}</span>
+                    <span class="lp-header__phone-number" dir="ltr">{{ $company->phone() }}</span>
                     <span class="sr-only">{{ __('common.call', ['phone' => $company->phone()]) }}</span>
                 </a>
                 <x-public.language-switcher />
@@ -44,7 +44,7 @@
             <ul class="lp-footer__contacts">
                 <li>
                     <i class="fas fa-phone-alt" aria-hidden="true"></i>
-                    <a href="{{ $company->phoneHref() }}" data-track="phone_click">{{ $company->phone() }}</a>
+                    <a href="{{ $company->phoneHref() }}" data-track="phone_click"><span dir="ltr">{{ $company->phone() }}</span></a>
                 </li>
                 <li>
                     <i class="fas fa-envelope" aria-hidden="true"></i>

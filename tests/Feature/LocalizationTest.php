@@ -228,3 +228,51 @@ describe('leads', function () {
         expect(Lead::sole()->language)->toBe('en');
     });
 });
+
+describe('right-to-left', function () {
+    it('serves Arabic the mirrored stylesheets and an Arabic font', function () {
+        enableLanguages('ar');
+
+        $this->get('/ar')
+            ->assertOk()
+            ->assertSee('assets/css/vendor/vendor.rtl.min.css', false)
+            ->assertSee('assets/css/style.rtl.css', false)
+            ->assertSee('assets/css/custom.rtl.css', false)
+            ->assertSee('assets/css/rtl.css', false)
+            ->assertSee('family=IBM+Plex+Sans+Arabic', false)
+            ->assertDontSee('assets/css/custom.css', false)
+            ->assertDontSee('family=Inter', false);
+    });
+
+    it('keeps the left-to-right stylesheets for left-to-right languages', function (string $url) {
+        enableLanguages('es');
+
+        $this->get($url)
+            ->assertOk()
+            ->assertSee('assets/css/vendor/vendor.min.css', false)
+            ->assertSee('assets/css/custom.css', false)
+            ->assertSee('family=Inter', false)
+            ->assertDontSee('rtl.css', false)
+            ->assertDontSee('IBM+Plex+Sans+Arabic', false);
+    })->with(['English' => '/', 'Spanish' => '/es']);
+
+    it('keeps each mirrored stylesheet in step with its source', function (string $source, string $mirror) {
+        $sourceSha1 = sha1(str_replace("\r\n", "\n", file_get_contents(public_path($source))));
+        preg_match('/source-sha1: ([0-9a-f]{40})/', (string) file_get_contents(public_path($mirror), length: 1024), $banner);
+
+        expect($banner[1] ?? null)->toBe($sourceSha1, "{$mirror} is out of date: run npm run build.");
+    })->with([
+        'vendor' => ['assets/css/vendor/vendor.min.css', 'assets/css/vendor/vendor.rtl.min.css'],
+        'style' => ['assets/css/style.css', 'assets/css/style.rtl.css'],
+        'custom' => ['assets/css/custom.css', 'assets/css/custom.rtl.css'],
+    ]);
+
+    it('keeps phone numbers left-to-right on Arabic pages', function () {
+        enableLanguages('ar');
+
+        $this->get('/ar/contact')
+            ->assertOk()
+            ->assertSee('dir="ltr" data-phone-field', false)
+            ->assertSee('<span class="phone-field__code" dir="ltr">+971</span>', false);
+    });
+});

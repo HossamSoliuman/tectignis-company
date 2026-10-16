@@ -1,0 +1,36 @@
+/* =========================================================
+   Right-to-left extras (Arabic), loaded after the mirrored
+   copies of vendor, style and custom CSS that rtlcss generates
+   (see vite.config.js). Holds only what a mirror can't do.
+   ========================================================= */
+
+/* Inter and Poppins have no Arabic letters. Icon fonts and code keep
+   their own font, and letter-spacing would break the joins between
+   Arabic letters. */
+[dir="rtl"] :not(.fa, .fas, .far, .fab, .fal, code, kbd, pre, samp) {
+    font-family: "IBM Plex Sans Arabic", sans-serif;
+    letter-spacing: normal;
+}
+
+/* Arabic letters sit taller than Latin ones, so headings need room. */
+[dir="rtl"] :is(h1, h2, h3, h4, h5, h6) {
+    line-height: 1.45;
+}
+
+/* Icons that point forward or back face the other way. The icon fonts are
+   flipped on ::before so hover nudges on the icon itself still apply. */
+[dir="rtl"] :is(.fa-arrow-right, .fa-arrow-left, .fa-chevron-right, .fa-chevron-left, .fa-angle-right, .fa-angle-left, .fa-long-arrow-alt-right, .fa-long-arrow-alt-left)::before,
+[dir="rtl"] .tx-flip-rtl {
+    display: inline-block;
+    transform: scaleX(-1);
+}
+
+/* Phone numbers, email addresses and web addresses read left-to-right.
+   An empty email or web address field keeps its Arabic placeholder on
+   the right. */
+[dir="rtl"] input:is([type="tel"], [type="email"], [type="url"], [type="number"]) {
+    direction: ltr;
+}
+[dir="rtl"] input:is([type="email"], [type="url"]):placeholder-shown {
+    direction: rtl;
+}

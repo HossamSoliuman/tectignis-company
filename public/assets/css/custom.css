@@ -8825,7 +8825,10 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
    Phone number with country-code picker (x-public.phone-input)
    The trigger sits inside the host form's own input, so every
    form variant keeps its existing input styling and states.
+   The field itself stays left-to-right in Arabic too (dial code
+   first, then the number), so rtlcss leaves these rules alone.
    ========================================================= */
+/*rtl:begin:ignore*/
 .phone-field {
     --phone-pad-x: 10px;
     --phone-radius: 8px;
@@ -8907,6 +8910,7 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     box-shadow: 0 0 0 1px var(--about-primary, #19587F), 0 0 0 4px rgba(44, 115, 160, 0.14);
     pointer-events: none;
 }
+/*rtl:end:ignore*/
 
 /* ---------- Menu (moved to <body> by the script) ---------- */
 .phone-field__menu {

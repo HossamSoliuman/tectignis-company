@@ -24,7 +24,7 @@
                     {{ __('forms.thank_you.next') }}
                 </p>
                 <div class="thank-you__actions">
-                    <a href="{{ route('case-studies.index') }}" class="about-btn about-btn--primary">{{ __('nav.view_our_work') }} <span aria-hidden="true">→</span></a>
+                    <a href="{{ route('case-studies.index') }}" class="about-btn about-btn--primary">{{ __('nav.view_our_work') }} <span class="tx-flip-rtl" aria-hidden="true">→</span></a>
                     <a href="{{ localized_route('home') }}" class="about-btn about-btn--ghost">{{ __('forms.thank_you.back_home') }}</a>
                 </div>
             </div>

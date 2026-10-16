@@ -35,7 +35,7 @@
                 </div>
                 <div class="header-top-right">
                     <ul class="header-top-info">
-                        <li><a href="{{ $company->phoneHref() }}" data-track="phone_click"><i class="fas fa-phone-alt" aria-hidden="true"></i> {{ $company->phone() }}</a></li>
+                        <li><a href="{{ $company->phoneHref() }}" data-track="phone_click"><i class="fas fa-phone-alt" aria-hidden="true"></i> <span dir="ltr">{{ $company->phone() }}</span></a></li>
                         <li><a href="mailto:{{ $company->email() }}" data-track="email_click"><i class="fas fa-envelope" aria-hidden="true"></i> {{ $company->email() }}</a></li>
                         <x-public.language-switcher in-list-item />
                     </ul>
@@ -268,7 +268,7 @@
             <div class="tx-mobile-cta">
                 <button type="button" class="tx-btn tx-btn--primary tx-btn--block js-consult-open">{{ __('nav.book_consultation') }}</button>
                 <button type="button" class="tx-btn tx-btn--outline tx-btn--block js-consult-open">{{ __('nav.get_quote') }}</button>
-                <a href="{{ $company->phoneHref() }}" class="tx-mobile-cta__contact" data-track="phone_click"><i class="fas fa-phone-alt" aria-hidden="true"></i> {{ $company->phone() }}</a>
+                <a href="{{ $company->phoneHref() }}" class="tx-mobile-cta__contact" data-track="phone_click"><i class="fas fa-phone-alt" aria-hidden="true"></i> <span dir="ltr">{{ $company->phone() }}</span></a>
                 <a href="mailto:{{ $company->email() }}" class="tx-mobile-cta__contact" data-track="email_click"><i class="fas fa-envelope" aria-hidden="true"></i> {{ $company->email() }}</a>
             </div>
         </div>

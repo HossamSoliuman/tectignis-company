@@ -203,7 +203,7 @@
             <div class="lp-cta__buttons">
                 <a href="#enquiry" class="svc-btn svc-btn--white" data-lp-cta="primary">{{ $landingPage->primary_cta_label }}</a>
                 <a href="{{ $company->phoneHref() }}" class="svc-btn svc-btn--outline-light" data-track="phone_click">
-                    <i class="fas fa-phone-alt" aria-hidden="true"></i> {{ $company->phone() }}
+                    <i class="fas fa-phone-alt" aria-hidden="true"></i> <span dir="ltr">{{ $company->phone() }}</span>
                 </a>
             </div>
         </div>

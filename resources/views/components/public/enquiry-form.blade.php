@@ -146,7 +146,7 @@
         </div>
 
         <div class="{{ $s['full'] }} {{ $variant === 'service' ? '' : 'enquiry-form__actions' }}">
-            <button type="submit" class="{{ $s['submit'] }}">{{ $submitLabel ?? __('forms.send_enquiry') }} <span aria-hidden="true">→</span></button>
+            <button type="submit" class="{{ $s['submit'] }}">{{ $submitLabel ?? __('forms.send_enquiry') }} <span class="tx-flip-rtl" aria-hidden="true">→</span></button>
         </div>
     </div>
 </form>

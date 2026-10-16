@@ -35,7 +35,7 @@
                             </span>
                             <span class="contact-method__body">
                                 <span class="contact-method__label">{{ __('contact.call_us') }}</span>
-                                <span class="contact-method__value">{{ $contactPhone }}</span>
+                                <span class="contact-method__value" dir="ltr">{{ $contactPhone }}</span>
                             </span>
                         </a>
                         <a href="mailto:{{ $contactEmail }}" class="contact-method">
@@ -137,7 +137,7 @@
                         </span>
                         <div class="contact-info-card__body">
                             <h5 class="contact-info-card__title">{{ __('contact.call') }}</h5>
-                            <p class="contact-info-card__text"><a href="tel:{{ $contactPhoneHref }}">{{ $contactPhone }}</a></p>
+                            <p class="contact-info-card__text"><a href="tel:{{ $contactPhoneHref }}"><span dir="ltr">{{ $contactPhone }}</span></a></p>
                         </div>
                     </div>
                     <div class="contact-info-card">
@@ -166,7 +166,7 @@
                             <h5 class="contact-info-card__title">{{ __('contact.whatsapp') }}</h5>
                             <p class="contact-info-card__text">{{ __('contact.whatsapp_text') }}</p>
                         </div>
-                        <span class="contact-info-card__arrow" aria-hidden="true">→</span>
+                        <span class="contact-info-card__arrow tx-flip-rtl" aria-hidden="true">→</span>
                     </a>
                 </div>
             </div>
@@ -233,14 +233,14 @@
         <div class="container">
             <div class="contact-cta">
                 <span class="contact-cta__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
+                    <svg class="tx-flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
                 </span>
                 <div class="contact-cta__body">
                     <h3 class="contact-cta__title">{{ __('contact.cta_title') }}</h3>
                     <p class="contact-cta__text">{{ __('contact.cta_text') }}</p>
                 </div>
                 <div class="contact-cta__actions">
-                    <button type="button" class="about-btn about-btn--primary js-consult-open">{{ __('contact.cta_button') }} <span aria-hidden="true">→</span></button>
+                    <button type="button" class="about-btn about-btn--primary js-consult-open">{{ __('contact.cta_button') }} <span class="tx-flip-rtl" aria-hidden="true">→</span></button>
                     <a href="tel:{{ $contactPhoneHref }}" class="contact-cta__call">{{ __('contact.cta_call') }}</a>
                 </div>
             </div>

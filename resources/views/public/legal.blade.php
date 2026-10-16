@@ -55,7 +55,8 @@
     .legal-content ul,
     .legal-content ol {
         all: revert;
-        margin: 0 0 1rem 1.5rem;
+        margin: 0 0 1rem;
+        margin-inline-start: 1.5rem;
         padding: 0;
         color: #374151;
         font-size: 15px;
@@ -90,7 +91,7 @@
         all: revert;
         padding: 0.6rem 0.75rem;
         border: 1px solid #e5e7eb;
-        text-align: left;
+        text-align: start;
         vertical-align: top;
     }
     .legal-content th {

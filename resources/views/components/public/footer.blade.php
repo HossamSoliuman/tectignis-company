@@ -101,7 +101,7 @@
                     </li>
                     <li>
                         <i class="fas fa-phone-alt" aria-hidden="true"></i>
-                        <a href="{{ $company->phoneHref() }}" data-track="phone_click">{{ $company->phone() }}</a>
+                        <a href="{{ $company->phoneHref() }}" data-track="phone_click"><span dir="ltr">{{ $company->phone() }}</span></a>
                     </li>
                     <li>
                         <i class="fas fa-map-marker-alt" aria-hidden="true"></i>

@@ -301,6 +301,7 @@
 
             // init Isotope
             var $grid = $('.mesonry-list').isotope({
+                originLeft: document.documentElement.dir !== 'rtl',
                 percentPosition: true,
                 transitionDuration: '0.7s',
                 layoutMode: 'masonry',/*
@@ -319,6 +320,7 @@
         // init Isotope
         var $grid = $('.masonry-wrap').isotope({
             itemSelector: '.masonary-item',
+            originLeft: document.documentElement.dir !== 'rtl',
             percentPosition: true,
             transitionDuration: '0.7s',
             masonry: {
