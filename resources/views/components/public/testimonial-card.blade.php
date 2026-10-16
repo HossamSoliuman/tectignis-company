@@ -10,7 +10,7 @@
 {{-- A single client testimonial with attribution (spec §4.3, §20 Testimonial). --}}
 <figure {{ $attributes->merge(['class' => 'tx-testimonial']) }}>
     @if ($rating)
-        <div class="tx-testimonial__stars" role="img" aria-label="Rated {{ min(5, (int) $rating) }} out of 5">
+        <div class="tx-testimonial__stars" role="img" aria-label="{{ __('services.rated', ['rating' => min(5, (int) $rating)]) }}">
             @for ($i = 0; $i < min(5, (int) $rating); $i++)
                 <i class="fas fa-star" aria-hidden="true"></i>
             @endfor

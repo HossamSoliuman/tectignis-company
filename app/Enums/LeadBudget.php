@@ -17,15 +17,7 @@ enum LeadBudget: string
 
     public function label(): string
     {
-        return match ($this) {
-            self::Under100 => 'Under US$100',
-            self::From100To500 => 'US$100 – 500',
-            self::From500To1k => 'US$500 – 1,000',
-            self::From1kTo5k => 'US$1,000 – 5,000',
-            self::From5kTo10k => 'US$5,000 – 10,000',
-            self::Over10k => 'Over US$10,000',
-            self::NotSure => 'Not sure yet',
-        };
+        return __('forms.budgets.'.$this->value);
     }
 
     /**

@@ -2,8 +2,8 @@
 
 @php
     $section = $service->content['related'] ?? [];
-    $heading = $section['heading'] ?? 'Related Services';
-    $subtitle = $section['subtitle'] ?? 'Explore More';
+    $heading = $section['heading'] ?? __('services.related_heading');
+    $subtitle = $section['subtitle'] ?? __('services.related_subtitle');
 @endphp
 
 @if (($section['enabled'] ?? true) && $relatedServices->isNotEmpty())
@@ -19,12 +19,12 @@
             <div class="row svc-related__grid">
                 @foreach ($relatedServices as $related)
                     <div class="col-lg-4 col-md-6 wow move-up">
-                        <a href="{{ route('services.show', $related->slug) }}" class="svc-related-card">
+                        <a href="{{ localized_route('services.show', $related->slug) }}" class="svc-related-card">
                             <h3 class="svc-related-card__title">{{ $related->title }}</h3>
                             @if ($related->short_description)
                                 <p class="svc-related-card__text">{{ \Illuminate\Support\Str::limit($related->short_description, 120) }}</p>
                             @endif
-                            <span class="svc-related-card__link">Learn more <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                            <span class="svc-related-card__link">{{ __('services.learn_more') }} <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
                         </a>
                     </div>
                 @endforeach

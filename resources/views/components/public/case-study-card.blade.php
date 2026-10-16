@@ -31,6 +31,6 @@
             </ul>
         @endif
 
-        <span class="tx-case-card__more" aria-hidden="true">Read case study <i class="fas fa-arrow-right"></i></span>
+        <span class="tx-case-card__more" aria-hidden="true">{{ __('services.read_case_study') }} <i class="fas fa-arrow-right"></i></span>
     </div>
 </article>

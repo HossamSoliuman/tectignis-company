@@ -15,6 +15,7 @@ use App\Models\Setting;
 use App\Models\TechStack;
 use App\Models\Testimonial;
 use App\Models\WhyChooseFeature;
+use App\Support\Locales;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
 
@@ -25,7 +26,7 @@ class HomeController extends Controller
      */
     public function __invoke(): View
     {
-        $data = Cache::rememberForever('site.home', fn (): array => [
+        $data = Cache::rememberForever(Locales::cacheKey('site.home'), fn (): array => [
             'brands' => Brand::active()->ordered()->get(),
             'coreServices' => Service::active()->featured()->ordered()->get(),
             'whyChooseFeatures' => WhyChooseFeature::active()->ordered()->get(),

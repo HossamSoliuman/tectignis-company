@@ -1,0 +1,230 @@
+<?php
+
+use App\Enums\UserRole;
+use App\Models\LandingPage;
+use App\Models\Lead;
+use App\Models\Service;
+use App\Models\User;
+use App\Support\Locales;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
+
+/**
+ * Switch languages on for the current test, as LOCALES_ENABLED does.
+ */
+function enableLanguages(string ...$codes): void
+{
+    foreach ($codes as $code) {
+        config(["locales.supported.{$code}.enabled" => true]);
+    }
+}
+
+function translatedService(): Service
+{
+    return Service::factory()->create(['is_active' => true, 'slug' => 'custom-software-development']);
+}
+
+describe('routing', function () {
+    it('keeps the English URLs unprefixed', function () {
+        expect(route('home'))->toBe(url('/'))
+            ->and(route('contact'))->toBe(url('/contact'));
+
+        $this->get('/')->assertOk()->assertSee('<html class="no-js" lang="en" dir="ltr">', false);
+    });
+
+    it('returns 404 for a language that is not switched on', function () {
+        $this->get('/ar')->assertNotFound();
+        $this->get('/ar/contact')->assertNotFound();
+    });
+
+    it('serves an enabled language under its prefix with its direction', function () {
+        enableLanguages('ar', 'es');
+
+        $this->get('/ar')->assertOk()->assertSee('<html class="no-js" lang="ar" dir="rtl">', false);
+        $this->get('/es/contact')->assertOk()->assertSee('<html class="no-js" lang="es" dir="ltr">', false);
+    });
+
+    it('lets CMS users preview a disabled language without it being indexed', function () {
+        $editor = User::factory()->role(UserRole::Editor)->create();
+
+        $this->actingAs($editor)->get('/ar')
+            ->assertOk()
+            ->assertSee('<meta name="robots" content="noindex, nofollow">', false);
+    });
+
+    it('does not let other admin roles preview a disabled language', function () {
+        $sales = User::factory()->role(UserRole::Sales)->create();
+
+        $this->actingAs($sales)->get('/ar')->assertNotFound();
+    });
+
+    it('serves only the translated services under a language prefix', function () {
+        enableLanguages('ar');
+        translatedService();
+        Service::factory()->create(['is_active' => true, 'slug' => 'seo-services']);
+
+        $this->get('/ar/services/custom-software-development')->assertOk();
+        $this->get('/ar/services/seo-services')->assertNotFound();
+        $this->get('/services/seo-services')->assertOk();
+    });
+
+    it('serves the landing pages and the legal pages in other languages', function () {
+        enableLanguages('fr');
+        LandingPage::where('slug', 'website-development')->update(['is_active' => true]);
+
+        $this->get('/fr/lp/website-development')->assertOk()->assertSee('lang="fr"', false);
+        $this->get('/fr/legal/privacy-policy')->assertOk();
+        $this->get('/fr/legal/refund-policy')->assertNotFound();
+    });
+
+    it('does not pass the language to controllers as a route parameter', function () {
+        enableLanguages('de');
+        translatedService();
+
+        $this->get('/de/services/custom-software-development')->assertOk();
+    });
+});
+
+describe('links', function () {
+    it('links translated pages in the current language and the rest in English', function () {
+        app()->setLocale('ar');
+
+        expect(localized_route('home'))->toBe(url('/ar'))
+            ->and(localized_route('services.show', 'custom-software-development'))->toBe(url('/ar/services/custom-software-development'))
+            ->and(localized_route('services.show', 'seo-services'))->toBe(url('/services/seo-services'))
+            ->and(localized_route('blog.index'))->toBe(url('/blog'))
+            ->and(localized_route('home', locale: 'en'))->toBe(url('/'));
+    });
+
+    it('keeps the visitor on the same page when switching language', function () {
+        enableLanguages('ar', 'es');
+        translatedService();
+
+        $this->get('/ar/services/custom-software-development')
+            ->assertOk()
+            ->assertSee('href="'.url('/services/custom-software-development').'" hreflang="en"', false)
+            ->assertSee('href="'.url('/es/services/custom-software-development').'" hreflang="es"', false);
+    });
+
+    it('sends the switcher to the chosen language homepage from an English-only page', function () {
+        enableLanguages('ar');
+
+        $this->get('/about')
+            ->assertOk()
+            ->assertSee('href="'.url('/ar').'" hreflang="ar"', false);
+    });
+
+    it('hides the switcher while English is the only language', function () {
+        $this->get('/')->assertOk()->assertDontSee('tx-lang', false);
+    });
+});
+
+describe('language cookie and detection', function () {
+    it('remembers the language of a translated page in a cookie', function () {
+        enableLanguages('ar');
+
+        $this->get('/ar')->assertCookie(Locales::COOKIE, 'ar');
+    });
+
+    it('sends a first-time visitor to the language their browser prefers, keeping the query string', function () {
+        enableLanguages('ar');
+
+        $this->get('/lp/website-development?gclid=abc123&utm_source=google', ['Accept-Language' => 'ar-AE,ar;q=0.9,en;q=0.8'])
+            ->assertRedirect(url('/ar/lp/website-development').'?gclid=abc123&utm_source=google');
+    });
+
+    it('does not redirect after the visitor has chosen a language', function () {
+        enableLanguages('ar');
+
+        $this->withCookie(Locales::COOKIE, 'en')
+            ->get('/', ['Accept-Language' => 'ar'])
+            ->assertOk();
+    });
+
+    it('never redirects search engine bots', function () {
+        enableLanguages('ar');
+
+        $this->get('/', ['Accept-Language' => 'ar', 'User-Agent' => 'Mozilla/5.0 (compatible; Googlebot/2.1)'])
+            ->assertOk();
+    });
+
+    it('does not redirect to a language that is not switched on', function () {
+        $this->get('/', ['Accept-Language' => 'ar'])->assertOk();
+    });
+
+    it('does not redirect from pages without translations', function () {
+        enableLanguages('ar');
+
+        $this->get('/about', ['Accept-Language' => 'ar'])->assertOk();
+    });
+});
+
+describe('SEO', function () {
+    it('lists hreflang alternates for enabled languages with an English x-default', function () {
+        enableLanguages('ar', 'de');
+
+        $this->get('/ar')
+            ->assertOk()
+            ->assertSee('<link rel="alternate" hreflang="en" href="'.url('/').'">', false)
+            ->assertSee('<link rel="alternate" hreflang="ar" href="'.url('/ar').'">', false)
+            ->assertSee('<link rel="alternate" hreflang="de" href="'.url('/de').'">', false)
+            ->assertSee('<link rel="alternate" hreflang="x-default" href="'.url('/').'">', false)
+            ->assertDontSee('hreflang="es"', false)
+            ->assertSee('<link rel="canonical" href="'.url('/ar').'">', false);
+    });
+
+    it('has no hreflang alternates on pages without translations or with English alone', function () {
+        enableLanguages('ar');
+
+        $this->get('/about')->assertOk()->assertDontSee('rel="alternate" hreflang', false);
+
+        config(['locales.supported.ar.enabled' => false]);
+
+        $this->get('/')->assertOk()->assertDontSee('rel="alternate" hreflang', false);
+    });
+
+    it('adds the translated pages to the sitemap for enabled languages only', function () {
+        enableLanguages('es');
+        translatedService();
+
+        $this->get(route('sitemap'))
+            ->assertOk()
+            ->assertSee('<loc>'.url('/es').'</loc>', false)
+            ->assertSee('<loc>'.url('/es/services/custom-software-development').'</loc>', false)
+            ->assertDontSee(url('/ar'), false);
+    });
+});
+
+describe('enquiry form', function () {
+    it('shows country names in the page language and keeps the English values', function () {
+        enableLanguages('ar');
+
+        $this->get('/ar/contact')
+            ->assertOk()
+            ->assertSee('<option value="United Arab Emirates" >الإمارات العربية المتحدة</option>', false);
+    })->skip(! extension_loaded('intl'), 'The intl extension is not installed.');
+
+    it('shows the English country names on the English site', function () {
+        $this->get('/contact')
+            ->assertOk()
+            ->assertSee('<option value="United Arab Emirates" >United Arab Emirates</option>', false);
+    });
+});
+
+describe('leads', function () {
+    it('stores the language the enquiry was submitted in', function () {
+        enableLanguages('ar');
+
+        $this->post('/ar/contact', validEnquiry())
+            ->assertRedirect(url('/ar/thank-you'));
+
+        expect(Lead::sole()->language)->toBe('ar');
+    });
+
+    it('stores English for enquiries from the English site', function () {
+        $this->post(route('contact.submit'), validEnquiry())->assertRedirect(route('contact.thank-you'));
+
+        expect(Lead::sole()->language)->toBe('en');
+    });
+});

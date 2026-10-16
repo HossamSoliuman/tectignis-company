@@ -67,7 +67,7 @@
                                 <h5>Ready to Put This Into Practice?</h5>
                                 <p>Talk to our experts about applying these insights to your business.</p>
                             </div>
-                            <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                            <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>

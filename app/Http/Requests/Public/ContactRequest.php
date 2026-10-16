@@ -78,13 +78,13 @@ class ContactRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'email' => 'business email',
-            'company' => 'company',
-            'phone' => 'phone / WhatsApp number',
-            'service' => 'service required',
-            'message' => 'project description',
-            'consent' => 'privacy consent',
-            RecaptchaService::RESPONSE_FIELD => 'CAPTCHA',
+            'email' => __('forms.attributes.email'),
+            'company' => __('forms.attributes.company'),
+            'phone' => __('forms.attributes.phone'),
+            'service' => __('forms.attributes.service'),
+            'message' => __('forms.attributes.message'),
+            'consent' => __('forms.attributes.consent'),
+            RecaptchaService::RESPONSE_FIELD => __('forms.attributes.captcha'),
         ];
     }
 
@@ -94,9 +94,9 @@ class ContactRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'phone.regex' => 'Please enter a valid phone number, e.g. 98765 43210.',
-            'message.min' => 'Please tell us a little more about your project (at least :min characters).',
-            'consent.accepted' => 'Please agree to the privacy policy so we can respond to your enquiry.',
+            'phone.regex' => __('forms.messages.phone_regex'),
+            'message.min' => __('forms.messages.message_min'),
+            'consent.accepted' => __('forms.messages.consent_accepted'),
         ];
     }
 

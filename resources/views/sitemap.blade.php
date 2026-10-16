@@ -7,6 +7,13 @@
         <priority>{{ $page['priority'] }}</priority>
     </url>
     @endforeach
+    @foreach ($languagePages as $page)
+    <url>
+        <loc>{{ $page['url'] }}</loc>
+        <changefreq>{{ $page['changefreq'] }}</changefreq>
+        <priority>{{ $page['priority'] }}</priority>
+    </url>
+    @endforeach
     @foreach ($capabilities as $capability)
     <url>
         <loc>{{ route('capabilities.show', $capability->slug) }}</loc>

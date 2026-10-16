@@ -9412,3 +9412,75 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     .lp-cta__title { font-size: 32px; }
     .lp-footer__contacts { grid-template-columns: repeat(4, auto); justify-content: space-between; }
 }
+
+/* ---------- Language switcher ----------
+   A <details> dropdown in the header top bar and the landing page header,
+   and a plain list in the mobile menu. Uses logical properties so it reads
+   correctly in right-to-left languages. */
+.tx-lang {
+    position: relative;
+}
+.tx-lang__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    list-style: none;
+    font-size: 14px;
+    color: #6B7280;
+}
+.tx-lang__toggle::-webkit-details-marker {
+    display: none;
+}
+.tx-lang__toggle i {
+    color: #19587F;
+}
+.tx-lang__toggle:hover,
+.tx-lang[open] .tx-lang__toggle {
+    color: #374151;
+}
+.tx-lang__menu {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 8px);
+    z-index: 1000;
+    min-width: 150px;
+    margin: 0;
+    padding: 6px 0;
+    list-style: none;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(17, 24, 39, 0.12);
+}
+.tx-lang__menu a {
+    display: block;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #374151;
+}
+.tx-lang__menu a:hover,
+.tx-lang__menu a[aria-current] {
+    background: #F3F4F6;
+    color: #19587F;
+}
+.tx-lang-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 16px 0 0;
+    list-style: none;
+}
+.tx-lang-list a {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #374151;
+    border: 1px solid #E5E7EB;
+    border-radius: 999px;
+}
+.tx-lang-list a[aria-current] {
+    border-color: #19587F;
+    color: #19587F;
+}

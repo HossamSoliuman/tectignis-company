@@ -85,7 +85,7 @@
                     <p>Our team is here to help. Get in touch and we'll send you the right information.</p>
                 </div>
                 <div class="res-cta-band__actions">
-                    <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Contact Us <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Contact Us <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     <a href="#" class="svc-btn svc-btn--outline-light js-consult-open">Request Consultation <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </div>

@@ -18,7 +18,7 @@
             @endif
         </span>
         <h3 class="tx-core-card__title">
-            <a href="{{ route('services.show', $service->slug) }}" class="tx-card__link">{{ $service->title }}</a>
+            <a href="{{ localized_route('services.show', $service->slug) }}" class="tx-card__link">{{ $service->title }}</a>
         </h3>
     </div>
 
@@ -33,7 +33,7 @@
             <div class="tx-core-card__cols">
                 @if ($problems->isNotEmpty())
                     <div>
-                        <h4 class="tx-core-card__label">Problems We Solve</h4>
+                        <h4 class="tx-core-card__label">{{ __('services.core_problems') }}</h4>
                         <ul class="tx-core-card__list tx-core-card__list--problems">
                             @foreach ($problems as $problem)
                                 <li><i class="fas fa-times-circle" aria-hidden="true"></i><span>{{ $problem }}</span></li>
@@ -43,7 +43,7 @@
                 @endif
                 @if ($benefits->isNotEmpty())
                     <div>
-                        <h4 class="tx-core-card__label">What You Gain</h4>
+                        <h4 class="tx-core-card__label">{{ __('services.core_gains') }}</h4>
                         <ul class="tx-core-card__list">
                             @foreach ($benefits as $benefit)
                                 <li><i class="fas fa-check-circle" aria-hidden="true"></i><span>{{ $benefit }}</span></li>
@@ -57,7 +57,7 @@
 
     <div class="tx-core-card__chips">
         @if ($capabilities->isNotEmpty())
-            <ul class="tx-service-card__items" aria-label="{{ $service->title }} capabilities">
+            <ul class="tx-service-card__items" aria-label="{{ __('services.core_capabilities', ['title' => $service->title]) }}">
                 @foreach ($capabilities as $capability)
                     <li>{{ $capability }}</li>
                 @endforeach
@@ -66,7 +66,7 @@
     </div>
 
     <div class="tx-core-card__actions">
-        <span class="tx-service-card__more" aria-hidden="true">Explore {{ $service->title }} <i class="fas fa-arrow-right"></i></span>
-        <button type="button" class="tx-btn tx-btn--primary tx-core-card__cta js-consult-open">Get a Quote</button>
+        <span class="tx-service-card__more" aria-hidden="true">{{ __('services.explore_service', ['title' => $service->title]) }} <i class="fas fa-arrow-right"></i></span>
+        <button type="button" class="tx-btn tx-btn--primary tx-core-card__cta js-consult-open">{{ __('nav.get_quote') }}</button>
     </div>
 </article>

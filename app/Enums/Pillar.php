@@ -16,12 +16,7 @@ enum Pillar: string
 
     public function label(): string
     {
-        return match ($this) {
-            self::SoftwareSaas => 'Software & SaaS',
-            self::AiAutomation => 'AI & Automation',
-            self::CloudCybersecurity => 'Cloud & Cybersecurity',
-            self::ItInfrastructure => 'IT Infrastructure & Security',
-        };
+        return __('nav.pillars.'.$this->value.'.label');
     }
 
     /**
@@ -29,12 +24,7 @@ enum Pillar: string
      */
     public function message(): string
     {
-        return match ($this) {
-            self::SoftwareSaas => 'Build and modernize business applications.',
-            self::AiAutomation => 'Automate processes and introduce practical AI into business operations.',
-            self::CloudCybersecurity => 'Modernize infrastructure while improving security and reliability.',
-            self::ItInfrastructure => 'Design, deploy and support secure business infrastructure.',
-        };
+        return __('nav.pillars.'.$this->value.'.message');
     }
 
     /**

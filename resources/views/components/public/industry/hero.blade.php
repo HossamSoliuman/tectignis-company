@@ -23,7 +23,7 @@
     <span class="ind-hero__blob" aria-hidden="true"></span>
     <div class="container">
         <nav class="ind-breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ route('home') }}">Home</a>
+            <a href="{{ localized_route('home') }}">Home</a>
             <span aria-hidden="true">/</span>
             <a href="{{ route('industries.index') }}">Industries</a>
             <span aria-hidden="true">/</span>

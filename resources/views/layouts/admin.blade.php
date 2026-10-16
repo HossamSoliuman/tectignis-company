@@ -35,8 +35,9 @@
                     $showCareers = (bool) $navUser?->hasCareersAccess();
                     $showSuperAdmin = (bool) $navUser?->isSuperAdmin();
                     $showPortal = (bool) $navUser?->hasPortalAccess();
+                    $translationsPending = $showCms ? \App\Services\Translations\TranslationCatalog::pendingCount() : 0;
 
-                    // Group items are [route, label, extra route patterns that also mark it active].
+                    // Group items are [route, label, extra route patterns that also mark it active, badge count].
                     $isActive = fn (string $route, array $alsoActiveOn = []): bool => request()->routeIs(
                         Str::endsWith($route, '.index') ? Str::beforeLast($route, '.').'.*' : $route,
                         ...$alsoActiveOn,
@@ -94,6 +95,7 @@
                                 ['admin.settings.index', 'Site Settings'],
                                 ['admin.mail.edit', 'Email & Forms'],
                                 ['admin.redirects.index', 'Redirects'],
+                                ['admin.translations.index', 'Translations', [], $translationsPending],
                             ] : [],
                             $showSuperAdmin ? [
                                 ['admin.users.index', 'Users & Roles'],
@@ -125,8 +127,11 @@
                             @foreach ($items as $item)
                                 @php $active = $isActive($item[0], $item[2] ?? []); @endphp
                                 <a href="{{ route($item[0]) }}"
-                                    class="block rounded-lg px-3 py-1.5 transition {{ $active ? 'bg-purple-50 font-medium text-purple-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900' }}">
-                                    {{ $item[1] }}
+                                    class="flex items-center justify-between gap-2 rounded-lg px-3 py-1.5 transition {{ $active ? 'bg-purple-50 font-medium text-purple-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900' }}">
+                                    <span>{{ $item[1] }}</span>
+                                    @if (($item[3] ?? 0) > 0)
+                                        <span class="rounded-full bg-fuchsia-100 px-1.5 text-[10px] font-semibold text-fuchsia-700">{{ $item[3] > 99 ? '99+' : $item[3] }}</span>
+                                    @endif
                                 </a>
                             @endforeach
                         </div>

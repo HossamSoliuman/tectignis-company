@@ -15,20 +15,35 @@ use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SolutionController;
 use App\Http\Controllers\SitemapController;
+use App\Support\Locales;
 use Illuminate\Support\Facades\Route;
 
-// test update
+/*
+| Pages translated into every language (config/locales.php). They're
+| registered twice: unprefixed for English, keeping today's URLs and names,
+| and under /{locale}/ for the other languages, named `localized.*`.
+*/
+$translatedRoutes = function (): void {
+    Route::get('/', HomeController::class)->name('home');
+    Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+    Route::get('/lp/{slug}', [LandingPageController::class, 'show'])->name('landing-pages.show');
+    Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+    Route::post('/contact', [ContactController::class, 'submit'])->middleware('throttle:10,1')->name('contact.submit');
+    Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
+    Route::get('/legal/{slug}', [PageController::class, 'legal'])->name('legal.show');
+};
 
-Route::get('/', HomeController::class)->name('home');
+Route::group([], $translatedRoutes);
+
+Route::prefix('{locale}')
+    ->where(['locale' => implode('|', Locales::prefixed())])
+    ->name(Locales::ROUTE_PREFIX)
+    ->group($translatedRoutes);
 
 Route::get('/about', [PageController::class, 'about'])->name('about');
 
 Route::get('/capabilities', [CapabilityController::class, 'index'])->name('capabilities.index');
 Route::get('/capabilities/{slug}', [CapabilityController::class, 'show'])->name('capabilities.show');
-
-Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
-
-Route::get('/lp/{slug}', [LandingPageController::class, 'show'])->name('landing-pages.show');
 
 Route::get('/solutions', [SolutionController::class, 'index'])->name('solutions.index');
 Route::get('/solutions/{slug}', [SolutionController::class, 'show'])->name('solutions.show');
@@ -52,12 +67,6 @@ Route::get('/downloads', [DownloadController::class, 'index'])->name('downloads'
 Route::post('/downloads/request', [DownloadController::class, 'request'])->middleware('throttle:10,1')->name('downloads.request');
 Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
 Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->middleware('throttle:10,1')->name('newsletter.subscribe');
-
-Route::get('/contact', [ContactController::class, 'show'])->name('contact');
-Route::post('/contact', [ContactController::class, 'submit'])->middleware('throttle:10,1')->name('contact.submit');
-Route::get('/thank-you', [ContactController::class, 'thankYou'])->name('contact.thank-you');
-
-Route::get('/legal/{slug}', [PageController::class, 'legal'])->name('legal.show');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 

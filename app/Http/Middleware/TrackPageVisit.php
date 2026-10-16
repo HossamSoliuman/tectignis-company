@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\PageVisit;
+use App\Support\Bots;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -55,20 +56,6 @@ class TrackPageVisit
             return false;
         }
 
-        return ! $this->isBot((string) $request->userAgent());
-    }
-
-    /**
-     * Filter out the most common crawlers so the chart reflects real traffic.
-     */
-    protected function isBot(string $userAgent): bool
-    {
-        if ($userAgent === '') {
-            return true;
-        }
-
-        return Str::contains(Str::lower($userAgent), [
-            'bot', 'crawl', 'spider', 'slurp', 'bingpreview', 'facebookexternalhit', 'embedly', 'pingdom',
-        ]);
+        return ! Bots::is($request->userAgent());
     }
 }

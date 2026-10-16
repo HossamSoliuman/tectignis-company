@@ -7,8 +7,8 @@
     if ($techStacks->isEmpty()) {
         $techStacks = \App\Models\TechStack::active()->ordered()->get();
     }
-    $heading = $section['heading'] ?? 'Technologies We Use';
-    $subtitle = $section['subtitle'] ?? 'Our Stack';
+    $heading = $section['heading'] ?? __('services.tech_heading');
+    $subtitle = $section['subtitle'] ?? __('services.tech_subtitle');
 @endphp
 
 @if (($section['enabled'] ?? true) && $techStacks->isNotEmpty())

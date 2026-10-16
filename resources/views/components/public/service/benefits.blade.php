@@ -3,8 +3,8 @@
 @php
     $section = $service->content['benefits'] ?? [];
     $items = array_values(array_filter($section['items'] ?? [], fn ($i) => filled($i['title'] ?? null)));
-    $heading = $section['heading'] ?? 'Business Benefits';
-    $subtitle = $section['subtitle'] ?? 'What You Gain';
+    $heading = $section['heading'] ?? __('services.benefits_heading');
+    $subtitle = $section['subtitle'] ?? __('services.benefits_subtitle');
     $fallbackIcons = ['fas fa-chart-line', 'fas fa-bolt', 'fas fa-expand-arrows-alt', 'fas fa-key', 'fas fa-smile', 'fas fa-shield-alt'];
 @endphp
 

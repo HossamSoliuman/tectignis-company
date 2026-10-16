@@ -3,7 +3,7 @@
 @section('title', $title.' | Tectignis IT Solutions')
 
 @section('seo')
-    <meta name="description" content="{{ $title }} of Tectignis IT Solutions Pvt Ltd.">
+    <meta name="description" content="{{ __('common.legal_description', ['title' => $title]) }}">
 @endsection
 
 @push('styles')
@@ -122,9 +122,7 @@
                     @else
                         <div class="legal-content">
                             <h1>{{ $title }}</h1>
-                            <p>This page is being updated. Please check back soon or
-                                <a href="{{ route('contact') }}">contact us</a>
-                                for more information.</p>
+                            <p>{!! __('common.legal_updating', ['link' => '<a href="'.e(localized_route('contact')).'">'.e(__('common.contact_us')).'</a>']) !!}</p>
                         </div>
                     @endif
                 </div>

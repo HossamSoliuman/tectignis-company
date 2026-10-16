@@ -43,6 +43,7 @@ class ContactController extends Controller
             'source' => $source->value,
             'page_url' => $data['page_url'] ?? url()->previous(),
             'landing_page' => $request->landingPageSlug(),
+            'language' => app()->getLocale(),
             'consented_at' => now(),
             ...CaptureLeadAttribution::fromSession($request),
         ]);
@@ -54,7 +55,7 @@ class ContactController extends Controller
         Log::info('New lead from public form', ['lead_id' => $lead->id, 'source' => $source->value, 'landing_page' => $lead->landing_page]);
 
         return redirect()
-            ->route('contact.thank-you')
+            ->to(localized_route('contact.thank-you'))
             ->with('enquiry_submitted', [
                 'name' => $lead->name,
                 'service' => $lead->service,
@@ -70,7 +71,7 @@ class ContactController extends Controller
         $enquiry = session('enquiry_submitted');
 
         if (! is_array($enquiry)) {
-            return redirect()->route('contact');
+            return redirect()->to(localized_route('contact'));
         }
 
         return view('public.thank-you', ['enquiry' => $enquiry]);

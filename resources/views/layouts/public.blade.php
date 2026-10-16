@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en" dir="ltr">
+<html class="no-js" lang="{{ \App\Support\Locales::current() }}" dir="{{ \App\Support\Locales::direction() }}">
 
 <head>
     @include('layouts.partials.head')
@@ -37,7 +37,7 @@
     @stack('modals')
 
     {{-- Scroll top --}}
-    <a href="#" class="scroll-top" id="scroll-top">
+    <a href="#" class="scroll-top" id="scroll-top" aria-label="{{ __('common.scroll_top') }}">
         <i class="arrow-top fas fa-chevron-up"></i>
         <i class="arrow-bottom fas fa-chevron-up"></i>
     </a>

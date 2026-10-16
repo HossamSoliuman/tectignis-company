@@ -118,6 +118,44 @@ final class Countries
     }
 
     /**
+     * The country's name in the current language, from PHP's intl data. The
+     * English name, which is also the submitted and stored value, is used in
+     * English and wherever intl is unavailable.
+     */
+    public static function label(string $name): string
+    {
+        $iso = self::ALL[$name][0] ?? null;
+
+        if ($iso === null || Locales::isDefault() || ! class_exists(\Locale::class)) {
+            return $name;
+        }
+
+        $label = \Locale::getDisplayRegion('-'.$iso, Locales::current());
+
+        return $label !== '' && $label !== $iso ? $label : $name;
+    }
+
+    /**
+     * Priority markets for a select input, in the order of PRIORITY.
+     *
+     * @return array<string, string> name => label
+     */
+    public static function priorityOptions(): array
+    {
+        return self::options(self::PRIORITY);
+    }
+
+    /**
+     * Every other country for a select input, sorted by its label.
+     *
+     * @return array<string, string> name => label
+     */
+    public static function otherOptions(): array
+    {
+        return self::sortByLabel(self::options(self::others()));
+    }
+
+    /**
      * Every accepted ISO 3166-1 alpha-2 code.
      *
      * @return list<string>
@@ -144,12 +182,13 @@ final class Countries
     /**
      * Phone country picker entries: priority markets first, then the rest alphabetically.
      *
-     * @return list<array{name: string, iso: string, dial: string, priority: bool}>
+     * @return list<array{name: string, label: string, iso: string, dial: string, priority: bool}>
      */
     public static function phoneCodes(): array
     {
         $entry = fn (string $name, bool $priority): array => [
             'name' => $name,
+            'label' => self::label($name),
             'iso' => self::ALL[$name][0],
             'dial' => self::ALL[$name][1],
             'priority' => $priority,
@@ -157,7 +196,32 @@ final class Countries
 
         return [
             ...array_map(fn (string $name): array => $entry($name, true), self::PRIORITY),
-            ...array_map(fn (string $name): array => $entry($name, false), self::others()),
+            ...array_map(fn (string $name): array => $entry($name, false), array_keys(self::otherOptions())),
         ];
+    }
+
+    /**
+     * @param  list<string>  $names
+     * @return array<string, string> name => label
+     */
+    private static function options(array $names): array
+    {
+        return array_combine($names, array_map(self::label(...), $names));
+    }
+
+    /**
+     * Sort by label in the current language's alphabetical order. English
+     * labels are already in order.
+     *
+     * @param  array<string, string>  $options
+     * @return array<string, string>
+     */
+    private static function sortByLabel(array $options): array
+    {
+        if (! Locales::isDefault() && class_exists(\Collator::class)) {
+            (new \Collator(Locales::current()))->asort($options);
+        }
+
+        return $options;
     }
 }

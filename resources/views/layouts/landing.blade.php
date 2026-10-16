@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en" dir="ltr">
+<html class="no-js" lang="{{ \App\Support\Locales::current() }}" dir="{{ \App\Support\Locales::direction() }}">
 
 <head>
     @include('layouts.partials.head')
@@ -15,7 +15,7 @@
     @stack('json-ld')
     <x-seo.json-ld />
 
-    <a class="tx-skip-link" href="#main-content">Skip to main content</a>
+    <a class="tx-skip-link" href="#main-content">{{ __('nav.skip_to_content') }}</a>
 
     <header class="lp-header">
         <div class="container lp-header__inner">
@@ -25,8 +25,9 @@
                 <a class="lp-header__phone" href="{{ $company->phoneHref() }}" data-track="phone_click">
                     <i class="fas fa-phone-alt" aria-hidden="true"></i>
                     <span class="lp-header__phone-number">{{ $company->phone() }}</span>
-                    <span class="sr-only">Call {{ $company->phone() }}</span>
+                    <span class="sr-only">{{ __('common.call', ['phone' => $company->phone()]) }}</span>
                 </a>
+                <x-public.language-switcher />
                 @hasSection('header-cta')
                     @yield('header-cta')
                 @endif
@@ -52,7 +53,7 @@
                 @if ($company->whatsappUrl())
                     <li>
                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        <a href="{{ $company->whatsappUrl() }}" target="_blank" rel="noopener" data-track="whatsapp_click">WhatsApp</a>
+                        <a href="{{ $company->whatsappUrl() }}" target="_blank" rel="noopener" data-track="whatsapp_click">{{ __('common.whatsapp') }}</a>
                     </li>
                 @endif
                 <li>
@@ -62,10 +63,10 @@
             </ul>
 
             <div class="lp-footer__bottom">
-                <p class="lp-footer__copyright">&copy; {{ date('Y') }} {{ $company->legalName() }}. All rights reserved.</p>
-                <nav class="lp-footer__links" aria-label="Legal">
-                    <a href="{{ route('legal.show', 'privacy-policy') }}" target="_blank" rel="noopener">Privacy Policy</a>
-                    <a href="{{ route('legal.show', 'terms-and-conditions') }}" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+                <p class="lp-footer__copyright">&copy; {{ date('Y') }} {{ $company->legalName() }}. {{ __('footer.rights') }}</p>
+                <nav class="lp-footer__links" aria-label="{{ __('footer.legal') }}">
+                    <a href="{{ localized_route('legal.show', 'privacy-policy') }}" target="_blank" rel="noopener">{{ __('footer.privacy') }}</a>
+                    <a href="{{ localized_route('legal.show', 'terms-and-conditions') }}" target="_blank" rel="noopener">{{ __('footer.terms') }}</a>
                 </nav>
             </div>
         </div>

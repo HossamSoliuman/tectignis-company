@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasContentScopes;
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\ServiceFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,7 +15,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Service extends Model
 {
     /** @use HasFactory<ServiceFactory> */
-    use HasContentScopes, HasFactory;
+    use HasContentScopes, HasFactory, HasTranslations;
+
+    /**
+     * Text served in the visitor's language (HasTranslations).
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['title', 'short_description', 'description', 'body', 'content', 'seo_title', 'seo_description'];
 
     protected $fillable = [
         'slug', 'capability_id', 'category', 'title', 'short_description', 'description', 'body', 'content',

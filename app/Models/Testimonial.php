@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\FlushesSiteCache;
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\TestimonialFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,14 @@ use Illuminate\Database\Eloquent\Model;
 class Testimonial extends Model
 {
     /** @use HasFactory<TestimonialFactory> */
-    use FlushesSiteCache, HasFactory;
+    use FlushesSiteCache, HasFactory, HasTranslations;
+
+    /**
+     * Text served in the visitor's language (HasTranslations).
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['quote'];
 
     protected $fillable = ['name', 'quote', 'rating', 'sort_order', 'is_active'];
 

@@ -3,7 +3,7 @@
     'title',
     'highlight' => null,
     'description' => null,
-    'primaryLabel' => 'Book a Technical Consultation',
+    'primaryLabel' => __('nav.book_consultation'),
     'primaryUrl' => null,
     'secondaryLabel' => null,
     'secondaryUrl' => null,

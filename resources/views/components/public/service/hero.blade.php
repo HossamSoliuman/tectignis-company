@@ -3,10 +3,10 @@
 @php
     $hero = $service->content['hero'] ?? [];
     $eyebrow = $hero['eyebrow'] ?? \Illuminate\Support\Str::headline($service->category ?? '');
-    $heading = $hero['heading'] ?? trim($service->title.' Services in Navi Mumbai');
+    $heading = $hero['heading'] ?? __('services.hero_heading', ['title' => $service->title]);
     $intro = $hero['intro'] ?? $service->short_description;
-    $ctaPrimary = $hero['cta_primary_label'] ?? 'Get Free Consultation';
-    $ctaSecondary = $hero['cta_secondary_label'] ?? 'View Our Work';
+    $ctaPrimary = $hero['cta_primary_label'] ?? __('services.hero_primary');
+    $ctaSecondary = $hero['cta_secondary_label'] ?? __('services.hero_secondary');
     $bullets = array_values(array_filter($hero['bullets'] ?? [], fn ($b) => filled($b)));
 
     // Stats row (icon + value + label). Falls back to the approved master

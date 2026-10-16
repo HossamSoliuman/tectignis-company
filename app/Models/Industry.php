@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasContentScopes;
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\IndustryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Industry extends Model
 {
     /** @use HasFactory<IndustryFactory> */
-    use HasContentScopes, HasFactory;
+    use HasContentScopes, HasFactory, HasTranslations;
+
+    /**
+     * Text served in the visitor's language (HasTranslations).
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['name', 'short_description'];
 
     protected $fillable = [
         'slug', 'name', 'short_description', 'description', 'body', 'content',

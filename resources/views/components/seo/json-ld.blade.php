@@ -60,7 +60,7 @@
             'name' => $service->title,
             'description' => $service->seo_description ?? $service->short_description,
             'provider' => ['@type' => 'Organization', 'name' => $siteName, 'url' => $siteUrl],
-            'url' => route('services.show', $service->slug),
+            'url' => localized_route('services.show', $service->slug),
         ];
     }
 
@@ -84,7 +84,7 @@
 
     $breadcrumbSchema = null;
     if (count($breadcrumbs) > 0) {
-        $items = [['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')]];
+        $items = [['@type' => 'ListItem', 'position' => 1, 'name' => __('common.home'), 'item' => localized_route('home')]];
         foreach ($breadcrumbs as $i => $crumb) {
             $item = ['@type' => 'ListItem', 'position' => $i + 2, 'name' => $crumb['name']];
             if (isset($crumb['url'])) {

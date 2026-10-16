@@ -18,16 +18,7 @@ enum TechStackCategory: string
 
     public function label(): string
     {
-        return match ($this) {
-            self::Frontend => 'Frontend',
-            self::Backend => 'Backend',
-            self::Mobile => 'Mobile',
-            self::Database => 'Database',
-            self::CloudDevops => 'Cloud & DevOps',
-            self::AiMl => 'AI & ML',
-            self::Ecommerce => 'CMS & E-commerce',
-            self::Infrastructure => 'Infrastructure',
-        };
+        return __('home.tech_categories.'.$this->value);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\FlushesSiteCache;
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\CaseStudyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CaseStudy extends Model
 {
     /** @use HasFactory<CaseStudyFactory> */
-    use FlushesSiteCache, HasFactory;
+    use FlushesSiteCache, HasFactory, HasTranslations;
+
+    /**
+     * Text served in the visitor's language (HasTranslations).
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['title', 'short_description', 'features'];
 
     protected $fillable = [
         'slug', 'title', 'case_study_category_id', 'theme', 'short_description',

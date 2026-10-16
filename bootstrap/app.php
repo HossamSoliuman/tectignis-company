@@ -5,6 +5,7 @@ use App\Http\Middleware\EnsurePortalAccess;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\HandleRedirects;
 use App\Http\Middleware\SecurityHeaders;
+use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\TrackPageVisit;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -31,6 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleRedirects::class,
         ]);
         $middleware->web(append: [
+            SetLocale::class,
             CaptureLeadAttribution::class,
             SecurityHeaders::class,
             TrackPageVisit::class,
@@ -48,6 +50,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
             return redirect()->back()
                 ->withInput($request->except(['_token', 'password', 'password_confirmation']))
-                ->withErrors(['session' => 'Your session expired. Please try again.']);
+                ->withErrors(['session' => __('common.session_expired')]);
         });
     })->create();

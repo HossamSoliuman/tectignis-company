@@ -18,7 +18,7 @@
                     <p class="about-hero__desc">At Tectignis IT Solutions Pvt. Ltd., we empower businesses with cutting-edge technology solutions that drive digital transformation, operational excellence, and sustainable growth. From startups to enterprises, we deliver scalable software, AI-powered automation, cloud infrastructure, cybersecurity, networking, and digital engineering services tailored to modern business needs.  </p>
                     <p class="about-hero__desc"> Our team combines technical expertise, industry experience, and customer-first thinking to build reliable, secure, and future-ready solutions. Whether it's developing enterprise applications, modernizing legacy systems, implementing cloud infrastructure, or automating business processes with AI, we help organizations innovate with confidence.</p>
                     <div class="about-hero__actions">
-                        <a href="{{ route('contact') }}" class="about-btn about-btn--primary">Work With Us <span aria-hidden="true">→</span></a>
+                        <a href="{{ localized_route('contact') }}" class="about-btn about-btn--primary">Work With Us <span aria-hidden="true">→</span></a>
                         <a href="{{ route('capabilities.index') }}" class="about-btn about-btn--ghost">Our Services</a>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                     <h3 class="about-cta__title">Ready to build something exceptional together?</h3>
                     <p class="about-cta__text">Let's discuss how our software, AI, cloud and security solutions can accelerate your growth.</p>
                 </div>
-                <a href="{{ route('contact') }}" class="about-cta__btn">Get in Touch <span aria-hidden="true">→</span></a>
+                <a href="{{ localized_route('contact') }}" class="about-cta__btn">Get in Touch <span aria-hidden="true">→</span></a>
             </div>
         </div>
     </section>

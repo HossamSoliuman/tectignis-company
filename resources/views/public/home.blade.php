@@ -1,10 +1,10 @@
 @extends('layouts.public')
 
-@section('title', $settings['home_meta_title'] ?? 'Software, AI & IT Solutions Company | Navi Mumbai, Mumbai, Pune, India | Tectignis')
+@section('title', $settings['home_meta_title'] ?? __('home.meta_title'))
 
 @section('seo')
     @php
-        $homeMetaDesc = $settings['home_meta_description'] ?? 'Tectignis IT Solutions – Custom Software Development, AI Automation, Cloud Infrastructure, Cybersecurity & Smart Security Systems.';
+        $homeMetaDesc = $settings['home_meta_description'] ?? __('home.meta_description');
         $homeMetaKeywords = $settings['home_meta_keywords'] ?? null;
         $homeOgTitle = $settings['home_og_title'] ?? ($settings['home_meta_title'] ?? null);
         $homeOgDesc = $settings['home_og_description'] ?? $homeMetaDesc;
@@ -19,7 +19,7 @@
     <meta property="og:title" content="{{ $homeOgTitle }}">
     <meta property="og:description" content="{{ $homeOgDesc }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:url" content="{{ localized_route('home') }}">
     @if ($homeOgImage)
         <meta property="og:image" content="{{ $homeOgImage }}">
     @endif
@@ -41,14 +41,14 @@
     <x-public.hero
         class="tx-hero--single-line"
         :overline="$settings['hero_sub_heading'] ?? null"
-        :title="$settings['hero_heading_line1'] ?? 'Custom Software & Websites'"
-        :highlight="$settings['hero_heading_line2'] ?? 'Built for Businesses Worldwide'"
-        :description="$settings['hero_info_heading'] ?? 'We design and build custom software, web applications and business websites for SMEs, startups and enterprises worldwide, delivered by an in-house team with a transparent process and long-term support.'"
-        :primary-label="$settings['hero_btn_primary'] ?? 'Book a Technical Consultation'"
-        :secondary-label="$settings['hero_btn_secondary'] ?? 'Send an Enquiry'"
-        :secondary-url="route('contact').'#contact-lead-form'"
+        :title="$settings['hero_heading_line1'] ?? __('home.hero_title')"
+        :highlight="$settings['hero_heading_line2'] ?? __('home.hero_highlight')"
+        :description="$settings['hero_info_heading'] ?? __('home.hero_text')"
+        :primary-label="$settings['hero_btn_primary'] ?? __('home.hero_primary')"
+        :secondary-label="$settings['hero_btn_secondary'] ?? __('home.hero_secondary')"
+        :secondary-url="localized_route('contact').'#contact-lead-form'"
         :image="\App\Models\Setting::imageUrl($settings['hero_image'] ?? null, 'hero_image')"
-        image-alt="Tectignis custom software and website development"
+        :image-alt="__('home.hero_image_alt')"
         :image-width="$heroImageWidth"
         :image-height="$heroImageHeight"
         :trust="$heroTrust"
@@ -56,9 +56,9 @@
 
     {{-- 02 Trust Bar --}}
     @if ($brands->isNotEmpty())
-        <section class="tx-trust" aria-label="Clients and partners">
+        <section class="tx-trust" aria-label="{{ __('home.trust_label') }}">
             <div class="container">
-                <p class="tx-trust__title">{{ $settings['trust_heading'] ?? 'Trusted by businesses in India and internationally' }}</p>
+                <p class="tx-trust__title">{{ $settings['trust_heading'] ?? __('home.trust_heading') }}</p>
             </div>
             <x-public.brands :brands="$brands" />
         </section>
@@ -69,9 +69,9 @@
         <section class="tx-section tx-section--muted" id="core-services">
             <div class="container">
                 <x-public.section-heading
-                    :pretitle="$settings['core_pretitle'] ?? 'Core Services'"
-                    :title="$settings['core_heading'] ?? 'Software and Websites Built'"
-                    :highlight="$settings['core_heading_highlight'] ?? 'Around Your Business'"
+                    :pretitle="$settings['core_pretitle'] ?? __('home.core_pretitle')"
+                    :title="$settings['core_heading'] ?? __('home.core_heading')"
+                    :highlight="$settings['core_heading_highlight'] ?? __('home.core_highlight')"
                 />
                 <div class="tx-grid tx-grid--2">
                     @foreach ($coreServices as $coreService)
@@ -86,8 +86,8 @@
     <section class="tx-section" id="solutions">
         <div class="container">
             <x-public.section-heading
-                :pretitle="$settings['pillars_pretitle'] ?? 'What We Do'"
-                :title="$settings['pillars_heading'] ?? 'Four Pillars. One Accountable Technology Partner.'"
+                :pretitle="$settings['pillars_pretitle'] ?? __('home.pillars_pretitle')"
+                :title="$settings['pillars_heading'] ?? __('home.pillars_heading')"
                 :subtitle="$settings['pillars_subtitle'] ?? null"
             />
             <div class="tx-grid tx-grid--4">
@@ -97,8 +97,8 @@
                         :title="$pillar->label()"
                         :text="$pillar->message()"
                         :icon="$pillar->icon()"
-                        :items="$pillar->primaryServices()"
-                        link-label="Explore {{ $pillar->label() }}"
+                        :items="array_map(\App\Support\EnquiryServices::label(...), $pillar->primaryServices())"
+                        :link-label="__('home.explore_pillar', ['pillar' => $pillar->label()])"
                     />
                 @endforeach
             </div>
@@ -112,9 +112,9 @@
                 <div class="tx-why__intro">
                     <x-public.section-heading
                         align="left"
-                        :pretitle="$settings['why_badge'] ?? 'Why Tectignis'"
-                        :title="$settings['why_heading'] ?? 'Why Businesses Choose'"
-                        :highlight="$settings['why_heading_highlight'] ?? 'Tectignis?'"
+                        :pretitle="$settings['why_badge'] ?? __('home.why_pretitle')"
+                        :title="$settings['why_heading'] ?? __('home.why_heading')"
+                        :highlight="$settings['why_heading_highlight'] ?? __('home.why_highlight')"
                         :subtitle="$settings['why_subtitle'] ?? null"
                     />
                     @if ($company->stats()->isNotEmpty())
@@ -127,7 +127,7 @@
                             @endforeach
                         </ul>
                     @endif
-                    <a href="{{ route('about') }}" class="tx-btn tx-btn--outline">About Tectignis</a>
+                    <a href="{{ route('about') }}" class="tx-btn tx-btn--outline">{{ __('home.about_link') }}</a>
                 </div>
 
                 <ul class="tx-why__features">
@@ -150,8 +150,8 @@
         <section class="tx-section" id="work">
             <div class="container">
                 <x-public.section-heading
-                    :pretitle="$settings['cs_badge'] ?? 'Recent Projects'"
-                    :title="$settings['cs_heading'] ?? 'Real Stories. Real Impact.'"
+                    :pretitle="$settings['cs_badge'] ?? __('home.cs_pretitle')"
+                    :title="$settings['cs_heading'] ?? __('home.cs_heading')"
                     :subtitle="$settings['cs_subtitle'] ?? null"
                 />
                 <div class="tx-grid tx-grid--3">
@@ -160,7 +160,7 @@
                     @endforeach
                 </div>
                 <div class="tx-section__footer">
-                    <a href="{{ route('case-studies.index') }}" class="tx-btn tx-btn--primary">View Our Work <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    <a href="{{ route('case-studies.index') }}" class="tx-btn tx-btn--primary">{{ __('nav.view_our_work') }} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </div>
         </section>
@@ -171,9 +171,9 @@
         <section class="tx-section tx-section--muted">
             <div class="container">
                 <x-public.section-heading
-                    :pretitle="$settings['ind_pretitle'] ?? 'Industries We Serve'"
-                    :title="$settings['ind_heading_line1'] ?? 'Empowering Every Industry'"
-                    :highlight="$settings['ind_heading_line2'] ?? 'with Intelligent Solutions'"
+                    :pretitle="$settings['ind_pretitle'] ?? __('home.ind_pretitle')"
+                    :title="$settings['ind_heading_line1'] ?? __('home.ind_heading')"
+                    :highlight="$settings['ind_heading_line2'] ?? __('home.ind_highlight')"
                     :subtitle="$settings['ind_subtitle'] ?? null"
                 />
                 <div class="tx-grid tx-grid--industries">
@@ -190,8 +190,8 @@
         <section class="tx-section">
             <div class="container">
                 <x-public.section-heading
-                    :pretitle="$settings['process_pretitle'] ?? 'How We Work'"
-                    :title="$settings['process_heading'] ?? 'A Delivery Process You Can Plan Around'"
+                    :pretitle="$settings['process_pretitle'] ?? __('home.process_pretitle')"
+                    :title="$settings['process_heading'] ?? __('home.process_heading')"
                     :subtitle="$settings['process_subtitle'] ?? null"
                 />
                 <ol class="tx-process" style="--step-count: {{ $processSteps->count() }}">
@@ -215,9 +215,9 @@
         <section class="tx-section tx-section--muted">
             <div class="container">
                 <x-public.section-heading
-                    :pretitle="$settings['tech_sub_heading'] ?? 'Tools & Platforms'"
-                    :title="$settings['tech_heading'] ?? 'Technology'"
-                    :highlight="$settings['tech_heading_highlight'] ?? 'Stack'"
+                    :pretitle="$settings['tech_sub_heading'] ?? __('home.tech_pretitle')"
+                    :title="$settings['tech_heading'] ?? __('home.tech_heading')"
+                    :highlight="$settings['tech_heading_highlight'] ?? __('home.tech_highlight')"
                 />
                 <div class="tx-tech">
                     @foreach (\App\Enums\TechStackCategory::cases() as $category)
@@ -245,7 +245,7 @@
     @if ($testimonials->isNotEmpty())
         <section class="tx-section">
             <div class="container">
-                <x-public.section-heading pretitle="Client Testimonials" title="What Our Clients Say" />
+                <x-public.section-heading :pretitle="__('home.testimonials_pretitle')" :title="__('home.testimonials_heading')" />
                 <div class="tx-grid tx-grid--3">
                     @foreach ($testimonials->take(3) as $testimonial)
                         <x-public.testimonial-card
@@ -264,9 +264,9 @@
         <div class="container">
             <x-public.section-heading
                 tone="dark"
-                :pretitle="$settings['gp_pretitle'] ?? 'Global Delivery'"
-                :title="$settings['gp_heading'] ?? 'Delivering Technology Solutions Across'"
-                :highlight="$settings['gp_heading_highlight'] ?? 'India & Worldwide'"
+                :pretitle="$settings['gp_pretitle'] ?? __('home.global_pretitle')"
+                :title="$settings['gp_heading'] ?? __('home.global_heading')"
+                :highlight="$settings['gp_heading_highlight'] ?? __('home.global_highlight')"
                 :subtitle="$settings['gp_subtitle'] ?? null"
             />
             <ul class="tx-markets">
@@ -303,14 +303,14 @@
         </div>
     </section>
 
-    {{-- 11 Insights --}}
-    @if ($recentPosts->isNotEmpty())
+    {{-- 11 Insights: the blog is English-only, so it's left out of the other languages --}}
+    @if ($recentPosts->isNotEmpty() && \App\Support\Locales::isDefault())
         <section class="tx-section">
             <div class="container">
                 <x-public.section-heading
-                    :pretitle="$settings['res_sub_heading'] ?? 'Insights'"
-                    :title="$settings['res_heading'] ?? 'Resources &'"
-                    :highlight="$settings['res_heading_highlight'] ?? 'Insights'"
+                    :pretitle="$settings['res_sub_heading'] ?? __('home.res_pretitle')"
+                    :title="$settings['res_heading'] ?? __('home.res_heading')"
+                    :highlight="$settings['res_heading_highlight'] ?? __('home.res_highlight')"
                 />
                 <div class="tx-grid tx-grid--3">
                     @foreach ($recentPosts as $post)
@@ -324,7 +324,7 @@
                     @endforeach
                 </div>
                 <div class="tx-section__footer">
-                    <a href="{{ route('blog.index') }}" class="tx-btn tx-btn--outline">View All Resources</a>
+                    <a href="{{ route('blog.index') }}" class="tx-btn tx-btn--outline">{{ __('home.res_all') }}</a>
                 </div>
             </div>
         </section>
@@ -332,12 +332,12 @@
 
     {{-- 12 Lead CTA (13 Footer is rendered by the layout) --}}
     <x-public.lead-cta
-        :overline="$settings['cta_overline'] ?? 'Talk to a solution engineer'"
-        :title="trim(($settings['cta_heading'] ?? 'Ready to').' '.($settings['cta_heading_highlight'] ?? 'Transform'))"
-        :highlight="$settings['cta_heading_suffix'] ?? 'Your Business?'"
+        :overline="$settings['cta_overline'] ?? __('home.cta_overline')"
+        :title="trim(($settings['cta_heading'] ?? __('home.cta_heading')).' '.($settings['cta_heading_highlight'] ?? __('home.cta_heading_highlight')))"
+        :highlight="$settings['cta_heading_suffix'] ?? __('home.cta_heading_suffix')"
         :text="$settings['cta_subheading'] ?? null"
-        :primary-label="$settings['cta_btn_primary'] ?? 'Book a Technical Consultation'"
-        :secondary-label="$settings['cta_btn_secondary'] ?? 'Request a Project Assessment'"
+        :primary-label="$settings['cta_btn_primary'] ?? __('home.cta_primary')"
+        :secondary-label="$settings['cta_btn_secondary'] ?? __('home.cta_secondary')"
     />
 
 @endsection

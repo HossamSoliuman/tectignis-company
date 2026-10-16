@@ -14,12 +14,7 @@ enum LeadTimeline: string
 
     public function label(): string
     {
-        return match ($this) {
-            self::Immediate => 'Immediate',
-            self::OneToThreeMonths => '1–3 months',
-            self::ThreeToSixMonths => '3–6 months',
-            self::SixPlusMonths => '6+ months',
-        };
+        return __('forms.timelines.'.$this->value);
     }
 
     /**

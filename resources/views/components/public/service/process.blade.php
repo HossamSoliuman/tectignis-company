@@ -3,8 +3,8 @@
 @php
     $section = $service->content['process'] ?? [];
     $steps = array_values(array_filter($section['steps'] ?? [], fn ($s) => filled($s['title'] ?? null)));
-    $heading = $section['heading'] ?? 'Our Simple '.count($steps).'-Step Process';
-    $subtitle = $section['subtitle'] ?? 'How We Work';
+    $heading = $section['heading'] ?? __('services.process_heading', ['count' => count($steps)]);
+    $subtitle = $section['subtitle'] ?? __('services.process_subtitle');
     $lead = $section['lead'] ?? 'A clear, proven path from first conversation to launch and beyond - so you always know exactly what happens next.';
     // Icons cycled per step when no custom upload is provided, so the
     // "line of icons" always reads as a coherent journey.
@@ -50,8 +50,8 @@
                 
                 <!-- CTA -->
 <div class="col-12 text-center mt-5">
-    <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">
-        Start Your Project
+    <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">
+        {{ __('services.start_project') }}
     </a>
 </div>
             </div>

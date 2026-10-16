@@ -28,13 +28,9 @@ class PageController extends Controller
 
     public function legal(string $slug): View
     {
-        $titles = [
-            'privacy-policy' => 'Privacy Policy',
-            'terms-and-conditions' => 'Terms and Conditions',
-            'refund-policy' => 'Refund Policy',
-        ];
-
-        $title = $titles[$slug] ?? ucwords(str_replace('-', ' ', $slug));
+        $title = trans()->has('common.legal.'.$slug)
+            ? __('common.legal.'.$slug)
+            : ucwords(str_replace('-', ' ', $slug));
         $content = Setting::get('legal_'.$slug);
 
         return view('public.legal', compact('slug', 'title', 'content'));

@@ -6,6 +6,7 @@ use App\Enums\LeadBudget;
 use App\Enums\LeadSource;
 use App\Enums\LeadStatus;
 use App\Enums\LeadTimeline;
+use App\Support\Locales;
 use Database\Factories\LeadFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,7 +30,7 @@ class Lead extends Model
 
     protected $fillable = [
         'name', 'email', 'company', 'country', 'service', 'phone', 'subject', 'message', 'budget', 'timeline',
-        'attachment', 'source', 'page_url', 'landing_page', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+        'attachment', 'source', 'page_url', 'landing_page', 'language', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
         'status', 'assigned_to', 'is_read', 'consented_at',
     ];
 
@@ -111,6 +112,14 @@ class Lead extends Model
     public function timelineLabel(): ?string
     {
         return LeadTimeline::tryFrom((string) $this->timeline)?->label() ?? $this->timeline;
+    }
+
+    /**
+     * The language the form was submitted in, e.g. "Arabic (ar)".
+     */
+    public function languageLabel(): ?string
+    {
+        return $this->language ? Locales::label($this->language).' ('.$this->language.')' : null;
     }
 
     /**

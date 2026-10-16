@@ -2,9 +2,9 @@
 
 @php
     $section = $service->content['lets_start'] ?? [];
-    $heading = $section['heading'] ?? "Let's Start Something Great";
-    $subtitle = $section['subtitle'] ?? 'Get In Touch';
-    $text = $section['text'] ?? 'Tell us about your project and our team will get back to you within one business day with the next steps.';
+    $heading = $section['heading'] ?? __('services.start_heading');
+    $subtitle = $section['subtitle'] ?? __('services.start_subtitle');
+    $text = $section['text'] ?? __('services.start_text');
     $company ??= app(\App\Support\CompanyProfile::class);
     $phone = $company->phone();
     $email = $company->email();
@@ -24,21 +24,21 @@
                         <li>
                             <span class="svc-start__contact-icon"><i class="fas fa-phone-alt"></i></span>
                             <div>
-                                <span class="svc-start__contact-label">Call us</span>
+                                <span class="svc-start__contact-label">{{ __('services.call_us') }}</span>
                                 <a href="tel:{{ preg_replace('/[^0-9+]/', '', $phone) }}">{{ $phone }}</a>
                             </div>
                         </li>
                         <li>
                             <span class="svc-start__contact-icon"><i class="fas fa-envelope"></i></span>
                             <div>
-                                <span class="svc-start__contact-label">Email us</span>
+                                <span class="svc-start__contact-label">{{ __('services.email_us') }}</span>
                                 <a href="mailto:{{ $email }}">{{ $email }}</a>
                             </div>
                         </li>
                         <li>
                             <span class="svc-start__contact-icon"><i class="fas fa-map-marker-alt"></i></span>
                             <div>
-                                <span class="svc-start__contact-label">Visit us</span>
+                                <span class="svc-start__contact-label">{{ __('services.visit_us') }}</span>
                                 <span>{{ $address }}</span>
                             </div>
                         </li>
@@ -48,7 +48,7 @@
                 <div class="col-lg-7 svc-start__form-col wow move-up">
                     <div class="svc-start__form">
                         <x-public.enquiry-form form-id="service-enquiry" source="contact" variant="service"
-                            :subject="$service->title.' Enquiry'" submit-label="Send Enquiry" />
+                            :subject="$service->getRawOriginal('title').' Enquiry'" />
                     </div>
                 </div>
             </div>

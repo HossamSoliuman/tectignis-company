@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'label' => 'Site footer',
+    'cta_title' => 'Have a project in mind?',
+    'cta_text' => 'Talk to a solution engineer about software, AI, cloud, cybersecurity or IT infrastructure.',
+    'company' => 'Company',
+    'about' => 'About Us',
+    'careers' => 'Careers',
+    'contact' => 'Contact',
+    'solutions' => 'Solutions',
+    'saas' => 'SaaS Product Development',
+    'industries' => 'Industries',
+    'all_industries' => 'All Industries',
+    'resources' => 'Resources',
+    'blog' => 'Blog',
+    'case_studies' => 'Case Studies',
+    'insights' => 'Guides & Insights',
+    'downloads' => 'Downloads',
+    'faqs' => 'FAQs',
+    'global' => 'Global',
+    'rights' => 'All rights reserved.',
+    'legal' => 'Legal',
+    'privacy' => 'Privacy Policy',
+    'terms' => 'Terms & Conditions',
+    'cookies' => 'Cookie Policy',
+    'sitemap' => 'Sitemap',
+];

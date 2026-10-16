@@ -7,7 +7,10 @@
     $benefits = $landingPage->benefits();
     $steps = $landingPage->processSteps();
     $faqs = $landingPage->faqItems();
-    $formHeading = $landingPage->contentValue('form.heading', 'Tell Us About Your Project');
+    $formHeading = $landingPage->contentValue('form.heading', __('landing.form_heading'));
+    // The lead's subject stays in English for the sales team; its language is stored with it.
+    $enquirySubject = $landingPage->getRawOriginal('title').' Enquiry';
+    $consultationSubject = $landingPage->getRawOriginal('secondary_cta_label').' - '.$enquirySubject;
     $formText = $landingPage->contentValue('form.text');
     $stats = collect(['projects', 'clients', 'industries'])
         ->map(fn (string $key) => $company->stat($key))
@@ -29,11 +32,11 @@
     @if (filled($pageDescription))
         <meta property="og:description" content="{{ $pageDescription }}">
     @endif
-    <meta property="og:url" content="{{ route('landing-pages.show', $landingPage->slug) }}">
+    <meta property="og:url" content="{{ localized_route('landing-pages.show', $landingPage->slug) }}">
     <meta property="og:type" content="website">
 @endsection
 
-@section('canonical', route('landing-pages.show', $landingPage->slug))
+@section('canonical', localized_route('landing-pages.show', $landingPage->slug))
 
 @section('header-cta')
     <a href="#enquiry" class="svc-btn svc-btn--primary lp-header__cta" data-lp-cta="primary">{{ $landingPage->primary_cta_label }}</a>
@@ -77,14 +80,14 @@
 
                 <div class="lp-hero__form" id="enquiry" tabindex="-1" @if ($hasFormErrors) data-lp-errors @endif>
                     <div class="lp-form-card">
-                        <h2 class="lp-form-card__title" data-lp-form-title data-primary-title="{{ $formHeading }}" data-secondary-title="{{ $landingPage->secondary_cta_label }}">{{ $isConsultation ? $landingPage->secondary_cta_label : $formHeading }}</h2>
+                        <h2 class="lp-form-card__title" data-lp-form-title data-primary-title="{{ $formHeading }}" data-secondary-title="{{ $landingPage->secondary_cta_label }}" data-consultation-subject="{{ $consultationSubject }}">{{ $isConsultation ? $landingPage->secondary_cta_label : $formHeading }}</h2>
                         @if (filled($formText))
                             <p class="lp-form-card__text">{{ $formText }}</p>
                         @endif
 
                         <x-public.enquiry-form form-id="landing-enquiry" :source="$isConsultation ? 'consultation' : 'contact'" variant="page"
                             :service="$landingPage->enquiry_service" :landing-page="$landingPage->slug"
-                            :subject="$isConsultation ? $landingPage->secondary_cta_label.' - '.$landingPage->title.' Enquiry' : $landingPage->title.' Enquiry'" :submit-label="$landingPage->primary_cta_label" />
+                            :subject="$isConsultation ? $consultationSubject : $enquirySubject" :submit-label="$landingPage->primary_cta_label" />
                     </div>
                 </div>
             </div>
@@ -96,7 +99,7 @@
         <section class="svc-section lp-section">
             <div class="container">
                 <div class="svc-section-head text-center">
-                    <h2 class="svc-section-title">{{ $landingPage->service?->content['benefits']['heading'] ?? 'Business Benefits' }}</h2>
+                    <h2 class="svc-section-title">{{ $landingPage->service?->content['benefits']['heading'] ?? __('landing.benefits_heading') }}</h2>
                 </div>
                 <div class="lp-grid lp-grid--3">
                     @foreach ($benefits as $index => $benefit)
@@ -126,7 +129,7 @@
         <section class="svc-section lp-section lp-section--soft">
             <div class="container">
                 <div class="svc-section-head text-center">
-                    <h2 class="svc-section-title">Project Examples</h2>
+                    <h2 class="svc-section-title">{{ __('landing.projects_heading') }}</h2>
                 </div>
                 <div class="lp-grid lp-grid--3">
                     @foreach ($caseStudies as $caseStudy)
@@ -155,7 +158,7 @@
         <section class="svc-section lp-section">
             <div class="container">
                 <div class="svc-section-head text-center">
-                    <h2 class="svc-section-title">How We Deliver Your Project</h2>
+                    <h2 class="svc-section-title">{{ __('landing.process_heading') }}</h2>
                 </div>
                 <ol class="lp-steps">
                     @foreach ($steps as $index => $step)
@@ -179,7 +182,7 @@
         <section class="svc-section lp-section lp-section--soft">
             <div class="container lp-container--narrow">
                 <div class="svc-section-head text-center">
-                    <h2 class="svc-section-title">{{ $landingPage->contentValue('faq.heading', 'Frequently Asked Questions') }}</h2>
+                    <h2 class="svc-section-title">{{ $landingPage->contentValue('faq.heading', __('landing.faq_heading')) }}</h2>
                 </div>
                 <div class="lp-faq">
                     @foreach ($faqs as $faq)
@@ -209,7 +212,7 @@
     {{-- Mobile sticky action bar, hidden while the form is on screen. --}}
     <div class="lp-sticky" data-lp-sticky>
         <a href="{{ $company->phoneHref() }}" class="lp-sticky__call" data-track="phone_click">
-            <i class="fas fa-phone-alt" aria-hidden="true"></i><span class="sr-only">Call {{ $company->phone() }}</span>
+            <i class="fas fa-phone-alt" aria-hidden="true"></i><span class="sr-only">{{ __('common.call', ['phone' => $company->phone()]) }}</span>
         </a>
         <a href="#enquiry" class="svc-btn svc-btn--primary lp-sticky__cta" data-lp-cta="primary">{{ $landingPage->primary_cta_label }}</a>
     </div>
@@ -225,14 +228,14 @@
         var title = formWrap.querySelector('[data-lp-form-title]');
         var source = form && form.querySelector('input[name="source"]');
         var subject = form && form.querySelector('input[name="subject"]');
-        var baseSubject = {{ Illuminate\Support\Js::from($landingPage->title.' Enquiry') }};
+        var baseSubject = {{ Illuminate\Support\Js::from($enquirySubject) }};
 
         // The secondary CTA ("Request a Consultation") files the lead as a
         // consultation request; the primary CTA keeps it a project enquiry.
         function setIntent(intent) {
             var consultation = intent === 'secondary';
             if (source) { source.value = consultation ? 'consultation' : 'contact'; }
-            if (subject) { subject.value = consultation ? title.getAttribute('data-secondary-title') + ' - ' + baseSubject : baseSubject; }
+            if (subject) { subject.value = consultation ? title.getAttribute('data-consultation-subject') : baseSubject; }
             if (title) { title.textContent = title.getAttribute(consultation ? 'data-secondary-title' : 'data-primary-title'); }
         }
 

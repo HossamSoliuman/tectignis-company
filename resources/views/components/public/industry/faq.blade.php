@@ -50,7 +50,7 @@
                         <span class="ind-midcta__pattern" aria-hidden="true"></span>
                         <h3 class="ind-midcta__title">{{ $ctaHeading }}</h3>
                         <p class="ind-midcta__text">{{ $ctaText }}</p>
-                        <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">{{ $ctaLabel }} <i class="fas fa-arrow-right"></i></a>
+                        <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">{{ $ctaLabel }} <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>

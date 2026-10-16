@@ -28,7 +28,7 @@ class Recaptcha implements ValidationRule
         }
 
         if (! $recaptcha->verify(is_string($value) ? $value : null, Request::ip())) {
-            $fail('Please confirm you are not a robot and try again.');
+            $fail(__('forms.messages.captcha'));
         }
     }
 }

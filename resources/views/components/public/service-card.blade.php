@@ -5,7 +5,7 @@
     'icon' => null,
     'iconImage' => null,
     'items' => [],
-    'linkLabel' => 'Explore',
+    'linkLabel' => null,
 ])
 
 {{-- A solution / service card linking to its detail page (spec §20 ServiceCard). --}}
@@ -34,5 +34,5 @@
         </ul>
     @endif
 
-    <span class="tx-service-card__more" aria-hidden="true">{{ $linkLabel }} <i class="fas fa-arrow-right"></i></span>
+    <span class="tx-service-card__more" aria-hidden="true">{{ $linkLabel ?? __('services.explore') }} <i class="fas fa-arrow-right"></i></span>
 </article>

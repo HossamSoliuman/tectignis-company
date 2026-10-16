@@ -29,49 +29,50 @@
         'IN' => '98765 43210', 'US' => '(201) 555-0123', 'AE' => '50 123 4567',
         'GB' => '7400 123456', 'CA' => '(506) 234-5678', 'DE' => '1512 3456789',
     ];
-    $groups = $codes->groupBy(fn (array $code): string => $code['priority'] ? 'Suggested' : 'All countries');
+    $groups = $codes->groupBy(fn (array $code): string => $code['priority'] ? __('forms.phone_input.suggested') : __('forms.phone_input.all'));
 @endphp
 
-<div class="phone-field phone-field--{{ $variant }}" data-phone-field @if ($country) data-phone-explicit @endif @if ($placeholder) data-phone-fixed-placeholder @endif>
+<div class="phone-field phone-field--{{ $variant }}" data-phone-field
+    data-code-label="{{ __('forms.phone_input.country_code') }}" data-number-label="{{ __('forms.phone_input.number') }}" @if ($country) data-phone-explicit @endif @if ($placeholder) data-phone-fixed-placeholder @endif>
     <input type="hidden" name="{{ $countryName }}" value="{{ $selected['iso'] }}" data-phone-country>
 
     <button type="button" class="phone-field__trigger" data-phone-trigger
         aria-haspopup="listbox" aria-expanded="false" aria-controls="{{ $menuId }}-menu"
-        aria-label="Country code: {{ $selected['name'] }} ({{ $selected['dial'] }})">
+        aria-label="{{ __('forms.phone_input.country_code', ['country' => $selected['label']]) }} ({{ $selected['dial'] }})">
         <img class="phone-field__flag" src="{{ $flag($selected['iso']) }}" alt="" width="20" height="15" data-phone-flag>
         <span class="phone-field__dial" data-phone-dial>{{ $selected['dial'] }}</span>
         <svg class="phone-field__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </button>
 
     <input id="{{ $id }}" {{ $attributes->class(['phone-field__input', $inputClass => filled($inputClass)]) }} name="{{ $name }}" type="tel" inputmode="tel" autocomplete="tel"
-        placeholder="{{ $placeholder ?? ($examples[$selected['iso']] ?? 'Phone number') }}" value="{{ $value }}" maxlength="20" data-phone-input>
+        placeholder="{{ $placeholder ?? ($examples[$selected['iso']] ?? __('forms.phone_input.number')) }}" value="{{ $value }}" maxlength="20" data-phone-input>
 
     <div class="phone-field__menu" id="{{ $menuId }}-menu" tabindex="-1" data-phone-menu hidden>
         <div class="phone-field__search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
             <input type="text" role="combobox" aria-expanded="true" aria-controls="{{ $menuId }}" aria-autocomplete="list"
-                aria-label="Search countries" placeholder="Search country or code" autocomplete="off" spellcheck="false" data-phone-search>
+                aria-label="{{ __('forms.phone_input.search') }}" placeholder="{{ __('forms.phone_input.search_placeholder') }}" autocomplete="off" spellcheck="false" data-phone-search>
         </div>
 
-        <div class="phone-field__list" id="{{ $menuId }}" role="listbox" aria-label="Country codes" data-phone-list>
+        <div class="phone-field__list" id="{{ $menuId }}" role="listbox" aria-label="{{ __('forms.phone_input.codes') }}" data-phone-list>
             @foreach ($groups as $label => $group)
                 <div class="phone-field__group" role="group" aria-labelledby="{{ $menuId }}-group-{{ $loop->index }}" data-phone-group>
                     <div class="phone-field__group-label" id="{{ $menuId }}-group-{{ $loop->index }}">{{ $label }}</div>
                     @foreach ($group as $code)
                         <div class="phone-field__option" role="option" id="{{ $menuId }}-{{ strtolower($code['iso']) }}"
                             aria-selected="{{ $code['iso'] === $selected['iso'] ? 'true' : 'false' }}"
-                            data-iso="{{ $code['iso'] }}" data-dial="{{ $code['dial'] }}" data-name="{{ $code['name'] }}"
+                            data-iso="{{ $code['iso'] }}" data-dial="{{ $code['dial'] }}" data-name="{{ $code['name'] }}" data-label="{{ $code['label'] }}"
                             data-example="{{ $examples[$code['iso']] ?? '' }}"
-                            data-search="{{ strtolower($code['name'].' '.$code['iso'].' '.ltrim($code['dial'], '+').' '.($aliases[$code['iso']] ?? '')) }}">
+                            data-search="{{ mb_strtolower($code['label'].' '.$code['name'].' '.$code['iso'].' '.ltrim($code['dial'], '+').' '.($aliases[$code['iso']] ?? '')) }}">
                             <img class="phone-field__flag" src="{{ $flag($code['iso']) }}" alt="" width="20" height="15" loading="lazy">
-                            <span class="phone-field__name">{{ $code['name'] }}</span>
+                            <span class="phone-field__name">{{ $code['label'] }}</span>
                             <span class="phone-field__code">{{ $code['dial'] }}</span>
                             <svg class="phone-field__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </div>
                     @endforeach
                 </div>
             @endforeach
-            <p class="phone-field__empty" data-phone-empty hidden>No countries match your search.</p>
+            <p class="phone-field__empty" data-phone-empty hidden>{{ __('forms.phone_input.no_match') }}</p>
         </div>
     </div>
 </div>
@@ -138,9 +139,9 @@
                 hidden.value = option.getAttribute('data-iso');
                 flag.src = option.querySelector('img').getAttribute('src');
                 dial.textContent = option.getAttribute('data-dial');
-                trigger.setAttribute('aria-label', 'Country code: ' + option.getAttribute('data-name') + ' (' + option.getAttribute('data-dial') + ')');
+                trigger.setAttribute('aria-label', root.getAttribute('data-code-label').replace(':country', option.getAttribute('data-label')) + ' (' + option.getAttribute('data-dial') + ')');
                 if (!fixedPlaceholder) {
-                    input.placeholder = option.getAttribute('data-example') || 'Phone number';
+                    input.placeholder = option.getAttribute('data-example') || root.getAttribute('data-number-label');
                 }
                 syncTriggerWidth();
             }

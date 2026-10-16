@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Enums\Pillar;
+use Illuminate\Support\Str;
 
 /**
  * The approved "Service Required" options on the project enquiry form
@@ -38,9 +39,20 @@ final class EnquiryServices
             $groups[$pillar->label()] = [...$pillar->primaryServices(), ...(self::EXTRA[$pillar->value] ?? [])];
         }
 
-        $groups['General'] = self::GENERAL;
+        $groups[__('forms.services_general')] = self::GENERAL;
 
         return $groups;
+    }
+
+    /**
+     * The option's name in the current language. The submitted and stored
+     * value always stays the English name.
+     */
+    public static function label(string $name): string
+    {
+        $key = 'forms.services.'.Str::slug($name);
+
+        return trans()->has($key) ? __($key) : $name;
     }
 
     /**

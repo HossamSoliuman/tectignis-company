@@ -12,16 +12,16 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.184a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>
             </span>
             <div class="consult-modal__heading">
-                <h3 class="consult-modal__title" id="consult-modal-title">Book a Technical Consultation</h3>
-                <p class="consult-modal__desc">Tell us about your project and a solution engineer will get back to you.</p>
+                <h3 class="consult-modal__title" id="consult-modal-title">{{ __('forms.consultation.title') }}</h3>
+                <p class="consult-modal__desc">{{ __('forms.consultation.text') }}</p>
             </div>
-            <button type="button" class="consult-modal__close" data-consult-close aria-label="Close">
+            <button type="button" class="consult-modal__close" data-consult-close aria-label="{{ __('forms.consultation.close') }}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M6 6l12 12"/></svg>
             </button>
         </div>
 
         <div class="consult-modal__body">
-            <x-public.enquiry-form form-id="consultation-modal" source="consultation" variant="modal" submit-label="Submit Request" />
+            <x-public.enquiry-form form-id="consultation-modal" source="consultation" variant="modal" :submit-label="__('forms.submit_request')" />
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasContentScopes;
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\LandingPageFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class LandingPage extends Model
 {
     /** @use HasFactory<LandingPageFactory> */
-    use HasContentScopes, HasFactory;
+    use HasContentScopes, HasFactory, HasTranslations;
+
+    /**
+     * Text served in the visitor's language (HasTranslations).
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['headline', 'supporting_text', 'primary_cta_label', 'secondary_cta_label', 'content', 'seo_title', 'seo_description'];
 
     protected $fillable = [
         'slug', 'title', 'service_id', 'enquiry_service', 'headline', 'supporting_text',

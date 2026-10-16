@@ -2,8 +2,8 @@
 
 @php
     $section = $service->content['why_choose'] ?? [];
-    $heading = $section['heading'] ?? 'Why Choose Tectignis';
-    $subtitle = $section['subtitle'] ?? 'The Tectignis Difference';
+    $heading = $section['heading'] ?? __('services.why_heading');
+    $subtitle = $section['subtitle'] ?? __('services.why_subtitle');
     $fallbackIcons = ['fas fa-medal', 'fas fa-code', 'fas fa-shield-alt', 'fas fa-bolt', 'fas fa-handshake', 'fas fa-headset'];
 
     // Preferred shape: rich cards [{icon, title, text}]. Falls back to the

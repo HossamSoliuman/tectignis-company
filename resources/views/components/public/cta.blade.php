@@ -1,6 +1,6 @@
 @props([
-    'heading' => 'We run all kinds of IT services that vow your success',
-    'buttonText' => "Let's talk",
+    'heading' => null,
+    'buttonText' => null,
     'buttonUrl' => null,
     'service' => null,
 ])
@@ -11,11 +11,11 @@
     $band = $service?->content['cta_band'] ?? [];
     $enabled = $service === null ? true : ($band['enabled'] ?? true);
     $resolvedHeading = $service === null
-        ? $heading
-        : ($band['heading'] ?? 'Ready to Kickstart Your '.$service->title.' Journey?');
+        ? ($heading ?? e(__('services.cta_heading')))
+        : ($band['heading'] ?? e(__('services.cta_band_heading', ['title' => $service->title])));
     $resolvedButtonText = $service === null
-        ? $buttonText
-        : ($band['button_label'] ?? 'Get Started');
+        ? ($buttonText ?? __('services.cta_button'))
+        : ($band['button_label'] ?? __('services.cta_band_button'));
 @endphp
 
 @if ($enabled)
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="cta-button-group--one text-center">
-                        <a href="{{ $buttonUrl ?? route('contact') }}" class="btn btn--white btn-one">
+                        <a href="{{ $buttonUrl ?? localized_route('contact') }}" class="btn btn--white btn-one">
                             <span class="btn-icon me-2"><i class="far fa-comment-alt"></i></span> {{ $resolvedButtonText }}
                         </a>
                     </div>

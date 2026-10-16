@@ -3,7 +3,7 @@
     'source' => 'contact',
     'variant' => 'page',
     'subject' => null,
-    'submitLabel' => 'Send Enquiry',
+    'submitLabel' => null,
     'service' => null,
     'landingPage' => null,
 ])
@@ -38,7 +38,7 @@
     </div>
 @endif
 
-<form {{ $attributes->merge(['class' => $s['form']]) }} action="{{ route('contact.submit') }}" method="post">
+<form {{ $attributes->merge(['class' => $s['form']]) }} action="{{ localized_route('contact.submit') }}" method="post">
     @csrf
     <input type="hidden" name="form_id" value="{{ $formId }}">
     <input type="hidden" name="source" value="{{ $source }}">
@@ -52,38 +52,38 @@
 
     <div class="{{ $s['grid'] }}">
         <div class="{{ $s['field'] }}">
-            <label for="{{ $id('name') }}" class="{{ $s['label'] }}">Name <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('name') }}" class="{{ $s['label'] }}">{{ __('forms.name') }} <span aria-hidden="true">*</span></label>
             <input id="{{ $id('name') }}" class="{{ $s['control'] }}" name="name" type="text" autocomplete="name"
-                placeholder="{{ $placeholder('Name *') }}" value="{{ $value('name') }}" maxlength="255" required>
+                placeholder="{{ $placeholder(__('forms.name_placeholder')) }}" value="{{ $value('name') }}" maxlength="255" required>
         </div>
 
         <div class="{{ $s['field'] }}">
-            <label for="{{ $id('email') }}" class="{{ $s['label'] }}">Business Email <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('email') }}" class="{{ $s['label'] }}">{{ __('forms.email') }} <span aria-hidden="true">*</span></label>
             <input id="{{ $id('email') }}" class="{{ $s['control'] }}" name="email" type="email" autocomplete="email"
-                placeholder="{{ $placeholder('Business Email *') }}" value="{{ $value('email') }}" maxlength="255" required>
+                placeholder="{{ $placeholder(__('forms.email_placeholder')) }}" value="{{ $value('email') }}" maxlength="255" required>
         </div>
 
         <div class="{{ $s['field'] }}">
-            <label for="{{ $id('phone') }}" class="{{ $s['label'] }}">Phone / WhatsApp <span class="consult-field__optional">(Optional)</span></label>
+            <label for="{{ $id('phone') }}" class="{{ $s['label'] }}">{{ __('forms.phone') }} <span class="consult-field__optional">{{ __('forms.optional') }}</span></label>
             <x-public.phone-input :id="$id('phone')" :variant="$variant" :input-class="$s['control']"
                 :value="$value('phone')" :country="$value('phone_country')"
-                :placeholder="$variant === 'service' ? 'Phone / WhatsApp (optional)' : null" />
+                :placeholder="$variant === 'service' ? __('forms.phone_placeholder') : null" />
         </div>
 
         <div class="{{ $s['field'] }}">
-            <label for="{{ $id('company') }}" class="{{ $s['label'] }}">Company <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('company') }}" class="{{ $s['label'] }}">{{ __('forms.company') }} <span aria-hidden="true">*</span></label>
             <input id="{{ $id('company') }}" class="{{ $s['control'] }}" name="company" type="text" autocomplete="organization"
-                placeholder="{{ $placeholder('Company *') }}" value="{{ $value('company') }}" maxlength="255" required>
+                placeholder="{{ $placeholder(__('forms.company_placeholder')) }}" value="{{ $value('company') }}" maxlength="255" required>
         </div>
 
         <div class="{{ $s['field'] }}">
-            <label for="{{ $id('service') }}" class="{{ $s['label'] }}">Service Required <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('service') }}" class="{{ $s['label'] }}">{{ __('forms.service') }} <span aria-hidden="true">*</span></label>
             <select id="{{ $id('service') }}" class="{{ $s['control'] }}" name="service" required>
-                <option value="" @selected(! $value('service', $service))>{{ $variant === 'service' ? 'Service Required *' : 'Choose a service' }}</option>
+                <option value="" @selected(! $value('service', $service))>{{ $variant === 'service' ? __('forms.service_placeholder') : __('forms.service_choose') }}</option>
                 @foreach (\App\Support\EnquiryServices::grouped() as $group => $serviceOptions)
                     <optgroup label="{{ $group }}">
                         @foreach ($serviceOptions as $serviceOption)
-                            <option value="{{ $serviceOption }}" @selected($value('service', $service) === $serviceOption)>{{ $serviceOption }}</option>
+                            <option value="{{ $serviceOption }}" @selected($value('service', $service) === $serviceOption)>{{ \App\Support\EnquiryServices::label($serviceOption) }}</option>
                         @endforeach
                     </optgroup>
                 @endforeach
@@ -91,33 +91,33 @@
         </div>
 
         <div class="{{ $s['field'] }}">
-            <label for="{{ $id('country') }}" class="{{ $s['label'] }}">Country <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('country') }}" class="{{ $s['label'] }}">{{ __('forms.country') }} <span aria-hidden="true">*</span></label>
             <select id="{{ $id('country') }}" class="{{ $s['control'] }}" name="country" autocomplete="country-name" required>
-                <option value="" @selected(! $value('country'))>{{ $variant === 'service' ? 'Country *' : 'Select your country' }}</option>
-                <optgroup label="Priority markets">
-                    @foreach (\App\Support\Countries::PRIORITY as $country)
-                        <option value="{{ $country }}" @selected($value('country') === $country)>{{ $country }}</option>
+                <option value="" @selected(! $value('country'))>{{ $variant === 'service' ? __('forms.country_placeholder') : __('forms.country_choose') }}</option>
+                <optgroup label="{{ __('forms.priority_markets') }}">
+                    @foreach (\App\Support\Countries::priorityOptions() as $country => $countryLabel)
+                        <option value="{{ $country }}" @selected($value('country') === $country)>{{ $countryLabel }}</option>
                     @endforeach
                 </optgroup>
-                <optgroup label="All countries">
-                    @foreach (\App\Support\Countries::others() as $country)
-                        <option value="{{ $country }}" @selected($value('country') === $country)>{{ $country }}</option>
+                <optgroup label="{{ __('forms.all_countries') }}">
+                    @foreach (\App\Support\Countries::otherOptions() as $country => $countryLabel)
+                        <option value="{{ $country }}" @selected($value('country') === $country)>{{ $countryLabel }}</option>
                     @endforeach
                 </optgroup>
             </select>
         </div>
 
         <div class="{{ $fullField }}">
-            <label for="{{ $id('message') }}" class="{{ $s['label'] }}">Project Description <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('message') }}" class="{{ $s['label'] }}">{{ __('forms.message') }} <span aria-hidden="true">*</span></label>
             <textarea id="{{ $id('message') }}" class="{{ $s['control'] }} {{ $variant === 'service' ? 'svc-input--area' : '' }}" name="message" rows="4"
-                placeholder="{{ $variant === 'service' ? 'Project Description *' : 'Goals, scope, current systems and anything else we should know…' }}"
+                placeholder="{{ $variant === 'service' ? __('forms.message_placeholder') : __('forms.message_hint') }}"
                 minlength="20" maxlength="5000" required>{{ $value('message') }}</textarea>
         </div>
 
         <div class="{{ $s['field'] }} enquiry-form__pair">
-            <label for="{{ $id('budget') }}" class="{{ $s['label'] }}">Budget Range <span class="consult-field__optional">(Optional)</span></label>
+            <label for="{{ $id('budget') }}" class="{{ $s['label'] }}">{{ __('forms.budget') }} <span class="consult-field__optional">{{ __('forms.optional') }}</span></label>
             <select id="{{ $id('budget') }}" class="{{ $s['control'] }}" name="budget">
-                <option value="" @selected(! $value('budget'))>{{ $variant === 'service' ? 'Budget Range (optional)' : 'Select a range' }}</option>
+                <option value="" @selected(! $value('budget'))>{{ $variant === 'service' ? __('forms.budget_placeholder') : __('forms.budget_choose') }}</option>
                 @foreach (\App\Enums\LeadBudget::options() as $optionValue => $label)
                     <option value="{{ $optionValue }}" @selected($value('budget') === $optionValue)>{{ $label }}</option>
                 @endforeach
@@ -125,9 +125,9 @@
         </div>
 
         <div class="{{ $s['field'] }} enquiry-form__pair">
-            <label for="{{ $id('timeline') }}" class="{{ $s['label'] }}">Timeline <span class="consult-field__optional">(Optional)</span></label>
+            <label for="{{ $id('timeline') }}" class="{{ $s['label'] }}">{{ __('forms.timeline') }} <span class="consult-field__optional">{{ __('forms.optional') }}</span></label>
             <select id="{{ $id('timeline') }}" class="{{ $s['control'] }}" name="timeline">
-                <option value="" @selected(! $value('timeline'))>{{ $variant === 'service' ? 'Timeline (optional)' : 'When do you want to start?' }}</option>
+                <option value="" @selected(! $value('timeline'))>{{ $variant === 'service' ? __('forms.timeline_placeholder') : __('forms.timeline_choose') }}</option>
                 @foreach (\App\Enums\LeadTimeline::options() as $optionValue => $label)
                     <option value="{{ $optionValue }}" @selected($value('timeline') === $optionValue)>{{ $label }}</option>
                 @endforeach
@@ -137,7 +137,7 @@
         <div class="{{ $fullField }}">
             <label class="enquiry-consent">
                 <input type="checkbox" name="consent" value="1" @checked($value('consent')) required>
-                <span>I agree to the <a href="{{ route('legal.show', 'privacy-policy') }}" target="_blank" rel="noopener">Privacy Policy</a> and to Tectignis contacting me about this enquiry. <span aria-hidden="true">*</span></span>
+                <span>{!! __('forms.consent', ['link' => '<a href="'.e(localized_route('legal.show', 'privacy-policy')).'" target="_blank" rel="noopener">'.e(__('forms.privacy_policy')).'</a>']) !!} <span aria-hidden="true">*</span></span>
             </label>
         </div>
 
@@ -146,7 +146,7 @@
         </div>
 
         <div class="{{ $s['full'] }} {{ $variant === 'service' ? '' : 'enquiry-form__actions' }}">
-            <button type="submit" class="{{ $s['submit'] }}">{{ $submitLabel }} <span aria-hidden="true">→</span></button>
+            <button type="submit" class="{{ $s['submit'] }}">{{ $submitLabel ?? __('forms.send_enquiry') }} <span aria-hidden="true">→</span></button>
         </div>
     </div>
 </form>

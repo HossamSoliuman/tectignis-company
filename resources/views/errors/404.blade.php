@@ -17,8 +17,8 @@
                     Let's get you back on track.
                 </p>
                 <div class="error-page__actions">
-                    <a href="{{ route('home') }}" class="about-btn about-btn--primary">Back to Home <span aria-hidden="true">→</span></a>
-                    <a href="{{ route('contact') }}" class="about-btn about-btn--ghost">Contact Us</a>
+                    <a href="{{ localized_route('home') }}" class="about-btn about-btn--primary">Back to Home <span aria-hidden="true">→</span></a>
+                    <a href="{{ localized_route('contact') }}" class="about-btn about-btn--ghost">Contact Us</a>
                 </div>
 
                 <div class="error-page__links">

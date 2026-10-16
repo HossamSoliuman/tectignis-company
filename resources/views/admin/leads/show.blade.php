@@ -22,6 +22,7 @@
         $attribution = array_filter([
             'Submitted from' => $lead->page_url,
             'Ads landing page' => $lead->landing_page ? ($lead->landingPage?->title ?? $lead->landing_page) : null,
+            'Language' => $lead->languageLabel(),
             'UTM source' => $lead->utm_source,
             'UTM medium' => $lead->utm_medium,
             'UTM campaign' => $lead->utm_campaign,

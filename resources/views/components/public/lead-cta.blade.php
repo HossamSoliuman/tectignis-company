@@ -1,10 +1,10 @@
 @props([
-    'overline' => "Let's talk about your project",
-    'title' => 'Ready to Transform',
-    'highlight' => 'Your Business?',
+    'overline' => __('services.lead_cta_overline'),
+    'title' => __('services.lead_cta_title'),
+    'highlight' => __('services.lead_cta_highlight'),
     'text' => null,
-    'primaryLabel' => 'Book a Technical Consultation',
-    'secondaryLabel' => 'Request a Project Assessment',
+    'primaryLabel' => __('services.lead_cta_primary'),
+    'secondaryLabel' => __('services.lead_cta_secondary'),
     'secondaryUrl' => null,
 ])
 
@@ -26,9 +26,9 @@
                     <p class="tx-lead-cta__text">{{ $text }}</p>
                 @endif
                 <ul class="tx-lead-cta__points">
-                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Talk directly to a solution engineer</li>
-                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> Clear scope, timeline and cost estimate</li>
-                    <li><i class="fas fa-check-circle" aria-hidden="true"></i> No-obligation, confidential discussion</li>
+                    @foreach (__('services.lead_cta_points') as $point)
+                        <li><i class="fas fa-check-circle" aria-hidden="true"></i> {{ $point }}</li>
+                    @endforeach
                 </ul>
             </div>
 

@@ -2,10 +2,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="revisit-after" content="7 days">
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content="{{ \App\Support\Locales::ogLocale() }}" />
 <meta property="twitter:account_id" content="29759031" />
 <meta name="email" content="{{ $company->email() }}">
-<meta name="robots" content="index, follow">
+{{-- A language that isn't switched on yet is only shown to CMS users checking it. --}}
+<meta name="robots" content="{{ \App\Support\Locales::isEnabled() ? 'index, follow' : 'noindex, nofollow' }}">
 <meta name="copyright" content="Copyright Tectignis IT solutions - all rights reserved" />
 <meta name="document-type" content="Public">
 <meta name="document-distribution" content="Global">
@@ -16,7 +17,7 @@
 <meta name="ICBM" content="19.02993219206727,73.06512509395156" />
 
 {{-- Page title + SEO meta (per-page) --}}
-<title>@yield('title', 'Tectignis IT Solutions | Software, AI, Cloud & Security')</title>
+<title>@yield('title', __('common.default_title'))</title>
 @yield('seo')
 
 {{-- Self-referencing canonical (spec §7, §20). Pages may override via @section('canonical'). --}}
@@ -26,6 +27,9 @@
         ?: url()->current().($currentPage > 1 ? '?page='.$currentPage : '');
 @endphp
 <link rel="canonical" href="{{ $canonicalUrl }}">
+@foreach (\App\Support\Locales::alternates() as $hreflang => $alternateUrl)
+<link rel="alternate" hreflang="{{ $hreflang }}" href="{{ $alternateUrl }}">
+@endforeach
 @stack('head')
 
 @php $siteSettings = \App\Models\Setting::values(); @endphp

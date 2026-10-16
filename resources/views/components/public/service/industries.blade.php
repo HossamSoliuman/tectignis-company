@@ -7,7 +7,7 @@
     if ($industries->isEmpty()) {
         $industries = \App\Models\Industry::active()->ordered()->get();
     }
-    $heading = $section['heading'] ?? 'Industries We Serve';
+    $heading = $section['heading'] ?? __('services.industries_heading');
     $subtitle = $section['subtitle'] ?? null;
 @endphp
 

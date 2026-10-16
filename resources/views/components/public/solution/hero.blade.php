@@ -24,7 +24,7 @@
     <span class="ind-hero__blob" aria-hidden="true"></span>
     <div class="container">
         <nav class="ind-breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ route('home') }}">Home</a>
+            <a href="{{ localized_route('home') }}">Home</a>
             <span aria-hidden="true">/</span>
             <a href="{{ route('solutions.index') }}">Solutions</a>
             <span aria-hidden="true">/</span>
@@ -54,7 +54,7 @@
 
                 <div class="ind-hero__buttons">
                     <button type="button" class="svc-btn svc-btn--primary js-consult-open">{{ $ctaPrimary }} <i class="fas fa-arrow-right"></i></button>
-                    <a href="{{ route('contact') }}" class="svc-btn ind-btn--indigo">{{ $ctaSecondary }} <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ localized_route('contact') }}" class="svc-btn ind-btn--indigo">{{ $ctaSecondary }} <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 

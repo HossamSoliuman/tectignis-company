@@ -12,7 +12,7 @@
 
     @once
         @push('scripts')
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            <script src="https://www.google.com/recaptcha/api.js?hl={{ app()->getLocale() }}" async defer></script>
         @endpush
     @endonce
 @endif

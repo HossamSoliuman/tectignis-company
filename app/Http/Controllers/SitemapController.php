@@ -13,6 +13,8 @@ use App\Models\Page;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Solution;
+use App\Support\Locales;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -45,11 +47,46 @@ class SitemapController extends Controller
             ['url' => route('careers'), 'changefreq' => 'monthly', 'priority' => '0.6'],
         ];
 
+        $languagePages = $this->languagePages($services, $landingPages);
+
         $content = view('sitemap', compact(
-            'staticPages', 'capabilities', 'services', 'landingPages', 'solutions', 'industries', 'pages', 'posts', 'insights', 'caseStudies', 'jobOpenings'
+            'staticPages', 'languagePages', 'capabilities', 'services', 'landingPages', 'solutions', 'industries', 'pages', 'posts', 'insights', 'caseStudies', 'jobOpenings'
         ))->render();
 
         return response($content, 200)->header('Content-Type', 'application/xml');
+    }
+
+    /**
+     * The translated pages in every enabled language other than English.
+     *
+     * @param  Collection<int, Service>  $services
+     * @param  Collection<int, LandingPage>  $landingPages
+     * @return list<array{url: string, changefreq: string, priority: string}>
+     */
+    private function languagePages(Collection $services, Collection $landingPages): array
+    {
+        $pages = [];
+
+        foreach (array_diff(Locales::enabled(), [Locales::default()]) as $code) {
+            $pages[] = ['url' => Locales::route('home', [], $code), 'changefreq' => 'weekly', 'priority' => '1.0'];
+            $pages[] = ['url' => Locales::route('contact', [], $code), 'changefreq' => 'yearly', 'priority' => '0.6'];
+
+            foreach ($services as $service) {
+                if (Locales::isTranslatedPage('services.show', $service->slug)) {
+                    $pages[] = ['url' => Locales::route('services.show', $service->slug, $code), 'changefreq' => 'monthly', 'priority' => '0.8'];
+                }
+            }
+
+            foreach ($landingPages as $landingPage) {
+                $pages[] = ['url' => Locales::route('landing-pages.show', $landingPage->slug, $code), 'changefreq' => 'monthly', 'priority' => '0.8'];
+            }
+
+            foreach (config('locales.translated_pages')['legal.show'] as $legal) {
+                $pages[] = ['url' => Locales::route('legal.show', $legal, $code), 'changefreq' => 'yearly', 'priority' => '0.3'];
+            }
+        }
+
+        return $pages;
     }
 
     public function robots(): Response

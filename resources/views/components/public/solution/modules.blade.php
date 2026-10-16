@@ -34,7 +34,7 @@
                             @if (filled($card['description'] ?? null))
                                 <p class="ind-solution-card__text">{{ $card['description'] }}</p>
                             @endif
-                            <a href="{{ route('contact') }}" class="ind-case-card__link mt-auto pt-3">Learn More <i class="fas fa-arrow-right"></i></a>
+                            <a href="{{ localized_route('contact') }}" class="ind-case-card__link mt-auto pt-3">Learn More <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 @endforeach

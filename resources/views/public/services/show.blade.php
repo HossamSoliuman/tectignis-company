@@ -9,7 +9,7 @@
     @endif
     <meta property="og:title" content="{{ $service->seo_title ?: $service->title.' | Tectignis IT Solutions' }}">
     <meta property="og:description" content="{{ $service->seo_description ?: $service->short_description }}">
-    <meta property="og:url" content="{{ route('services.show', $service->slug) }}">
+    <meta property="og:url" content="{{ localized_route('services.show', $service->slug) }}">
     <meta property="og:type" content="website">
 @endsection
 

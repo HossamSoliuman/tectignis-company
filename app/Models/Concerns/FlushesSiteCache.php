@@ -2,6 +2,7 @@
 
 namespace App\Models\Concerns;
 
+use App\Support\Locales;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -35,10 +36,16 @@ trait FlushesSiteCache
         static::deleted(static fn () => static::flushSiteCache());
     }
 
+    /**
+     * Content caches are kept per language (Locales::cacheKey()), so every
+     * language's copy is forgotten.
+     */
     public static function flushSiteCache(): void
     {
         foreach (self::SITE_CACHE_KEYS as $key) {
-            Cache::forget($key);
+            foreach (Locales::codes() as $code) {
+                Cache::forget(Locales::cacheKey($key, $code));
+            }
         }
     }
 }

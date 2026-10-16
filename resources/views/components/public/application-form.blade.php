@@ -106,7 +106,7 @@
 
             <label class="car-consent car-form-grid__full">
                 <input type="checkbox" name="consent" value="1" @checked(old('consent')) required>
-                <span>I agree to the <a href="{{ route('legal.show', 'privacy-policy') }}" target="_blank">Privacy Policy</a> and consent to Tectignis storing my application and CV for recruitment purposes.</span>
+                <span>I agree to the <a href="{{ localized_route('legal.show', 'privacy-policy') }}" target="_blank">Privacy Policy</a> and consent to Tectignis storing my application and CV for recruitment purposes.</span>
             </label>
         </div>
 

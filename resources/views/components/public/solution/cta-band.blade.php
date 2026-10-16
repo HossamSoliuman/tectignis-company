@@ -24,7 +24,7 @@
                 </div>
                 <div class="ind-ctaband__buttons">
                     <button type="button" class="svc-btn svc-btn--white js-consult-open">{{ $primaryLabel }} <i class="fas fa-arrow-right"></i></button>
-                    <a href="{{ route('contact') }}" class="svc-btn ind-btn--outline-white">{{ $secondaryLabel }} <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ localized_route('contact') }}" class="svc-btn ind-btn--outline-white">{{ $secondaryLabel }} <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>

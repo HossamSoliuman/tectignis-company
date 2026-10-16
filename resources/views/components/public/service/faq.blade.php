@@ -3,20 +3,20 @@
 @php
     $section = $service->content['faq'] ?? [];
     $items = array_values(array_filter($section['items'] ?? [], fn ($i) => filled($i['question'] ?? null)));
-    $heading = $section['heading'] ?? 'Frequently Asked Questions';
-    $subtitle = $section['subtitle'] ?? 'Got Questions?';
+    $heading = $section['heading'] ?? __('services.faq_heading');
+    $subtitle = $section['subtitle'] ?? __('services.faq_subtitle');
     $accordionId = 'faq-'.$service->id;
 
     // Selling-point panel: explicit `selling_points`, else reuse the why-choose
     // points, else a generic set so the panel is never empty.
-    $panelHeading = $section['panel_heading'] ?? 'Still have questions?';
-    $panelText = $section['panel_text'] ?? "Talk to our team and get clear, no-obligation answers tailored to your project.";
+    $panelHeading = $section['panel_heading'] ?? __('services.faq_panel_heading');
+    $panelText = $section['panel_text'] ?? __('services.faq_panel_text');
     $points = array_values(array_filter($section['selling_points'] ?? [], fn ($p) => filled($p)));
     if (! count($points)) {
         $points = array_slice(array_values(array_filter($service->content['why_choose']['points'] ?? [], fn ($p) => filled($p))), 0, 4);
     }
     if (! count($points)) {
-        $points = ['Free, no-obligation consultation', 'Transparent, fixed-scope quotes', 'A dedicated project team', 'Long-term support & maintenance'];
+        $points = __('services.faq_points');
     }
 @endphp
 
@@ -61,7 +61,7 @@
                                 <li><i class="fas fa-check-circle"></i><span>{{ $point }}</span></li>
                             @endforeach
                         </ul>
-                        <a href="{{ route('contact') }}" class="svc-btn svc-btn--white">Let's Talk</a>
+                        <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--white">{{ __('services.lets_talk') }}</a>
                     </div>
                 </div>
             </div>

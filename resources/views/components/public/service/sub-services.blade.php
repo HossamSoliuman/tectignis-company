@@ -3,8 +3,8 @@
 @php
     $section = $service->content['sub_services'] ?? [];
     $items = array_values(array_filter($section['items'] ?? [], fn ($i) => filled($i['title'] ?? null)));
-    $heading = $section['heading'] ?? 'Our '.$service->title.' Services';
-    $subtitle = $section['subtitle'] ?? 'What We Offer';
+    $heading = $section['heading'] ?? __('services.sub_services_heading', ['title' => $service->title]);
+    $subtitle = $section['subtitle'] ?? __('services.sub_services_subtitle');
 @endphp
 
 @if (($section['enabled'] ?? true) && count($items))

@@ -35,7 +35,7 @@
                         <p class="res-hero__intro">{{ $caseStudy->short_description }}</p>
                     @endif
                     <div class="res-hero__buttons mt-3">
-                        <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Start a Similar Project <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Start a Similar Project <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 @if ($caseStudy->image)
@@ -68,7 +68,7 @@
                                 <h5>Have a project like this in mind?</h5>
                                 <p>Talk to our experts about your software, AI, cloud or security requirements.</p>
                             </div>
-                            <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                            <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>

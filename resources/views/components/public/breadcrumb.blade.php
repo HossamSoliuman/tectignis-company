@@ -6,7 +6,7 @@
     the current page.
 --}}
 @php
-    $crumbs = collect([['name' => 'Home', 'url' => route('home')]])
+    $crumbs = collect([['name' => __('common.home'), 'url' => localized_route('home')]])
         ->merge(collect($items)->map(fn ($url, $label): array => ['name' => (string) $label, 'url' => $url])->values());
 
     $breadcrumbSchema = [

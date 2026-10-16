@@ -27,7 +27,7 @@ class CompanyProfile
 
     public function tagline(): string
     {
-        return 'Tectignis helps businesses build, modernize and secure their technology through custom software, AI automation, cloud, cybersecurity and IT infrastructure solutions.';
+        return __('common.tagline');
     }
 
     public function phone(): string
@@ -52,7 +52,7 @@ class CompanyProfile
 
     public function shortLocation(): string
     {
-        return 'Navi Mumbai, Maharashtra, India';
+        return __('common.location');
     }
 
     public function businessHours(): ?string
@@ -97,11 +97,11 @@ class CompanyProfile
     public function socials(): array
     {
         $socials = [
-            ['url' => $this->setting('social_linkedin'), 'icon' => 'fab fa-linkedin-in', 'label' => 'Visit LinkedIn'],
-            ['url' => $this->setting('social_facebook'), 'icon' => 'fab fa-facebook-f', 'label' => 'Visit Facebook'],
-            ['url' => $this->setting('social_instagram'), 'icon' => 'fab fa-instagram', 'label' => 'Visit Instagram'],
-            ['url' => $this->setting('social_twitter'), 'icon' => 'fab fa-twitter', 'label' => 'Visit X / Twitter'],
-            ['url' => $this->whatsappUrl(), 'icon' => 'fab fa-whatsapp', 'label' => 'Chat on WhatsApp'],
+            ['url' => $this->setting('social_linkedin'), 'icon' => 'fab fa-linkedin-in', 'label' => __('common.socials.linkedin')],
+            ['url' => $this->setting('social_facebook'), 'icon' => 'fab fa-facebook-f', 'label' => __('common.socials.facebook')],
+            ['url' => $this->setting('social_instagram'), 'icon' => 'fab fa-instagram', 'label' => __('common.socials.instagram')],
+            ['url' => $this->setting('social_twitter'), 'icon' => 'fab fa-twitter', 'label' => __('common.socials.twitter')],
+            ['url' => $this->whatsappUrl(), 'icon' => 'fab fa-whatsapp', 'label' => __('common.socials.whatsapp')],
         ];
 
         return array_values(array_filter($socials, fn (array $social): bool => filled($social['url'])));
@@ -130,14 +130,12 @@ class CompanyProfile
      */
     public function markets(): array
     {
-        return [
-            ['name' => 'USA', 'flag' => 'us', 'focus' => 'Software, SaaS, AI, cloud and cybersecurity', 'url' => null],
-            ['name' => 'UAE', 'flag' => 'ae', 'focus' => 'Software, AI, cloud, cybersecurity and enterprise IT', 'url' => null],
-            ['name' => 'UK', 'flag' => 'gb', 'focus' => 'Software, SaaS, AI, cloud and managed technology', 'url' => null],
-            ['name' => 'Canada', 'flag' => 'ca', 'focus' => 'Software, SaaS, AI and cloud', 'url' => null],
-            ['name' => 'Europe', 'flag' => 'eu', 'focus' => 'Software, AI, cloud and cybersecurity', 'url' => null],
-            ['name' => 'India', 'flag' => 'in', 'focus' => 'Software, AI, cloud, cybersecurity and infrastructure', 'url' => null],
-        ];
+        return array_map(fn (string $flag): array => [
+            'name' => __("common.markets.{$flag}.name"),
+            'flag' => $flag,
+            'focus' => __("common.markets.{$flag}.focus"),
+            'url' => null,
+        ], ['us', 'ae', 'gb', 'ca', 'eu', 'in']);
     }
 
     /**
@@ -147,7 +145,9 @@ class CompanyProfile
      */
     public function stats(): Collection
     {
-        return once(fn () => Cache::rememberForever('site.stats', fn () => Stat::active()->ordered()->get()));
+        $cacheKey = Locales::cacheKey('site.stats');
+
+        return once(fn () => Cache::rememberForever($cacheKey, fn () => Stat::active()->ordered()->get()));
     }
 
     /**

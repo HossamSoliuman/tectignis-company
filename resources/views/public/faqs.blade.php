@@ -120,8 +120,8 @@
 
             <!--=========== Still have questions ===========-->
             <div class="faq-footer">
-                <p class="faq-footer__hint"><i class="far fa-comment-dots" aria-hidden="true"></i> Still have questions? We're here to help! <a href="{{ route('contact') }}">Contact Us <i class="fas fa-arrow-right" aria-hidden="true"></i></a></p>
-                <a href="{{ route('contact') }}" class="svc-btn svc-btn--primary">Contact Our Experts <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                <p class="faq-footer__hint"><i class="far fa-comment-dots" aria-hidden="true"></i> Still have questions? We're here to help! <a href="{{ localized_route('contact') }}">Contact Us <i class="fas fa-arrow-right" aria-hidden="true"></i></a></p>
+                <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Contact Our Experts <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>

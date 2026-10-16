@@ -2,8 +2,8 @@
 
 @php
     $section = $service->content['case_studies'] ?? [];
-    $heading = $section['heading'] ?? 'Our Recent Success Stories';
-    $subtitle = $section['subtitle'] ?? 'Proof of Work';
+    $heading = $section['heading'] ?? __('services.cases_heading');
+    $subtitle = $section['subtitle'] ?? __('services.cases_subtitle');
 @endphp
 
 @if (($section['enabled'] ?? true) && $caseStudies->isNotEmpty())
@@ -14,7 +14,7 @@
                     <span class="svc-eyebrow">{{ $subtitle }}</span>
                 @endif
                 <h2 class="svc-section-title">{{ $heading }}</h2>
-                <p class="svc-cases__lead">Real projects, real outcomes. See how we've helped businesses like yours turn ideas into measurable results.</p>
+                <p class="svc-cases__lead">{{ __('services.cases_lead') }}</p>
             </div>
 
             <div class="row svc-cases__grid">
@@ -30,7 +30,7 @@
                                 @if ($caseStudy->short_description)
                                     <p class="svc-case-card__text">{{ \Illuminate\Support\Str::limit($caseStudy->short_description, 90) }}</p>
                                 @endif
-                                <span class="svc-case-card__link">View case study <i class="fas fa-arrow-right"></i></span>
+                                <span class="svc-case-card__link">{{ __('services.case_link') }} <i class="fas fa-arrow-right"></i></span>
                             </div>
                         </a>
                     </div>

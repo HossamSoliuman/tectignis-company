@@ -3,24 +3,24 @@
     Legal and Contact columns. Contact details and registration numbers come
     from the single CompanyProfile source; $footerIndustries from the composer.
 --}}
-<footer class="tx-footer" aria-label="Site footer">
+<footer class="tx-footer" aria-label="{{ __('footer.label') }}">
     <div class="container">
 
         <div class="tx-footer__cta">
             <div>
-                <h2 class="tx-footer__cta-title">Have a project in mind?</h2>
-                <p class="tx-footer__cta-text">Talk to a solution engineer about software, AI, cloud, cybersecurity or IT infrastructure.</p>
+                <h2 class="tx-footer__cta-title">{{ __('footer.cta_title') }}</h2>
+                <p class="tx-footer__cta-text">{{ __('footer.cta_text') }}</p>
             </div>
             <div class="tx-footer__cta-actions">
-                <button type="button" class="tx-btn tx-btn--light js-consult-open" data-track="consultation_booking">Book a Technical Consultation</button>
-                <a href="{{ route('case-studies.index') }}" class="tx-btn tx-btn--ghost-light">View Our Work</a>
+                <button type="button" class="tx-btn tx-btn--light js-consult-open" data-track="consultation_booking">{{ __('nav.book_consultation') }}</button>
+                <a href="{{ route('case-studies.index') }}" class="tx-btn tx-btn--ghost-light">{{ __('nav.view_our_work') }}</a>
             </div>
         </div>
 
         <div class="tx-footer__main">
 
             <div class="tx-footer__brand">
-                <a href="{{ route('home') }}" class="tx-footer__logo">
+                <a href="{{ localized_route('home') }}" class="tx-footer__logo">
                     <img src="{{ $company->logoDarkUrl() }}" width="150" height="45" alt="{{ $company->name() }}" loading="lazy">
                 </a>
                 <p class="tx-footer__tagline">{{ $company->tagline() }}</p>
@@ -37,48 +37,48 @@
                 @endif
             </div>
 
-            <nav class="tx-footer__col" aria-label="Company">
-                <h3 class="tx-footer__heading">Company</h3>
+            <nav class="tx-footer__col" aria-label="{{ __('footer.company') }}">
+                <h3 class="tx-footer__heading">{{ __('footer.company') }}</h3>
                 <ul class="tx-footer__links">
-                    <li><a href="{{ route('about') }}">About Us</a></li>
-                    <li><a href="{{ route('careers') }}">Careers</a></li>
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                    <li><a href="{{ route('about') }}">{{ __('footer.about') }}</a></li>
+                    <li><a href="{{ route('careers') }}">{{ __('footer.careers') }}</a></li>
+                    <li><a href="{{ localized_route('contact') }}">{{ __('footer.contact') }}</a></li>
                 </ul>
             </nav>
 
-            <nav class="tx-footer__col" aria-label="Solutions">
-                <h3 class="tx-footer__heading">Solutions</h3>
+            <nav class="tx-footer__col" aria-label="{{ __('footer.solutions') }}">
+                <h3 class="tx-footer__heading">{{ __('footer.solutions') }}</h3>
                 <ul class="tx-footer__links">
                     @foreach (\App\Enums\Pillar::cases() as $pillar)
                         <li><a href="{{ $pillar->url() }}">{{ $pillar->label() }}</a></li>
                     @endforeach
-                    <li><a href="{{ route('capabilities.show', 'saas-product-development') }}">SaaS Product Development</a></li>
+                    <li><a href="{{ route('capabilities.show', 'saas-product-development') }}">{{ __('footer.saas') }}</a></li>
                 </ul>
             </nav>
 
-            <nav class="tx-footer__col" aria-label="Industries">
-                <h3 class="tx-footer__heading">Industries</h3>
+            <nav class="tx-footer__col" aria-label="{{ __('footer.industries') }}">
+                <h3 class="tx-footer__heading">{{ __('footer.industries') }}</h3>
                 <ul class="tx-footer__links">
                     @foreach ($footerIndustries as $industry)
                         <li><a href="{{ route('industries.show', $industry->slug) }}">{{ $industry->name }}</a></li>
                     @endforeach
-                    <li><a href="{{ route('industries.index') }}">All Industries</a></li>
+                    <li><a href="{{ route('industries.index') }}">{{ __('footer.all_industries') }}</a></li>
                 </ul>
             </nav>
 
-            <nav class="tx-footer__col" aria-label="Resources">
-                <h3 class="tx-footer__heading">Resources</h3>
+            <nav class="tx-footer__col" aria-label="{{ __('footer.resources') }}">
+                <h3 class="tx-footer__heading">{{ __('footer.resources') }}</h3>
                 <ul class="tx-footer__links">
-                    <li><a href="{{ route('blog.index') }}">Blog</a></li>
-                    <li><a href="{{ route('case-studies.index') }}">Case Studies</a></li>
-                    <li><a href="{{ route('technology-insights') }}">Guides &amp; Insights</a></li>
-                    <li><a href="{{ route('downloads') }}">Downloads</a></li>
-                    <li><a href="{{ route('faqs') }}">FAQs</a></li>
+                    <li><a href="{{ route('blog.index') }}">{{ __('footer.blog') }}</a></li>
+                    <li><a href="{{ route('case-studies.index') }}">{{ __('footer.case_studies') }}</a></li>
+                    <li><a href="{{ route('technology-insights') }}">{{ __('footer.insights') }}</a></li>
+                    <li><a href="{{ route('downloads') }}">{{ __('footer.downloads') }}</a></li>
+                    <li><a href="{{ route('faqs') }}">{{ __('footer.faqs') }}</a></li>
                 </ul>
             </nav>
 
             <div class="tx-footer__col">
-                <h3 class="tx-footer__heading">Global</h3>
+                <h3 class="tx-footer__heading">{{ __('footer.global') }}</h3>
                 <ul class="tx-footer__links tx-footer__markets">
                     @foreach ($company->markets() as $market)
                         <li>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="tx-footer__col tx-footer__contact">
-                <h3 class="tx-footer__heading">Contact</h3>
+                <h3 class="tx-footer__heading">{{ __('footer.contact') }}</h3>
                 <ul class="tx-footer__contact-list">
                     <li>
                         <i class="fas fa-envelope" aria-hidden="true"></i>
@@ -119,13 +119,13 @@
         </div>
 
         <div class="tx-footer__bottom">
-            <p class="tx-footer__copyright">&copy; {{ date('Y') }} {{ $company->legalName() }}. All rights reserved.</p>
+            <p class="tx-footer__copyright">&copy; {{ date('Y') }} {{ $company->legalName() }}. {{ __('footer.rights') }}</p>
 
-            <nav class="tx-footer__legal" aria-label="Legal">
-                <a href="{{ route('legal.show', 'privacy-policy') }}">Privacy Policy</a>
-                <a href="{{ route('legal.show', 'terms-and-conditions') }}">Terms &amp; Conditions</a>
-                <a href="{{ route('legal.show', 'cookie-policy') }}">Cookie Policy</a>
-                <a href="{{ route('sitemap') }}">Sitemap</a>
+            <nav class="tx-footer__legal" aria-label="{{ __('footer.legal') }}">
+                <a href="{{ localized_route('legal.show', 'privacy-policy') }}">{{ __('footer.privacy') }}</a>
+                <a href="{{ localized_route('legal.show', 'terms-and-conditions') }}">{{ __('footer.terms') }}</a>
+                <a href="{{ localized_route('legal.show', 'cookie-policy') }}">{{ __('footer.cookies') }}</a>
+                <a href="{{ route('sitemap') }}">{{ __('footer.sitemap') }}</a>
             </nav>
 
             @if ($company->gstin() || $company->cin())

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasOrderableScopes;
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\ProcessStepFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,14 @@ use Illuminate\Database\Eloquent\Model;
 class ProcessStep extends Model
 {
     /** @use HasFactory<ProcessStepFactory> */
-    use HasFactory, HasOrderableScopes;
+    use HasFactory, HasOrderableScopes, HasTranslations;
+
+    /**
+     * Text served in the visitor's language (HasTranslations).
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['title', 'description'];
 
     protected $fillable = [
         'icon', 'title', 'description', 'sort_order', 'is_active',

@@ -4,11 +4,21 @@ namespace App\Providers;
 
 use App\Enums\Pillar;
 use App\Models\Capability;
+use App\Models\CaseStudy;
+use App\Models\CaseStudyCategory;
+use App\Models\GlobalAdvantage;
 use App\Models\Industry;
+use App\Models\LandingPage;
+use App\Models\ProcessStep;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\Stat;
+use App\Models\Testimonial;
 use App\Models\User;
+use App\Models\WhyChooseFeature;
 use App\Support\CompanyProfile;
+use App\Support\Locales;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -32,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->defineAdminGates();
+        $this->registerTranslatableMorphTypes();
         $this->shareCompanyProfile();
         $this->composeHeaderNavigation();
         $this->composeFooter();
@@ -46,6 +57,28 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-captcha', fn (User $user): bool => $user->isSuperAdmin());
         Gate::define('manage-users', fn (User $user): bool => $user->isSuperAdmin());
         Gate::define('access-careers', fn (User $user): bool => $user->hasCareersAccess());
+    }
+
+    /**
+     * Short, stable type names for the records that hold translations, so the
+     * `translations` rows and the Translations tab's item IDs never depend on
+     * class names.
+     */
+    private function registerTranslatableMorphTypes(): void
+    {
+        Relation::morphMap([
+            'service' => Service::class,
+            'landing_page' => LandingPage::class,
+            'stat' => Stat::class,
+            'why_choose_feature' => WhyChooseFeature::class,
+            'global_advantage' => GlobalAdvantage::class,
+            'process_step' => ProcessStep::class,
+            'industry' => Industry::class,
+            'testimonial' => Testimonial::class,
+            'case_study' => CaseStudy::class,
+            'case_study_category' => CaseStudyCategory::class,
+            'setting' => Setting::class,
+        ]);
     }
 
     /**
@@ -103,7 +136,7 @@ class AppServiceProvider extends ServiceProvider
     private function composeHeaderNavigation(): void
     {
         View::composer('components.public.header', function (\Illuminate\View\View $view): void {
-            $nav = Cache::rememberForever('site.nav', fn (): array => [
+            $nav = Cache::rememberForever(Locales::cacheKey('site.nav'), fn (): array => [
                 'pillars' => $this->groupCapabilitiesByPillar(),
                 'industries' => Industry::active()->ordered()->get(['id', 'slug', 'name']),
             ]);
@@ -120,7 +153,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('components.public.footer', function (\Illuminate\View\View $view): void {
             $view->with('footerIndustries', Cache::rememberForever(
-                'site.footer',
+                Locales::cacheKey('site.footer'),
                 fn () => Industry::active()->ordered()->limit(6)->get(['id', 'slug', 'name']),
             ));
         });

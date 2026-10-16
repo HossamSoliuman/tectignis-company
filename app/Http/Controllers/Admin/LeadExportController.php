@@ -35,6 +35,7 @@ class LeadExportController extends Controller
         'Message' => 'message',
         'Page URL' => 'page_url',
         'Landing Page' => 'landing_page',
+        'Language' => 'language',
         'UTM Source' => 'utm_source',
         'UTM Medium' => 'utm_medium',
         'UTM Campaign' => 'utm_campaign',

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GlobalAdvantageController;
+use App\Http\Controllers\Admin\GlossaryTermController;
 use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\InsightController;
 use App\Http\Controllers\Admin\JobApplicationController;
@@ -36,6 +37,7 @@ use App\Http\Controllers\Admin\SolutionController;
 use App\Http\Controllers\Admin\StatController;
 use App\Http\Controllers\Admin\TechStackController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WhyChooseFeatureController;
 use App\Models\Lead;
@@ -137,6 +139,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('global-advantages', GlobalAdvantageController::class);
         Route::resource('process-steps', ProcessStepController::class);
         Route::resource('redirects', RedirectController::class);
+
+        // Translations tab: check, export batches, import after review, glossary.
+        Route::get('translations', [TranslationController::class, 'index'])->name('translations.index');
+        Route::post('translations/export', [TranslationController::class, 'export'])->name('translations.export');
+        Route::post('translations/import', [TranslationController::class, 'import'])->name('translations.import');
+        Route::post('translations/import/confirm', [TranslationController::class, 'confirm'])->name('translations.confirm');
+        Route::post('translations/glossary', [GlossaryTermController::class, 'store'])->name('translations.glossary.store');
+        Route::delete('translations/glossary/{glossaryTerm}', [GlossaryTermController::class, 'destroy'])->name('translations.glossary.destroy');
     });
 
     require __DIR__.'/portal.php';

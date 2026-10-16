@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\FlushesSiteCache;
+use App\Models\Concerns\HasTranslations;
 use Database\Factories\CaseStudyCategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class CaseStudyCategory extends Model
 {
     /** @use HasFactory<CaseStudyCategoryFactory> */
-    use FlushesSiteCache, HasFactory;
+    use FlushesSiteCache, HasFactory, HasTranslations;
+
+    /**
+     * Text served in the visitor's language (HasTranslations).
+     *
+     * @var list<string>
+     */
+    protected array $translatable = ['name'];
 
     protected $fillable = ['name', 'description', 'sort_order', 'is_active'];
 
