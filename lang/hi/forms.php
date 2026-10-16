@@ -1,0 +1,132 @@
+<?php
+
+return [
+    'send_enquiry' => 'पूछताछ भेजें',
+    'submit_request' => 'अनुरोध सबमिट करें',
+    'optional' => '(वैकल्पिक)',
+
+    'name' => 'नाम',
+    'name_placeholder' => 'नाम *',
+    'email' => 'बिज़नेस ईमेल',
+    'email_placeholder' => 'बिज़नेस ईमेल *',
+    'phone' => 'फ़ोन / WhatsApp',
+    'phone_placeholder' => 'फ़ोन / WhatsApp (वैकल्पिक)',
+    'company' => 'कंपनी',
+    'company_placeholder' => 'कंपनी *',
+    'service' => 'आवश्यक सेवा',
+    'service_placeholder' => 'आवश्यक सेवा *',
+    'service_choose' => 'सेवा चुनें',
+    'country' => 'देश',
+    'country_placeholder' => 'देश *',
+    'country_choose' => 'अपना देश चुनें',
+    'priority_markets' => 'प्रमुख बाज़ार',
+    'all_countries' => 'सभी देश',
+    'message' => 'प्रोजेक्ट का विवरण',
+    'message_placeholder' => 'प्रोजेक्ट का विवरण *',
+    'message_hint' => 'लक्ष्य, दायरा, मौजूदा सिस्टम और ऐसी कोई भी बात जो हमें जाननी चाहिए…',
+    'budget' => 'बजट सीमा',
+    'budget_placeholder' => 'बजट सीमा (वैकल्पिक)',
+    'budget_choose' => 'सीमा चुनें',
+    'timeline' => 'समय-सीमा',
+    'timeline_placeholder' => 'समय-सीमा (वैकल्पिक)',
+    'timeline_choose' => 'आप कब शुरू करना चाहते हैं?',
+    'consent' => 'मैं :link और इस पूछताछ के बारे में Tectignis द्वारा मुझसे संपर्क किए जाने से सहमत हूँ।',
+    'privacy_policy' => 'गोपनीयता नीति',
+
+    'phone_input' => [
+        'country_code' => 'देश कोड: :country',
+        'number' => 'फ़ोन नंबर',
+        'search' => 'देश खोजें',
+        'search_placeholder' => 'देश या कोड खोजें',
+        'codes' => 'देश कोड',
+        'suggested' => 'सुझाए गए',
+        'all' => 'सभी देश',
+        'no_match' => 'आपकी खोज से कोई देश मेल नहीं खाता।',
+    ],
+
+    'consultation' => [
+        'title' => 'तकनीकी परामर्श बुक करें',
+        'text' => 'हमें अपने प्रोजेक्ट के बारे में बताएँ, और एक सॉल्यूशन इंजीनियर आपसे संपर्क करेगा।',
+        'close' => 'बंद करें',
+    ],
+
+    'budgets' => [
+        'under-100' => 'US$100 से कम',
+        '100-500' => 'US$100 – 500',
+        '500-1k' => 'US$500 – 1,000',
+        '1k-5k' => 'US$1,000 – 5,000',
+        '5k-10k' => 'US$5,000 – 10,000',
+        'over-10k' => 'US$10,000 से अधिक',
+        'not-sure' => 'अभी तय नहीं',
+    ],
+
+    'timelines' => [
+        'immediate' => 'तुरंत',
+        '1-3-months' => '1–3 महीने',
+        '3-6-months' => '3–6 महीने',
+        '6-plus-months' => '6+ महीने',
+    ],
+
+    /*
+     * Display labels for the "Service Required" options. The submitted and
+     * stored value stays the English name.
+     */
+    'services_general' => 'सामान्य',
+    'services' => [
+        'custom-software' => 'कस्टम सॉफ़्टवेयर',
+        'web-apps' => 'वेब ऐप्स',
+        'saas' => 'SaaS',
+        'erpcrm' => 'ERP/CRM',
+        'mobile-apps' => 'मोबाइल ऐप्स',
+        'e-commerce' => 'ई-कॉमर्स',
+        'website-development' => 'वेबसाइट डेवलपमेंट',
+        'generative-ai' => 'जेनरेटिव AI',
+        'ai-agents' => 'AI एजेंट',
+        'ocr' => 'OCR',
+        'chatbots' => 'चैटबॉट',
+        'business-automation' => 'बिज़नेस ऑटोमेशन',
+        'ai-integration' => 'AI इंटीग्रेशन',
+        'aws' => 'AWS',
+        'azure' => 'Azure',
+        'gcp' => 'GCP',
+        'cloud-migration' => 'क्लाउड माइग्रेशन',
+        'devops' => 'DevOps',
+        'vapt' => 'VAPT',
+        'firewall' => 'फ़ायरवॉल',
+        'networking' => 'नेटवर्किंग',
+        'cctv' => 'CCTV',
+        'access-control' => 'एक्सेस कंट्रोल',
+        'servers-storage' => 'सर्वर और स्टोरेज',
+        'structured-cabling' => 'स्ट्रक्चर्ड केबलिंग',
+        'amc' => 'AMC',
+        'it-consulting' => 'IT कंसल्टिंग',
+        'other-not-sure' => 'अन्य / तय नहीं',
+    ],
+
+    'attributes' => [
+        'email' => 'बिज़नेस ईमेल',
+        'company' => 'कंपनी',
+        'phone' => 'फ़ोन / WhatsApp नंबर',
+        'service' => 'आवश्यक सेवा',
+        'message' => 'प्रोजेक्ट का विवरण',
+        'consent' => 'गोपनीयता सहमति',
+        'captcha' => 'CAPTCHA',
+    ],
+
+    'messages' => [
+        'phone_regex' => 'कृपया एक मान्य फ़ोन नंबर दर्ज करें, जैसे 98765 43210।',
+        'message_min' => 'कृपया अपने प्रोजेक्ट के बारे में थोड़ा और बताएँ (कम से कम :min अक्षर)।',
+        'consent_accepted' => 'कृपया गोपनीयता नीति से सहमति दें, ताकि हम आपकी पूछताछ का जवाब दे सकें।',
+        'captcha' => 'कृपया पुष्टि करें कि आप रोबोट नहीं हैं और फिर से प्रयास करें।',
+    ],
+
+    'thank_you' => [
+        'title' => 'धन्यवाद',
+        'heading' => 'धन्यवाद!',
+        'heading_name' => 'धन्यवाद, :name!',
+        'received' => 'हमें आपकी पूछताछ मिल गई है।',
+        'received_service' => 'हमें :service के बारे में आपकी पूछताछ मिल गई है।',
+        'next' => 'हमारी टीम आपके द्वारा साझा किए गए विवरण की समीक्षा करेगी और आपसे संपर्क करेगी।',
+        'back_home' => 'होम पर वापस जाएँ',
+    ],
+];

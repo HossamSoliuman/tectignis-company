@@ -38,7 +38,7 @@ final class Locales
     }
 
     /**
-     * @return array<string, array{label: string, name: string, dir: string, og_locale: string, enabled: bool}>
+     * @return array<string, array{label: string, name: string, dir: string, script: string, og_locale: string, enabled: bool}>
      */
     public static function supported(): array
     {
@@ -118,6 +118,15 @@ final class Locales
     public static function isRtl(?string $code = null): bool
     {
         return self::direction($code) === 'rtl';
+    }
+
+    /**
+     * The ISO 15924 code of the language's writing system, e.g. "Deva" for
+     * Hindi, which decides the fonts its pages load.
+     */
+    public static function script(?string $code = null): string
+    {
+        return self::supported()[$code ?? self::current()]['script'] ?? 'Latn';
     }
 
     public static function ogLocale(?string $code = null): string

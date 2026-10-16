@@ -115,10 +115,10 @@ it('exports a batch in the agreed format and records it', function () {
     $seoTitle = collect($file['items'])->firstWhere('id', 'service.'.$this->service->id.'.seo_title');
 
     expect($file['export_id'])->toMatch('/^\d{4}-\d{2}-\d{2}-01$/')
-        ->and($file['languages'])->toBe(['ar', 'es', 'fr', 'de'])
+        ->and($file['languages'])->toBe(['ar', 'es', 'fr', 'de', 'hi'])
         ->and(count($file['items']))->toBeLessThanOrEqual(TranslationCatalog::BATCH_SIZE)
         ->and($heading['source'])->toBe('Software Built Around You')
-        ->and($heading['translations'])->toBe(['ar' => '', 'es' => '', 'fr' => '', 'de' => ''])
+        ->and($heading['translations'])->toBe(['ar' => '', 'es' => '', 'fr' => '', 'de' => '', 'hi' => ''])
         ->and($heading['context'])->toContain('Custom Software Development page')
         ->and($seoTitle['max_length'])->toBe(60);
 
@@ -130,7 +130,7 @@ it('lists only the languages each item still needs', function () {
 
     $title = collect(exportBatch()['items'])->firstWhere('id', 'service.'.$this->service->id.'.title');
 
-    expect(array_keys($title['translations']))->toBe(['es', 'fr', 'de']);
+    expect(array_keys($title['translations']))->toBe(['es', 'fr', 'de', 'hi']);
 });
 
 it('shows the prompt with each language\'s glossary', function () {

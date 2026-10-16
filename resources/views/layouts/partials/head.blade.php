@@ -82,7 +82,7 @@
     $rtl = $isRtl ? '.rtl' : '';
 @endphp
 
-{{-- Fonts: Inter and Poppins have no Arabic letters. --}}
+{{-- Fonts: Inter and Poppins have no Arabic letters. Poppins has Devanagari ones, which Google serves only to pages that use them. --}}
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
 @if ($isRtl)
@@ -98,5 +98,8 @@
 <link rel="stylesheet" href="{{ asset("assets/css/custom{$rtl}.css") }}?v={{ filemtime(public_path("assets/css/custom{$rtl}.css")) }}">
 @if ($isRtl)
 <link rel="stylesheet" href="{{ asset('assets/css/rtl.css') }}?v={{ filemtime(public_path('assets/css/rtl.css')) }}">
+@endif
+@if (\App\Support\Locales::script() === 'Deva')
+<link rel="stylesheet" href="{{ asset('assets/css/devanagari.css') }}?v={{ filemtime(public_path('assets/css/devanagari.css')) }}">
 @endif
 @stack('styles')

@@ -1,0 +1,27 @@
+/* =========================================================
+   Devanagari extras (Hindi), loaded after the theme CSS for
+   languages written in Devanagari (layouts/partials/head).
+   ========================================================= */
+
+/* Inter has no Devanagari letters, so they fall through to Poppins, which
+   has them; Latin words keep Inter. Elements already set in Poppins need
+   nothing. */
+body,
+h1, h2, h3, h4, h5, h6,
+.phone-field__menu {
+    font-family: "Inter", "Poppins", sans-serif;
+}
+:root .legal-content {
+    font-family: "Inter", "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Vowel signs sit above and below the line, so headings need room. */
+:root :is(h1, h2, h3, h4, h5, h6) {
+    line-height: 1.45;
+}
+
+/* Letter-spacing breaks the headline that joins Devanagari letters. Icon
+   fonts and code keep theirs. */
+:root :not(.fa, .fas, .far, .fab, .fal, code, kbd, pre, samp) {
+    letter-spacing: normal;
+}
