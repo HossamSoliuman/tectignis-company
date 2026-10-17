@@ -22,6 +22,14 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: -0.01em;
 }
 
+/* ---------- German ----------
+   Long compound words break with a hyphen instead of overflowing
+   headings, buttons and menu links. */
+:lang(de) :is(h1, h2, h3, h4, h5, h6, .heading, a, button) {
+    hyphens: auto;
+    overflow-wrap: break-word;
+}
+
 /* ---------- Light header theme ----------
    The whole header â€” top utility bar and the main navigation â€” sits on a
    white background with the dark wordmark, dark menu text and magenta

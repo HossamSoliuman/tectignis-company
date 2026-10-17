@@ -61,6 +61,23 @@ it('has every English key, with the same placeholders, in each language folder',
     }
 });
 
+it('puts a non-breaking space before French high punctuation', function () {
+    $round = json_decode(File::get(database_path('seeders/translations/fr.json')), true);
+    $texts = [
+        ...array_filter(languageStrings('fr'), is_string(...)),
+        ...collect($round['items'])->mapWithKeys(fn (array $item): array => ['database '.$item['id'] => $item['translation']])->all(),
+    ];
+
+    expect($texts)->not->toBeEmpty();
+
+    foreach ($texts as $key => $text) {
+        $plain = html_entity_decode(strip_tags($text), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+        expect(preg_match('/(?<![\x{00A0}\x{202F}])[:;!?](?=\s|$)/u', $plain))
+            ->toBe(0, "French {$key} needs a non-breaking space before : ; ! or ?");
+    }
+});
+
 it('has a language folder for every enabled language', function () {
     foreach (Locales::enabled() as $code) {
         expect(is_dir(lang_path($code)))->toBeTrue("lang/{$code} is missing");
