@@ -19,7 +19,7 @@ class UpdateLanguageSettingsRequest extends FormRequest
         return [
             'translated_services' => ['nullable', 'array'],
             'translated_services.*' => ['string', Rule::in(Service::active()->pluck('slug'))],
-            'detect_browser' => ['nullable', 'boolean'],
+            'detect_language' => ['nullable', 'boolean'],
         ];
     }
 

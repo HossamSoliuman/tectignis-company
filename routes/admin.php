@@ -105,7 +105,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     // Super Admin only: switching languages on, translated service pages and
-    // browser detection.
+    // language detection.
     Route::middleware(['auth', 'can:manage-languages'])->group(function () {
         Route::get('settings/languages', [LanguageController::class, 'edit'])->name('languages.edit');
         Route::put('settings/languages', [LanguageController::class, 'update'])->name('languages.update');

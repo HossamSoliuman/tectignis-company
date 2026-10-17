@@ -45,4 +45,24 @@ return [
         'legal.show' => ['privacy-policy', 'terms-and-conditions'],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Countries
+    |--------------------------------------------------------------------------
+    |
+    | The language a first-time visitor is sent to from their country, when
+    | their browser doesn't prefer another live language. Each country is
+    | listed under the supported language most used there; a country that
+    | isn't listed, or whose language isn't live, stays in English. Codes are
+    | ISO 3166-1 alpha-2 and must be listed in App\Support\Countries.
+    |
+    */
+
+    'countries' => [
+        'ar' => ['AE', 'BH', 'DZ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY', 'MA', 'MR', 'OM', 'PS', 'QA', 'SA', 'SD', 'SY', 'TN', 'YE'],
+        'es' => ['AD', 'AR', 'BO', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'ES', 'GQ', 'GT', 'HN', 'MX', 'NI', 'PA', 'PE', 'PY', 'SV', 'UY', 'VE'],
+        'fr' => ['BE', 'BF', 'BI', 'BJ', 'CD', 'CF', 'CG', 'CI', 'CM', 'DJ', 'FR', 'GA', 'GN', 'HT', 'KM', 'LU', 'MC', 'MG', 'ML', 'NE', 'SN', 'TD', 'TG'],
+        'de' => ['AT', 'CH', 'DE', 'LI'],
+    ],
+
 ];

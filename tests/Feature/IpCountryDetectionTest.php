@@ -105,6 +105,26 @@ describe('lead country', function () {
     });
 });
 
+describe('visitor language', function () {
+    it('sends a first-time visitor to the language of the country their IP address belongs to', function () {
+        installTestCountryDatabase();
+        enableLanguages('ar');
+
+        $this->withServerVariables(['REMOTE_ADDR' => '1.2.3.4'])
+            ->get('/')
+            ->assertRedirect(url('/ar'));
+    });
+
+    it('keeps a visitor whose country has no live language of its own in English', function () {
+        installTestCountryDatabase();
+        enableLanguages('ar');
+
+        $this->withServerVariables(['REMOTE_ADDR' => '81.2.69.160'])
+            ->get('/')
+            ->assertOk();
+    });
+});
+
 describe('credit', function () {
     it('credits DB-IP in the footers while its database is installed', function (string $url) {
         installTestCountryDatabase();

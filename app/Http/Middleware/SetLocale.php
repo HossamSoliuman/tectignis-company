@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\VisitorLanguageDetector;
 use App\Support\Bots;
 use App\Support\Locales;
 use Closure;
@@ -16,8 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Serves each request in the language of its URL: unprefixed URLs are
  * English, /ar/, /es/, ... are the other languages. A visitor arriving on a
- * translated English page for the first time is sent to the language their
- * browser prefers; after that the language cookie means they are never
+ * translated English page for the first time is sent to the language of their
+ * browser or country; after that the language cookie means they are never
  * redirected again.
  */
 class SetLocale
@@ -76,31 +77,31 @@ class SetLocale
     }
 
     /**
-     * On a first visit (no language cookie), send people whose browser prefers
-     * an enabled language to that language's version of the page, unless
-     * detection is switched off in the Languages tab. Bots always get the URL
-     * they asked for. The query string is kept, so Ads click IDs and UTM tags
-     * survive the redirect.
+     * On a first visit (no language cookie), send people to the version of
+     * the page in the live language of their browser, or else of their
+     * country (see VisitorLanguageDetector), unless detection is switched off
+     * in the Languages tab. Bots always get the URL they asked for. The query
+     * string is kept, so Ads click IDs and UTM tags survive the redirect.
      */
     private function detectedLanguageRedirect(Request $request): ?RedirectResponse
     {
         if (! $request->isMethod('GET')
-            || ! Locales::detectsBrowserLanguage()
+            || ! Locales::detectsVisitorLanguage()
             || $request->hasCookie(Locales::COOKIE)
             || $request->route()?->getName() === 'contact.thank-you'
             || Bots::is($request->userAgent())) {
             return null;
         }
 
-        $preferred = $request->getPreferredLanguage(Locales::enabled());
+        $language = app(VisitorLanguageDetector::class)->detect($request);
 
-        if ($preferred === null || Locales::isDefault($preferred) || ! Locales::isEnabled($preferred)) {
+        if (Locales::isDefault($language)) {
             return null;
         }
 
         $query = $request->getQueryString();
 
-        return redirect()->to(Locales::urlFor($preferred).($query ? '?'.$query : ''));
+        return redirect()->to(Locales::urlFor($language).($query ? '?'.$query : ''));
     }
 
     /**

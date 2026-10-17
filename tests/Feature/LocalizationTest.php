@@ -6,6 +6,7 @@ use App\Models\Lead;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\User;
+use App\Support\Countries;
 use App\Support\Locales;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -150,6 +151,76 @@ describe('language cookie and detection', function () {
         enableLanguages('ar');
 
         $this->get('/about', ['Accept-Language' => 'ar'])->assertOk();
+    });
+
+    it('sends a first-time visitor with an English browser to the language of their country, keeping the query string', function () {
+        enableLanguages('ar');
+
+        $this->get('/lp/website-development?gclid=abc123', ['Accept-Language' => 'en-US,en;q=0.9', 'CF-IPCountry' => 'EG'])
+            ->assertRedirect(url('/ar/lp/website-development').'?gclid=abc123');
+    });
+
+    it('picks the live language most used in the visitor\'s country', function (string $country, string $url) {
+        enableLanguages('ar', 'es', 'fr', 'de');
+
+        $this->get('/', ['CF-IPCountry' => $country])->assertRedirect(url($url));
+    })->with([
+        'Egypt' => ['EG', '/ar'],
+        'Saudi Arabia' => ['SA', '/ar'],
+        'Mexico' => ['MX', '/es'],
+        'Belgium' => ['BE', '/fr'],
+        'Senegal' => ['SN', '/fr'],
+        'Switzerland' => ['CH', '/de'],
+    ]);
+
+    it('keeps visitors from countries without a live language of their own in English', function (string $country) {
+        enableLanguages('ar', 'es', 'fr', 'de');
+
+        $this->get('/', ['CF-IPCountry' => $country])->assertOk()->assertCookie(Locales::COOKIE, 'en');
+    })->with(['United States' => 'US', 'India' => 'IN', 'Brazil' => 'BR', 'unknown' => 'XX']);
+
+    it('prefers a live language the browser asks for over the language of the country', function () {
+        enableLanguages('ar', 'es');
+
+        $this->get('/', ['Accept-Language' => 'es,en;q=0.8', 'CF-IPCountry' => 'EG'])->assertRedirect(url('/es'));
+    });
+
+    it('matches a regional browser language to its live language', function (string $acceptLanguage, string $url) {
+        enableLanguages('ar', 'es', 'de');
+
+        $this->get('/', ['Accept-Language' => $acceptLanguage, 'CF-IPCountry' => 'US'])->assertRedirect(url($url));
+    })->with([
+        'Egyptian Arabic' => ['ar-EG,ar;q=0.9', '/ar'],
+        'Latin American Spanish' => ['es-419', '/es'],
+        'Swiss German' => ['de-CH', '/de'],
+        'a language that is not served, then Spanish' => ['pt-BR,es;q=0.8', '/es'],
+    ]);
+
+    it('keeps the visitor in English when the language of their country is not switched on', function () {
+        enableLanguages('es');
+
+        $this->get('/', ['CF-IPCountry' => 'EG'])->assertOk();
+    });
+
+    it('does not redirect by country after the visitor has chosen a language', function () {
+        enableLanguages('ar');
+
+        $this->withCookie(Locales::COOKIE, 'en')->get('/', ['CF-IPCountry' => 'EG'])->assertOk();
+    });
+
+    it('never redirects search engine bots by country', function () {
+        enableLanguages('ar');
+
+        $this->get('/', ['CF-IPCountry' => 'EG', 'User-Agent' => 'Mozilla/5.0 (compatible; Googlebot/2.1)'])->assertOk();
+    });
+
+    it('lists each country under one supported language, using codes the country detection knows', function () {
+        $countries = config('locales.countries');
+        $listed = array_merge(...array_values($countries));
+
+        expect(array_keys($countries))->each->toBeIn(Locales::prefixed())
+            ->and($listed)->toHaveCount(count(array_unique($listed)))
+            ->and(array_diff($listed, Countries::isoCodes()))->toBe([]);
     });
 });
 

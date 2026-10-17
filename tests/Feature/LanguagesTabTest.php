@@ -37,10 +37,10 @@ describe('access', function () {
 
         $this->actingAs($user)->get(route('admin.languages.edit'))->assertForbidden();
         $this->actingAs($user)->put(route('admin.languages.toggle', 'ar'), ['enabled' => '1'])->assertForbidden();
-        $this->actingAs($user)->put(route('admin.languages.update'), ['detect_browser' => '0'])->assertForbidden();
+        $this->actingAs($user)->put(route('admin.languages.update'), ['detect_language' => '0'])->assertForbidden();
 
         expect(Locales::isEnabled('ar'))->toBeFalse()
-            ->and(Locales::detectsBrowserLanguage())->toBeTrue();
+            ->and(Locales::detectsVisitorLanguage())->toBeTrue();
     })->with([UserRole::Editor, UserRole::Sales]);
 
     it('keeps the language settings off the Site Settings screen', function () {
@@ -147,7 +147,7 @@ describe('translated service pages', function () {
         $seo = Service::factory()->create(['is_active' => true, 'slug' => 'seo-services']);
 
         $this->actingAs(languagesAdmin())
-            ->put(route('admin.languages.update'), ['translated_services' => ['seo-services'], 'detect_browser' => '1'])
+            ->put(route('admin.languages.update'), ['translated_services' => ['seo-services'], 'detect_language' => '1'])
             ->assertSessionHas('status');
 
         expect(Locales::translatedServices())->toBe(['seo-services']);
@@ -172,7 +172,7 @@ describe('translated service pages', function () {
         Service::factory()->create(['is_active' => false, 'slug' => 'retired-service']);
 
         $this->actingAs(languagesAdmin())
-            ->put(route('admin.languages.update'), ['translated_services' => ['retired-service'], 'detect_browser' => '1'])
+            ->put(route('admin.languages.update'), ['translated_services' => ['retired-service'], 'detect_language' => '1'])
             ->assertSessionHasErrors('translated_services.0');
 
         expect(Locales::translatedServices())->toBe(['custom-software-development', 'website-design-development']);
@@ -180,26 +180,27 @@ describe('translated service pages', function () {
 
     it('can leave every service page in English', function () {
         $this->actingAs(languagesAdmin())
-            ->put(route('admin.languages.update'), ['detect_browser' => '1'])
+            ->put(route('admin.languages.update'), ['detect_language' => '1'])
             ->assertSessionHasNoErrors();
 
         expect(Locales::translatedServices())->toBe([]);
     });
 });
 
-describe('browser detection', function () {
+describe('language detection', function () {
     it('never redirects a first visit while detection is off', function () {
         enableLanguages('ar');
 
         $this->actingAs(languagesAdmin())
-            ->put(route('admin.languages.update'), ['detect_browser' => '0'])
+            ->put(route('admin.languages.update'), ['detect_language' => '0'])
             ->assertSessionHasNoErrors();
 
-        expect(Locales::detectsBrowserLanguage())->toBeFalse();
+        expect(Locales::detectsVisitorLanguage())->toBeFalse();
 
         asVisitor();
 
         $this->get('/', ['Accept-Language' => 'ar'])->assertSuccessful();
+        $this->get('/', ['CF-IPCountry' => 'EG'])->assertSuccessful();
     });
 
     it('redirects a first visit to the preferred live language while detection is on', function () {

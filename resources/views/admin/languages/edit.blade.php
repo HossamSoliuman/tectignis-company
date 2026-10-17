@@ -145,11 +145,11 @@
                 </section>
 
                 <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <h3 class="mb-3 text-sm font-semibold text-slate-900">Browser detection</h3>
-                    <input type="hidden" name="detect_browser" value="0">
+                    <h3 class="mb-3 text-sm font-semibold text-slate-900">Language detection</h3>
+                    <input type="hidden" name="detect_language" value="0">
                     <label class="flex items-start gap-2 text-sm text-slate-700">
-                        <input type="checkbox" name="detect_browser" value="1" class="mt-0.5 rounded border-slate-300" @checked(old('detect_browser', $detectBrowser))>
-                        Send first-time visitors to the live language their browser prefers
+                        <input type="checkbox" name="detect_language" value="1" class="mt-0.5 rounded border-slate-300" @checked(old('detect_language', $detectLanguage))>
+                        Send first-time visitors to the live language of their browser, or else of their country
                     </label>
                 </section>
             </div>

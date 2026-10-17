@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 /**
  * Settings → Languages. Super Admin only. Every language setting that changes
  * without a deploy: which languages are live, which service pages have a
- * version in every language, and first-visit browser detection.
+ * version in every language, and first-visit language detection.
  */
 class LanguageController extends Controller
 {
@@ -55,17 +55,17 @@ class LanguageController extends Controller
             'languages' => $languages,
             'services' => $services,
             'translatedServices' => Locales::translatedServices(),
-            'detectBrowser' => Locales::detectsBrowserLanguage(),
+            'detectLanguage' => Locales::detectsVisitorLanguage(),
         ]);
     }
 
     /**
-     * Save the translated service pages and browser detection.
+     * Save the translated service pages and language detection.
      */
     public function update(UpdateLanguageSettingsRequest $request): RedirectResponse
     {
         Locales::saveTranslatedServices($request->validated('translated_services', []));
-        Locales::saveBrowserDetection($request->boolean('detect_browser'));
+        Locales::saveVisitorLanguageDetection($request->boolean('detect_language'));
         TranslationCatalog::forgetPendingCount();
 
         return back()->with('status', 'Language settings saved.');

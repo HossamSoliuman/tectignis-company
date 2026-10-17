@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 /**
  * The languages the public site is served in and the URLs between them.
  * config/locales.php holds the fixed facts per language; which languages are
- * live, which service pages are translated and browser detection are
+ * live, which service pages are translated and language detection are
  * settings a Super Admin changes in the Languages tab. English keeps today's
  * unprefixed URLs; every other language serves the translated pages under
  * its own prefix, under the same route names with a `localized.` prefix.
@@ -33,7 +33,8 @@ final class Locales
 
     /**
      * Setting keys: the live languages, who last switched each one on or off
-     * and when, the translated service slugs, and first-visit detection.
+     * and when, the translated service slugs, and first-visit detection. The
+     * detection key predates country detection and is kept for stored settings.
      */
     public const SETTING_ENABLED = 'locales_enabled';
 
@@ -41,7 +42,7 @@ final class Locales
 
     public const SETTING_TRANSLATED_SERVICES = 'locales_translated_services';
 
-    public const SETTING_DETECT_BROWSER = 'locales_detect_browser';
+    public const SETTING_DETECT_LANGUAGE = 'locales_detect_browser';
 
     public static function default(): string
     {
@@ -166,17 +167,17 @@ final class Locales
     }
 
     /**
-     * Whether a first visit to a translated English page is sent to the
-     * language the browser prefers. On unless switched off.
+     * Whether a first visit to a translated English page is sent to the live
+     * language of the visitor's browser or country. On unless switched off.
      */
-    public static function detectsBrowserLanguage(): bool
+    public static function detectsVisitorLanguage(): bool
     {
-        return Setting::get(self::SETTING_DETECT_BROWSER, '1') !== '0';
+        return Setting::get(self::SETTING_DETECT_LANGUAGE, '1') !== '0';
     }
 
-    public static function saveBrowserDetection(bool $enabled): void
+    public static function saveVisitorLanguageDetection(bool $enabled): void
     {
-        Setting::set(self::SETTING_DETECT_BROWSER, $enabled ? '1' : '0', self::SETTINGS_GROUP);
+        Setting::set(self::SETTING_DETECT_LANGUAGE, $enabled ? '1' : '0', self::SETTINGS_GROUP);
     }
 
     /**
