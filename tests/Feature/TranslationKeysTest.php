@@ -79,7 +79,7 @@ it('serves the fixed text in each language', function (string $code) {
         ->assertSee($sendEnquiry)
         ->assertSee(trans('nav.contact_us', [], $code))
         ->assertDontSee('Send Enquiry');
-})->with(['ar', 'es', 'fr', 'de', 'hi']);
+})->with(['ar', 'es', 'fr', 'de']);
 
 it('shows no raw translation keys on the translated pages', function (string $url) {
     Service::factory()->create(['is_active' => true, 'slug' => 'custom-software-development']);

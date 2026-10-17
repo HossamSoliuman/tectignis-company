@@ -119,9 +119,7 @@ it('follows the prompt rules for punctuation and digits', function () {
         expect($item['translation'])->not->toMatch('/ [:;!?]/u', "fr {$id}: ordinary space before punctuation");
     }
 
-    foreach (['ar' => '/[\x{0660}-\x{0669}\x{06F0}-\x{06F9}]/u', 'hi' => '/[\x{0966}-\x{096F}]/u'] as $locale => $nativeDigits) {
-        foreach ($round[$locale] as $id => $item) {
-            expect($item['translation'])->not->toMatch($nativeDigits, "{$locale} {$id}: native digits");
-        }
+    foreach ($round['ar'] as $id => $item) {
+        expect($item['translation'])->not->toMatch('/[\x{0660}-\x{0669}\x{06F0}-\x{06F9}]/u', "ar {$id}: native digits");
     }
 });

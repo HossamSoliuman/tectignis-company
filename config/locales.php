@@ -9,8 +9,7 @@
 | and keeps today's unprefixed URLs; every other language lives under its
 | own prefix (/ar/, /es/, ...). A language is only served to visitors once
 | its code is listed in LOCALES_ENABLED, e.g. LOCALES_ENABLED=ar,es. Until
-| then it returns 404, except to CMS users, who can preview it. `script` is
-| the ISO 15924 code of the language's writing system, which picks its fonts.
+| then it returns 404, except to CMS users, who can preview it.
 |
 */
 
@@ -21,12 +20,11 @@ return [
     'default' => 'en',
 
     'supported' => [
-        'en' => ['label' => 'English', 'name' => 'English', 'dir' => 'ltr', 'script' => 'Latn', 'og_locale' => 'en_US', 'enabled' => true],
-        'ar' => ['label' => 'Arabic', 'name' => 'العربية', 'dir' => 'rtl', 'script' => 'Arab', 'og_locale' => 'ar_AE', 'enabled' => in_array('ar', $enabled, true)],
-        'es' => ['label' => 'Spanish', 'name' => 'Español', 'dir' => 'ltr', 'script' => 'Latn', 'og_locale' => 'es_ES', 'enabled' => in_array('es', $enabled, true)],
-        'fr' => ['label' => 'French', 'name' => 'Français', 'dir' => 'ltr', 'script' => 'Latn', 'og_locale' => 'fr_FR', 'enabled' => in_array('fr', $enabled, true)],
-        'de' => ['label' => 'German', 'name' => 'Deutsch', 'dir' => 'ltr', 'script' => 'Latn', 'og_locale' => 'de_DE', 'enabled' => in_array('de', $enabled, true)],
-        'hi' => ['label' => 'Hindi', 'name' => 'हिन्दी', 'dir' => 'ltr', 'script' => 'Deva', 'og_locale' => 'hi_IN', 'enabled' => in_array('hi', $enabled, true)],
+        'en' => ['label' => 'English', 'name' => 'English', 'dir' => 'ltr', 'og_locale' => 'en_US', 'enabled' => true],
+        'ar' => ['label' => 'Arabic', 'name' => 'العربية', 'dir' => 'rtl', 'og_locale' => 'ar_AE', 'enabled' => in_array('ar', $enabled, true)],
+        'es' => ['label' => 'Spanish', 'name' => 'Español', 'dir' => 'ltr', 'og_locale' => 'es_ES', 'enabled' => in_array('es', $enabled, true)],
+        'fr' => ['label' => 'French', 'name' => 'Français', 'dir' => 'ltr', 'og_locale' => 'fr_FR', 'enabled' => in_array('fr', $enabled, true)],
+        'de' => ['label' => 'German', 'name' => 'Deutsch', 'dir' => 'ltr', 'og_locale' => 'de_DE', 'enabled' => in_array('de', $enabled, true)],
     ],
 
     /*
