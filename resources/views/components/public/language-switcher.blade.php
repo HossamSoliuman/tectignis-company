@@ -37,5 +37,36 @@
         @if ($inListItem)
             </li>
         @endif
+
+        @once
+        @push('scripts')
+        <script>
+            (function () {
+                // A native <details> only closes from its own toggle; also close the
+                // menu on a click anywhere outside it, and on Escape.
+                function closeLanguageMenus(except) {
+                    document.querySelectorAll('details.tx-lang[open]').forEach(function (menu) {
+                        if (menu !== except) {
+                            menu.removeAttribute('open');
+                        }
+                    });
+                }
+
+                document.addEventListener('click', function (event) {
+                    closeLanguageMenus(event.target.closest('details.tx-lang'));
+                });
+
+                document.addEventListener('keydown', function (event) {
+                    var open = document.querySelector('details.tx-lang[open]');
+
+                    if (event.key === 'Escape' && open) {
+                        closeLanguageMenus(null);
+                        open.querySelector('summary').focus();
+                    }
+                });
+            })();
+        </script>
+        @endpush
+        @endonce
     @endif
 @endif

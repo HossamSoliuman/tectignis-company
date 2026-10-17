@@ -109,6 +109,14 @@ describe('links', function () {
             ->assertSee('href="'.url('/ar').'" hreflang="ar"', false);
     });
 
+    it('closes the switcher menu on a click outside it, with the script included once', function () {
+        enableLanguages('ar');
+
+        $content = $this->get('/')->assertOk()->getContent();
+
+        expect(substr_count($content, "document.querySelectorAll('details.tx-lang[open]')"))->toBe(1);
+    });
+
     it('hides the switcher while English is the only language', function () {
         $this->get('/')->assertOk()->assertDontSee('tx-lang', false);
     });
