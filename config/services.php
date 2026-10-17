@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    /*
+     * Finding the visitor's country to preselect the enquiry form's calling
+     * code. A CDN's country header wins when the site is behind one
+     * (Cloudflare sends CF-IPCountry); otherwise the IP address is looked up
+     * in the DB-IP country database that `php artisan ip-country:update`
+     * keeps in storage.
+     */
+    'country_detection' => [
+        'header' => env('COUNTRY_DETECTION_HEADER', 'CF-IPCountry'),
+        'database' => storage_path('app/geoip/dbip-country-lite.mmdb'),
+    ],
+
 ];

@@ -114,7 +114,7 @@ return [
     ],
 
     'messages' => [
-        'phone_regex' => 'Bitte geben Sie eine gültige Telefonnummer ein, z. B. 98765 43210.',
+        'phone_invalid' => 'Bitte geben Sie eine gültige Telefonnummer für die ausgewählte Landesvorwahl ein.',
         'message_min' => 'Bitte erzählen Sie uns etwas mehr über Ihr Projekt (mindestens :min Zeichen).',
         'consent_accepted' => 'Bitte stimmen Sie der Datenschutzerklärung zu, damit wir auf Ihre Anfrage antworten können.',
         'captcha' => 'Bitte bestätigen Sie, dass Sie kein Roboter sind, und versuchen Sie es erneut.',

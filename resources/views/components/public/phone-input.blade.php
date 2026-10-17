@@ -13,8 +13,11 @@
     // A phone number with a searchable country-code picker. The local number
     // and the ISO code are posted separately and combined server-side (see
     // ContactRequest), so the number still works without JavaScript.
+    // The calling code starts on the visitor's country from their IP address
+    // when the CDN sends it; it never follows the business location field.
     $codes = collect(\App\Support\Countries::phoneCodes());
-    $selected = $codes->firstWhere('iso', strtoupper((string) $country)) ?? $codes->first();
+    $detected = filled($country) ? null : \App\Support\Countries::detect(request());
+    $selected = $codes->firstWhere('iso', strtoupper((string) ($country ?: $detected))) ?? $codes->first();
     $menuId = $id.'-codes';
     $flag = fn (string $iso): string => asset('assets/images/flags/'.strtolower($iso).'.png');
 
@@ -33,7 +36,7 @@
 @endphp
 
 <div class="phone-field phone-field--{{ $variant }}" dir="ltr" data-phone-field
-    data-code-label="{{ __('forms.phone_input.country_code') }}" data-number-label="{{ __('forms.phone_input.number') }}" @if ($country) data-phone-explicit @endif @if ($placeholder) data-phone-fixed-placeholder @endif>
+    data-code-label="{{ __('forms.phone_input.country_code') }}" data-number-label="{{ __('forms.phone_input.number') }}" @if ($country) data-phone-explicit @elseif ($detected) data-phone-detected @endif @if ($placeholder) data-phone-fixed-placeholder @endif>
     <input type="hidden" name="{{ $countryName }}" value="{{ $selected['iso'] }}" data-phone-country>
 
     <button type="button" class="phone-field__trigger" data-phone-trigger
@@ -61,7 +64,7 @@
                     @foreach ($group as $code)
                         <div class="phone-field__option" role="option" id="{{ $menuId }}-{{ strtolower($code['iso']) }}"
                             aria-selected="{{ $code['iso'] === $selected['iso'] ? 'true' : 'false' }}"
-                            data-iso="{{ $code['iso'] }}" data-dial="{{ $code['dial'] }}" data-name="{{ $code['name'] }}" data-label="{{ $code['label'] }}"
+                            data-iso="{{ $code['iso'] }}" data-dial="{{ $code['dial'] }}" data-label="{{ $code['label'] }}"
                             data-example="{{ $examples[$code['iso']] ?? '' }}"
                             data-search="{{ mb_strtolower($code['label'].' '.$code['name'].' '.$code['iso'].' '.ltrim($code['dial'], '+').' '.($aliases[$code['iso']] ?? '')) }}">
                             <img class="phone-field__flag" src="{{ $flag($code['iso']) }}" alt="" width="20" height="15" loading="lazy">
@@ -81,7 +84,8 @@
 @push('scripts')
 <script>
     (function () {
-        // Visitors in a priority market get their dialling code preselected.
+        // Fallback when the IP address gave no country: visitors in a priority
+        // market get their dialling code preselected from their time zone.
         var TIMEZONE_COUNTRIES = {
             'Asia/Kolkata': 'IN', 'Asia/Calcutta': 'IN', 'Asia/Dubai': 'AE', 'Europe/London': 'GB', 'Europe/Berlin': 'DE',
             'America/Toronto': 'CA', 'America/Vancouver': 'CA', 'America/Edmonton': 'CA', 'America/Winnipeg': 'CA',
@@ -101,7 +105,6 @@
 
         function initPhoneField(root) {
             var form = root.closest('form');
-            var countrySelect = form ? form.querySelector('select[name="country"]') : null;
             var hidden = root.querySelector('[data-phone-country]');
             var trigger = root.querySelector('[data-phone-trigger]');
             var flag = root.querySelector('[data-phone-flag]');
@@ -114,6 +117,7 @@
             var empty = menu.querySelector('[data-phone-empty]');
             var fixedPlaceholder = root.hasAttribute('data-phone-fixed-placeholder');
             var userPicked = root.hasAttribute('data-phone-explicit');
+            var detected = root.hasAttribute('data-phone-detected');
             var visible = options;
             var activeIndex = -1;
 
@@ -149,10 +153,6 @@
             function pick(option) {
                 choose(option);
                 userPicked = true;
-                if (countrySelect && !countrySelect.value) {
-                    countrySelect.value = option.getAttribute('data-name');
-                    countrySelect.dispatchEvent(new Event('change', { bubbles: true }));
-                }
             }
 
             function setActive(index, scroll) {
@@ -324,16 +324,10 @@
             });
             input.addEventListener('change', splitInternational);
 
-            if (countrySelect) {
-                countrySelect.addEventListener('change', function () {
-                    var option = optionFor('data-name', countrySelect.value);
-                    if (!userPicked && option) { choose(option); }
-                });
-            }
-
-            // Starting code: an explicit one wins, then the chosen country, then the visitor's timezone.
-            if (!userPicked) {
-                var initial = (countrySelect && optionFor('data-name', countrySelect.value)) || optionFor('data-iso', guessCountry());
+            // Starting code: an explicit one wins, then the country from the IP
+            // address (rendered server-side), then the time zone, then the first suggestion.
+            if (!userPicked && !detected) {
+                var initial = optionFor('data-iso', guessCountry());
                 if (initial) { choose(initial); }
             }
             splitInternational();

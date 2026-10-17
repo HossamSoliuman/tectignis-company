@@ -34,7 +34,7 @@ class ContactController extends Controller
             'email' => $data['email'],
             'company' => $data['company'],
             'country' => $data['country'],
-            'phone' => $data['phone'] ?? null,
+            'phone' => $request->phoneNumber(),
             'service' => $data['service'],
             'subject' => $data['subject'] ?? null,
             'message' => $data['message'],

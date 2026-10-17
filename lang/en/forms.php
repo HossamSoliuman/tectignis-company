@@ -114,7 +114,7 @@ return [
     ],
 
     'messages' => [
-        'phone_regex' => 'Please enter a valid phone number, e.g. 98765 43210.',
+        'phone_invalid' => 'Please enter a valid phone number for the selected country code.',
         'message_min' => 'Please tell us a little more about your project (at least :min characters).',
         'consent_accepted' => 'Please agree to the privacy policy so we can respond to your enquiry.',
         'captcha' => 'Please confirm you are not a robot and try again.',

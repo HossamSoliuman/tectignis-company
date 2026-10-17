@@ -114,7 +114,7 @@ return [
     ],
 
     'messages' => [
-        'phone_regex' => 'Introduzca un número de teléfono válido, p. ej., 98765 43210.',
+        'phone_invalid' => 'Introduzca un número de teléfono válido para el prefijo de país seleccionado.',
         'message_min' => 'Cuéntenos un poco más sobre su proyecto (al menos :min caracteres).',
         'consent_accepted' => 'Acepte la política de privacidad para que podamos responder a su consulta.',
         'captcha' => 'Confirme que no es un robot e inténtelo de nuevo.',

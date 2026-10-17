@@ -208,7 +208,7 @@
                                     <div class="min-w-0 max-w-64">
                                         <a href="{{ $leadUrl }}" class="block truncate {{ $lead->is_read ? 'font-medium text-slate-700' : 'font-semibold text-slate-900' }} hover:text-fuchsia-700">{{ $lead->name }}</a>
                                         <div class="truncate text-xs text-slate-500">
-                                            <span class="font-mono text-slate-400">{{ $lead->reference() }}</span> · {{ $lead->email ?? $lead->phone ?? '—' }}
+                                            <span class="font-mono text-slate-400">{{ $lead->reference() }}</span> · {{ $lead->email ?? $lead->phoneLabel() ?? '—' }}
                                         </div>
                                         @if ($lead->company)
                                             <div class="truncate text-xs text-slate-500 @4xl:hidden">{{ $lead->company }}</div>

@@ -26,7 +26,7 @@ class LeadFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->e164PhoneNumber(),
             'subject' => fake()->sentence(4),
             'message' => fake()->paragraph(),
             'source' => 'contact',

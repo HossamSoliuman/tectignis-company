@@ -8,7 +8,7 @@
         $timezone = config('app.timezone');
         $details = [
             ['envelope', 'Email', $lead->email, $lead->email ? 'mailto:'.$lead->email : null],
-            ['phone', 'Phone / WhatsApp', $lead->phone, $lead->phone ? 'tel:'.preg_replace('/[^+\d]/', '', $lead->phone) : null],
+            ['phone', 'Phone / WhatsApp', $lead->phoneLabel(), $lead->phone ? 'tel:'.preg_replace('/[^+\d]/', '', $lead->phone) : null],
             ['office', 'Company', $lead->company, null],
             ['globe', 'Country', $lead->country, null],
             ['briefcase', 'Service', $lead->service, null],
@@ -28,6 +28,8 @@
             'UTM campaign' => $lead->utm_campaign,
             'UTM term' => $lead->utm_term,
             'UTM content' => $lead->utm_content,
+            'Google Ads campaign ID' => $lead->gad_campaignid,
+            'Google Ads click ID' => $lead->gclid ?? $lead->gbraid ?? $lead->wbraid,
         ]);
         $input = 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400';
     @endphp

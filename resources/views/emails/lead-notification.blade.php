@@ -5,7 +5,7 @@
         'Name' => $lead->name,
         'Company' => $lead->company,
         'Email' => $lead->email,
-        'Phone' => $lead->phone,
+        'Phone' => $lead->phoneLabel(),
         'Country' => $lead->country,
         'Service' => $lead->service,
         'Subject' => $lead->subject,
@@ -22,6 +22,7 @@
         'UTM campaign' => $lead->utm_campaign,
         'UTM term' => $lead->utm_term,
         'UTM content' => $lead->utm_content,
+        'Google Ads campaign ID' => $lead->gad_campaignid,
     ]);
     $sections = array_filter([
         'Lead details' => $rows,

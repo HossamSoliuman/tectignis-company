@@ -16,6 +16,7 @@ use App\Models\Stat;
 use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\WhyChooseFeature;
+use App\Services\IpCountryDatabase;
 use App\Support\CompanyProfile;
 use App\Support\Locales;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -34,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(CompanyProfile::class);
+        $this->app->singleton(IpCountryDatabase::class);
     }
 
     /**
@@ -148,7 +150,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Feed the footer's Industries column.
+     * Feed the footer's Industries column and the IP geolocation credit.
      */
     private function composeFooter(): void
     {
@@ -157,6 +159,11 @@ class AppServiceProvider extends ServiceProvider
                 Locales::cacheKey('site.footer'),
                 fn () => Industry::active()->ordered()->limit(6)->get(['id', 'slug', 'name']),
             ));
+        });
+
+        // The DB-IP licence asks for a credit link wherever its data is used.
+        View::composer(['components.public.footer', 'layouts.landing'], function (\Illuminate\View\View $view): void {
+            $view->with('showIpGeolocationCredit', $this->app->make(IpCountryDatabase::class)->isInstalled());
         });
     }
 

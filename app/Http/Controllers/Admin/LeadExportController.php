@@ -41,6 +41,10 @@ class LeadExportController extends Controller
         'UTM Campaign' => 'utm_campaign',
         'UTM Term' => 'utm_term',
         'UTM Content' => 'utm_content',
+        'Google Ads Campaign ID' => 'gad_campaignid',
+        'GCLID' => 'gclid',
+        'GBRAID' => 'gbraid',
+        'WBRAID' => 'wbraid',
     ];
 
     public function __invoke(LeadFilterRequest $request): StreamedResponse

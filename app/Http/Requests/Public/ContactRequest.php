@@ -5,10 +5,12 @@ namespace App\Http\Requests\Public;
 use App\Enums\LeadBudget;
 use App\Enums\LeadTimeline;
 use App\Models\LandingPage;
+use App\Rules\PhoneNumber;
 use App\Rules\Recaptcha;
 use App\Services\RecaptchaService;
 use App\Support\Countries;
 use App\Support\EnquiryServices;
+use App\Support\PhoneNumbers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,29 +26,6 @@ class ContactRequest extends FormRequest
     }
 
     /**
-     * Prefix a national phone number with the dialling code picked beside it,
-     * dropping the trunk "0" (07400… → +44 7400…) that only applies in-country.
-     * Numbers already in international form are kept as typed.
-     */
-    protected function prepareForValidation(): void
-    {
-        $phone = trim((string) $this->input('phone'));
-        $dialCode = Countries::dialCode((string) $this->input('phone_country'));
-
-        if (str_starts_with($phone, '00')) {
-            $phone = '+'.substr($phone, 2);
-        }
-
-        if ($phone !== '' && $dialCode !== null && ! str_starts_with($phone, '+')) {
-            // Italy, the Vatican and San Marino keep the leading 0 after the country code.
-            $national = in_array($dialCode, ['+39', '+378'], true) ? $phone : ltrim($phone, '0');
-            $phone = $dialCode.' '.$national;
-        }
-
-        $this->merge(['phone' => $phone !== '' ? $phone : null]);
-    }
-
-    /**
      * @return array<string, array<int, mixed>>
      */
     public function rules(): array
@@ -56,7 +35,7 @@ class ContactRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'company' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', Rule::in(Countries::all())],
-            'phone' => ['nullable', 'string', 'max:25', 'regex:/^\+?[0-9][0-9\s().-]{5,23}$/'],
+            'phone' => ['nullable', 'string', 'max:25', new PhoneNumber($this->phoneCountry())],
             'phone_country' => ['nullable', 'string', Rule::in(Countries::isoCodes())],
             'service' => ['required', 'string', Rule::in(EnquiryServices::all())],
             'message' => ['required', 'string', 'min:20', 'max:5000'],
@@ -94,10 +73,29 @@ class ContactRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'phone.regex' => __('forms.messages.phone_regex'),
             'message.min' => __('forms.messages.message_min'),
             'consent.accepted' => __('forms.messages.consent_accepted'),
         ];
+    }
+
+    /**
+     * The validated phone number in E.164 form, e.g. "+447400123456".
+     */
+    public function phoneNumber(): ?string
+    {
+        $phone = $this->validated('phone');
+
+        return filled($phone) ? PhoneNumbers::toE164($phone, $this->phoneCountry()) : null;
+    }
+
+    /**
+     * The calling code's country picked beside the number, when it's one we list.
+     */
+    private function phoneCountry(): ?string
+    {
+        $isoCode = strtoupper((string) $this->input('phone_country'));
+
+        return in_array($isoCode, Countries::isoCodes(), true) ? $isoCode : null;
     }
 
     /**

@@ -2,6 +2,9 @@
 
 namespace App\Support;
 
+use App\Services\IpCountryDatabase;
+use Illuminate\Http\Request;
+
 /**
  * Country names for the enquiry form's market attribution (spec §11.2), with
  * the ISO code and dialling code behind the phone number's country picker.
@@ -173,6 +176,31 @@ final class Countries
         foreach (self::ALL as [$iso, $dial]) {
             if ($iso === strtoupper($isoCode)) {
                 return $dial;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * The visitor's country as an ISO code we list: from the CDN's country
+     * header when there is one, otherwise from their IP address in the
+     * country database. Null when neither knows (a CDN sends "XX" for
+     * unknown and "T1" for Tor).
+     */
+    public static function detect(Request $request): ?string
+    {
+        $header = config('services.country_detection.header');
+        $candidates = [
+            fn (): ?string => filled($header) ? $request->header($header) : null,
+            fn (): ?string => filled($request->ip()) ? app(IpCountryDatabase::class)->lookup($request->ip()) : null,
+        ];
+
+        foreach ($candidates as $candidate) {
+            $isoCode = strtoupper(trim((string) $candidate()));
+
+            if (in_array($isoCode, self::isoCodes(), true)) {
+                return $isoCode;
             }
         }
 

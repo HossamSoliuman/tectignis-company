@@ -109,8 +109,8 @@ it('filters leads by every supported filter', function (array $query, string $ex
 ]);
 
 it('searches by name, company, email, phone and lead id', function (string $term) {
-    $match = Lead::factory()->create(['name' => 'Wanted Person', 'company' => 'Umbrella Corp', 'email' => 'wanted@umbrella.example', 'phone' => '+44 20 7946 0000']);
-    Lead::factory()->create(['name' => 'Other Person', 'company' => 'Cyberdyne', 'email' => 'other@cyberdyne.example', 'phone' => '+1 555 0100']);
+    $match = Lead::factory()->create(['name' => 'Wanted Person', 'company' => 'Umbrella Corp', 'email' => 'wanted@umbrella.example', 'phone' => '+442079460000']);
+    Lead::factory()->create(['name' => 'Other Person', 'company' => 'Cyberdyne', 'email' => 'other@cyberdyne.example', 'phone' => '+12015550123']);
 
     $term = $term === ':id' ? $match->reference() : $term;
 
@@ -118,7 +118,7 @@ it('searches by name, company, email, phone and lead id', function (string $term
         ->get(route('admin.leads.index', ['q' => $term]))
         ->assertSee('Wanted Person')
         ->assertDontSee('Other Person');
-})->with(['Wanted', 'Umbrella', 'wanted@umbrella', '7946', ':id']);
+})->with(['Wanted', 'Umbrella', 'wanted@umbrella', '7946', 'phone typed with spaces' => '20 7946 0000', ':id']);
 
 it('paginates server-side and keeps filters in the page links', function () {
     Lead::factory()->count(12)->create(['service' => 'AWS']);

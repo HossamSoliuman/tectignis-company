@@ -25,4 +25,5 @@ return [
     'terms' => 'Conditions générales',
     'cookies' => 'Politique relative aux cookies',
     'sitemap' => 'Plan du site',
+    'ip_geolocation' => 'Géolocalisation IP par DB-IP',
 ];
