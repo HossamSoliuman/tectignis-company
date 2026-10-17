@@ -51,7 +51,7 @@ it('renders every section for a fully populated service', function () {
         ->assertSee('Process Step One')
         ->assertSee('AttachedTech')
         ->assertSee('AttachedIndustry')
-        ->assertSee('col-lg-2 col-md-4 col-sm-6', false)
+        ->assertSee('col-lg-2 col-md-4 col-6', false)
         ->assertSee('svc-industries__grid', false)
         ->assertSee('svc-industries__card', false)
         ->assertSee('Recent Case Study')

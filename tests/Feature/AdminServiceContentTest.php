@@ -183,7 +183,7 @@ it('round-trips a disabled section and detaches pivots on update', function () {
                 'faq' => ['enabled' => '0', 'items' => [['question' => 'Q', 'answer' => 'A']]],
             ],
         ])
-        ->assertRedirect(route('admin.services.index'));
+        ->assertRedirect(route('admin.services.edit', $service));
 
     $service->refresh();
 
@@ -214,7 +214,7 @@ it('keeps an existing item icon when no new file is uploaded', function () {
                 ],
             ],
         ])
-        ->assertRedirect(route('admin.services.index'));
+        ->assertRedirect(route('admin.services.edit', $service));
 
     expect($service->refresh()->content['sub_services']['items'][0]['icon'])->toBe('existing-icon.png');
 

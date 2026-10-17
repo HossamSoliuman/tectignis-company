@@ -28,7 +28,7 @@ it('admin can create a service', function () {
             'category' => 'software_development',
             'short_description' => 'A test service description.',
             'is_active' => '1',
-        ])->assertRedirect(route('admin.services.index'));
+        ])->assertRedirect(route('admin.services.edit', Service::firstWhere('slug', 'test-service')));
 
     $this->assertDatabaseHas('services', ['slug' => 'test-service']);
 });
@@ -42,7 +42,7 @@ it('admin can update a service', function () {
             'slug' => $service->slug,
             'short_description' => 'Updated description.',
             'is_active' => '1',
-        ])->assertRedirect(route('admin.services.index'));
+        ])->assertRedirect(route('admin.services.edit', $service));
 
     $this->assertDatabaseHas('services', ['id' => $service->id, 'title' => 'Updated Title']);
 });
@@ -102,7 +102,7 @@ it('stores an uploaded image into public/uploads', function () {
             'short_description' => 'Has an uploaded icon.',
             'is_active' => '1',
             'icon' => UploadedFile::fake()->image('icon.png'),
-        ])->assertRedirect(route('admin.services.index'));
+        ])->assertRedirect(route('admin.services.edit', Service::firstWhere('slug', 'with-icon')));
 
     $service = Service::firstWhere('slug', 'with-icon');
     expect($service->icon)->not->toBeNull();
@@ -123,7 +123,7 @@ it('deletes the old file and stores the new one when an image is replaced', func
             'short_description' => $service->short_description,
             'is_active' => '1',
             'icon' => UploadedFile::fake()->image('new-icon.png'),
-        ])->assertRedirect(route('admin.services.index'));
+        ])->assertRedirect(route('admin.services.edit', $service));
 
     expect(is_file(public_path('uploads/old-icon.png')))->toBeFalse();
 
@@ -146,7 +146,7 @@ it('removes an image when the remove flag is set', function () {
             'short_description' => $service->short_description,
             'is_active' => '1',
             'remove_icon' => '1',
-        ])->assertRedirect(route('admin.services.index'));
+        ])->assertRedirect(route('admin.services.edit', $service));
 
     expect(is_file(public_path('uploads/removable-icon.png')))->toBeFalse();
     expect($service->fresh()->icon)->toBeNull();
