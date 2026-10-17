@@ -5,6 +5,7 @@ namespace App\Services\Translations;
 use App\Models\Translation;
 use App\Models\TranslationExport;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Once;
 use Illuminate\Validation\ValidationException;
 
@@ -93,15 +94,16 @@ class TranslationImporter
 
     /**
      * Save every entry without an error, fingerprinted against the current
-     * English, and refresh the site caches once.
+     * English, and refresh the site caches once. Without a user, the
+     * translations count as seeded rather than imported by someone.
      *
      * @param  list<array{id: string, locale: string, item: TranslationItem|null, value: string, error: string|null}>  $entries
      */
-    public function save(array $entries, User $user): int
+    public function save(array $entries, ?User $user): int
     {
         $valid = array_values(array_filter($entries, fn (array $entry): bool => $entry['error'] === null && $entry['item'] !== null));
 
-        Translation::withoutEvents(function () use ($valid, $user): void {
+        Translation::withoutEvents(fn () => DB::transaction(function () use ($valid, $user): void {
             foreach ($valid as $entry) {
                 $item = $entry['item'];
 
@@ -115,11 +117,11 @@ class TranslationImporter
                     [
                         'value' => $entry['value'],
                         'source_hash' => $item->sourceHash(),
-                        'imported_by' => $user->id,
+                        'imported_by' => $user?->id,
                     ],
                 );
             }
-        });
+        }));
 
         Translation::flushSiteCache();
         Once::flush();
@@ -138,6 +140,15 @@ class TranslationImporter
             return 'The English changed after the export, so this item will be in the next export.';
         }
 
+        return $this->check($item, $value);
+    }
+
+    /**
+     * Check a translation against its English: the same HTML tags, within
+     * the length limit. Returns the problem, or null when it passes.
+     */
+    public function check(TranslationItem $item, string $value): ?string
+    {
         if ($this->tags($item->source) !== $this->tags($value)) {
             return 'The HTML tags differ from the English.';
         }

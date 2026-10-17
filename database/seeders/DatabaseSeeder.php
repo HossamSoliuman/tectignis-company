@@ -48,6 +48,8 @@ class DatabaseSeeder extends Seeder
             RedirectSeeder::class,
             // Operations portal: org structure and the first director account.
             PortalSeeder::class,
+            // Runs last: it translates the content the seeders above created.
+            TranslationSeeder::class,
         ]);
     }
 }
