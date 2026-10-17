@@ -16,20 +16,9 @@ return [
     'service' => 'Service souhaité',
     'service_placeholder' => 'Service souhaité *',
     'service_choose' => 'Choisissez un service',
-    'country' => 'Pays',
-    'country_placeholder' => 'Pays *',
-    'country_choose' => 'Sélectionnez votre pays',
-    'priority_markets' => 'Marchés prioritaires',
-    'all_countries' => 'Tous les pays',
     'message' => 'Description du projet',
     'message_placeholder' => 'Description du projet *',
     'message_hint' => 'Objectifs, périmètre, systèmes existants et tout ce que nous devrions savoir…',
-    'budget' => 'Fourchette de budget',
-    'budget_placeholder' => 'Fourchette de budget (facultatif)',
-    'budget_choose' => 'Sélectionnez une fourchette',
-    'timeline' => 'Délai',
-    'timeline_placeholder' => 'Délai (facultatif)',
-    'timeline_choose' => 'Quand souhaitez-vous démarrer ?',
     'consent' => 'J’accepte la :link et j’accepte que Tectignis me contacte au sujet de cette demande.',
     'privacy_policy' => 'Politique de confidentialité',
 
@@ -48,23 +37,6 @@ return [
         'title' => 'Réserver une consultation technique',
         'text' => 'Présentez-nous votre projet et un ingénieur solutions reviendra vers vous.',
         'close' => 'Fermer',
-    ],
-
-    'budgets' => [
-        'under-100' => 'Moins de 100 $ US',
-        '100-500' => '100 – 500 $ US',
-        '500-1k' => '500 – 1 000 $ US',
-        '1k-5k' => '1 000 – 5 000 $ US',
-        '5k-10k' => '5 000 – 10 000 $ US',
-        'over-10k' => 'Plus de 10 000 $ US',
-        'not-sure' => 'Je ne sais pas encore',
-    ],
-
-    'timelines' => [
-        'immediate' => 'Immédiat',
-        '1-3-months' => '1 à 3 mois',
-        '3-6-months' => '3 à 6 mois',
-        '6-plus-months' => 'Plus de 6 mois',
     ],
 
     /*

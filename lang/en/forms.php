@@ -16,20 +16,9 @@ return [
     'service' => 'Service Required',
     'service_placeholder' => 'Service Required *',
     'service_choose' => 'Choose a service',
-    'country' => 'Country',
-    'country_placeholder' => 'Country *',
-    'country_choose' => 'Select your country',
-    'priority_markets' => 'Priority markets',
-    'all_countries' => 'All countries',
     'message' => 'Project Description',
     'message_placeholder' => 'Project Description *',
     'message_hint' => 'Goals, scope, current systems and anything else we should know…',
-    'budget' => 'Budget Range',
-    'budget_placeholder' => 'Budget Range (optional)',
-    'budget_choose' => 'Select a range',
-    'timeline' => 'Timeline',
-    'timeline_placeholder' => 'Timeline (optional)',
-    'timeline_choose' => 'When do you want to start?',
     'consent' => 'I agree to the :link and to Tectignis contacting me about this enquiry.',
     'privacy_policy' => 'Privacy Policy',
 
@@ -48,23 +37,6 @@ return [
         'title' => 'Book a Technical Consultation',
         'text' => 'Tell us about your project and a solution engineer will get back to you.',
         'close' => 'Close',
-    ],
-
-    'budgets' => [
-        'under-100' => 'Under US$100',
-        '100-500' => 'US$100 – 500',
-        '500-1k' => 'US$500 – 1,000',
-        '1k-5k' => 'US$1,000 – 5,000',
-        '5k-10k' => 'US$5,000 – 10,000',
-        'over-10k' => 'Over US$10,000',
-        'not-sure' => 'Not sure yet',
-    ],
-
-    'timelines' => [
-        'immediate' => 'Immediate',
-        '1-3-months' => '1–3 months',
-        '3-6-months' => '3–6 months',
-        '6-plus-months' => '6+ months',
     ],
 
     /*

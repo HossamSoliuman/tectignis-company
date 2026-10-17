@@ -16,20 +16,9 @@ return [
     'service' => 'Gewünschte Leistung',
     'service_placeholder' => 'Gewünschte Leistung *',
     'service_choose' => 'Leistung auswählen',
-    'country' => 'Land',
-    'country_placeholder' => 'Land *',
-    'country_choose' => 'Wählen Sie Ihr Land',
-    'priority_markets' => 'Schwerpunktmärkte',
-    'all_countries' => 'Alle Länder',
     'message' => 'Projektbeschreibung',
     'message_placeholder' => 'Projektbeschreibung *',
     'message_hint' => 'Ziele, Umfang, bestehende Systeme und alles, was wir sonst wissen sollten …',
-    'budget' => 'Budgetrahmen',
-    'budget_placeholder' => 'Budgetrahmen (optional)',
-    'budget_choose' => 'Rahmen auswählen',
-    'timeline' => 'Zeitrahmen',
-    'timeline_placeholder' => 'Zeitrahmen (optional)',
-    'timeline_choose' => 'Wann möchten Sie starten?',
     'consent' => 'Ich stimme der :link zu und bin einverstanden, dass Tectignis mich zu dieser Anfrage kontaktiert.',
     'privacy_policy' => 'Datenschutzerklärung',
 
@@ -48,23 +37,6 @@ return [
         'title' => 'Technische Beratung buchen',
         'text' => 'Erzählen Sie uns von Ihrem Projekt – ein Solution Engineer meldet sich bei Ihnen.',
         'close' => 'Schließen',
-    ],
-
-    'budgets' => [
-        'under-100' => 'Unter 100 US$',
-        '100-500' => '100 – 500 US$',
-        '500-1k' => '500 – 1.000 US$',
-        '1k-5k' => '1.000 – 5.000 US$',
-        '5k-10k' => '5.000 – 10.000 US$',
-        'over-10k' => 'Über 10.000 US$',
-        'not-sure' => 'Noch unklar',
-    ],
-
-    'timelines' => [
-        'immediate' => 'Sofort',
-        '1-3-months' => '1–3 Monate',
-        '3-6-months' => '3–6 Monate',
-        '6-plus-months' => 'Mehr als 6 Monate',
     ],
 
     /*

@@ -27,12 +27,10 @@ it('notifies the sales mailbox with the spec subject and the visitor as reply-to
     });
 });
 
-it('includes qualification, attribution and an admin link in the notification', function () {
+it('includes the lead details, attribution and an admin link in the notification', function () {
     $lead = Lead::factory()->enquiry()->create([
         'company' => 'Globex',
         'country' => 'Canada',
-        'budget' => '1k-5k',
-        'timeline' => 'immediate',
         'utm_source' => 'linkedin',
         'utm_campaign' => 'canada-ai',
     ]);
@@ -42,8 +40,6 @@ it('includes qualification, attribution and an admin link in the notification', 
     expect($html)
         ->toContain('Globex')
         ->toContain('Canada')
-        ->toContain('US$1,000 – 5,000')
-        ->toContain('Immediate')
         ->toContain('linkedin')
         ->toContain('canada-ai')
         ->toContain(route('admin.leads.show', $lead));

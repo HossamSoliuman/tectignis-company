@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Public;
 
-use App\Enums\LeadBudget;
-use App\Enums\LeadTimeline;
 use App\Models\LandingPage;
 use App\Rules\PhoneNumber;
 use App\Rules\Recaptcha;
@@ -34,13 +32,10 @@ class ContactRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'company' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', Rule::in(Countries::all())],
             'phone' => ['nullable', 'string', 'max:25', new PhoneNumber($this->phoneCountry())],
             'phone_country' => ['nullable', 'string', Rule::in(Countries::isoCodes())],
             'service' => ['required', 'string', Rule::in(EnquiryServices::all())],
             'message' => ['required', 'string', 'min:20', 'max:5000'],
-            'budget' => ['nullable', Rule::enum(LeadBudget::class)],
-            'timeline' => ['nullable', Rule::enum(LeadTimeline::class)],
             'consent' => ['accepted'],
             'source' => ['nullable', 'in:contact,consultation'],
             'subject' => ['nullable', 'string', 'max:255'],
@@ -86,6 +81,17 @@ class ContactRequest extends FormRequest
         $phone = $this->validated('phone');
 
         return filled($phone) ? PhoneNumbers::toE164($phone, $this->phoneCountry()) : null;
+    }
+
+    /**
+     * The visitor's country, detected from their IP address rather than asked
+     * for. Null when it can't be detected.
+     */
+    public function country(): ?string
+    {
+        $isoCode = Countries::detect($this);
+
+        return $isoCode === null ? null : Countries::name($isoCode);
     }
 
     /**

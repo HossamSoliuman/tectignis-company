@@ -70,13 +70,13 @@
                 :placeholder="$variant === 'service' ? __('forms.phone_placeholder') : null" />
         </div>
 
-        <div class="{{ $s['field'] }}">
+        <div class="{{ $s['field'] }} enquiry-form__pair">
             <label for="{{ $id('company') }}" class="{{ $s['label'] }}">{{ __('forms.company') }} <span aria-hidden="true">*</span></label>
             <input id="{{ $id('company') }}" class="{{ $s['control'] }}" name="company" type="text" autocomplete="organization"
                 placeholder="{{ $placeholder(__('forms.company_placeholder')) }}" value="{{ $value('company') }}" maxlength="255" required>
         </div>
 
-        <div class="{{ $s['field'] }}">
+        <div class="{{ $fullField }} enquiry-form__pair">
             <label for="{{ $id('service') }}" class="{{ $s['label'] }}">{{ __('forms.service') }} <span aria-hidden="true">*</span></label>
             <select id="{{ $id('service') }}" class="{{ $s['control'] }}" name="service" required>
                 <option value="" @selected(! $value('service', $service))>{{ $variant === 'service' ? __('forms.service_placeholder') : __('forms.service_choose') }}</option>
@@ -90,48 +90,11 @@
             </select>
         </div>
 
-        <div class="{{ $s['field'] }}">
-            <label for="{{ $id('country') }}" class="{{ $s['label'] }}">{{ __('forms.country') }} <span aria-hidden="true">*</span></label>
-            <select id="{{ $id('country') }}" class="{{ $s['control'] }}" name="country" autocomplete="country-name" required>
-                <option value="" @selected(! $value('country'))>{{ $variant === 'service' ? __('forms.country_placeholder') : __('forms.country_choose') }}</option>
-                <optgroup label="{{ __('forms.priority_markets') }}">
-                    @foreach (\App\Support\Countries::priorityOptions() as $country => $countryLabel)
-                        <option value="{{ $country }}" @selected($value('country') === $country)>{{ $countryLabel }}</option>
-                    @endforeach
-                </optgroup>
-                <optgroup label="{{ __('forms.all_countries') }}">
-                    @foreach (\App\Support\Countries::otherOptions() as $country => $countryLabel)
-                        <option value="{{ $country }}" @selected($value('country') === $country)>{{ $countryLabel }}</option>
-                    @endforeach
-                </optgroup>
-            </select>
-        </div>
-
         <div class="{{ $fullField }}">
             <label for="{{ $id('message') }}" class="{{ $s['label'] }}">{{ __('forms.message') }} <span aria-hidden="true">*</span></label>
             <textarea id="{{ $id('message') }}" class="{{ $s['control'] }} {{ $variant === 'service' ? 'svc-input--area' : '' }}" name="message" rows="4"
                 placeholder="{{ $variant === 'service' ? __('forms.message_placeholder') : __('forms.message_hint') }}"
                 minlength="20" maxlength="5000" required>{{ $value('message') }}</textarea>
-        </div>
-
-        <div class="{{ $s['field'] }} enquiry-form__pair">
-            <label for="{{ $id('budget') }}" class="{{ $s['label'] }}">{{ __('forms.budget') }} <span class="consult-field__optional">{{ __('forms.optional') }}</span></label>
-            <select id="{{ $id('budget') }}" class="{{ $s['control'] }}" name="budget">
-                <option value="" @selected(! $value('budget'))>{{ $variant === 'service' ? __('forms.budget_placeholder') : __('forms.budget_choose') }}</option>
-                @foreach (\App\Enums\LeadBudget::options() as $optionValue => $label)
-                    <option value="{{ $optionValue }}" @selected($value('budget') === $optionValue)>{{ $label }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="{{ $s['field'] }} enquiry-form__pair">
-            <label for="{{ $id('timeline') }}" class="{{ $s['label'] }}">{{ __('forms.timeline') }} <span class="consult-field__optional">{{ __('forms.optional') }}</span></label>
-            <select id="{{ $id('timeline') }}" class="{{ $s['control'] }}" name="timeline">
-                <option value="" @selected(! $value('timeline'))>{{ $variant === 'service' ? __('forms.timeline_placeholder') : __('forms.timeline_choose') }}</option>
-                @foreach (\App\Enums\LeadTimeline::options() as $optionValue => $label)
-                    <option value="{{ $optionValue }}" @selected($value('timeline') === $optionValue)>{{ $label }}</option>
-                @endforeach
-            </select>
         </div>
 
         <div class="{{ $fullField }}">

@@ -76,12 +76,9 @@ function validEnquiry(array $overrides = []): array
         'name' => 'Jane Doe',
         'email' => 'jane@acme.example',
         'company' => 'Acme Corp',
-        'country' => 'United Arab Emirates',
         'phone' => '+971 50 123 4567',
         'service' => 'Cloud Migration',
         'message' => 'We want to move our ERP workloads to Azure next quarter.',
-        'budget' => '500-1k',
-        'timeline' => '1-3-months',
         'consent' => '1',
         'source' => 'contact',
     ], $overrides);

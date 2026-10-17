@@ -8766,16 +8766,16 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
 
 /* Consultation modal on desktop: a wider three-column layout so the whole
    form fits in the viewport without scrolling. Built on a six-track grid so
-   regular fields take a third, the budget/timeline pair takes half each, and
-   the reCAPTCHA widget and submit button share the last row. */
+   regular fields take a third, Company and Service take half each, and the
+   reCAPTCHA widget and submit button share the last row. */
 @media (min-width: 992px) {
     #consultation-modal .consult-modal__dialog { max-width: 800px; padding: 24px 28px; }
     #consultation-modal .consult-modal__header { margin-bottom: 18px; }
     .consult-modal .enquiry-form__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px 16px; }
     .consult-modal .enquiry-form__grid > .consult-field { grid-column: span 2; }
-    .consult-modal .enquiry-form__grid > .enquiry-form__pair { grid-column: span 3; }
     .consult-modal .enquiry-form__grid > .enquiry-form__full,
     .consult-modal .enquiry-form__grid > .enquiry-form__actions { grid-column: 1 / -1; }
+    .consult-modal .enquiry-form__grid > .enquiry-form__pair { grid-column: span 3; }
     .consult-modal .enquiry-form__grid > .enquiry-form__captcha { grid-column: span 3; }
     .consult-modal .enquiry-form__captcha .form-recaptcha { min-height: 0; }
     .consult-modal .enquiry-form__grid > .enquiry-form__captcha + .enquiry-form__actions { grid-column: span 3; display: flex; align-items: center; }

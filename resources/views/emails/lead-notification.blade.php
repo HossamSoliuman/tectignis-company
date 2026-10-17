@@ -11,10 +11,6 @@
         'Subject' => $lead->subject,
         'Source' => $lead->sourceLabel(),
     ]);
-    $qualification = array_filter([
-        'Budget' => $lead->budgetLabel(),
-        'Timeline' => $lead->timelineLabel(),
-    ]);
     $attribution = array_filter([
         'Page' => $lead->page_url,
         'UTM source' => $lead->utm_source,
@@ -26,7 +22,6 @@
     ]);
     $sections = array_filter([
         'Lead details' => $rows,
-        'Qualification' => $qualification,
         'Attribution' => $attribution,
     ]);
 @endphp

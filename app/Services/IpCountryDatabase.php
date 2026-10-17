@@ -11,9 +11,10 @@ use RuntimeException;
 use Throwable;
 
 /**
- * The free DB-IP "IP to Country Lite" database, kept on the server so the
- * enquiry form can preselect a visitor's calling code from their IP address
- * without sending it to a lookup service.
+ * The free DB-IP "IP to Country Lite" database, kept on the server so a
+ * lead's country can be recorded and the enquiry form can preselect the
+ * visitor's calling code from their IP address without sending it to a
+ * lookup service.
  *
  * The data is licensed CC BY 4.0, which asks for an "IP Geolocation by
  * DB-IP" link on the pages that use it: the site footers show it while the

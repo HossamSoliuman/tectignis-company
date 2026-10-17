@@ -6,9 +6,9 @@ use App\Services\IpCountryDatabase;
 use Illuminate\Http\Request;
 
 /**
- * Country names for the enquiry form's market attribution (spec §11.2), with
- * the ISO code and dialling code behind the phone number's country picker.
- * The priority markets (spec §17) are listed first in both dropdowns.
+ * Country names for a lead's country, detected from the visitor's IP address,
+ * with the ISO code and dialling code behind the phone number's country
+ * picker. The priority markets (spec §17) are listed first in the picker.
  */
 final class Countries
 {
@@ -139,16 +139,6 @@ final class Countries
     }
 
     /**
-     * Priority markets for a select input, in the order of PRIORITY.
-     *
-     * @return array<string, string> name => label
-     */
-    public static function priorityOptions(): array
-    {
-        return self::options(self::PRIORITY);
-    }
-
-    /**
      * Every other country for a select input, sorted by its label.
      *
      * @return array<string, string> name => label
@@ -166,6 +156,20 @@ final class Countries
     public static function isoCodes(): array
     {
         return array_column(self::ALL, 0);
+    }
+
+    /**
+     * The English country name (e.g. "India") for an ISO code.
+     */
+    public static function name(string $isoCode): ?string
+    {
+        foreach (self::ALL as $name => [$iso]) {
+            if ($iso === strtoupper($isoCode)) {
+                return $name;
+            }
+        }
+
+        return null;
     }
 
     /**

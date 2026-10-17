@@ -13,8 +13,8 @@
     // A phone number with a searchable country-code picker. The local number
     // and the ISO code are posted separately and combined server-side (see
     // ContactRequest), so the number still works without JavaScript.
-    // The calling code starts on the visitor's country from their IP address
-    // when the CDN sends it; it never follows the business location field.
+    // The calling code starts on the visitor's country, detected from their
+    // IP address (see Countries::detect).
     $codes = collect(\App\Support\Countries::phoneCodes());
     $detected = filled($country) ? null : \App\Support\Countries::detect(request());
     $selected = $codes->firstWhere('iso', strtoupper((string) ($country ?: $detected))) ?? $codes->first();

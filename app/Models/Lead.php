@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\LeadBudget;
 use App\Enums\LeadSource;
 use App\Enums\LeadStatus;
-use App\Enums\LeadTimeline;
 use App\Support\Locales;
 use App\Support\PhoneNumbers;
 use Database\Factories\LeadFactory;
@@ -38,7 +36,7 @@ class Lead extends Model
     public const ADS_FIELDS = ['gclid', 'gbraid', 'wbraid', 'gad_campaignid'];
 
     protected $fillable = [
-        'name', 'email', 'company', 'country', 'service', 'phone', 'subject', 'message', 'budget', 'timeline',
+        'name', 'email', 'company', 'country', 'service', 'phone', 'subject', 'message',
         'attachment', 'source', 'page_url', 'landing_page', 'language', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
         'gclid', 'gbraid', 'wbraid', 'gad_campaignid', 'status', 'assigned_to', 'is_read', 'consented_at',
     ];
@@ -113,22 +111,12 @@ class Lead extends Model
         return $this->sourceEnum()?->label() ?? ucfirst((string) ($this->source ?: 'contact'));
     }
 
-    public function budgetLabel(): ?string
-    {
-        return LeadBudget::tryFrom((string) $this->budget)?->label() ?? $this->budget;
-    }
-
     /**
      * The phone number grouped for reading, e.g. "+44 7400 123456".
      */
     public function phoneLabel(): ?string
     {
         return PhoneNumbers::display($this->phone);
-    }
-
-    public function timelineLabel(): ?string
-    {
-        return LeadTimeline::tryFrom((string) $this->timeline)?->label() ?? $this->timeline;
     }
 
     /**

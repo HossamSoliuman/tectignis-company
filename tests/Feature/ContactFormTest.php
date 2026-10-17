@@ -8,7 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('valid enquiry creates a lead with every submitted field and shows the thank-you page', function () {
-    $this->post(route('contact.submit'), validEnquiry(['page_url' => 'https://tectignis.test/services/cloud']))
+    $this->withHeader('CF-IPCountry', 'AE')
+        ->post(route('contact.submit'), validEnquiry(['page_url' => 'https://tectignis.test/services/cloud']))
         ->assertRedirect(route('contact.thank-you'));
 
     $lead = Lead::sole();
@@ -20,8 +21,6 @@ it('valid enquiry creates a lead with every submitted field and shows the thank-
         ->country->toBe('United Arab Emirates')
         ->phone->toBe('+971501234567')
         ->service->toBe('Cloud Migration')
-        ->budget->toBe('500-1k')
-        ->timeline->toBe('1-3-months')
         ->source->toBe('contact')
         ->page_url->toBe('https://tectignis.test/services/cloud')
         ->status->toBe(LeadStatus::New)
@@ -43,13 +42,13 @@ it('the thank-you page is only reachable straight after a submission', function 
 
 it('requires every mandatory enquiry field', function () {
     $this->post(route('contact.submit'), [])
-        ->assertSessionHasErrors(['name', 'email', 'company', 'country', 'service', 'message', 'consent']);
+        ->assertSessionHasErrors(['name', 'email', 'company', 'service', 'message', 'consent']);
 
     expect(Lead::count())->toBe(0);
 });
 
-it('phone, budget and timeline are optional', function () {
-    $this->post(route('contact.submit'), validEnquiry(['phone' => null, 'budget' => null, 'timeline' => null]))
+it('phone is optional', function () {
+    $this->post(route('contact.submit'), validEnquiry(['phone' => null]))
         ->assertSessionHasNoErrors()
         ->assertRedirect(route('contact.thank-you'));
 
@@ -63,14 +62,11 @@ it('rejects invalid enquiry values', function (string $field, mixed $value) {
     expect(Lead::count())->toBe(0);
 })->with([
     'malformed email' => ['email', 'not-an-email'],
-    'unknown country' => ['country', 'Atlantis'],
     'unapproved service' => ['service', 'Time travel'],
     'too-short description' => ['message', 'Need help.'],
     'not a phone number' => ['phone', 'call me maybe'],
     'too short to be a number' => ['phone', '+971 50'],
     'unknown phone country' => ['phone_country', 'XX'],
-    'unknown budget' => ['budget', 'a-lot'],
-    'unknown timeline' => ['timeline', 'someday'],
     'consent not given' => ['consent', '0'],
 ]);
 
@@ -95,13 +91,24 @@ it('rejects a number that is not valid for the calling code picked beside it', f
     expect(Lead::count())->toBe(0);
 });
 
-it('keeps the calling code separate from the business location', function () {
-    $this->post(route('contact.submit'), validEnquiry(['country' => 'United Kingdom', 'phone_country' => 'AE', 'phone' => '50 123 4567']))
+it('records the country detected from the IP address, not the calling code', function () {
+    $this->withHeader('CF-IPCountry', 'GB')
+        ->post(route('contact.submit'), validEnquiry(['phone_country' => 'AE', 'phone' => '50 123 4567']))
         ->assertRedirect(route('contact.thank-you'));
 
     expect(Lead::sole())
         ->country->toBe('United Kingdom')
         ->phone->toBe('+971501234567');
+});
+
+it('ignores posted country, budget and timeline values', function () {
+    $this->post(route('contact.submit'), validEnquiry(['country' => 'Canada', 'budget' => '500-1k', 'timeline' => 'immediate']))
+        ->assertRedirect(route('contact.thank-you'));
+
+    expect(Lead::sole())
+        ->country->toBeNull()
+        ->budget->toBeNull()
+        ->timeline->toBeNull();
 });
 
 it('preselects the calling code of the country the CDN detected from the IP address', function () {
@@ -207,8 +214,10 @@ it('renders the enquiry form on the contact page', function () {
     $this->get(route('contact'))
         ->assertOk()
         ->assertSee('name="company"', false)
-        ->assertSee('name="country"', false)
         ->assertSee('name="phone_country"', false)
         ->assertSee('name="consent"', false)
+        ->assertDontSee('name="country"', false)
+        ->assertDontSee('name="budget"', false)
+        ->assertDontSee('name="timeline"', false)
         ->assertSee('Cloud Migration');
 });

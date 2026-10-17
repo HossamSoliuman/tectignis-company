@@ -190,18 +190,18 @@ describe('SEO', function () {
 });
 
 describe('enquiry form', function () {
-    it('shows country names in the page language and keeps the English values', function () {
+    it('shows the calling code picker country names in the page language', function () {
         enableLanguages('ar');
 
         $this->get('/ar/contact')
             ->assertOk()
-            ->assertSee('<option value="United Arab Emirates" >الإمارات العربية المتحدة</option>', false);
+            ->assertSee('data-iso="AE" data-dial="+971" data-label="الإمارات العربية المتحدة"', false);
     })->skip(! extension_loaded('intl'), 'The intl extension is not installed.');
 
     it('shows the English country names on the English site', function () {
         $this->get('/contact')
             ->assertOk()
-            ->assertSee('<option value="United Arab Emirates" >United Arab Emirates</option>', false);
+            ->assertSee('data-iso="AE" data-dial="+971" data-label="United Arab Emirates"', false);
     });
 });
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Lead;
 use App\Services\IpCountryDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
@@ -69,6 +70,39 @@ describe('phone field', function () {
         'IPv6 address' => [true, '2001:db8::1'],
         'no database installed' => [false, '1.2.3.4'],
     ]);
+});
+
+describe('lead country', function () {
+    it('records the country the IP address belongs to on the lead', function () {
+        installTestCountryDatabase();
+
+        $this->withServerVariables(['REMOTE_ADDR' => '1.2.3.4'])
+            ->post(route('contact.submit'), validEnquiry())
+            ->assertRedirect(route('contact.thank-you'));
+
+        expect(Lead::sole()->country)->toBe('United Arab Emirates');
+    });
+
+    it('prefers the CDN country header over the database', function () {
+        installTestCountryDatabase();
+
+        $this->withServerVariables(['REMOTE_ADDR' => '1.2.3.4'])
+            ->withHeader('CF-IPCountry', 'GB')
+            ->post(route('contact.submit'), validEnquiry())
+            ->assertRedirect(route('contact.thank-you'));
+
+        expect(Lead::sole()->country)->toBe('United Kingdom');
+    });
+
+    it('leaves the country empty when the IP address is unknown', function () {
+        installTestCountryDatabase();
+
+        $this->withServerVariables(['REMOTE_ADDR' => '8.8.8.8'])
+            ->post(route('contact.submit'), validEnquiry())
+            ->assertRedirect(route('contact.thank-you'));
+
+        expect(Lead::sole()->country)->toBeNull();
+    });
 });
 
 describe('credit', function () {

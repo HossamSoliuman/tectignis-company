@@ -13,8 +13,6 @@
             ['globe', 'Country', $lead->country, null],
             ['briefcase', 'Service', $lead->service, null],
             ['document-text', 'Subject', $lead->subject, null],
-            ['chart-bar', 'Budget', $lead->budgetLabel(), null],
-            ['clock', 'Timeline', $lead->timelineLabel(), null],
             ['inbox', 'Source', $lead->sourceLabel(), null],
             ['calendar', 'Received', $lead->created_at->timezone($timezone)->format('M d, Y H:i T'), null],
             ['shield-check', 'Consent', $lead->consented_at?->timezone($timezone)->format('M d, Y H:i T'), null],

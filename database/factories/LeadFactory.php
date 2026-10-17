@@ -2,9 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\LeadBudget;
 use App\Enums\LeadStatus;
-use App\Enums\LeadTimeline;
 use App\Models\Lead;
 use App\Models\User;
 use App\Support\Countries;
@@ -44,8 +42,6 @@ class LeadFactory extends Factory
             'company' => fake()->company(),
             'country' => fake()->randomElement(Countries::PRIORITY),
             'service' => fake()->randomElement(EnquiryServices::all()),
-            'budget' => fake()->randomElement(LeadBudget::cases())->value,
-            'timeline' => fake()->randomElement(LeadTimeline::cases())->value,
             'page_url' => url('/contact'),
             'consented_at' => now(),
         ]);
