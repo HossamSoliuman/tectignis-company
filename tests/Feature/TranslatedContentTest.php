@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    config(['locales.supported.ar.enabled' => true]);
+    enableLanguages('ar');
 });
 
 function serviceWithContent(): Service

@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\JobApplicationExportController;
 use App\Http\Controllers\Admin\JobApplicationNoteController;
 use App\Http\Controllers\Admin\JobOpeningController;
 use App\Http\Controllers\Admin\LandingPageController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LeadController;
 use App\Http\Controllers\Admin\LeadExportController;
 use App\Http\Controllers\Admin\LeadNoteController;
@@ -101,6 +102,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('settings/captcha', [CaptchaSettingsController::class, 'edit'])->name('captcha.edit');
         Route::put('settings/captcha', [CaptchaSettingsController::class, 'update'])->name('captcha.update');
         Route::post('settings/captcha/test', [CaptchaSettingsController::class, 'test'])->name('captcha.test');
+    });
+
+    // Super Admin only: switching languages on, translated service pages and
+    // browser detection.
+    Route::middleware(['auth', 'can:manage-languages'])->group(function () {
+        Route::get('settings/languages', [LanguageController::class, 'edit'])->name('languages.edit');
+        Route::put('settings/languages', [LanguageController::class, 'update'])->name('languages.update');
+        Route::put('settings/languages/{language}', [LanguageController::class, 'toggle'])->name('languages.toggle');
     });
 
     Route::middleware(['auth', 'can:manage-users'])->group(function () {

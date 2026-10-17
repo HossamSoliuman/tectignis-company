@@ -2,15 +2,18 @@
 
 namespace App\Support;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
- * The languages the public site is served in (config/locales.php) and the
- * URLs between them. English keeps today's unprefixed URLs; every other
- * language serves the translated pages under its own prefix, under the same
- * route names with a `localized.` prefix.
+ * The languages the public site is served in and the URLs between them.
+ * config/locales.php holds the fixed facts per language; which languages are
+ * live, which service pages are translated and browser detection are
+ * settings a Super Admin changes in the Languages tab. English keeps today's
+ * unprefixed URLs; every other language serves the translated pages under
+ * its own prefix, under the same route names with a `localized.` prefix.
  */
 final class Locales
 {
@@ -21,6 +24,24 @@ final class Locales
     public const COOKIE = 'locale';
 
     public const ROUTE_PREFIX = 'localized.';
+
+    /**
+     * The settings group behind the Languages tab, kept off the Site Settings
+     * screen because only a Super Admin may change it.
+     */
+    public const SETTINGS_GROUP = 'locales';
+
+    /**
+     * Setting keys: the live languages, who last switched each one on or off
+     * and when, the translated service slugs, and first-visit detection.
+     */
+    public const SETTING_ENABLED = 'locales_enabled';
+
+    public const SETTING_CHANGES = 'locales_changes';
+
+    public const SETTING_TRANSLATED_SERVICES = 'locales_translated_services';
+
+    public const SETTING_DETECT_BROWSER = 'locales_detect_browser';
 
     public static function default(): string
     {
@@ -38,7 +59,7 @@ final class Locales
     }
 
     /**
-     * @return array<string, array{label: string, name: string, dir: string, og_locale: string, enabled: bool}>
+     * @return array<string, array{label: string, name: string, dir: string, og_locale: string}>
      */
     public static function supported(): array
     {
@@ -66,13 +87,18 @@ final class Locales
     }
 
     /**
-     * Languages visitors can reach, English first.
+     * Languages visitors can reach, English first. English is always on.
      *
      * @return list<string>
      */
     public static function enabled(): array
     {
-        return array_keys(array_filter(self::supported(), fn (array $language): bool => $language['enabled']));
+        $switchedOn = Setting::json(self::SETTING_ENABLED);
+
+        return array_values(array_filter(
+            self::codes(),
+            fn (string $code): bool => self::isDefault($code) || in_array($code, $switchedOn, true),
+        ));
     }
 
     public static function isSupported(string $code): bool
@@ -82,7 +108,75 @@ final class Locales
 
     public static function isEnabled(?string $code = null): bool
     {
-        return self::supported()[$code ?? self::current()]['enabled'] ?? false;
+        return in_array($code ?? self::current(), self::enabled(), true);
+    }
+
+    /**
+     * Whether the language's fixed text exists, which switching it on requires.
+     */
+    public static function hasLangFiles(string $code): bool
+    {
+        return is_dir(lang_path($code));
+    }
+
+    /**
+     * Switch a language on or off for visitors, remembering who did it and when.
+     */
+    public static function switchLanguage(string $code, bool $enabled, User $user): void
+    {
+        $switchedOn = array_diff(Setting::json(self::SETTING_ENABLED), [$code]);
+
+        if ($enabled) {
+            $switchedOn[] = $code;
+        }
+
+        $changes = self::changes();
+        $changes[$code] = ['enabled' => $enabled, 'by' => $user->id, 'at' => now()->toIso8601String()];
+
+        Setting::set(self::SETTING_ENABLED, json_encode(array_values(array_intersect(self::prefixed(), $switchedOn))), self::SETTINGS_GROUP);
+        Setting::set(self::SETTING_CHANGES, json_encode($changes), self::SETTINGS_GROUP);
+    }
+
+    /**
+     * The last time each language was switched on or off.
+     *
+     * @return array<string, array{enabled: bool, by: int, at: string}>
+     */
+    public static function changes(): array
+    {
+        return Setting::json(self::SETTING_CHANGES);
+    }
+
+    /**
+     * Slugs of the service pages that have a version in every language.
+     *
+     * @return list<string>
+     */
+    public static function translatedServices(): array
+    {
+        return array_values(array_filter(Setting::json(self::SETTING_TRANSLATED_SERVICES), 'is_string'));
+    }
+
+    /**
+     * @param  list<string>  $slugs
+     */
+    public static function saveTranslatedServices(array $slugs): void
+    {
+        Setting::set(self::SETTING_TRANSLATED_SERVICES, json_encode(array_values(array_unique($slugs))), self::SETTINGS_GROUP);
+    }
+
+    /**
+     * Whether a first visit to a translated English page is sent to the
+     * language the browser prefers. On unless switched off.
+     */
+    public static function detectsBrowserLanguage(): bool
+    {
+        return Setting::get(self::SETTING_DETECT_BROWSER, '1') !== '0';
+    }
+
+    public static function saveBrowserDetection(bool $enabled): void
+    {
+        Setting::set(self::SETTING_DETECT_BROWSER, $enabled ? '1' : '0', self::SETTINGS_GROUP);
     }
 
     /**
@@ -145,12 +239,24 @@ final class Locales
     }
 
     /**
+     * Route names with a version in every language: the fixed pages from
+     * config plus the service pages chosen in the Languages tab. A route
+     * listed with slugs is translated for those slugs only.
+     *
+     * @return array<string, list<string>|null>
+     */
+    public static function translatedPages(): array
+    {
+        return [...config('locales.translated_pages'), 'services.show' => self::translatedServices()];
+    }
+
+    /**
      * Whether the page has a version in every language. Routes listed with
      * slugs are translated for those slugs only.
      */
     public static function isTranslatedPage(?string $routeName, mixed $parameters = []): bool
     {
-        $pages = config('locales.translated_pages');
+        $pages = self::translatedPages();
 
         if ($routeName === null || ! array_key_exists($routeName, $pages)) {
             return false;

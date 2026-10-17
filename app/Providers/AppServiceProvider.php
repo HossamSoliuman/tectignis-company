@@ -50,11 +50,12 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * Super-Admin-only areas: CAPTCHA keys (spec §28.2) and admin users.
+     * Super-Admin-only areas: CAPTCHA keys (spec §28.2), languages and admin users.
      */
     private function defineAdminGates(): void
     {
         Gate::define('manage-captcha', fn (User $user): bool => $user->isSuperAdmin());
+        Gate::define('manage-languages', fn (User $user): bool => $user->isSuperAdmin());
         Gate::define('manage-users', fn (User $user): bool => $user->isSuperAdmin());
         Gate::define('access-careers', fn (User $user): bool => $user->hasCareersAccess());
     }

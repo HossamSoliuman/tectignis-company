@@ -68,7 +68,7 @@ it('has a language folder for every enabled language', function () {
 });
 
 it('serves the fixed text in each language', function (string $code) {
-    config(["locales.supported.{$code}.enabled" => true]);
+    enableLanguages($code);
 
     $sendEnquiry = trans('forms.send_enquiry', [], $code);
 

@@ -4,21 +4,12 @@ use App\Enums\UserRole;
 use App\Models\LandingPage;
 use App\Models\Lead;
 use App\Models\Service;
+use App\Models\Setting;
 use App\Models\User;
 use App\Support\Locales;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
-
-/**
- * Switch languages on for the current test, as LOCALES_ENABLED does.
- */
-function enableLanguages(string ...$codes): void
-{
-    foreach ($codes as $code) {
-        config(["locales.supported.{$code}.enabled" => true]);
-    }
-}
 
 function translatedService(): Service
 {
@@ -65,7 +56,9 @@ describe('routing', function () {
         Service::factory()->create(['is_active' => true, 'slug' => 'seo-services']);
 
         $this->get('/ar/services/custom-software-development')->assertOk();
-        $this->get('/ar/services/seo-services')->assertNotFound();
+        $this->get('/ar/services/seo-services?gclid=abc123')
+            ->assertMovedPermanently()
+            ->assertRedirect(url('/services/seo-services').'?gclid=abc123');
         $this->get('/services/seo-services')->assertOk();
     });
 
@@ -75,7 +68,7 @@ describe('routing', function () {
 
         $this->get('/fr/lp/website-development')->assertOk()->assertSee('lang="fr"', false);
         $this->get('/fr/legal/privacy-policy')->assertOk();
-        $this->get('/fr/legal/refund-policy')->assertNotFound();
+        $this->get('/fr/legal/refund-policy')->assertMovedPermanently()->assertRedirect(url('/legal/refund-policy'));
     });
 
     it('does not pass the language to controllers as a route parameter', function () {
@@ -179,7 +172,7 @@ describe('SEO', function () {
 
         $this->get('/about')->assertOk()->assertDontSee('rel="alternate" hreflang', false);
 
-        config(['locales.supported.ar.enabled' => false]);
+        Setting::set(Locales::SETTING_ENABLED, '[]', Locales::SETTINGS_GROUP);
 
         $this->get('/')->assertOk()->assertDontSee('rel="alternate" hreflang', false);
     });

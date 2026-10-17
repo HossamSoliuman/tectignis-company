@@ -2,7 +2,9 @@
 
 use App\Enums\Portal\PortalRole;
 use App\Models\Portal\Employee;
+use App\Models\Setting;
 use App\Models\User;
+use App\Support\Locales;
 use Tests\TestCase;
 
 /*
@@ -49,6 +51,17 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+/**
+ * Switch languages on for the current test, as a Super Admin does in the
+ * Languages tab.
+ */
+function enableLanguages(string ...$codes): void
+{
+    $enabled = array_values(array_unique([...Setting::json(Locales::SETTING_ENABLED), ...$codes]));
+
+    Setting::set(Locales::SETTING_ENABLED, json_encode($enabled), Locales::SETTINGS_GROUP);
 }
 
 /**

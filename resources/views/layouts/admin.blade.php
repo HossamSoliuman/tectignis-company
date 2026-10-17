@@ -100,6 +100,7 @@
                             $showSuperAdmin ? [
                                 ['admin.users.index', 'Users & Roles'],
                                 ['admin.captcha.edit', 'CAPTCHA'],
+                                ['admin.languages.edit', 'Languages'],
                             ] : [],
                         )] : null,
                     ]));

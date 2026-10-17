@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Support\Locales;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,12 +15,18 @@ class SettingsController extends Controller
     use UploadsFiles;
 
     /**
-     * Groups managed on their own screens. CAPTCHA keys are Super-Admin-only
-     * (spec §28.2), so they can neither be shown nor written from here.
+     * Groups managed on their own screens. CAPTCHA keys (spec §28.2) and the
+     * language settings are Super-Admin-only, so they can neither be shown
+     * nor written from here.
      *
      * @var list<string>
      */
-    private const EXCLUDED_GROUPS = ['smtp', 'mail', 'captcha'];
+    private const EXCLUDED_GROUPS = ['smtp', 'mail', 'captcha', Locales::SETTINGS_GROUP];
+
+    /**
+     * @var list<string>
+     */
+    private const SUPER_ADMIN_GROUPS = ['captcha', Locales::SETTINGS_GROUP];
 
     public function index(): View
     {
@@ -39,7 +46,7 @@ class SettingsController extends Controller
         ]);
 
         foreach ($data['settings'] ?? [] as $key => $value) {
-            Setting::where('key', $key)->where('group', '!=', 'captcha')->update(['value' => $value]);
+            Setting::where('key', $key)->whereNotIn('group', self::SUPER_ADMIN_GROUPS)->update(['value' => $value]);
         }
 
         $imageKeys = array_unique(array_merge(

@@ -46,7 +46,12 @@ class SetLocale
         $route->forgetParameter('locale');
 
         abort_unless(Locales::isViewableBy($locale, $request->user()), 404);
-        abort_unless(Locales::isTranslatedPage(Locales::baseRouteName($route->getName()), $route->parameters()), 404);
+
+        $name = Locales::baseRouteName($route->getName());
+
+        if (! Locales::isTranslatedPage($name, $route->parameters())) {
+            return $this->englishPageRedirect($request, $name, $route->parameters());
+        }
 
         App::setLocale($locale);
         URL::defaults(['locale' => $locale]);
@@ -55,14 +60,32 @@ class SetLocale
     }
 
     /**
+     * A page without translations, such as a service page taken off the
+     * translated list, moves permanently to its English URL, so indexed
+     * language URLs keep working.
+     *
+     * @param  array<string, mixed>  $parameters
+     */
+    private function englishPageRedirect(Request $request, string $name, array $parameters): RedirectResponse
+    {
+        abort_unless($request->isMethod('GET') || $request->isMethod('HEAD'), 404);
+
+        $query = $request->getQueryString();
+
+        return redirect()->to(route($name, $parameters).($query ? '?'.$query : ''), 301);
+    }
+
+    /**
      * On a first visit (no language cookie), send people whose browser prefers
-     * an enabled language to that language's version of the page. Bots always
-     * get the URL they asked for. The query string is kept, so Ads click IDs
-     * and UTM tags survive the redirect.
+     * an enabled language to that language's version of the page, unless
+     * detection is switched off in the Languages tab. Bots always get the URL
+     * they asked for. The query string is kept, so Ads click IDs and UTM tags
+     * survive the redirect.
      */
     private function detectedLanguageRedirect(Request $request): ?RedirectResponse
     {
         if (! $request->isMethod('GET')
+            || ! Locales::detectsBrowserLanguage()
             || $request->hasCookie(Locales::COOKIE)
             || $request->route()?->getName() === 'contact.thank-you'
             || Bots::is($request->userAgent())) {
