@@ -55,7 +55,7 @@ it('reports what keeps pages out of the index or under the wrong language', func
     $german = $site.'/de';
 
     $pages = [
-        $site.'/robots.txt' => "User-agent: *\nDisallow: /private",
+        $site.'/robots.txt' => "User-agent: *\nDisallow: /private\nUser-agent: Googlebot Allow: /",
         $site.'/sitemap.xml' => '<?xml version="1.0" encoding="UTF-8"?>'
             .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'
             .'<url><loc>'.$home.'</loc><xhtml:link rel="alternate" hreflang="en" href="'.$home.'"/><xhtml:link rel="alternate" hreflang="ar" href="'.$arabic.'"/></url>'
@@ -81,6 +81,7 @@ it('reports what keeps pages out of the index or under the wrong language', func
     $this->artisan('seo:crawl', ['url' => $site])
         ->expectsOutputToContain('Crawled 5 pages from https://example.test/sitemap.xml.')
         ->expectsOutputToContain('robots.txt does not list the sitemap')
+        ->expectsOutputToContain('robots.txt line 3 holds more than one directive')
         ->expectsOutputToContain('Heading levels skip: h1 → h3')
         ->expectsOutputToContain('Images without alt text: /team.webp')
         ->expectsOutputToContain('The page and the sitemap list different hreflang alternates')

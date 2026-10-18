@@ -34,6 +34,11 @@ it('follows the group naming the crawler over the catch-all group', function () 
         ->and($robots->allows('https://tectignis.in/de', 'Bingbot'))->toBeFalse();
 });
 
+it('spots lines holding more than one directive', function () {
+    expect((new RobotsTxt("User-agent: *Allow: /\nSitemap: https://tectignis.in/sitemap.xml"))->joinedLines())->toBe([1])
+        ->and((new RobotsTxt("User-agent: *\nDisallow: /allowed-path\nSitemap: https://tectignis.in/sitemap.xml"))->joinedLines())->toBe([]);
+});
+
 it('reads the sitemaps it lists', function () {
     expect((new RobotsTxt("User-agent: *\nAllow: /\nSitemap: https://tectignis.in/sitemap.xml"))->sitemaps())
         ->toBe(['https://tectignis.in/sitemap.xml']);

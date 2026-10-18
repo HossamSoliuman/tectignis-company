@@ -23,12 +23,19 @@ final class RobotsTxt
      */
     private array $sitemaps = [];
 
+    /**
+     * Line numbers holding more than one directive, which crawlers misread.
+     *
+     * @var list<int>
+     */
+    private array $joinedLines = [];
+
     public function __construct(string $content)
     {
         $agents = [];
         $readingRules = false;
 
-        foreach (preg_split('/\R/', $content) as $line) {
+        foreach (preg_split('/\R/', $content) as $number => $line) {
             $line = trim(Str::before($line, '#'));
 
             if (! str_contains($line, ':')) {
@@ -37,6 +44,10 @@ final class RobotsTxt
 
             [$field, $value] = array_map(trim(...), explode(':', $line, 2));
             $field = strtolower($field);
+
+            if (preg_match('/\b(?:user-agent|allow|disallow|sitemap|crawl-delay)\s*:/i', $value)) {
+                $this->joinedLines[] = $number + 1;
+            }
 
             if ($field === 'sitemap') {
                 $this->sitemaps[] = $value;
@@ -88,6 +99,14 @@ final class RobotsTxt
     public function sitemaps(): array
     {
         return $this->sitemaps;
+    }
+
+    /**
+     * @return list<int>
+     */
+    public function joinedLines(): array
+    {
+        return $this->joinedLines;
     }
 
     /**

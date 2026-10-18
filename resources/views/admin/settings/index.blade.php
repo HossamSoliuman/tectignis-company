@@ -73,7 +73,7 @@
                                         label=""
                                         :current="$setting->value"
                                         :current-url="\App\Models\Setting::imageUrl($setting->value, $setting->key)" />
-                                @elseif (str_contains($setting->key, 'content') || str_contains($setting->key, 'legal_') || str_contains($setting->key, 'description') || str_contains($setting->key, 'subtitle') || str_ends_with($setting->key, '_text'))
+                                @elseif (str_contains($setting->key, 'content') || str_contains($setting->key, 'legal_') || str_contains($setting->key, 'description') || str_contains($setting->key, 'subtitle') || str_ends_with($setting->key, '_text') || str_ends_with($setting->key, '_txt'))
                                     <textarea name="settings[{{ $setting->key }}]" rows="6"
                                         class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ $setting->value }}</textarea>
                                 @elseif (str_contains($setting->key, 'password') || str_contains($setting->key, 'secret'))

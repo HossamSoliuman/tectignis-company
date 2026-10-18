@@ -1,8 +1,10 @@
 <?php
 
+use App\Enums\UserRole;
 use App\Models\LandingPage;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\User;
 use App\Support\CompanyProfile;
 use App\Support\Locales;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -111,6 +113,33 @@ describe('robots', function () {
         $this->get(route('robots'))
             ->assertOk()
             ->assertSee('Sitemap: '.url('/sitemap.xml'));
+    });
+
+    it('puts robots.txt directives saved on one line back on their own lines', function () {
+        Setting::set('robots_txt', 'User-agent: *Allow: / Disallow: /admin', 'seo');
+
+        (require database_path('migrations/2026_10_18_103803_split_robots_txt_directives_onto_lines.php'))->up();
+
+        expect(Setting::get('robots_txt'))->toBe("User-agent: *\nAllow: /\nDisallow: /admin");
+
+        $this->get(route('robots'))->assertOk()->assertSeeText("User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: ".url('/sitemap.xml'), false);
+    });
+
+    it('leaves a robots.txt with one directive per line alone', function () {
+        Setting::set('robots_txt', "User-agent: *\nDisallow:", 'seo');
+
+        (require database_path('migrations/2026_10_18_103803_split_robots_txt_directives_onto_lines.php'))->up();
+
+        expect(Setting::get('robots_txt'))->toBe("User-agent: *\nDisallow:");
+    });
+
+    it('edits robots.txt in a field that keeps its line breaks', function () {
+        Setting::set('robots_txt', "User-agent: *\nAllow: /", 'seo');
+
+        $this->actingAs(User::factory()->role(UserRole::Editor)->create())
+            ->get(route('admin.settings.index'))
+            ->assertOk()
+            ->assertSee('<textarea name="settings[robots_txt]"', false);
     });
 
     it('gives a page one robots tag, with its own directives', function () {

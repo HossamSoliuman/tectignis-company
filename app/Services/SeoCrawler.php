@@ -73,6 +73,10 @@ class SeoCrawler
             $issues[] = $this->issue($robotsUrl, 'warning', 'robots.txt does not list the sitemap');
         }
 
+        foreach ($robots->joinedLines() as $line) {
+            $issues[] = $this->issue($robotsUrl, 'error', "robots.txt line {$line} holds more than one directive");
+        }
+
         $sitemapUrl = $baseUrl.'/sitemap.xml';
         $sitemap = $this->readSitemap($sitemapUrl);
 
