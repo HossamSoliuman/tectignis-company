@@ -106,7 +106,7 @@
                 <div class="col-lg-3 mt-5 mt-lg-0">
                     <div class="faq-contact">
                         <div class="faq-contact__icon"><i class="fas fa-headset" aria-hidden="true"></i></div>
-                        <h5>Can't find what you're looking for?</h5>
+                        <h2>Can't find what you're looking for?</h2>
                         <p>Our experts are ready to answer your questions.</p>
                         <ul class="faq-contact__list">
                             <li><i class="fas fa-phone-alt" aria-hidden="true"></i> <a href="tel:{{ preg_replace('/\s+/', '', $sitePhone) }}">{{ $sitePhone }}</a></li>

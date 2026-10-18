@@ -14,6 +14,10 @@
 @endsection
 
 @section('content')
+    <x-seo.service-schema :name="$service->title" :url="localized_route('services.show', $service->slug)"
+        :description="$service->seo_description ?: $service->short_description"
+        :image="$service->banner_image ? asset('uploads/'.$service->banner_image) : null" />
+
     @if ($service->body && empty($service->content))
         {{-- Escape hatch: legacy services still using free-form body and no rich content yet. --}}
         @include('public._dynamic-body', ['body' => $service->body])

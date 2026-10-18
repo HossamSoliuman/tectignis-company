@@ -29,14 +29,14 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="modern-number-01">
-                            <h3 class="heading mt-30">Best <span class="text-color-primary">{{ $capability->title }}</span><br>in Navi Mumbai</h3>
+                            <h2 class="heading mt-30">Best <span class="text-color-primary">{{ $capability->title }}</span><br>in Navi Mumbai</h2>
                         </div>
                     </div>
                     <div class="col-lg-7 offset-lg-1">
                         <div class="conact-us-wrap-one managed-it">
-                            <h5 class="heading"><span class="text-color-primary">Tectignis IT Solutions</span>
+                            <h3 class="heading tx-size-h5"><span class="text-color-primary">Tectignis IT Solutions</span>
                                 specializes in affordable &amp; effective
-                                <span class="text-color-primary">{{ $capability->title }}</span> services.</h5>
+                                <span class="text-color-primary">{{ $capability->title }}</span> services.</h3>
                             <div class="sub-heading">Contact Tectignis IT Solutions today for a free consultation</div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <div class="machine-learning-about-content">
                             <div class="section-title mb-20">
                                 <div class="section-title-wrap text-left section-space--mb_30">
-                                    <h3 class="heading">Expert <span class="text-color-primary">{{ $capability->title }}</span> Services</h3>
+                                    <h2 class="heading tx-size-h3">Expert <span class="text-color-primary">{{ $capability->title }}</span> Services</h2>
                                 </div>
                                 <p class="dec-text mt-20">{{ $capability->short_description }}</p>
                                 <div class="tab-button mt-30">
@@ -97,7 +97,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_20">
-                        <h3 class="heading">Why Choose Tectignis IT Solutions?</h3>
+                        <h2 class="heading tx-size-h3">Why Choose Tectignis IT Solutions?</h2>
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                                                 <div class="icon">
                                                     <i class="fas fa-briefcase"></i>
                                                 </div>
-                                                <h5 class="heading">Experience and Expertise</h5>
+                                                <h3 class="heading tx-size-h5">Experience and Expertise</h3>
                                             </div>
                                             <div class="content">
                                                 <div class="text">We have a proven track record of delivering successful solutions to businesses across various industries.</div>
@@ -130,7 +130,7 @@
                                                 <div class="icon">
                                                     <i class="fas fa-users"></i>
                                                 </div>
-                                                <h5 class="heading">Client-Centric Approach</h5>
+                                                <h3 class="heading tx-size-h5">Client-Centric Approach</h3>
                                             </div>
                                             <div class="content">
                                                 <div class="text">We prioritize client satisfaction and work closely with you throughout the entire process.</div>
@@ -147,7 +147,7 @@
                                                 <div class="icon">
                                                     <i class="fas fa-tags"></i>
                                                 </div>
-                                                <h5 class="heading">Affordable Pricing</h5>
+                                                <h3 class="heading tx-size-h5">Affordable Pricing</h3>
                                             </div>
                                             <div class="content">
                                                 <div class="text">We offer competitive pricing without compromising on quality. Every business deserves a high-quality solution.</div>
@@ -164,7 +164,7 @@
                                                 <div class="icon">
                                                     <i class="fas fa-clock"></i>
                                                 </div>
-                                                <h5 class="heading">Timely Delivery</h5>
+                                                <h3 class="heading tx-size-h5">Timely Delivery</h3>
                                             </div>
                                             <div class="content">
                                                 <div class="text">We understand the importance of deadlines and strive to deliver projects on time and within budget.</div>
@@ -188,8 +188,8 @@
                 <div class="col-lg-12">
                     <div class="gradation-title-wrapper section-space--mb_60">
                         <div class="gradation-title-wrap">
-                            <h6 class="section-sub-title text-black mb-20">How we work</h6>
-                            <h4 class="heading">Our Simple <span class="text-color-primary"><br>4-Step Process</span></h4>
+                            <p class="section-sub-title text-black mb-20">How we work</p>
+                            <h2 class="heading tx-size-h4">Our Simple <span class="text-color-primary"><br>4-Step Process</span></h2>
                         </div>
                         <div class="gradation-sub-heading">
                             <h3 class="heading"><mark>04</mark> Steps</h3>
@@ -208,10 +208,10 @@
                                     <div class="wave-pulse wave-pulse-2"></div>
                                     <div class="wave-pulse wave-pulse-3"></div>
                                 </div>
-                                <h6 class="circle">1</h6>
+                                <div class="circle" aria-hidden="true">1</div>
                             </div>
                             <div class="content-wrap">
-                                <h6 class="heading">01. Discovery &amp; Consultation</h6>
+                                <h3 class="heading tx-size-h6">01. Discovery &amp; Consultation</h3>
                                 <div class="text">We understand your business, goals, and target audience to tailor the perfect solution.</div>
                             </div>
                         </div>
@@ -223,10 +223,10 @@
                                     <div class="wave-pulse wave-pulse-2"></div>
                                     <div class="wave-pulse wave-pulse-3"></div>
                                 </div>
-                                <h6 class="circle">2</h6>
+                                <div class="circle" aria-hidden="true">2</div>
                             </div>
                             <div class="content-wrap">
-                                <h6 class="heading">02. Design &amp; Development</h6>
+                                <h3 class="heading tx-size-h6">02. Design &amp; Development</h3>
                                 <div class="text">Our expert team crafts high-quality solutions using the latest technologies.</div>
                             </div>
                         </div>
@@ -238,10 +238,10 @@
                                     <div class="wave-pulse wave-pulse-2"></div>
                                     <div class="wave-pulse wave-pulse-3"></div>
                                 </div>
-                                <h6 class="circle">3</h6>
+                                <div class="circle" aria-hidden="true">3</div>
                             </div>
                             <div class="content-wrap">
-                                <h6 class="heading">03. Testing &amp; Quality Assurance</h6>
+                                <h3 class="heading tx-size-h6">03. Testing &amp; Quality Assurance</h3>
                                 <div class="text">We rigorously test every deliverable to ensure optimal performance and seamless experience.</div>
                             </div>
                         </div>
@@ -253,10 +253,10 @@
                                     <div class="wave-pulse wave-pulse-2"></div>
                                     <div class="wave-pulse wave-pulse-3"></div>
                                 </div>
-                                <h6 class="circle">4</h6>
+                                <div class="circle" aria-hidden="true">4</div>
                             </div>
                             <div class="content-wrap">
-                                <h6 class="heading">04. Launch &amp; Support</h6>
+                                <h3 class="heading tx-size-h6">04. Launch &amp; Support</h3>
                                 <div class="text">We launch smoothly and provide ongoing maintenance and support for continued success.</div>
                             </div>
                         </div>

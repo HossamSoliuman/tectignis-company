@@ -40,7 +40,7 @@
                         <div class="row">
                             @foreach ($insights as $insight)
                                 <div class="col-xl-4 col-md-6 mb-30 wow move-up">
-                                    <x-public.resource.card
+                                    <x-public.resource.card :heading-level="2"
                                         :url="route('insights.show', $insight->slug)"
                                         :image="$insight->image"
                                         :topic="$insight->topic"
@@ -63,7 +63,7 @@
                 <div class="col-lg-3 mt-5 mt-lg-0">
                     @if ($topics->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">Popular Topics</h4>
+                            <h2 class="res-widget__title">Popular Topics</h2>
                             <ul class="res-cats">
                                 @foreach ($topics as $topic => $count)
                                     <li>

@@ -1,5 +1,5 @@
 <div class="res-widget res-news">
-    <h4 class="res-widget__title">Stay <span>Updated</span></h4>
+    <h2 class="res-widget__title">Stay <span>Updated</span></h2>
     <p class="res-news__text">Subscribe to our newsletter and get the latest insights delivered to your inbox.</p>
     @if (session('newsletter_status'))
         <p class="res-news__success">{{ session('newsletter_status') }}</p>

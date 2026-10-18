@@ -22,6 +22,9 @@
             ->all();
     }
 
+    // The banner's own size reserves its space, so the page doesn't shift when it loads.
+    [$bannerWidth, $bannerHeight] = \App\Models\Setting::imageSize($service->banner_image) ?? [null, null];
+
     // Highlight the service name inside the heading when it appears there.
     $headingHtml = e($heading);
     if (filled($service->title) && str_contains($heading, $service->title)) {
@@ -34,7 +37,8 @@
     <span class="svc-hero__blob svc-hero__blob--2" aria-hidden="true"></span>
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 col-md-12 svc-hero__content wow move-up">
+            {{-- No scroll animation above the fold: it would hide the largest paint until scripts run. --}}
+            <div class="col-lg-6 col-md-12 svc-hero__content">
                 @if (filled($eyebrow))
                     <span class="svc-eyebrow">{{ $eyebrow }}</span>
                 @endif
@@ -73,11 +77,12 @@
                 @endif
             </div>
 
-            <div class="col-lg-6 col-md-12 svc-hero__media wow move-up">
+            <div class="col-lg-6 col-md-12 svc-hero__media">
                 <div class="svc-hero__image-frame">
                     @if ($service->banner_image)
                         <img class="svc-hero__image" src="{{ asset('uploads/'.$service->banner_image) }}"
-                            alt="{{ $service->title }}" loading="eager">
+                            alt="{{ $service->title }}" @if ($bannerWidth) width="{{ $bannerWidth }}" height="{{ $bannerHeight }}" @endif
+                            loading="eager" fetchpriority="high" decoding="async">
                     @else
                         <div class="svc-hero__image svc-hero__image--placeholder">
                             <i class="fas fa-laptop-code"></i>

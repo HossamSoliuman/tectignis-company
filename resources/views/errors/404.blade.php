@@ -2,9 +2,7 @@
 
 @section('title', 'Page Not Found (404) | Tectignis IT Solutions')
 
-@section('seo')
-    <meta name="robots" content="noindex, follow">
-@endsection
+@section('robots', 'noindex, follow')
 
 @section('content')
     <section class="error-page section-space--ptb_100">

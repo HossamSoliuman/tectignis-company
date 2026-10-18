@@ -5,8 +5,9 @@
 <meta property="og:locale" content="{{ \App\Support\Locales::ogLocale() }}" />
 <meta property="twitter:account_id" content="29759031" />
 <meta name="email" content="{{ $company->email() }}">
-{{-- A language that isn't switched on yet is only shown to CMS users checking it. --}}
-<meta name="robots" content="{{ \App\Support\Locales::isEnabled() ? 'index, follow' : 'noindex, nofollow' }}">
+{{-- A language that isn't switched on yet is only shown to CMS users checking it.
+     Pages set their own directives with @section('robots'), so there is one tag. --}}
+<meta name="robots" content="{{ \App\Support\Locales::isEnabled() ? trim($__env->yieldContent('robots', 'index, follow')) : 'noindex, nofollow' }}">
 <meta name="copyright" content="Copyright Tectignis IT solutions - all rights reserved" />
 <meta name="document-type" content="Public">
 <meta name="document-distribution" content="Global">

@@ -17,8 +17,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">Sector Expertise</h6>
-                        <h3 class="heading">Industries We <span class="text-color-primary">Serve</span></h3>
+                        <p class="section-sub-title mb-20">Sector Expertise</p>
+                        <h2 class="heading tx-size-h3">Industries We <span class="text-color-primary">Serve</span></h2>
                     </div>
                 </div>
             </div>

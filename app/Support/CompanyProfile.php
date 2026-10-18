@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Cache;
  */
 class CompanyProfile
 {
+    /**
+     * Priority international markets (spec §6.1), by flag code.
+     *
+     * @var list<string>
+     */
+    private const MARKETS = ['us', 'ae', 'gb', 'ca', 'eu', 'in'];
+
     public function name(): string
     {
         return $this->setting('site_name', 'Tectignis IT Solutions');
@@ -135,7 +142,17 @@ class CompanyProfile
             'flag' => $flag,
             'focus' => __("common.markets.{$flag}.focus"),
             'url' => null,
-        ], ['us', 'ae', 'gb', 'ca', 'eu', 'in']);
+        ], self::MARKETS);
+    }
+
+    /**
+     * The priority markets as upper-case codes, for structured data.
+     *
+     * @return list<string>
+     */
+    public function areaServed(): array
+    {
+        return array_map(strtoupper(...), self::MARKETS);
     }
 
     /**

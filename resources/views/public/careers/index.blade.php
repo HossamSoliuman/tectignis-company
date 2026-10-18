@@ -85,7 +85,7 @@
                     <div class="col-xl-2 col-md-4 col-6 mb-30 wow move-up">
                         <div class="car-benefit">
                             <div class="car-benefit__icon"><i class="{{ $benefit['icon'] }}" aria-hidden="true"></i></div>
-                            <h6>{{ $benefit['title'] }}</h6>
+                            <h3>{{ $benefit['title'] }}</h3>
                             <p>{{ $benefit['text'] }}</p>
                         </div>
                     </div>

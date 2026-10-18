@@ -43,6 +43,10 @@
 @endsection
 
 @section('content')
+    <x-seo.service-schema :name="$landingPage->service?->title ?? $landingPage->headline"
+        :url="localized_route('landing-pages.show', $landingPage->slug)" :description="$pageDescription" />
+    <x-seo.faq-schema :items="$faqs" />
+
     {{-- Hero + enquiry form --}}
     <section class="lp-hero">
         <div class="container">

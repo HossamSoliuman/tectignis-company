@@ -20,7 +20,7 @@
                 <div class="col-lg-12">
                     <!-- section-title-wrap Start -->
                     <div class="section-title-wrap text-center">
-                        <h3 class="heading">Preparing for your success, <br> we provide <span class="text-color-primary"> truly prominent IT solutions.</span></h3>
+                        <h2 class="heading tx-size-h3">Preparing for your success, <br> we provide <span class="text-color-primary"> truly prominent IT solutions.</span></h2>
                     </div>
                     <!-- section-title-wrap Start -->
                 </div>

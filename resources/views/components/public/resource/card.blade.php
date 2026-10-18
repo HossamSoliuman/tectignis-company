@@ -1,4 +1,6 @@
-@props(['url', 'image' => null, 'topic' => null, 'date' => null, 'title', 'excerpt' => null])
+@props(['url', 'image' => null, 'topic' => null, 'date' => null, 'title', 'excerpt' => null, 'headingLevel' => 3])
+
+{{-- `headingLevel` places the card in the page outline: h2 on a listing straight under the h1. --}}
 
 <article class="res-card">
     <a href="{{ $url }}" class="res-card__media {{ $image ? '' : 'res-card__media--placeholder' }}" aria-label="{{ $title }}">
@@ -20,7 +22,7 @@
                 <span class="res-card__date"><i class="far fa-calendar" aria-hidden="true"></i> {{ $displayDate->format('M d, Y H:i \G\M\T P') }}</span>
             @endif
         </div>
-        <h3 class="res-card__title"><a href="{{ $url }}">{{ $title }}</a></h3>
+        <h{{ $headingLevel }} class="res-card__title"><a href="{{ $url }}">{{ $title }}</a></h{{ $headingLevel }}>
         @if ($excerpt)
             <p class="res-card__excerpt">{{ $excerpt }}</p>
         @endif

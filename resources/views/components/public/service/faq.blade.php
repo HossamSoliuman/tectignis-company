@@ -21,6 +21,8 @@
 @endphp
 
 @if (($section['enabled'] ?? true) && count($items))
+    <x-seo.faq-schema :items="$items" />
+
     <section class="svc-section svc-faq">
         <div class="container">
             <div class="row align-items-start">

@@ -1,17 +1,11 @@
 <?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    @foreach ($staticPages as $page)
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    @foreach ([...$staticPages, ...$languagePages] as $page)
     <url>
         <loc>{{ $page['url'] }}</loc>
         <changefreq>{{ $page['changefreq'] }}</changefreq>
         <priority>{{ $page['priority'] }}</priority>
-    </url>
-    @endforeach
-    @foreach ($languagePages as $page)
-    <url>
-        <loc>{{ $page['url'] }}</loc>
-        <changefreq>{{ $page['changefreq'] }}</changefreq>
-        <priority>{{ $page['priority'] }}</priority>
+        <x-seo.sitemap-alternates :links="$page['alternates'] ?? []" />
     </url>
     @endforeach
     @foreach ($capabilities as $capability)
@@ -28,6 +22,7 @@
         <lastmod>{{ $service->updated_at->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+        <x-seo.sitemap-alternates :links="\App\Support\Locales::alternatesFor('services.show', $service->slug)" />
     </url>
     @endforeach
     @foreach ($landingPages as $landingPage)
@@ -36,6 +31,7 @@
         <lastmod>{{ $landingPage->updated_at->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+        <x-seo.sitemap-alternates :links="\App\Support\Locales::alternatesFor('landing-pages.show', $landingPage->slug)" />
     </url>
     @endforeach
     @foreach ($solutions as $solution)
@@ -83,6 +79,7 @@
         <loc>{{ route('legal.show', $legal) }}</loc>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
+        <x-seo.sitemap-alternates :links="\App\Support\Locales::alternatesFor('legal.show', $legal)" />
     </url>
     @endforeach
     @foreach ($jobOpenings as $jobOpening)

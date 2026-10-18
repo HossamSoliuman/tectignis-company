@@ -60,11 +60,11 @@
 
                 <div class="col-lg-9">
                     <div class="res-article">
-                        {!! $post->content !!}
+                        {!! \App\Support\ArticleHeadings::outline($post->content) !!}
 
                         <div class="res-article-cta">
                             <div>
-                                <h5>Ready to Get Started?</h5>
+                                <h2>Ready to Get Started?</h2>
                                 <p>Talk to our experts about your software, AI, cloud or security requirements.</p>
                             </div>
                             <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
@@ -75,7 +75,7 @@
                 <div class="col-lg-3 mt-5 mt-lg-0">
                     @if ($categories->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">Categories</h4>
+                            <h2 class="res-widget__title">Categories</h2>
                             <ul class="res-cats">
                                 @foreach ($categories as $category => $count)
                                     <li>
@@ -91,7 +91,7 @@
 
                     @if ($popularPosts->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">Popular Posts</h4>
+                            <h2 class="res-widget__title">Popular Posts</h2>
                             <ul class="res-pop">
                                 @foreach ($popularPosts as $popular)
                                     <li>

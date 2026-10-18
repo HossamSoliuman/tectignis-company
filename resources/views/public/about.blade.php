@@ -160,7 +160,7 @@
                         <span class="about-value-card__icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{!! $value['icon'] !!}</svg>
                         </span>
-                        <h4 class="about-value-card__title">{{ $value['title'] }}</h4>
+                        <h3 class="about-value-card__title">{{ $value['title'] }}</h3>
                         <p class="about-value-card__text">{{ $value['text'] }}</p>
                     </div>
                 @endforeach

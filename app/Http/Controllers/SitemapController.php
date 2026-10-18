@@ -33,7 +33,7 @@ class SitemapController extends Controller
         $jobOpenings = JobOpening::open()->ordered()->get(['id', 'slug', 'updated_at']);
 
         $staticPages = [
-            ['url' => route('home'), 'changefreq' => 'weekly', 'priority' => '1.0'],
+            ['url' => route('home'), 'changefreq' => 'weekly', 'priority' => '1.0', 'alternates' => Locales::alternatesFor('home')],
             ['url' => route('about'), 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['url' => route('capabilities.index'), 'changefreq' => 'monthly', 'priority' => '0.9'],
             ['url' => route('solutions.index'), 'changefreq' => 'monthly', 'priority' => '0.9'],
@@ -43,7 +43,7 @@ class SitemapController extends Controller
             ['url' => route('downloads'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['url' => route('faqs'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['url' => route('case-studies.index'), 'changefreq' => 'monthly', 'priority' => '0.7'],
-            ['url' => route('contact'), 'changefreq' => 'yearly', 'priority' => '0.6'],
+            ['url' => route('contact'), 'changefreq' => 'yearly', 'priority' => '0.6', 'alternates' => Locales::alternatesFor('contact')],
             ['url' => route('careers'), 'changefreq' => 'monthly', 'priority' => '0.6'],
         ];
 
@@ -57,32 +57,44 @@ class SitemapController extends Controller
     }
 
     /**
-     * The translated pages in every enabled language other than English.
+     * The translated pages in every enabled language other than English, each
+     * with its `hreflang` alternates.
      *
      * @param  Collection<int, Service>  $services
      * @param  Collection<int, LandingPage>  $landingPages
-     * @return list<array{url: string, changefreq: string, priority: string}>
+     * @return list<array{url: string, changefreq: string, priority: string, alternates: array<string, string>}>
      */
     private function languagePages(Collection $services, Collection $landingPages): array
     {
+        $routes = [
+            ['home', [], 'weekly', '1.0'],
+            ['contact', [], 'yearly', '0.6'],
+        ];
+
+        foreach ($services as $service) {
+            if (Locales::isTranslatedPage('services.show', $service->slug)) {
+                $routes[] = ['services.show', $service->slug, 'monthly', '0.8'];
+            }
+        }
+
+        foreach ($landingPages as $landingPage) {
+            $routes[] = ['landing-pages.show', $landingPage->slug, 'monthly', '0.8'];
+        }
+
+        foreach (config('locales.translated_pages')['legal.show'] as $legal) {
+            $routes[] = ['legal.show', $legal, 'yearly', '0.3'];
+        }
+
         $pages = [];
 
         foreach (array_diff(Locales::enabled(), [Locales::default()]) as $code) {
-            $pages[] = ['url' => Locales::route('home', [], $code), 'changefreq' => 'weekly', 'priority' => '1.0'];
-            $pages[] = ['url' => Locales::route('contact', [], $code), 'changefreq' => 'yearly', 'priority' => '0.6'];
-
-            foreach ($services as $service) {
-                if (Locales::isTranslatedPage('services.show', $service->slug)) {
-                    $pages[] = ['url' => Locales::route('services.show', $service->slug, $code), 'changefreq' => 'monthly', 'priority' => '0.8'];
-                }
-            }
-
-            foreach ($landingPages as $landingPage) {
-                $pages[] = ['url' => Locales::route('landing-pages.show', $landingPage->slug, $code), 'changefreq' => 'monthly', 'priority' => '0.8'];
-            }
-
-            foreach (config('locales.translated_pages')['legal.show'] as $legal) {
-                $pages[] = ['url' => Locales::route('legal.show', $legal, $code), 'changefreq' => 'yearly', 'priority' => '0.3'];
+            foreach ($routes as [$name, $parameters, $changefreq, $priority]) {
+                $pages[] = [
+                    'url' => Locales::route($name, $parameters, $code),
+                    'changefreq' => $changefreq,
+                    'priority' => $priority,
+                    'alternates' => Locales::alternatesFor($name, $parameters),
+                ];
             }
         }
 

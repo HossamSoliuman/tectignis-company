@@ -18,7 +18,8 @@
                                         alt="{{ $item['label'] }}" loading="lazy" style="max-height:128px;width:auto;display:inline-block;">
                                 </div>
                             @endif
-                            <h6 class="heading mb-0">{{ $item['label'] }}</h6>
+                            {{-- The first heading after the hero's h1, sized as before. --}}
+                            <h2 class="heading tx-size-h6 mb-0">{{ $item['label'] }}</h2>
                         </div>
                     </div>
                 @endforeach

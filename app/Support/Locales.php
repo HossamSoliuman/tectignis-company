@@ -315,8 +315,18 @@ final class Locales
     public static function alternates(): array
     {
         $route = request()->route();
-        $name = self::baseRouteName($route?->getName());
-        $parameters = $route?->parameters() ?? [];
+
+        return self::alternatesFor(self::baseRouteName($route?->getName()), $route?->parameters() ?? []);
+    }
+
+    /**
+     * `hreflang` alternates for a page by its route name (without the
+     * `localized.` prefix), as listed in the page head and the sitemap.
+     *
+     * @return array<string, string> hreflang => URL
+     */
+    public static function alternatesFor(?string $name, mixed $parameters = []): array
+    {
         $enabled = self::enabled();
 
         if (count($enabled) < 2 || $name === 'contact.thank-you' || ! self::isTranslatedPage($name, $parameters)) {

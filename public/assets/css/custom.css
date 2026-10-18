@@ -6600,6 +6600,12 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
 .res-article h4 { font-size: 18px; }
 .res-article h5, .res-article h6 { font-size: 16px; }
 
+/* Headings renumbered into the page outline keep the size they were written at (App\Support\ArticleHeadings). */
+.res-article [data-heading-size="2"] { font-size: 24px; }
+.res-article [data-heading-size="3"] { font-size: 21px; }
+.res-article [data-heading-size="4"] { font-size: 18px; }
+.res-article [data-heading-size="5"], .res-article [data-heading-size="6"] { font-size: 16px; }
+
 .res-article ul, .res-article ol {
     margin: 0 0 18px;
     padding-left: 4px;
@@ -6641,7 +6647,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
     padding: 22px 26px;
 }
 
-.res-article-cta h5 {
+.res-article-cta h2 {
     margin: 0 0 4px;
     font-size: 17px;
     font-weight: 700;
@@ -6878,7 +6884,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
     margin-bottom: 16px;
 }
 
-.faq-contact h5 {
+.faq-contact h2 {
     font-size: 17px;
     font-weight: 700;
     color: var(--svc-dark);
@@ -7090,7 +7096,7 @@ a.contact-method:hover .contact-method__value { color: #F59E0B; }
     font-size: 19px;
 }
 
-.car-benefit h6 {
+.car-benefit h3 {
     font-size: 15.5px;
     font-weight: 700;
     color: var(--svc-dark);
@@ -9495,4 +9501,69 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
 .tx-lang-list a[aria-current] {
     border-color: #19587F;
     color: #19587F;
+}
+
+/* =========================================================
+   Heading levels
+   A heading takes the level its place in the page outline
+   needs and keeps the size the design gave it through these
+   classes, which copy style.css's size for each level.
+   ========================================================= */
+.tx-size-h3 { font-size: 40px; }
+.tx-size-h4 { font-size: 34px; }
+.tx-size-h5 { font-size: 24px; }
+.tx-size-h6 { font-size: 18px; }
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .tx-size-h3 { font-size: 32px; }
+    .tx-size-h4 { font-size: 30px; }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .tx-size-h3 { font-size: 28px; }
+    .tx-size-h4 { font-size: 28px; }
+}
+
+@media only screen and (max-width: 767px) {
+    .tx-size-h3 { font-size: 25px; }
+    .tx-size-h4 { font-size: 24px; }
+    .tx-size-h5 { font-size: 20px; }
+}
+
+/* Section eyebrows are labels, not headings; styled as the h6 they were. */
+p.section-sub-title {
+    font-family: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+}
+
+/* The capability page's opening title, an h2 styled as the theme's h3 there. */
+.modern-number-01 h2.heading {
+    position: static;
+    display: block;
+    margin-top: 25px;
+    font-size: 38px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #333333;
+    text-transform: none;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .modern-number-01 h2.heading { font-size: 30px; }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .modern-number-01 h2.heading { font-size: 28px; }
+}
+
+@media only screen and (max-width: 767px) {
+    .modern-number-01 h2.heading { font-size: 24px; }
+}
+
+/* The process timeline's step numbers, styled as the h6 they were. */
+.ht-gradation.style-01 div.circle {
+    font-family: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #333333;
 }

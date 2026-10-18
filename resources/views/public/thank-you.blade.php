@@ -2,9 +2,7 @@
 
 @section('title', __('forms.thank_you.title').' | Tectignis IT Solutions')
 
-@section('seo')
-    <meta name="robots" content="noindex, nofollow">
-@endsection
+@section('robots', 'noindex, nofollow')
 
 @section('content')
     @php

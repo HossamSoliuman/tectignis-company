@@ -60,11 +60,11 @@
 
                 <div class="col-lg-9">
                     <div class="res-article">
-                        {!! $insight->content !!}
+                        {!! \App\Support\ArticleHeadings::outline($insight->content) !!}
 
                         <div class="res-article-cta">
                             <div>
-                                <h5>Ready to Put This Into Practice?</h5>
+                                <h2>Ready to Put This Into Practice?</h2>
                                 <p>Talk to our experts about applying these insights to your business.</p>
                             </div>
                             <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
@@ -75,7 +75,7 @@
                 <div class="col-lg-3 mt-5 mt-lg-0">
                     @if ($topics->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">Popular Topics</h4>
+                            <h2 class="res-widget__title">Popular Topics</h2>
                             <ul class="res-cats">
                                 @foreach ($topics as $topic => $count)
                                     <li>
@@ -91,7 +91,7 @@
 
                     @if ($popularInsights->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">More Insights</h4>
+                            <h2 class="res-widget__title">More Insights</h2>
                             <ul class="res-pop">
                                 @foreach ($popularInsights as $popular)
                                     <li>

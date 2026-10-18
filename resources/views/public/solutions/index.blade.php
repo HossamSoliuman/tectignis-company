@@ -17,8 +17,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h6 class="section-sub-title mb-20">Business-Focused</h6>
-                        <h3 class="heading">Solutions We <span class="text-color-primary">Deliver</span></h3>
+                        <p class="section-sub-title mb-20">Business-Focused</p>
+                        <h2 class="heading tx-size-h3">Solutions We <span class="text-color-primary">Deliver</span></h2>
                     </div>
                 </div>
             </div>

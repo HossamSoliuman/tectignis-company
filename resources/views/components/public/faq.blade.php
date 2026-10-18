@@ -32,19 +32,6 @@
     </div>
 
     @if ($withSchema)
-        @php
-            $faqSchema = [
-                '@context' => 'https://schema.org',
-                '@type' => 'FAQPage',
-                'mainEntity' => $faqItems->map(fn (array $item): array => [
-                    '@type' => 'Question',
-                    'name' => $item['question'],
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['answer']],
-                ])->all(),
-            ];
-        @endphp
-        @push('json-ld')
-            <script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}</script>
-        @endpush
+        <x-seo.faq-schema :items="$faqItems" />
     @endif
 @endif

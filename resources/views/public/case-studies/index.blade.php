@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title-wrap text-center section-space--mb_40">
-                        <h3 class="heading">Proud projects that <span class="text-color-primary">make us stand out</span></h3>
+                        <h2 class="heading tx-size-h3">Proud projects that <span class="text-color-primary">make us stand out</span></h2>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                                         @endif
                                     </div>
                                     <div class="content">
-                                        <h6 class="heading">{{ $caseStudy->title }}</h6>
+                                        <h3 class="heading tx-size-h6">{{ $caseStudy->title }}</h3>
                                         <div class="post-categories">{{ $caseStudy->category?->name }}</div>
                                         <div class="text">{{ $caseStudy->short_description }}</div>
                                         <div class="box-projects-arrow">

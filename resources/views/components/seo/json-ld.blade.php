@@ -1,6 +1,5 @@
 @props([
     'type' => 'organization',
-    'service' => null,
     'post' => null,
     'breadcrumbs' => [],
 ])
@@ -36,7 +35,7 @@
             'contactType' => 'sales',
             'telephone' => $company->phone(),
             'email' => $company->email(),
-            'areaServed' => ['IN', 'US', 'AE', 'GB', 'CA', 'EU'],
+            'areaServed' => $company->areaServed(),
             'availableLanguage' => ['English', 'Hindi'],
         ],
         'sameAs' => $company->profileUrls(),
@@ -49,20 +48,8 @@
         'name' => $siteName,
         'url' => $siteUrl,
         'publisher' => ['@id' => $siteUrl.'#organization'],
-        'inLanguage' => 'en',
+        'inLanguage' => \App\Support\Locales::enabled(),
     ];
-
-    $serviceSchema = null;
-    if ($type === 'service' && $service) {
-        $serviceSchema = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Service',
-            'name' => $service->title,
-            'description' => $service->seo_description ?? $service->short_description,
-            'provider' => ['@type' => 'Organization', 'name' => $siteName, 'url' => $siteUrl],
-            'url' => localized_route('services.show', $service->slug),
-        ];
-    }
 
     $articleSchema = null;
     if ($type === 'article' && $post) {
@@ -100,12 +87,8 @@
     }
 @endphp
 
-<script type="application/ld+json">{!! json_encode($org, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_HEX_TAG) !!}</script>
-<script type="application/ld+json">{!! json_encode($website, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_HEX_TAG) !!}</script>
-
-@if ($serviceSchema)
-<script type="application/ld+json">{!! json_encode($serviceSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
-@endif
+<script type="application/ld+json">{!! json_encode($org, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG) !!}</script>
+<script type="application/ld+json">{!! json_encode($website, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_HEX_TAG) !!}</script>
 
 @if ($articleSchema)
 <script type="application/ld+json">{!! json_encode($articleSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>

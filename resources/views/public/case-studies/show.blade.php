@@ -57,7 +57,7 @@
                 <div class="col-lg-8">
                     <div class="res-article">
                         @if (filled($caseStudy->content))
-                            {!! $caseStudy->content !!}
+                            {!! \App\Support\ArticleHeadings::outline($caseStudy->content) !!}
                         @else
                             <h2>Overview</h2>
                             <p>{{ $caseStudy->short_description }}</p>
@@ -65,7 +65,7 @@
 
                         <div class="res-article-cta">
                             <div>
-                                <h5>Have a project like this in mind?</h5>
+                                <h2>Have a project like this in mind?</h2>
                                 <p>Talk to our experts about your software, AI, cloud or security requirements.</p>
                             </div>
                             <a href="{{ localized_route('contact') }}" class="svc-btn svc-btn--primary">Talk to Our Expert <i class="fas fa-arrow-right" aria-hidden="true"></i></a>

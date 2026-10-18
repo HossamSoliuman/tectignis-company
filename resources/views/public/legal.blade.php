@@ -19,7 +19,8 @@
     .legal-content * {
         box-sizing: border-box;
     }
-    .legal-content h1 {
+    .legal-content h1,
+    .legal-content [data-legal-title] {
         all: revert;
         font-family: 'Poppins', 'Inter', sans-serif;
         font-size: 2rem;
@@ -27,6 +28,10 @@
         color: #111827;
         margin: 0 0 0.5rem;
         line-height: 1.25;
+    }
+    .legal-content [data-legal-title] {
+        padding-bottom: 0;
+        border-bottom: 0;
     }
     .legal-content h2 {
         all: revert;
@@ -112,6 +117,12 @@
 @endsection
 
 @section('content')
+    @php
+        // The title band is the page's h1, so the document's own title is
+        // its first h2, styled as before.
+        $content = $content ? preg_replace(['/<h1\b/i', '/<\/h1>/i'], ['<h2 data-legal-title', '</h2>'], $content) : null;
+    @endphp
+
     <section style="padding: 60px 0 80px;">
         <div class="container">
             <div class="row justify-content-center">
@@ -122,7 +133,7 @@
                         </div>
                     @else
                         <div class="legal-content">
-                            <h1>{{ $title }}</h1>
+                            <h2 data-legal-title>{{ $title }}</h2>
                             <p>{!! __('common.legal_updating', ['link' => '<a href="'.e(localized_route('contact')).'">'.e(__('common.contact_us')).'</a>']) !!}</p>
                         </div>
                     @endif

@@ -65,10 +65,11 @@
     <meta property="og:description" content="{{ $jobOpening->seoDescription() }}">
     <meta property="og:url" content="{{ route('careers.show', $jobOpening) }}">
     <meta property="og:type" content="website">
-    @unless ($isOpen)
-        <meta name="robots" content="noindex, follow">
-    @endunless
 @endsection
+
+@unless ($isOpen)
+    @section('robots', 'noindex, follow')
+@endunless
 
 @if ($isOpen)
     @push('json-ld')
@@ -152,7 +153,7 @@
 
                 <div class="col-lg-4 mt-5 mt-lg-0">
                     <div class="res-widget">
-                        <h4 class="res-widget__title">Job Overview</h4>
+                        <h2 class="res-widget__title">Job Overview</h2>
                         <ul class="car-overview">
                             @foreach ($overview as [$icon, $label, $value])
                                 <li>
@@ -171,7 +172,7 @@
 
                     @if ($otherOpenings->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">Other Openings</h4>
+                            <h2 class="res-widget__title">Other Openings</h2>
                             <ul class="car-other">
                                 @foreach ($otherOpenings as $opening)
                                     <li>

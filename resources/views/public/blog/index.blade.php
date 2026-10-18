@@ -44,7 +44,7 @@
                         <div class="row">
                             @foreach ($posts as $post)
                                 <div class="col-xl-4 col-md-6 mb-30 wow move-up">
-                                    <x-public.resource.card
+                                    <x-public.resource.card :heading-level="2"
                                         :url="route('blog.show', $post->slug)"
                                         :image="$post->image"
                                         :topic="$post->category"
@@ -67,7 +67,7 @@
                 <div class="col-lg-3 mt-5 mt-lg-0">
                     @if ($categories->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">Categories</h4>
+                            <h2 class="res-widget__title">Categories</h2>
                             <ul class="res-cats">
                                 <li>
                                     <a href="{{ route('blog.index') }}" class="{{ $activeCategory === '' ? 'is-active' : '' }}">
@@ -89,7 +89,7 @@
 
                     @if ($popularPosts->isNotEmpty())
                         <div class="res-widget">
-                            <h4 class="res-widget__title">Popular Posts</h4>
+                            <h2 class="res-widget__title">Popular Posts</h2>
                             <ul class="res-pop">
                                 @foreach ($popularPosts as $popular)
                                     <li>
