@@ -42,6 +42,15 @@ it('renders the header navigation with the four pillar mega-menu and primary CTA
     }
 });
 
+it('renders the mobile menu with buttons that report and change its state', function () {
+    $html = $this->get(route('home'))->assertOk()->getContent();
+
+    expect($html)
+        ->toContain('id="mobile-menu-trigger" aria-label="Open menu" aria-controls="mobile-menu-overlay" aria-expanded="false"')
+        ->toContain('<button type="button" class="mobile-navigation-close-icon" id="mobile-menu-close-trigger" aria-label="Close menu"></button>')
+        ->toContain('<span class="d-inline d-md-none">Consultation</span>');
+});
+
 it('renders the homepage sections in the specified order', function () {
     $capability = Capability::factory()->create(['slug' => 'software-development', 'category' => 'software_development']);
     CaseStudy::factory()->create(['title' => 'Warehouse Platform Rebuild']);

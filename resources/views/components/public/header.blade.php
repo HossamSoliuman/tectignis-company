@@ -171,12 +171,12 @@
                         <div class="header-box tx-header-actions">
                             <button type="button" class="tx-btn tx-btn--outline tx-btn--sm d-none d-lg-inline-flex js-consult-open">{{ __('nav.get_quote') }}</button>
                             <button type="button" class="tx-btn tx-btn--primary tx-btn--sm js-consult-open">
-                                <span class="d-none d-sm-inline">{{ __('nav.book_consultation') }}</span>
-                                <span class="d-inline d-sm-none">{{ __('nav.consultation') }}</span>
+                                <span class="d-none d-md-inline">{{ __('nav.book_consultation') }}</span>
+                                <span class="d-inline d-md-none">{{ __('nav.consultation') }}</span>
                             </button>
 
                             <!-- mobile menu -->
-                            <button type="button" class="mobile-navigation-icon d-block d-xl-none" id="mobile-menu-trigger" aria-label="{{ __('nav.open_menu') }}" aria-controls="mobile-menu-overlay">
+                            <button type="button" class="mobile-navigation-icon d-block d-xl-none" id="mobile-menu-trigger" aria-label="{{ __('nav.open_menu') }}" aria-controls="mobile-menu-overlay" aria-expanded="false">
                                 <i></i>
                             </button>
                         </div>
@@ -194,24 +194,10 @@
 <div class="mobile-menu-overlay" id="mobile-menu-overlay">
     <div class="mobile-menu-overlay__inner">
         <div class="mobile-menu-overlay__header">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-6 col-8">
-                        <!-- logo -->
-                        <div class="logo">
-                            <a href="{{ localized_route('home') }}">
-                                <img src="{{ $company->logoUrl() }}" width="160" height="48" class="img-fluid" alt="{{ $company->name() }}">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-4">
-                        <!-- mobile menu content -->
-                        <div class="mobile-menu-content text-end">
-                            <span class="mobile-navigation-close-icon" id="mobile-menu-close-trigger" role="button" tabindex="0" aria-label="{{ __('nav.close_menu') }}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a href="{{ localized_route('home') }}" class="mobile-menu-overlay__logo" aria-label="{{ __('nav.home_link', ['name' => $company->name()]) }}">
+                <img src="{{ $company->logoUrl() }}" width="160" height="48" alt="{{ $company->name() }}">
+            </a>
+            <button type="button" class="mobile-navigation-close-icon" id="mobile-menu-close-trigger" aria-label="{{ __('nav.close_menu') }}"></button>
         </div>
         <div class="mobile-menu-overlay__body">
             <nav class="offcanvas-navigation" aria-label="{{ __('nav.mobile') }}">

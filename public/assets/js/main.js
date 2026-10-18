@@ -15,6 +15,7 @@
 	var sticky = $('.header-sticky');
 	var $html = $('html');
 	var $body = $('body');
+	var $headerArea = sticky.closest('.header-area');
 
 	windows.on('scroll', function () {
 		var scroll = windows.scrollTop();
@@ -23,7 +24,12 @@
 		if (screenSize >= 320) {
 			if (scroll < headerHeight) {
 				sticky.removeClass('is-sticky');
+				$headerArea.css('padding-bottom', '');
 			} else {
+				/*The fixed bar leaves the page flow, so hold its space to stop the content jumping up*/
+				if (!sticky.hasClass('is-sticky')) {
+					$headerArea.css('padding-bottom', sticky.outerHeight());
+				}
 				sticky.addClass('is-sticky');
             }
 		}
@@ -113,29 +119,58 @@
     =            mobile menu active            =
     ============================================*/
     
-    $("#mobile-menu-trigger").on('click', function(){
-        $("#mobile-menu-overlay").addClass("active");
+    var $mobileMenu = $("#mobile-menu-overlay"),
+        $mobileMenuTrigger = $("#mobile-menu-trigger");
+
+    function openMobileMenu() {
+        $mobileMenu.addClass("active");
+        $mobileMenuTrigger.attr('aria-expanded', 'true');
         $body.addClass('no-overflow');
-    });
-    
+        /*Hidden elements can't take focus, so wait until the panel starts showing*/
+        setTimeout(function(){
+            $("#mobile-menu-close-trigger").trigger('focus');
+        }, 50);
+    }
+
+    function closeMobileMenu() {
+        $mobileMenu.removeClass("active");
+        $mobileMenuTrigger.attr('aria-expanded', 'false');
+        $body.removeClass('no-overflow');
+    }
+
+    $mobileMenuTrigger.on('click', openMobileMenu);
+
     $("#mobile-menu-close-trigger").on('click', function(){
-        $("#mobile-menu-overlay").removeClass("active");
-        $body.removeClass('no-overflow');
+        closeMobileMenu();
+        $mobileMenuTrigger.trigger('focus');
     });
-    
-    $(".offcanvas-navigation--onepage ul li a").on('click', function(){
-        $("#mobile-menu-overlay").removeClass("active");
-        $body.removeClass('no-overflow');
+
+    $(".offcanvas-navigation--onepage ul li a").on('click', closeMobileMenu);
+
+    /*The consultation form opens over the page, so the menu closes first*/
+    $mobileMenu.on('click', '.js-consult-open', closeMobileMenu);
+
+    $(document).on('keydown', function(e){
+        if (e.key === 'Escape' && $mobileMenu.hasClass('active')) {
+            closeMobileMenu();
+            $mobileMenuTrigger.trigger('focus');
+        }
     });
-    
+
+    /*The menu button is hidden from 1200px, so a menu left open there closes*/
+    windows.on('resize', function(){
+        if ($mobileMenu.hasClass('active') && windows.width() >= 1200) {
+            closeMobileMenu();
+        }
+    });
+
     /*Close When Click Outside*/
     $body.on('click', function(e){
         var $target = e.target;
-        if (!$($target).is('.mobile-menu-overlay__inner') && !$($target).parents().is('.mobile-menu-overlay__inner') && !$($target).is('#mobile-menu-trigger') && !$($target).is('#mobile-menu-trigger i')){
-            $("#mobile-menu-overlay").removeClass("active");
-            $body.removeClass('no-overflow');
+        if ($mobileMenu.hasClass('active') && !$($target).is('.mobile-menu-overlay__inner') && !$($target).parents().is('.mobile-menu-overlay__inner') && !$($target).is('#mobile-menu-trigger') && !$($target).is('#mobile-menu-trigger i')){
+            closeMobileMenu();
         }
-        if (!$($target).is('.search-overlay__inner') && !$($target).parents().is('.search-overlay__inner') && !$($target).is('#search-overlay-trigger') && !$($target).is('#search-overlay-trigger i')){
+        if ($("#search-overlay").hasClass('active') && !$($target).is('.search-overlay__inner') && !$($target).parents().is('.search-overlay__inner') && !$($target).is('#search-overlay-trigger') && !$($target).is('#search-overlay-trigger i')){
             $("#search-overlay").removeClass("active");
             $body.removeClass('no-overflow');
         }
@@ -260,23 +295,29 @@
     var $offCanvasNav = $('.offcanvas-navigation'),
         $offCanvasNavSubMenu = $offCanvasNav.find('.sub-menu');
     
-    /*Add Toggle Button With Off Canvas Sub Menu*/
-    $offCanvasNavSubMenu.parent().prepend('<span class="menu-expand"><i></i></span>');
-    
+    /*Add Toggle Button With Off Canvas Sub Menu, named after the link it opens*/
+    $offCanvasNavSubMenu.parent().each(function(){
+        var $item = $(this);
+        $('<button type="button" class="menu-expand" aria-expanded="false"><i></i></button>')
+            .attr('aria-label', $.trim($item.children('a').text()))
+            .prependTo($item);
+    });
+
     /*Close Off Canvas Sub Menu*/
     $offCanvasNavSubMenu.slideUp();
-    
+
     /*Category Sub Menu Toggle*/
     $offCanvasNav.on('click', 'li a, li .menu-expand', function(e) {
         var $this = $(this);
-        if ( ($this.parent().attr('class').match(/\b(menu-item-has-children|has-children|has-sub-menu)\b/)) && ($this.attr('href') === '#' || $this.hasClass('menu-expand')) ) {
+        if ( (($this.parent().attr('class') || '').match(/\b(menu-item-has-children|has-children|has-sub-menu)\b/)) && ($this.attr('href') === '#' || $this.hasClass('menu-expand')) ) {
             e.preventDefault();
             if ($this.siblings('ul:visible').length){
-                $this.parent('li').removeClass('active');
+                $this.parent('li').removeClass('active').children('.menu-expand').attr('aria-expanded', 'false');
                 $this.siblings('ul').slideUp();
             } else {
-                $this.parent('li').addClass('active');
+                $this.parent('li').addClass('active').children('.menu-expand').attr('aria-expanded', 'true');
                 $this.closest('li').siblings('li').removeClass('active').find('li').removeClass('active');
+                $this.closest('li').siblings('li').children('.menu-expand').attr('aria-expanded', 'false');
                 $this.closest('li').siblings('li').find('ul:visible').slideUp();
                 $this.siblings('ul').slideDown();
             }

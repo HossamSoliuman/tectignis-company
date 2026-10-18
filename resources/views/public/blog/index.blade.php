@@ -35,6 +35,16 @@
                         <button type="submit" class="svc-btn svc-btn--primary">Search</button>
                     </form>
 
+                    {{-- Below the large breakpoint the sidebar falls under the posts, so the categories show here instead. --}}
+                    @if ($categories->isNotEmpty())
+                        <nav class="res-pills d-lg-none" aria-label="Categories">
+                            <a href="{{ route('blog.index') }}" class="res-pill {{ $activeCategory === '' ? 'is-active' : '' }}">All Categories</a>
+                            @foreach ($categories as $category => $count)
+                                <a href="{{ route('blog.index', ['category' => $category]) }}" class="res-pill {{ $activeCategory === $category ? 'is-active' : '' }}">{{ $category }}</a>
+                            @endforeach
+                        </nav>
+                    @endif
+
                     @if ($posts->isEmpty())
                         <div class="res-empty">
                             <i class="far fa-newspaper" aria-hidden="true"></i>
@@ -66,7 +76,7 @@
                 {{-- Sidebar --}}
                 <div class="col-lg-3 mt-5 mt-lg-0">
                     @if ($categories->isNotEmpty())
-                        <div class="res-widget">
+                        <div class="res-widget d-none d-lg-block">
                             <h2 class="res-widget__title">Categories</h2>
                             <ul class="res-cats">
                                 <li>

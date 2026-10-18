@@ -61,8 +61,9 @@
 
                 {{-- Sidebar --}}
                 <div class="col-lg-3 mt-5 mt-lg-0">
+                    {{-- The topic pills above the list cover this on smaller screens. --}}
                     @if ($topics->isNotEmpty())
-                        <div class="res-widget">
+                        <div class="res-widget d-none d-lg-block">
                             <h2 class="res-widget__title">Popular Topics</h2>
                             <ul class="res-cats">
                                 @foreach ($topics as $topic => $count)

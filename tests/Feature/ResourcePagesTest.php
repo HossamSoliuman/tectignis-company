@@ -48,6 +48,18 @@ it('blog index filters by category and search', function () {
         ->assertDontSee('Excerpt about cloud migration strategies.');
 });
 
+it('blog index shows the category filters above the posts on smaller screens', function () {
+    BlogPost::factory()->create(['category' => 'Cloud Computing']);
+
+    $this->get(route('blog.index', ['category' => 'Cloud Computing']))
+        ->assertOk()
+        ->assertSeeInOrder([
+            '<nav class="res-pills d-lg-none" aria-label="Categories">',
+            'href="'.route('blog.index', ['category' => 'Cloud Computing']).'" class="res-pill is-active"',
+            '<div class="res-widget d-none d-lg-block">',
+        ], false);
+});
+
 it('technology insights index returns 200 and lists insights', function () {
     $insight = Insight::factory()->create();
 
