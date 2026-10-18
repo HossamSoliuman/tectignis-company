@@ -11,7 +11,9 @@ use App\Models\Lead;
 use App\Models\LeadActivity;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ContactController extends Controller
 {
@@ -57,14 +59,19 @@ class ContactController extends Controller
             ->with('enquiry_submitted', [
                 'name' => $lead->name,
                 'service' => $lead->service,
+                'source' => $lead->source,
+                'landing_page' => $lead->landing_page,
+                'language' => $lead->language,
+                'conversion_id' => (string) Str::uuid(),
             ]);
     }
 
     /**
      * Confirmation page shown only straight after a successful submission, so
-     * the page view doubles as a reliable conversion signal.
+     * the page view doubles as a reliable conversion signal. It is never
+     * cached, so going back to it cannot replay the conversion.
      */
-    public function thankYou(): View|RedirectResponse
+    public function thankYou(): Response|RedirectResponse
     {
         $enquiry = session('enquiry_submitted');
 
@@ -72,6 +79,27 @@ class ContactController extends Controller
             return redirect()->to(localized_route('contact'));
         }
 
-        return view('public.thank-you', ['enquiry' => $enquiry]);
+        return response()
+            ->view('public.thank-you', ['enquiry' => $enquiry, 'conversion' => $this->conversion($enquiry)])
+            ->header('Cache-Control', 'no-store, private');
+    }
+
+    /**
+     * The `generate_lead` event parameters. Only what describes the enquiry,
+     * never who sent it; `transaction_id` is random, so Google Ads can drop a
+     * repeat of the same conversion without it pointing back to the lead.
+     *
+     * @param  array<string, mixed>  $enquiry
+     * @return array{transaction_id: string, service: ?string, lead_source: ?string, landing_page: ?string, page_language: string}
+     */
+    private function conversion(array $enquiry): array
+    {
+        return [
+            'transaction_id' => $enquiry['conversion_id'] ?? (string) Str::uuid(),
+            'service' => $enquiry['service'] ?? null,
+            'lead_source' => $enquiry['source'] ?? null,
+            'landing_page' => $enquiry['landing_page'] ?? null,
+            'page_language' => $enquiry['language'] ?? app()->getLocale(),
+        ];
     }
 }

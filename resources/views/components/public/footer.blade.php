@@ -12,7 +12,7 @@
                 <p class="tx-footer__cta-text">{{ __('footer.cta_text') }}</p>
             </div>
             <div class="tx-footer__cta-actions">
-                <button type="button" class="tx-btn tx-btn--light js-consult-open" data-track="consultation_booking">{{ __('nav.book_consultation') }}</button>
+                <button type="button" class="tx-btn tx-btn--light js-consult-open">{{ __('nav.book_consultation') }}</button>
                 <a href="{{ route('case-studies.index') }}" class="tx-btn tx-btn--ghost-light">{{ __('nav.view_our_work') }}</a>
             </div>
         </div>

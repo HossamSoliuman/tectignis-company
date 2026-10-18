@@ -28,4 +28,18 @@
             </div>
         </div>
     </section>
+
+    {{-- The site's only conversion: a stored enquiry. Sent once per submission,
+         even if this page is restored from history. --}}
+    <script>
+        (function () {
+            var lead = @js($conversion);
+            try {
+                var key = 'tx_lead_' + lead.transaction_id;
+                if (sessionStorage.getItem(key)) { return; }
+                sessionStorage.setItem(key, '1');
+            } catch (e) {}
+            window.txTrack('generate_lead', lead);
+        })();
+    </script>
 @endsection

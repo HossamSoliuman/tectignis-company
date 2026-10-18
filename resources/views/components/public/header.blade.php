@@ -169,8 +169,8 @@
 
                         <!-- header right box -->
                         <div class="header-box tx-header-actions">
-                            <button type="button" class="tx-btn tx-btn--outline tx-btn--sm d-none d-lg-inline-flex js-consult-open" data-track="quote_request">{{ __('nav.get_quote') }}</button>
-                            <button type="button" class="tx-btn tx-btn--primary tx-btn--sm js-consult-open" data-track="consultation_booking">
+                            <button type="button" class="tx-btn tx-btn--outline tx-btn--sm d-none d-lg-inline-flex js-consult-open">{{ __('nav.get_quote') }}</button>
+                            <button type="button" class="tx-btn tx-btn--primary tx-btn--sm js-consult-open">
                                 <span class="d-none d-sm-inline">{{ __('nav.book_consultation') }}</span>
                                 <span class="d-inline d-sm-none">{{ __('nav.consultation') }}</span>
                             </button>

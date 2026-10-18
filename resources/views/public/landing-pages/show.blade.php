@@ -67,7 +67,7 @@
 
                     <div class="lp-hero__buttons">
                         <a href="#enquiry" class="svc-btn svc-btn--primary" data-lp-cta="primary">{{ $landingPage->primary_cta_label }}</a>
-                        <a href="#enquiry" class="svc-btn svc-btn--ghost" data-lp-cta="secondary">{{ $landingPage->secondary_cta_label }}</a>
+                        <a href="#enquiry" class="svc-btn svc-btn--ghost" data-lp-cta="secondary" data-track="consultation_click">{{ $landingPage->secondary_cta_label }}</a>
                     </div>
 
                     @if ($stats->isNotEmpty())
