@@ -15,13 +15,17 @@
 <body class="h-full text-slate-800">
     <div class="min-h-full">
         {{-- Sidebar --}}
-        <aside data-sidebar
-            class="fixed inset-y-0 left-0 z-40 flex w-64 -translate-x-full transform flex-col border-r border-slate-200 bg-white transition-transform duration-200 lg:translate-x-0">
-            <div class="flex h-16 shrink-0 items-center gap-2.5 border-b border-slate-100 px-6 text-lg font-semibold text-slate-900">
+        <aside data-sidebar id="admin-sidebar" aria-label="Admin menu"
+            class="invisible fixed inset-y-0 left-0 z-40 flex w-72 max-w-[85vw] -translate-x-full flex-col border-r border-slate-200 bg-white shadow-xl transition-[translate,visibility] duration-200 lg:visible lg:w-64 lg:translate-x-0 lg:shadow-none">
+            <div class="flex h-16 shrink-0 items-center gap-2.5 border-b border-slate-100 pl-6 pr-3 text-lg font-semibold text-slate-900">
                 <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-fuchsia-500 to-purple-600 text-sm font-bold text-white shadow-lg shadow-purple-600/30">T</span>
-                Tectignis
+                <span class="flex-1">Tectignis</span>
+                <button type="button" data-sidebar-close class="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700 lg:hidden"
+                    aria-label="Close menu">
+                    <x-admin.icon name="x-mark" class="h-5 w-5" />
+                </button>
             </div>
-            <nav class="sidebar-nav flex-1 space-y-1 overflow-y-auto px-3 py-4 text-sm">
+            <nav class="sidebar-nav flex-1 space-y-1 overflow-y-auto overscroll-contain px-3 py-4 text-sm">
                 @php
                     // Two products share this shell. CMS groups are hidden from
                     // portal-only staff, and Operations is hidden from anyone
@@ -108,7 +112,7 @@
 
                 @foreach ($topLinks as [$route, $label, $icon])
                     @php $active = $isActive($route); @endphp
-                    <a href="{{ route($route) }}"
+                    <a href="{{ route($route) }}" @if ($active) aria-current="page" @endif
                         class="group flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition {{ $active ? 'bg-purple-50 text-purple-700 ring-1 ring-purple-100' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                         <x-admin.icon :name="$icon" class="h-5 w-5 shrink-0 {{ $active ? 'text-purple-600' : 'text-slate-400 group-hover:text-purple-600' }}" />
                         <span>{{ $label }}</span>
@@ -127,7 +131,7 @@
                         <div class="ml-5 mt-0.5 space-y-0.5 border-l border-slate-200 py-0.5 pl-3">
                             @foreach ($items as $item)
                                 @php $active = $isActive($item[0], $item[2] ?? []); @endphp
-                                <a href="{{ route($item[0]) }}"
+                                <a href="{{ route($item[0]) }}" @if ($active) aria-current="page" @endif
                                     class="flex items-center justify-between gap-2 rounded-lg px-3 py-1.5 transition {{ $active ? 'bg-purple-50 font-medium text-purple-700' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900' }}">
                                     <span>{{ $item[1] }}</span>
                                     @if (($item[3] ?? 0) > 0)
@@ -147,17 +151,17 @@
         {{-- Main --}}
         <div class="lg:pl-64">
             <header
-                class="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur lg:px-8">
-                <div class="flex items-center gap-3">
-                    <button data-sidebar-toggle class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
-                        aria-label="Toggle menu">
+                class="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-slate-200 bg-white/90 px-4 backdrop-blur lg:px-8">
+                <div class="flex min-w-0 items-center gap-2 sm:gap-3">
+                    <button type="button" data-sidebar-toggle class="-ml-2 shrink-0 rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
+                        aria-label="Open menu" aria-controls="admin-sidebar" aria-expanded="false">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </button>
-                    <h1 class="text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
+                    <h1 class="truncate text-base font-semibold text-slate-900">@yield('title', 'Dashboard')</h1>
                 </div>
-                <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex shrink-0 items-center gap-1 sm:gap-3">
                     @if (auth()->user()?->hasCareersAccess() && ! auth()->user()->canViewLeads())
                         @php $unreadApplications = \App\Models\JobApplication::unarchived()->where('is_read', false)->count(); @endphp
                         <a href="{{ route('admin.job-applications.index') }}" class="relative rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
@@ -230,7 +234,7 @@
                 @endif
                 @yield('content')
 
-                <footer class="mt-10 flex items-center justify-between border-t border-slate-200/70 pt-4 text-xs text-slate-400">
+                <footer class="mt-10 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/70 pt-4 text-xs text-slate-400">
                     <span>© {{ now()->year }} Tectignis. All rights reserved.</span>
                     <span>Version 1.0.0</span>
                 </footer>

@@ -65,7 +65,7 @@
                             <input type="text" name="product"
                                 class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
                         </div>
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid gap-3 sm:grid-cols-2">
                             <div>
                                 <label class="mb-1 block text-sm font-medium text-slate-700">Needed by</label>
                                 <input type="date" name="required_by"
@@ -77,7 +77,7 @@
                                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid gap-3 sm:grid-cols-2">
                             <div>
                                 <label class="mb-1 block text-sm font-medium text-slate-700">Contact</label>
                                 <input type="text" name="contact_person"

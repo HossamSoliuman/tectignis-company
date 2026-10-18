@@ -32,7 +32,7 @@
             {{ $trashed ? 'Trashed Leads' : 'Leads' }}
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $leads->total() }}</span>
         </h2>
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
             <x-admin.search-form placeholder="Search leads…" />
             @if ($canExport)
                 <a href="{{ route('admin.leads.export', request()->except(['page', 'per_page'])) }}"

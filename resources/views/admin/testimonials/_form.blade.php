@@ -11,7 +11,7 @@
         <textarea name="quote" rows="4" required
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ old('quote', $t?->quote) }}</textarea>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Rating (1–5) *</label>
             <input type="number" name="rating" value="{{ old('rating', $t?->rating ?? 5) }}" min="1" max="5" required

@@ -8,7 +8,7 @@
         @method('PUT')
 
         {{-- Sticky top bar --}}
-        <div class="sticky top-0 z-20 -mx-1 flex items-center justify-between rounded-xl border border-slate-200 bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
+        <div class="sticky top-20 z-10 -mx-1 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
             <div>
                 <h1 class="text-sm font-semibold text-slate-800">Careers Page</h1>
                 <p class="text-xs text-slate-400">Stats strip &amp; "Why Join" benefit cards.</p>

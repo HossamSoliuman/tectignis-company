@@ -20,7 +20,7 @@
 
 {{-- ───────────────────────── Basics ───────────────────────── --}}
 <div class="rounded-xl border border-slate-200 bg-white p-6 space-y-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Title *</label>
             <input type="text" name="title" value="{{ old('title', $s?->title) }}" required class="{{ $inputClass }}">
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Capability</label>
             <select name="capability_id" class="{{ $inputClass }}">
@@ -75,7 +75,7 @@
 
 {{-- A · Hero --}}
 <x-admin.service-panel title="Hero" subtitle="Top banner: eyebrow, headline, intro & call-to-action.">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Eyebrow</label>
             <input type="text" name="content[hero][eyebrow]" value="{{ $cat('hero.eyebrow') }}" placeholder="SOFTWARE DEVELOPMENT" class="{{ $inputClass }}">
@@ -89,7 +89,7 @@
         <label class="mb-1 block text-sm font-medium text-slate-700">Intro paragraph</label>
         <textarea name="content[hero][intro]" rows="3" class="{{ $inputClass }}">{{ $cat('hero.intro') }}</textarea>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Primary button label</label>
             <input type="text" name="content[hero][cta_primary_label]" value="{{ $cat('hero.cta_primary_label') }}" placeholder="Get Started" class="{{ $inputClass }}">
@@ -245,7 +245,7 @@
 
 {{-- J · CTA band --}}
 <x-admin.service-panel title="CTA band" :section="'cta_band'" :content="$content">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Headline</label>
             <input type="text" name="content[cta_band][heading]" value="{{ $cat('cta_band.heading') }}" placeholder="Ready to Kickstart Your Journey?" class="{{ $inputClass }}">

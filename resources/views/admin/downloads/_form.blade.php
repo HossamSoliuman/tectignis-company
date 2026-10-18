@@ -6,7 +6,7 @@
         <input type="text" name="title" value="{{ old('title', $d?->title) }}" required
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Category *</label>
             <select name="category" required
@@ -47,7 +47,7 @@
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-fuchsia-50 file:px-3 file:py-1 file:text-sm file:font-medium file:text-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
         <p class="mt-1 text-xs text-slate-400">PDF, DOC, PPT, XLS or ZIP — max 20 MB. Visitors receive this file after submitting the download form.</p>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Sort Order</label>
             <input type="number" name="sort_order" value="{{ old('sort_order', $d?->sort_order ?? 0) }}" min="0"

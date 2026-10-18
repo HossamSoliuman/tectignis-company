@@ -1,7 +1,7 @@
 @php $l = $location ?? null; @endphp
 
 <div class="rounded-xl border border-slate-200 bg-white p-6 space-y-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Region *</label>
             <select name="region"
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">City *</label>
             <input type="text" name="city" value="{{ old('city', $l?->city) }}" required placeholder="Navi Mumbai"

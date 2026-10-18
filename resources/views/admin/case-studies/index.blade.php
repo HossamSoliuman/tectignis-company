@@ -3,13 +3,13 @@
 @section('title', 'Case Studies')
 
 @section('content')
-    <div class="mb-5 flex items-center justify-between">
+    <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
         <h2 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
             <x-admin.icon name="photograph" class="h-5 w-5 text-fuchsia-600" />
             Case Studies
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $caseStudies->total() }}</span>
         </h2>
-        <div class="flex items-center gap-2">
+        <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
             <x-admin.search-form placeholder="Search case studies…" />
             <a href="{{ route('admin.case-study-categories.index') }}"
                 class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">
@@ -22,8 +22,8 @@
         </div>
     </div>
 
-    <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <table class="w-full text-sm" id="case-studies-table">
+    <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+        <table class="w-full min-w-[40rem] text-sm" id="case-studies-table">
             <thead class="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
                 <tr>
                     <th class="px-4 py-3">Image</th>

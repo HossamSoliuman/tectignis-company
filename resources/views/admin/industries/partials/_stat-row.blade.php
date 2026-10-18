@@ -3,7 +3,7 @@
 
 <div data-repeater-row class="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
     @include('admin.services.partials._item-icon', ['prefix' => $prefix, 'index' => $index, 'icon' => data_get($item, 'icon', '')])
-    <div class="flex-1 grid grid-cols-2 gap-2">
+    <div class="grid min-w-0 flex-1 gap-2 sm:grid-cols-2">
         <input type="text" name="{{ $prefix }}[{{ $index }}][value]" value="{{ data_get($item, 'value') }}"
             placeholder="Value (e.g. 250+)"
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-fuchsia-400">

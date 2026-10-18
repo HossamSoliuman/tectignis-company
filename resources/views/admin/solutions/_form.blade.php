@@ -43,7 +43,7 @@
         </select>
         <p class="mt-1 text-xs text-slate-400">Pick the banner style. Dark suits glowing 3D visuals; light suits product/dashboard screenshots.</p>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Badge / eyebrow</label>
             <input type="text" name="content[hero][eyebrow]" value="{{ $cat('hero.eyebrow') }}" placeholder="ERP SOLUTIONS" class="{{ $inputClass }}">
@@ -62,7 +62,7 @@
         <label class="mb-1 block text-sm font-medium text-slate-700">Intro paragraph</label>
         <textarea name="content[hero][intro]" rows="3" class="{{ $inputClass }}">{{ $cat('hero.intro') }}</textarea>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Primary button label</label>
             <input type="text" name="content[hero][cta_primary_label]" value="{{ $cat('hero.cta_primary_label') }}" placeholder="Request Free Consultation" class="{{ $inputClass }}">
@@ -176,7 +176,7 @@
             <label class="mb-1 block text-sm font-medium text-slate-700">Quote</label>
             <textarea name="content[why_choose][testimonial_quote]" rows="3" class="{{ $inputClass }}">{{ $cat('why_choose.testimonial_quote') }}</textarea>
         </div>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4 sm:grid-cols-2">
             <div>
                 <label class="mb-1 block text-sm font-medium text-slate-700">Author</label>
                 <input type="text" name="content[why_choose][testimonial_author]" value="{{ $cat('why_choose.testimonial_author') }}" placeholder="Operations Head" class="{{ $inputClass }}">
@@ -195,7 +195,7 @@
 
 {{-- H · Final CTA band --}}
 <x-admin.service-panel title="Final CTA band" :section="'cta_band'" :content="$content">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Headline</label>
             <input type="text" name="content[cta_band][heading]" value="{{ $cat('cta_band.heading') }}" placeholder="Ready to Transform Your Business?" class="{{ $inputClass }}">
@@ -205,7 +205,7 @@
             <input type="text" name="content[cta_band][subtitle]" value="{{ $cat('cta_band.subtitle') }}" placeholder="Let's build an intelligent, integrated business together." class="{{ $inputClass }}">
         </div>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Primary button label</label>
             <input type="text" name="content[cta_band][button_primary_label]" value="{{ $cat('cta_band.button_primary_label') }}" placeholder="Request Free Consultation" class="{{ $inputClass }}">

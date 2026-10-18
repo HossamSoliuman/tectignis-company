@@ -40,28 +40,75 @@
 })();
 
 
-// Mobile sidebar toggle + backdrop.
+// Mobile sidebar: opens as a drawer over the page. It closes from the close
+// button, the backdrop, Escape or a link inside it, and resets when the
+// window grows to the desktop layout where it is always shown.
 const sidebar = () => document.querySelector('[data-sidebar]');
 const backdrop = () => document.querySelector('[data-sidebar-backdrop]');
+const sidebarToggle = () => document.querySelector('[data-sidebar-toggle]');
+const desktopLayout = window.matchMedia('(min-width: 1024px)');
+const isSidebarOpen = () => sidebar()?.classList.contains('-translate-x-full') === false;
 
-const openSidebar = () => {
-    sidebar()?.classList.remove('-translate-x-full');
-    backdrop()?.classList.remove('hidden');
-};
-
-const closeSidebar = () => {
-    sidebar()?.classList.add('-translate-x-full');
-    backdrop()?.classList.add('hidden');
+const setSidebarOpen = (open) => {
+    sidebar()?.classList.toggle('-translate-x-full', !open);
+    sidebar()?.classList.toggle('invisible', !open);
+    backdrop()?.classList.toggle('hidden', !open);
+    document.body.classList.toggle('overflow-hidden', open);
+    sidebarToggle()?.setAttribute('aria-expanded', String(open));
 };
 
 document.addEventListener('click', (e) => {
     if (e.target.closest('[data-sidebar-toggle]')) {
-        sidebar()?.classList.contains('-translate-x-full') ? openSidebar() : closeSidebar();
+        setSidebarOpen(!isSidebarOpen());
+        if (isSidebarOpen()) {
+            sidebar()?.querySelector('[data-sidebar-close]')?.focus();
+        }
         return;
     }
 
-    if (e.target.closest('[data-sidebar-backdrop]')) {
-        closeSidebar();
+    if (e.target.closest('[data-sidebar-close], [data-sidebar-backdrop]')) {
+        setSidebarOpen(false);
+        sidebarToggle()?.focus();
+        return;
+    }
+
+    if (e.target.closest('[data-sidebar] a') && !desktopLayout.matches) {
+        setSidebarOpen(false);
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isSidebarOpen() && !desktopLayout.matches) {
+        setSidebarOpen(false);
+        sidebarToggle()?.focus();
+    }
+});
+
+desktopLayout.addEventListener('change', (e) => {
+    if (e.matches && isSidebarOpen()) {
+        setSidebarOpen(false);
+    }
+});
+
+// Long menus push the current page below the fold; bring it into view.
+document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('[data-sidebar] nav');
+    const current = nav?.querySelector('[aria-current="page"]');
+    if (!nav || !current) {
+        return;
+    }
+
+    const navBox = nav.getBoundingClientRect();
+    const currentBox = current.getBoundingClientRect();
+    if (currentBox.top < navBox.top || currentBox.bottom > navBox.bottom) {
+        nav.scrollTop += currentBox.top - navBox.top - (nav.clientHeight - currentBox.height) / 2;
+    }
+});
+
+// A page restored from the back/forward cache keeps the drawer as it was left.
+window.addEventListener('pageshow', (e) => {
+    if (e.persisted && isSidebarOpen()) {
+        setSidebarOpen(false);
     }
 });
 

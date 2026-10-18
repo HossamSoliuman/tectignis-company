@@ -20,7 +20,7 @@
             Designations
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $designations->total() }}</span>
         </h2>
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
             <x-admin.search-form placeholder="Search designations…" />
             <a href="{{ route('admin.designations.create') }}"
                 class="inline-flex items-center gap-1.5 rounded-lg bg-fuchsia-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-fuchsia-700">

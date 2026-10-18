@@ -1,7 +1,7 @@
 @php $s = $page ?? null; @endphp
 
 <div class="rounded-xl border border-slate-200 bg-white p-6 space-y-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Title *</label>
             <input type="text" name="title" value="{{ old('title', $s?->title) }}" required

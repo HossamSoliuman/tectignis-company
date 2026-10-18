@@ -22,7 +22,7 @@
         <textarea name="answer" rows="5" required
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">{{ old('answer', $f?->answer) }}</textarea>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Sort Order</label>
             <input type="number" name="sort_order" value="{{ old('sort_order', $f?->sort_order ?? 0) }}" min="0"

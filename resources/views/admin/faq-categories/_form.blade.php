@@ -6,7 +6,7 @@
         <input type="text" name="name" value="{{ old('name', $c?->name) }}" required
             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400">
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Icon (Font Awesome class)</label>
             <input type="text" name="icon" value="{{ old('icon', $c?->icon) }}" placeholder="fas fa-cloud"

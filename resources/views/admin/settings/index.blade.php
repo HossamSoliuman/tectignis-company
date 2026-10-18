@@ -62,11 +62,11 @@
                 </div>
                 <div class="rounded-xl border border-slate-200 bg-white divide-y divide-slate-100">
                     @foreach ($items as $setting)
-                        <div class="flex items-start gap-4 p-4">
-                            <label class="w-48 shrink-0 pt-2 text-sm font-medium text-slate-700">
+                        <div class="flex flex-col gap-1.5 p-4 sm:flex-row sm:items-start sm:gap-4">
+                            <label class="text-sm font-medium text-slate-700 sm:w-48 sm:shrink-0 sm:pt-2">
                                 {{ ucwords(str_replace(['_', '-'], ' ', $setting->key)) }}
                             </label>
-                            <div class="flex-1">
+                            <div class="min-w-0 flex-1">
                                 @if (\App\Models\Setting::isImageKey($setting->key))
                                     <x-admin.image-field
                                         name="images[{{ $setting->key }}]"

@@ -4,7 +4,7 @@
     'inputClass' => 'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-400',
 ])
 
-<div class="grid grid-cols-2 gap-4">
+<div class="grid gap-4 sm:grid-cols-2">
     <div>
         <label class="mb-1 block text-sm font-medium text-slate-700">Heading</label>
         <input type="text" name="content[{{ $prefix }}][heading]" value="{{ data_get($content, $prefix.'.heading') }}" class="{{ $inputClass }}">

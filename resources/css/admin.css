@@ -51,6 +51,16 @@
     }
 }
 
+/* iOS zooms the page into any field set below 16px. Kept outside the layers
+   so it wins over the `text-sm` utility on phone widths. */
+@media (max-width: 639.98px) {
+    input:not([type='checkbox'], [type='radio'], [type='file']),
+    select,
+    textarea {
+        font-size: 16px;
+    }
+}
+
 @layer components {
     /* Slim, brand-coloured scrollbar pinned to the LEFT edge of the nav.
        The `direction: rtl` flips the scrollbar to the left; children are

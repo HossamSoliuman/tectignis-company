@@ -1,7 +1,7 @@
 @php $cs = $caseStudy ?? null; @endphp
 
 <div class="rounded-xl border border-slate-200 bg-white p-6 space-y-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Title *</label>
             <input type="text" name="title" value="{{ old('title', $cs?->title) }}" required
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">Slug</label>
             <input type="text" name="slug" value="{{ old('slug', $cs?->slug) }}"
@@ -43,7 +43,7 @@
 
     <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 space-y-4">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Home Page Card</p>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid gap-4 sm:grid-cols-2">
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1">Theme</label>
                 <select name="theme"

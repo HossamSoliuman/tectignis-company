@@ -9,7 +9,7 @@
             Departments
             <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">{{ $departments->count() }}</span>
         </h2>
-        <div class="flex items-center gap-2">
+        <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
             <x-admin.table-search target="#portal-departments-table" placeholder="Search departments…" />
             @can('create', \App\Models\Portal\Department::class)
                 <a href="{{ route('admin.portal.departments.create') }}"

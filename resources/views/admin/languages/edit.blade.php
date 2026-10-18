@@ -3,7 +3,7 @@
 @section('title', 'Languages')
 
 @section('content')
-    <div class="mb-5 flex items-center justify-between">
+    <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
         <h2 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
             <x-admin.icon name="globe" class="h-5 w-5 text-fuchsia-600" />
             Languages

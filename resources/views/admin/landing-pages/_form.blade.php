@@ -8,7 +8,7 @@
 
 {{-- ───────────────────────── Basics ───────────────────────── --}}
 <div class="rounded-xl border border-slate-200 bg-white p-6 space-y-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label for="lp-title" class="mb-1 block text-sm font-medium text-slate-700">Title *</label>
             <input id="lp-title" type="text" name="title" value="{{ old('title', $lp?->title) }}" required class="{{ $inputClass }}">
@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label for="lp-service" class="mb-1 block text-sm font-medium text-slate-700">Linked service (benefits, process, projects)</label>
             <select id="lp-service" name="service_id" class="{{ $inputClass }}">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label for="lp-sort" class="mb-1 block text-sm font-medium text-slate-700">Sort Order</label>
             <input id="lp-sort" type="number" name="sort_order" value="{{ old('sort_order', $lp?->sort_order ?? 0) }}" min="0" class="{{ $inputClass }}">
@@ -67,7 +67,7 @@
         <label for="lp-supporting" class="mb-1 block text-sm font-medium text-slate-700">Supporting message</label>
         <textarea id="lp-supporting" name="supporting_text" rows="3" class="{{ $inputClass }}">{{ old('supporting_text', $lp?->supporting_text) }}</textarea>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label for="lp-primary-cta" class="mb-1 block text-sm font-medium text-slate-700">Primary button label *</label>
             <input id="lp-primary-cta" type="text" name="primary_cta_label" value="{{ old('primary_cta_label', $lp?->primary_cta_label) }}" required class="{{ $inputClass }}">

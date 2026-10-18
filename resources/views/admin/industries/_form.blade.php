@@ -35,7 +35,7 @@
 
 {{-- A · Hero --}}
 <x-admin.service-panel title="Hero" subtitle="Top banner: eyebrow, headline, intro, feature grid, badges & buttons. The banner image is set in the Details panel.">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Eyebrow</label>
             <input type="text" name="content[hero][eyebrow]" value="{{ $cat('hero.eyebrow') }}" placeholder="CORPORATE OFFICE IT SOLUTIONS" class="{{ $inputClass }}">
@@ -54,7 +54,7 @@
         <label class="mb-1 block text-sm font-medium text-slate-700">Intro paragraph</label>
         <textarea name="content[hero][intro]" rows="3" class="{{ $inputClass }}">{{ $cat('hero.intro') }}</textarea>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Primary button label</label>
             <input type="text" name="content[hero][cta_primary_label]" value="{{ $cat('hero.cta_primary_label') }}" placeholder="Talk to an Expert" class="{{ $inputClass }}">
@@ -90,7 +90,7 @@
 
 {{-- C · Challenges --}}
 <x-admin.service-panel title="Challenges (split — left column)" :section="'challenges'" :content="$content">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Eyebrow</label>
             <input type="text" name="content[challenges][eyebrow]" value="{{ $cat('challenges.eyebrow') }}" placeholder="CHALLENGES IN CORPORATE OFFICES" class="{{ $inputClass }}">
@@ -119,7 +119,7 @@
 
 {{-- D · Solutions --}}
 <x-admin.service-panel title="Solutions (split — right column cards)" :section="'solutions'" :content="$content">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Eyebrow</label>
             <input type="text" name="content[solutions][eyebrow]" value="{{ $cat('solutions.eyebrow') }}" placeholder="HOW WE HELP" class="{{ $inputClass }}">
@@ -193,7 +193,7 @@
 
 {{-- I · Bottom CTA band --}}
 <x-admin.service-panel title="Bottom CTA band" :section="'cta_band'" :content="$content">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Headline</label>
             <input type="text" name="content[cta_band][heading]" value="{{ $cat('cta_band.heading') }}" placeholder="Let's Build Smarter Workplaces, Together" class="{{ $inputClass }}">
@@ -203,7 +203,7 @@
             <input type="text" name="content[cta_band][subtitle]" value="{{ $cat('cta_band.subtitle') }}" placeholder="Partner with our experts..." class="{{ $inputClass }}">
         </div>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
         <div>
             <label class="mb-1 block text-sm font-medium text-slate-700">Primary button label</label>
             <input type="text" name="content[cta_band][button_primary_label]" value="{{ $cat('cta_band.button_primary_label') }}" placeholder="Talk to an Expert" class="{{ $inputClass }}">

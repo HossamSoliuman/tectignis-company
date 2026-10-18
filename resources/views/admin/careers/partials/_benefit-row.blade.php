@@ -2,7 +2,7 @@
 @php $item = is_array($item ?? null) ? $item : []; @endphp
 
 <div data-repeater-row class="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
-    <div class="flex-1 space-y-2">
+    <div class="min-w-0 flex-1 space-y-2">
         <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
             <input type="text" name="{{ $prefix }}[{{ $index }}][icon]" value="{{ data_get($item, 'icon') }}"
                 placeholder="Icon class e.g. fas fa-chart-line"

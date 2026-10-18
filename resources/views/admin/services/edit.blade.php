@@ -9,7 +9,7 @@
         @method('PUT')
 
         {{-- Sticky top bar --}}
-        <div class="sticky top-0 z-20 -mx-1 flex items-center justify-between rounded-xl border border-slate-200 bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
+        <div class="sticky top-20 z-10 -mx-1 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
             <a href="{{ route('admin.services.index') }}" class="inline-flex items-center gap-1.5 text-sm font-medium text-fuchsia-600 hover:underline">
                 <x-admin.icon name="arrow-left" class="h-4 w-4" /> Back to Services
             </a>
