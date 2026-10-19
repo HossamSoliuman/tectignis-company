@@ -190,6 +190,33 @@ it('keeps the project picks an admin made when the deploy migration runs', funct
     expect($website->fresh()->content['case_studies']['ids'])->toBe([(string) $picked->id]);
 });
 
+it('shows the website projects on the custom software page until software projects are picked', function () {
+    $shree = CaseStudy::factory()->create(['slug' => 'shree-vakratunda-saree', 'title' => 'Shree Vakratunda Saree Collection']);
+    $mangosteen = CaseStudy::factory()->create(['slug' => 'mangosteen-homestays']);
+    $packaging = CaseStudy::factory()->create(['slug' => 'perfect-packaging-solution']);
+    $service = landingService();
+    $page = LandingPage::factory()->for($service)->create();
+
+    (require database_path('migrations/2026_10_19_173459_pick_interim_projects_for_custom_software.php'))->up();
+
+    expect($service->fresh()->content['case_studies']['ids'])->toBe([$shree->id, $mangosteen->id, $packaging->id]);
+
+    $this->get(route('landing-pages.show', $page->slug))
+        ->assertOk()
+        ->assertSee('Project Examples')
+        ->assertSee('Shree Vakratunda Saree Collection');
+});
+
+it('keeps the software projects an admin picked when the interim migration runs', function () {
+    $picked = CaseStudy::factory()->create();
+    CaseStudy::factory()->create(['slug' => 'shree-vakratunda-saree']);
+    $service = Service::factory()->create(['slug' => 'custom-software-development', 'content' => ['case_studies' => ['ids' => [(string) $picked->id]]]]);
+
+    (require database_path('migrations/2026_10_19_173459_pick_interim_projects_for_custom_software.php'))->up();
+
+    expect($service->fresh()->content['case_studies']['ids'])->toBe([(string) $picked->id]);
+});
+
 it('closes with its own heading instead of repeating the headline', function () {
     $page = LandingPage::factory()->create(['headline' => 'Websites That Win Work']);
 
