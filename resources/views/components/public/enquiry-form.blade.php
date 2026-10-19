@@ -109,12 +109,21 @@
             </label>
         </div>
 
-        <div class="{{ $fullField }} enquiry-form__captcha">
+        {{-- Landing pages put the CAPTCHA beside the button, so the whole form fits on screen. --}}
+        @if ($isLandingPage)
+            <div class="{{ $fullField }} enquiry-form__footer">
+        @endif
+
+        <div class="{{ $isLandingPage ? '' : $fullField }} enquiry-form__captcha">
             <x-public.recaptcha />
         </div>
 
-        <div class="{{ $s['full'] }} {{ $variant === 'service' ? '' : 'enquiry-form__actions' }}">
+        <div class="{{ $isLandingPage ? '' : $s['full'] }} {{ $variant === 'service' ? '' : 'enquiry-form__actions' }}">
             <button type="submit" class="{{ $s['submit'] }}">{{ $submitLabel ?? __('forms.send_enquiry') }} <span class="tx-flip-rtl" aria-hidden="true">→</span></button>
         </div>
+
+        @if ($isLandingPage)
+            </div>
+        @endif
     </div>
 </form>
