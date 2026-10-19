@@ -9613,7 +9613,6 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     .lp-header__logo { height: 44px; }
     .lp-hero { padding: 28px 0 72px; }
     .lp-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; align-items: start; }
-    .lp-hero__copy { position: sticky; top: 104px; }
     .lp-hero__title { font-size: 44px; }
     .lp-grid--3 { grid-template-columns: repeat(3, 1fr); }
     .lp-steps { grid-template-columns: repeat(3, 1fr); }
