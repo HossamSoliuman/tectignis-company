@@ -25,15 +25,6 @@
         <x-seo.sitemap-alternates :links="\App\Support\Locales::alternatesFor('services.show', $service->slug)" />
     </url>
     @endforeach
-    @foreach ($landingPages as $landingPage)
-    <url>
-        <loc>{{ route('landing-pages.show', $landingPage->slug) }}</loc>
-        <lastmod>{{ $landingPage->updated_at->toAtomString() }}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-        <x-seo.sitemap-alternates :links="\App\Support\Locales::alternatesFor('landing-pages.show', $landingPage->slug)" />
-    </url>
-    @endforeach
     @foreach ($solutions as $solution)
     <url>
         <loc>{{ route('solutions.show', $solution->slug) }}</loc>

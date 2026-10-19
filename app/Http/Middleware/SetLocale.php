@@ -82,6 +82,8 @@ class SetLocale
      * country (see VisitorLanguageDetector), unless detection is switched off
      * in the Languages tab. Bots always get the URL they asked for. The query
      * string is kept, so Ads click IDs and UTM tags survive the redirect.
+     * Landing pages skip the country: the ad that brought the visitor was
+     * already in the page's language.
      */
     private function detectedLanguageRedirect(Request $request): ?RedirectResponse
     {
@@ -93,7 +95,7 @@ class SetLocale
             return null;
         }
 
-        $language = app(VisitorLanguageDetector::class)->detect($request);
+        $language = app(VisitorLanguageDetector::class)->detect($request, useCountry: $request->route()?->getName() !== 'landing-pages.show');
 
         if (Locales::isDefault($language)) {
             return null;

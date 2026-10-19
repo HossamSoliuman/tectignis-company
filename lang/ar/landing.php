@@ -10,4 +10,5 @@ return [
     'projects_heading' => 'نماذج من مشاريعنا',
     'process_heading' => 'كيف ننفّذ مشروعك',
     'faq_heading' => 'الأسئلة الشائعة',
+    'cta_heading' => 'هل أنت مستعد لبدء مشروعك؟',
 ];

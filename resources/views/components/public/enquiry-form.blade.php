@@ -26,6 +26,11 @@
     $value = fn (string $field, mixed $default = null): mixed => $isActive ? old($field, $default) : $default;
     $id = fn (string $field): string => $formId.'-'.$field;
     $placeholder = fn (string $text): string => $variant === 'service' ? $text : '';
+    // Landing pages ask for a phone number instead of the company and project
+    // description (see ContactRequest::isFromLandingPage).
+    $isLandingPage = filled($landingPage);
+    $requiredMark = '<span aria-hidden="true">*</span>';
+    $optionalMark = '<span class="consult-field__optional">'.e(__('forms.optional')).'</span>';
 @endphp
 
 @if ($isActive && $errors->any())
@@ -64,16 +69,16 @@
         </div>
 
         <div class="{{ $s['field'] }}">
-            <label for="{{ $id('phone') }}" class="{{ $s['label'] }}">{{ __('forms.phone') }} <span class="consult-field__optional">{{ __('forms.optional') }}</span></label>
+            <label for="{{ $id('phone') }}" class="{{ $s['label'] }}">{{ __('forms.phone') }} {!! $isLandingPage ? $requiredMark : $optionalMark !!}</label>
             <x-public.phone-input :id="$id('phone')" :variant="$variant" :input-class="$s['control']"
-                :value="$value('phone')" :country="$value('phone_country')"
+                :value="$value('phone')" :country="$value('phone_country')" :required="$isLandingPage"
                 :placeholder="$variant === 'service' ? __('forms.phone_placeholder') : null" />
         </div>
 
         <div class="{{ $s['field'] }} enquiry-form__pair">
-            <label for="{{ $id('company') }}" class="{{ $s['label'] }}">{{ __('forms.company') }} <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('company') }}" class="{{ $s['label'] }}">{{ __('forms.company') }} {!! $isLandingPage ? $optionalMark : $requiredMark !!}</label>
             <input id="{{ $id('company') }}" class="{{ $s['control'] }}" name="company" type="text" autocomplete="organization"
-                placeholder="{{ $placeholder(__('forms.company_placeholder')) }}" value="{{ $value('company') }}" maxlength="255" required>
+                placeholder="{{ $placeholder(__('forms.company_placeholder')) }}" value="{{ $value('company') }}" maxlength="255" @required(! $isLandingPage)>
         </div>
 
         <div class="{{ $fullField }} enquiry-form__pair">
@@ -91,10 +96,10 @@
         </div>
 
         <div class="{{ $fullField }}">
-            <label for="{{ $id('message') }}" class="{{ $s['label'] }}">{{ __('forms.message') }} <span aria-hidden="true">*</span></label>
+            <label for="{{ $id('message') }}" class="{{ $s['label'] }}">{{ __('forms.message') }} {!! $isLandingPage ? $optionalMark : $requiredMark !!}</label>
             <textarea id="{{ $id('message') }}" class="{{ $s['control'] }} {{ $variant === 'service' ? 'svc-input--area' : '' }}" name="message" rows="4"
                 placeholder="{{ $variant === 'service' ? __('forms.message_placeholder') : __('forms.message_hint') }}"
-                minlength="20" maxlength="5000" required>{{ $value('message') }}</textarea>
+                @unless ($isLandingPage) minlength="20" @endunless maxlength="5000" @required(! $isLandingPage)>{{ $value('message') }}</textarea>
         </div>
 
         <div class="{{ $fullField }}">

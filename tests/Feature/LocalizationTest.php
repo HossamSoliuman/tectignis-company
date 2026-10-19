@@ -164,8 +164,16 @@ describe('language cookie and detection', function () {
     it('sends a first-time visitor with an English browser to the language of their country, keeping the query string', function () {
         enableLanguages('ar');
 
+        $this->get('/contact?utm_source=newsletter', ['Accept-Language' => 'en-US,en;q=0.9', 'CF-IPCountry' => 'EG'])
+            ->assertRedirect(url('/ar/contact').'?utm_source=newsletter');
+    });
+
+    it('keeps a landing page visitor with an English browser on the English page whatever their country', function () {
+        enableLanguages('ar');
+
         $this->get('/lp/website-development?gclid=abc123', ['Accept-Language' => 'en-US,en;q=0.9', 'CF-IPCountry' => 'EG'])
-            ->assertRedirect(url('/ar/lp/website-development').'?gclid=abc123');
+            ->assertOk()
+            ->assertSee('lang="en"', false);
     });
 
     it('picks the live language most used in the visitor\'s country', function (string $country, string $url) {

@@ -13,7 +13,7 @@ class CaseStudySeeder extends Seeder
         $caseStudies = [
             [
                 'slug' => 'perfect-packaging-solution',
-                'title' => 'Perfect packaging solution',
+                'title' => 'Perfect Packaging Solution',
                 'category' => 'Modern Website Redesign',
                 'theme' => 'blue',
                 'short_description' => "Tectignis IT Solutions revamped Perfect Packer's website, ensuring a modern and visually appealing design. We crafted a fresh logo and social media assets, aligning with the latest color psychology and web design trends.",

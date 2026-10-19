@@ -10,4 +10,5 @@ return [
     'projects_heading' => 'Project Examples',
     'process_heading' => 'How We Deliver Your Project',
     'faq_heading' => 'Frequently Asked Questions',
+    'cta_heading' => 'Ready to Start Your Project?',
 ];

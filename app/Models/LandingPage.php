@@ -99,13 +99,17 @@ class LandingPage extends Model
     }
 
     /**
-     * Project examples: the case studies picked for the linked service.
+     * Project examples: only the case studies picked for the linked service.
+     * The service page's fallback to the latest projects is skipped, so an ad
+     * page never shows work unrelated to what it sells.
      *
      * @return Collection<int, CaseStudy>
      */
     public function caseStudies(int $limit = 3): Collection
     {
-        if (! $this->service || ! ($this->service->content['case_studies']['enabled'] ?? true)) {
+        $section = $this->service?->content['case_studies'] ?? [];
+
+        if (! $this->service || ! ($section['enabled'] ?? true) || empty($section['ids'])) {
             return new Collection;
         }
 

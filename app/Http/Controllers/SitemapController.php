@@ -8,7 +8,6 @@ use App\Models\CaseStudy;
 use App\Models\Industry;
 use App\Models\Insight;
 use App\Models\JobOpening;
-use App\Models\LandingPage;
 use App\Models\Page;
 use App\Models\Service;
 use App\Models\Setting;
@@ -23,7 +22,6 @@ class SitemapController extends Controller
     {
         $capabilities = Capability::active()->ordered()->get();
         $services = Service::active()->ordered()->get();
-        $landingPages = LandingPage::active()->ordered()->get(['id', 'slug', 'updated_at']);
         $solutions = Solution::active()->ordered()->get();
         $industries = Industry::active()->ordered()->get();
         $pages = Page::active()->ordered()->get();
@@ -47,10 +45,10 @@ class SitemapController extends Controller
             ['url' => route('careers'), 'changefreq' => 'monthly', 'priority' => '0.6'],
         ];
 
-        $languagePages = $this->languagePages($services, $landingPages);
+        $languagePages = $this->languagePages($services);
 
         $content = view('sitemap', compact(
-            'staticPages', 'languagePages', 'capabilities', 'services', 'landingPages', 'solutions', 'industries', 'pages', 'posts', 'insights', 'caseStudies', 'jobOpenings'
+            'staticPages', 'languagePages', 'capabilities', 'services', 'solutions', 'industries', 'pages', 'posts', 'insights', 'caseStudies', 'jobOpenings'
         ))->render();
 
         return response($content, 200)->header('Content-Type', 'application/xml');
@@ -58,13 +56,13 @@ class SitemapController extends Controller
 
     /**
      * The translated pages in every enabled language other than English, each
-     * with its `hreflang` alternates.
+     * with its `hreflang` alternates. Google Ads landing pages are noindex, so
+     * they are left out in every language.
      *
      * @param  Collection<int, Service>  $services
-     * @param  Collection<int, LandingPage>  $landingPages
      * @return list<array{url: string, changefreq: string, priority: string, alternates: array<string, string>}>
      */
-    private function languagePages(Collection $services, Collection $landingPages): array
+    private function languagePages(Collection $services): array
     {
         $routes = [
             ['home', [], 'weekly', '1.0'],
@@ -75,10 +73,6 @@ class SitemapController extends Controller
             if (Locales::isTranslatedPage('services.show', $service->slug)) {
                 $routes[] = ['services.show', $service->slug, 'monthly', '0.8'];
             }
-        }
-
-        foreach ($landingPages as $landingPage) {
-            $routes[] = ['landing-pages.show', $landingPage->slug, 'monthly', '0.8'];
         }
 
         foreach (config('locales.translated_pages')['legal.show'] as $legal) {

@@ -116,6 +116,14 @@
     ])
 </x-admin.service-panel>
 
+{{-- Closing banner --}}
+<x-admin.service-panel title="Closing Banner">
+    <div>
+        <label for="lp-cta-heading" class="mb-1 block text-sm font-medium text-slate-700">Heading</label>
+        <input id="lp-cta-heading" type="text" name="content[cta][heading]" value="{{ $cat('cta.heading') }}" placeholder="{{ __('landing.cta_heading') }}" class="{{ $inputClass }}">
+    </div>
+</x-admin.service-panel>
+
 {{-- SEO --}}
 <x-admin.service-panel title="SEO" :open="false">
     <div>

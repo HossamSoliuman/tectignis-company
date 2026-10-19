@@ -14,7 +14,7 @@ use Illuminate\Validation\Rule;
 
 /**
  * The project enquiry form (spec §11.2), shared by the contact page, the
- * consultation/quote modal and service pages.
+ * consultation/quote modal, service pages and Google Ads landing pages.
  */
 class ContactRequest extends FormRequest
 {
@@ -31,11 +31,11 @@ class ContactRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'company' => ['required', 'string', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:25', new PhoneNumber($this->phoneCountry())],
+            'company' => [$this->isFromLandingPage() ? 'nullable' : 'required', 'string', 'max:255'],
+            'phone' => [$this->isFromLandingPage() ? 'required' : 'nullable', 'string', 'max:25', new PhoneNumber($this->phoneCountry())],
             'phone_country' => ['nullable', 'string', Rule::in(Countries::isoCodes())],
             'service' => ['required', 'string', Rule::in(EnquiryServices::all())],
-            'message' => ['required', 'string', 'min:20', 'max:5000'],
+            'message' => $this->isFromLandingPage() ? ['nullable', 'string', 'max:5000'] : ['required', 'string', 'min:20', 'max:5000'],
             'consent' => ['accepted'],
             'source' => ['nullable', 'in:contact,consultation'],
             'subject' => ['nullable', 'string', 'max:255'],
@@ -110,6 +110,15 @@ class ContactRequest extends FormRequest
     public function isConsultation(): bool
     {
         return $this->input('source') === 'consultation';
+    }
+
+    /**
+     * Google Ads landing pages keep their form short: the phone number is
+     * required, while the company and the project description are optional.
+     */
+    public function isFromLandingPage(): bool
+    {
+        return filled($this->input('landing_page'));
     }
 
     /**

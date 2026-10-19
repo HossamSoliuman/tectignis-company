@@ -10,4 +10,5 @@ return [
     'projects_heading' => 'Ejemplos de proyectos',
     'process_heading' => 'Cómo entregamos su proyecto',
     'faq_heading' => 'Preguntas frecuentes',
+    'cta_heading' => '¿Listo para empezar su proyecto?',
 ];

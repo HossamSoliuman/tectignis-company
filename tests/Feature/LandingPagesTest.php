@@ -5,6 +5,7 @@ use App\Models\CaseStudy;
 use App\Models\LandingPage;
 use App\Models\Lead;
 use App\Models\Service;
+use App\Models\Translation;
 use App\Models\User;
 use Database\Seeders\LandingPageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -116,14 +117,91 @@ it('files the secondary CTA submission as a consultation request', function () {
     expect(Lead::sole())->source->toBe('consultation')->landing_page->toBe($page->slug);
 });
 
-it('lists active landing pages in the sitemap', function () {
-    $active = LandingPage::factory()->create(['slug' => 'active-page']);
-    LandingPage::factory()->inactive()->create(['slug' => 'hidden-page']);
+it('keeps landing pages out of search results and the sitemap', function () {
+    enableLanguages('ar');
+    $page = LandingPage::factory()->create(['slug' => 'active-page']);
+
+    $this->get(route('landing-pages.show', $page->slug))
+        ->assertOk()
+        ->assertSee('<meta name="robots" content="noindex, follow">', false);
 
     $this->get(route('sitemap'))
         ->assertOk()
-        ->assertSee(route('landing-pages.show', $active->slug))
-        ->assertDontSee('hidden-page');
+        ->assertDontSee('/lp/active-page');
+});
+
+it('asks landing page visitors for a phone number instead of the company and project description', function () {
+    $page = LandingPage::factory()->create(['slug' => 'website-development']);
+
+    $this->get(route('landing-pages.show', $page->slug))
+        ->assertOk()
+        ->assertSee('class="phone-field__input" required="required" name="phone"', false)
+        ->assertDontSee('minlength="20"', false);
+
+    $this->post(route('contact.submit'), validEnquiry(['landing_page' => $page->slug, 'phone' => '']))
+        ->assertSessionHasErrors('phone');
+
+    $this->post(route('contact.submit'), validEnquiry(['landing_page' => $page->slug, 'company' => '', 'message' => '']))
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('contact.thank-you'));
+
+    expect(Lead::sole())->company->toBeNull()->message->toBe('');
+});
+
+it('still requires the company and project description on the other enquiry forms', function () {
+    $this->post(route('contact.submit'), validEnquiry(['phone' => '', 'company' => '', 'message' => '']))
+        ->assertSessionHasErrors(['company', 'message'])
+        ->assertSessionDoesntHaveErrors('phone');
+});
+
+it('shows only the projects picked for the linked service', function () {
+    CaseStudy::factory()->create(['title' => 'Unrelated Website']);
+    $page = LandingPage::factory()->for(landingService())->create();
+
+    $this->get(route('landing-pages.show', $page->slug))
+        ->assertOk()
+        ->assertDontSee('Project Examples')
+        ->assertDontSee('Unrelated Website');
+});
+
+it('picks the website projects for the website service and capitalises their title on deploy', function () {
+    $shree = CaseStudy::factory()->create(['slug' => 'shree-vakratunda-saree']);
+    $mangosteen = CaseStudy::factory()->create(['slug' => 'mangosteen-homestays']);
+    $packaging = CaseStudy::factory()->create(['slug' => 'perfect-packaging-solution', 'title' => 'Perfect packaging solution']);
+    $translation = Translation::factory()->of($packaging, 'title', 'حل التغليف المثالي')->create();
+    $website = Service::factory()->create(['slug' => 'website-design-development', 'content' => ['case_studies' => ['enabled' => true]]]);
+    $software = Service::factory()->create(['slug' => 'custom-software-development', 'content' => ['case_studies' => ['enabled' => true]]]);
+
+    (require database_path('migrations/2026_10_19_142736_pick_landing_page_project_examples.php'))->up();
+
+    expect($website->fresh()->content['case_studies']['ids'])->toBe([$shree->id, $mangosteen->id, $packaging->id])
+        ->and($software->fresh()->content['case_studies'])->not->toHaveKey('ids')
+        ->and($packaging->fresh()->title)->toBe('Perfect Packaging Solution')
+        ->and($translation->fresh()->source_hash)->toBe(Translation::hash('Perfect Packaging Solution'));
+});
+
+it('keeps the project picks an admin made when the deploy migration runs', function () {
+    $picked = CaseStudy::factory()->create();
+    CaseStudy::factory()->create(['slug' => 'shree-vakratunda-saree']);
+    $website = Service::factory()->create(['slug' => 'website-design-development', 'content' => ['case_studies' => ['ids' => [(string) $picked->id]]]]);
+
+    (require database_path('migrations/2026_10_19_142736_pick_landing_page_project_examples.php'))->up();
+
+    expect($website->fresh()->content['case_studies']['ids'])->toBe([(string) $picked->id]);
+});
+
+it('closes with its own heading instead of repeating the headline', function () {
+    $page = LandingPage::factory()->create(['headline' => 'Websites That Win Work']);
+
+    $this->get(route('landing-pages.show', $page->slug))
+        ->assertOk()
+        ->assertSee('<h2 class="lp-cta__title">Ready to Start Your Project?</h2>', false);
+
+    $page->update(['content' => ['cta' => ['heading' => 'Let us build your website']]]);
+
+    $this->get(route('landing-pages.show', $page->slug))
+        ->assertOk()
+        ->assertSee('<h2 class="lp-cta__title">Let us build your website</h2>', false);
 });
 
 it('seeds both priority landing pages linked to their services', function () {

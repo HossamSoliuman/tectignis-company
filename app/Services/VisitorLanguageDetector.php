@@ -12,10 +12,13 @@ use Illuminate\Http\Request;
  * Spanish). Otherwise their country decides (Egypt is Arabic, Mexico
  * Spanish, see config/locales.php), because most browsers in those markets
  * run in English whatever the visitor reads. English is the fallback.
+ *
+ * Callers can leave the country out: on a Google Ads landing page the ad
+ * already chose the language, so only the browser may override it.
  */
 class VisitorLanguageDetector
 {
-    public function detect(Request $request): string
+    public function detect(Request $request, bool $useCountry = true): string
     {
         $enabled = Locales::enabled();
 
@@ -27,6 +30,10 @@ class VisitorLanguageDetector
 
         if ($browserLanguage !== null && ! Locales::isDefault($browserLanguage) && Locales::isEnabled($browserLanguage)) {
             return $browserLanguage;
+        }
+
+        if (! $useCountry) {
+            return Locales::default();
         }
 
         $countryLanguage = $this->languageOfCountry(Countries::detect($request));

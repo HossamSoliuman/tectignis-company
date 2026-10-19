@@ -24,6 +24,10 @@
 
 @section('title', $pageTitle)
 
+{{-- Ad traffic only: the service pages are the ones that rank, so these
+     near-copies stay out of search results and the sitemap. --}}
+@section('robots', 'noindex, follow')
+
 @section('seo')
     @if (filled($pageDescription))
         <meta name="description" content="{{ $pageDescription }}">
@@ -203,7 +207,7 @@
     {{-- Closing CTA --}}
     <section class="lp-cta">
         <div class="container lp-cta__inner">
-            <h2 class="lp-cta__title">{{ $landingPage->headline }}</h2>
+            <h2 class="lp-cta__title">{{ $landingPage->contentValue('cta.heading', __('landing.cta_heading')) }}</h2>
             <div class="lp-cta__buttons">
                 <a href="#enquiry" class="svc-btn svc-btn--white" data-lp-cta="primary">{{ $landingPage->primary_cta_label }}</a>
                 <a href="{{ $company->phoneHref() }}" class="svc-btn svc-btn--outline-light" data-track="phone_click">

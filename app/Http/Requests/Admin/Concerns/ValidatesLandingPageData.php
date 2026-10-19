@@ -32,6 +32,7 @@ trait ValidatesLandingPageData
             'content.faq.items' => ['nullable', 'array', 'max:20'],
             'content.faq.items.*.question' => ['nullable', 'string', 'max:255'],
             'content.faq.items.*.answer' => ['nullable', 'string', 'max:2000'],
+            'content.cta.heading' => ['nullable', 'string', 'max:255'],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:500'],
             'sort_order' => ['nullable', 'integer', 'min:0'],

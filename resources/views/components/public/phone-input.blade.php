@@ -70,7 +70,6 @@
                             <img class="phone-field__flag" src="{{ $flag($code['iso']) }}" alt="" width="20" height="15" loading="lazy">
                             <span class="phone-field__name">{{ $code['label'] }}</span>
                             <span class="phone-field__code" dir="ltr">{{ $code['dial'] }}</span>
-                            <svg class="phone-field__check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
                         </div>
                     @endforeach
                 </div>

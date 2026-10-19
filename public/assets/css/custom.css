@@ -9206,14 +9206,18 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     color: #6b7280;
     font-variant-numeric: tabular-nums;
 }
-.phone-field__check {
+/* The selected tick is drawn by CSS rather than an icon in each of the ~200 options. */
+.phone-field__option::after {
+    content: "";
     flex: 0 0 auto;
     width: 16px;
     height: 16px;
-    color: var(--about-primary, #19587F);
+    background-color: var(--about-primary, #19587F);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
     visibility: hidden;
 }
-.phone-field__option[aria-selected="true"] .phone-field__check { visibility: visible; }
+.phone-field__option[aria-selected="true"]::after { visibility: visible; }
 
 .phone-field__empty {
     margin: 0;
