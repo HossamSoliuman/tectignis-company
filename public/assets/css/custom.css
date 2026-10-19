@@ -9450,7 +9450,16 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
 .lp-form-card .contact-field select,
 .lp-form-card .contact-field textarea { padding-top: 9px; padding-bottom: 9px; }
 .lp-form-card .contact-field textarea { height: 80px; min-height: 80px; }
-.lp-form-card .enquiry-form__footer { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.lp-form-card .contact-field select {
+    height: auto;
+    padding-right: 40px;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a94a6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center / 16px 16px;
+}
+/* style.css swaps in a grey background with !important on focus. */
+.lp-form-card .contact-field select:focus {
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a94a6' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center / 16px 16px !important;
+}
+.lp-form-card .enquiry-form__footer { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; }
 .lp-form-card .enquiry-form__captcha:not(:has(.form-recaptcha)) { display: none; }
 .lp-form-card .enquiry-form__actions { flex: 1 1 200px; }
 .lp-form-card .contact-form__submit { width: 100%; margin-top: 0; padding-top: 13px; padding-bottom: 13px; justify-content: center; }
