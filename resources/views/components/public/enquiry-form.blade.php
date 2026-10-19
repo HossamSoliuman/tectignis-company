@@ -105,7 +105,7 @@
         <div class="{{ $fullField }}">
             <label class="enquiry-consent">
                 <input type="checkbox" name="consent" value="1" @checked($value('consent')) required>
-                <span>{!! __('forms.consent', ['link' => '<a href="'.e(localized_route('legal.show', 'privacy-policy')).'" target="_blank" rel="noopener">'.e(__('forms.privacy_policy')).'</a>']) !!} <span aria-hidden="true">*</span></span>
+                <span>{!! __('forms.consent', ['link' => '<a href="'.e(localized_route('legal.show', 'privacy-policy')).'" target="_blank" rel="noopener">'.e(__('forms.privacy_policy')).'</a>']) !!}&nbsp;<span aria-hidden="true">*</span></span>
             </label>
         </div>
 

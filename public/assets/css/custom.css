@@ -9462,7 +9462,8 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
 .lp-form-card .enquiry-form__footer { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; }
 .lp-form-card .enquiry-form__captcha { min-width: 0; }
 .lp-form-card .enquiry-form__captcha:not(:has(.form-recaptcha)) { display: none; }
-.lp-form-card .enquiry-form__actions { flex: 1 1 200px; }
+/* The button keeps its label on one line and drops below the CAPTCHA when the two don't fit side by side. */
+.lp-form-card .enquiry-form__actions { flex: 1 1 auto; }
 .lp-form-card .contact-form__submit { width: 100%; margin-top: 0; padding-top: 13px; padding-bottom: 13px; justify-content: center; }
 
 .lp-section--soft { background: var(--svc-soft); }
@@ -9597,6 +9598,7 @@ ol.breadcrumb-list { padding-left: 0; list-style: none; }
     .lp-cta__buttons { display: flex; flex-wrap: wrap; justify-content: center; }
     .lp-form-card { padding: 22px 24px; }
     .lp-form-card .contact-form__grid { grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+    .lp-form-card .contact-form__submit { padding-left: 16px; padding-right: 16px; white-space: nowrap; }
     .lp-header__phone-number { display: inline; }
 }
 
