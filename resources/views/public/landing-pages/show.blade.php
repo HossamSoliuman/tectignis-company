@@ -69,7 +69,7 @@
                         </ul>
                     @endif
 
-                    <div class="lp-hero__buttons">
+                    <div class="lp-hero__buttons" data-lp-actions>
                         <a href="#enquiry" class="svc-btn svc-btn--primary" data-lp-cta="primary">{{ $landingPage->primary_cta_label }}</a>
                         <a href="#enquiry" class="svc-btn svc-btn--ghost" data-lp-cta="secondary" data-track="consultation_click">{{ $landingPage->secondary_cta_label }}</a>
                     </div>
@@ -137,9 +137,10 @@
         <section class="svc-section lp-section lp-section--soft">
             <div class="container">
                 <div class="svc-section-head text-center">
-                    <h2 class="svc-section-title">{{ __('landing.projects_heading') }}</h2>
+                    <h2 class="svc-section-title" id="lp-projects-heading">{{ __('landing.projects_heading') }}</h2>
                 </div>
-                <div class="lp-grid lp-grid--3">
+                {{-- A swipeable row on phones; focusable so the row scrolls by keyboard too. --}}
+                <div class="lp-grid lp-grid--3 lp-grid--swipe" role="region" aria-labelledby="lp-projects-heading" tabindex="0">
                     @foreach ($caseStudies as $caseStudy)
                         <article class="lp-project">
                             @if ($caseStudy->image)
@@ -208,7 +209,7 @@
     <section class="lp-cta">
         <div class="container lp-cta__inner">
             <h2 class="lp-cta__title">{{ $landingPage->contentValue('cta.heading', __('landing.cta_heading')) }}</h2>
-            <div class="lp-cta__buttons">
+            <div class="lp-cta__buttons" data-lp-actions>
                 <a href="#enquiry" class="svc-btn svc-btn--white" data-lp-cta="primary">{{ $landingPage->primary_cta_label }}</a>
                 <a href="{{ $company->phoneHref() }}" class="svc-btn svc-btn--outline-light" data-track="phone_click">
                     <i class="fas fa-phone-alt" aria-hidden="true"></i> <span dir="ltr">{{ $company->phone() }}</span>
@@ -217,7 +218,7 @@
         </div>
     </section>
 
-    {{-- Mobile sticky action bar, hidden while the form is on screen. --}}
+    {{-- Mobile sticky action bar, hidden while the form or another set of CTAs is on screen. --}}
     <div class="lp-sticky" data-lp-sticky>
         <a href="{{ $company->phoneHref() }}" class="lp-sticky__call" data-track="phone_click">
             <i class="fas fa-phone-alt" aria-hidden="true"></i><span class="sr-only">{{ __('common.call', ['phone' => $company->phone()]) }}</span>
@@ -262,11 +263,18 @@
             formWrap.scrollIntoView({ block: 'start' });
         }
 
+        // The sticky bar only shows when no other way to act is on screen.
         var sticky = document.querySelector('[data-lp-sticky]');
         if (sticky && 'IntersectionObserver' in window) {
-            new IntersectionObserver(function (entries) {
-                sticky.classList.toggle('is-hidden', entries[0].isIntersecting);
-            }, { threshold: 0.15 }).observe(formWrap);
+            var watched = [formWrap].concat(Array.prototype.slice.call(document.querySelectorAll('[data-lp-actions]')));
+            var onScreen = [];
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    onScreen[watched.indexOf(entry.target)] = entry.isIntersecting;
+                });
+                sticky.classList.toggle('is-hidden', onScreen.indexOf(true) !== -1);
+            }, { threshold: 0.15 });
+            watched.forEach(function (element) { observer.observe(element); });
         }
     })();
 </script>
