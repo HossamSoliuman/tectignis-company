@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             LandingPageSeeder::class,
             BlogPostSeeder::class,
             CaseStudySeeder::class,
+            PortfolioProjectSeeder::class,
             TestimonialSeeder::class,
             BrandSeeder::class,
             WhyChooseFeatureSeeder::class,

@@ -53,7 +53,7 @@ it('renders the mobile menu with buttons that report and change its state', func
 
 it('renders the homepage sections in the specified order', function () {
     $capability = Capability::factory()->create(['slug' => 'software-development', 'category' => 'software_development']);
-    CaseStudy::factory()->create(['title' => 'Warehouse Platform Rebuild']);
+    CaseStudy::factory()->featured()->create(['title' => 'Warehouse Platform Rebuild', 'sort_order' => 0]);
     Industry::factory()->create(['name' => 'Precision Engineering']);
     ProcessStep::factory()->create(['title' => 'Discovery']);
     TechStack::factory()->create(['name' => 'Laravel', 'category' => 'backend', 'show_on_home' => true]);

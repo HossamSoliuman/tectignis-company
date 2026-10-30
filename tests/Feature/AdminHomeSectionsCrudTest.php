@@ -164,9 +164,10 @@ it('home page renders home-section content from the database', function () {
     OfficeLocation::factory()->create(['region' => 'india', 'city' => 'Navi Mumbai']);
     GlobalAdvantage::factory()->create(['title' => 'Agile Delivery']);
     ProcessStep::factory()->create(['title' => 'Strategize']);
-    CaseStudy::factory()->create([
+    CaseStudy::factory()->featured()->create([
         'title' => 'Cloud Migration Project',
         'features' => ['99.9% uptime'],
+        'sort_order' => 0,
     ]);
 
     $this->get(route('home'))

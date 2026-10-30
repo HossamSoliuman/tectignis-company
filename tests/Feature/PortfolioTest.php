@@ -192,3 +192,24 @@ it('maps older category names onto service categories', function (string $legacy
     ['AI Chatbot', 'AI / Automation'],
     ['Retail', 'Other'],
 ]);
+
+it('publishes the hosted client and product projects with their cover and screenshots', function () {
+    $projects = CaseStudy::whereIn('slug', ['tenderset-government-tender-platform', 'alignocare-dental-clinic-website', 'society-management-saas-platform'])->get();
+
+    expect($projects)->toHaveCount(3)
+        ->and($projects->every(fn (CaseStudy $project): bool => $project->isPublished()))->toBeTrue();
+
+    foreach (CaseStudy::whereNotNull('gallery')->get() as $project) {
+        expect(public_path('uploads/'.$project->image))->toBeFile();
+
+        foreach ($project->galleryImages() as $shot) {
+            expect(public_path('uploads/'.$shot['image']))->toBeFile();
+        }
+    }
+
+    $this->get(route('case-studies.show', 'tenderset-government-tender-platform'))
+        ->assertOk()
+        ->assertSee('TenderSet Government Tender Platform')
+        ->assertSee('Tectignis (own product)')
+        ->assertSee('Saved searches with email and WhatsApp alerts');
+});
