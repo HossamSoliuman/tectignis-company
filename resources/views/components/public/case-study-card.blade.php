@@ -4,7 +4,7 @@
 <article {{ $attributes->merge(['class' => 'tx-card tx-case-card']) }}>
     <div class="tx-case-card__media">
         @if ($caseStudy->image)
-            <img src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->title }}" width="480" height="270" loading="lazy" decoding="async">
+            <img src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->coverAlt() }}" width="480" height="270" loading="lazy" decoding="async">
         @else
             <span class="tx-case-card__placeholder" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
         @endif

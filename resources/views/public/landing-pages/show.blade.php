@@ -144,7 +144,7 @@
                     @foreach ($caseStudies as $caseStudy)
                         <article class="lp-project">
                             @if ($caseStudy->image)
-                                <img class="lp-project__image" src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->title }}" loading="lazy">
+                                <img class="lp-project__image" src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->coverAlt() }}" loading="lazy">
                             @endif
                             <div class="lp-project__body">
                                 @if ($caseStudy->category)
