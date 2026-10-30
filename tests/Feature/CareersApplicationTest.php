@@ -233,3 +233,15 @@ it('shows an empty state instead of the form when no designations are active', f
         ->assertSee('No positions or designations are available')
         ->assertDontSee('name="designation_id"', false);
 });
+
+it('tracks a stored application as its own event, never as a lead conversion', function () {
+    Mail::fake();
+
+    $this->followingRedirects()
+        ->from(route('careers'))
+        ->post(route('careers.submit'), validApplication())
+        ->assertOk()
+        ->assertSee("window.txTrack('job_application_submitted', application)", false)
+        ->assertDontSee("txTrack('generate_lead'", false)
+        ->assertDontSee('priya@example.com', false);
+});

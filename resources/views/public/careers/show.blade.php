@@ -110,6 +110,7 @@
         <div class="container">
             @if (session('career_status'))
                 <div class="alert alert-success mb-4" role="status">{{ session('career_status') }}</div>
+                @include('public.careers.partials.application-event')
             @endif
 
             @unless ($isOpen)

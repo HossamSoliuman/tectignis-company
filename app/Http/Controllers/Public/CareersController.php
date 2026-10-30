@@ -84,7 +84,13 @@ class CareersController extends Controller
 
         JobApplicationNotificationMail::dispatchFor($application);
 
-        return back()->with('career_status', 'Thank you! Your application '.$application->reference().' has been received. Our HR team will be in touch if your profile is a match.');
+        return back()
+            ->with('career_status', 'Thank you! Your application '.$application->reference().' has been received. Our HR team will be in touch if your profile is a match.')
+            ->with('application_submitted', [
+                'event_id' => (string) Str::uuid(),
+                'job_title' => $application->appliedFor(),
+                'page_language' => app()->getLocale(),
+            ]);
     }
 
     /**
