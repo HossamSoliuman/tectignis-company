@@ -154,6 +154,8 @@
                 </div>
             </div>
 
+            <x-admin.notification-status :record="$application" :action="route('admin.job-applications.notification.resend', $application)" :can-resend="$canUpdate" />
+
             {{-- Internal notes --}}
             <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h3 class="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-800">

@@ -29,13 +29,26 @@ class JobApplicationNotificationMail extends Mailable
      */
     public static function dispatchFor(JobApplication $application): void
     {
-        $recipient = self::recipient();
-
-        if ($recipient) {
-            (new self($application))->deliverTo($recipient);
-        }
+        self::notify($application);
 
         JobApplicationAcknowledgementMail::dispatchFor($application);
+    }
+
+    /**
+     * Send (or resend) only the HR notification. A missing mailbox is
+     * recorded as a failure so it shows in the admin.
+     */
+    public static function notify(JobApplication $application): void
+    {
+        $recipient = self::recipient();
+
+        if (! $recipient) {
+            $application->recordNotificationDelivery('No notification mailbox is configured.');
+
+            return;
+        }
+
+        (new self($application))->deliverTo($recipient);
     }
 
     /**
@@ -80,5 +93,10 @@ class JobApplicationNotificationMail extends Mailable
     protected function failureContext(): array
     {
         return ['job_application_id' => $this->application->id];
+    }
+
+    protected function recordDelivery(?string $error): void
+    {
+        $this->application->recordNotificationDelivery($error);
     }
 }

@@ -39,6 +39,7 @@ class JobApplicationFilterRequest extends FormRequest
             'designation_id' => ['nullable', 'integer'],
             'experience' => ['nullable', Rule::enum(CandidateExperience::class)],
             'location' => ['nullable', 'string', 'max:100'],
+            'notification' => ['nullable', 'in:failed'],
             'assigned_to' => ['nullable', 'regex:/^(unassigned|\d+)$/'],
             'date_from' => ['nullable', 'date'],
             'date_to' => ['nullable', 'date', 'after_or_equal:date_from'],
@@ -57,7 +58,7 @@ class JobApplicationFilterRequest extends FormRequest
     public function filters(): array
     {
         return collect($this->validated())
-            ->only(['q', 'status', 'job_opening_id', 'designation_id', 'experience', 'location', 'assigned_to', 'date_from', 'date_to'])
+            ->only(['q', 'status', 'job_opening_id', 'designation_id', 'experience', 'location', 'notification', 'assigned_to', 'date_from', 'date_to'])
             ->all();
     }
 

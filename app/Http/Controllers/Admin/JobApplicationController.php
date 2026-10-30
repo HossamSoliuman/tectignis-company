@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\JobApplicationFilterRequest;
 use App\Http\Requests\Admin\UpdateJobApplicationRequest;
+use App\Mail\JobApplicationNotificationMail;
 use App\Models\Designation;
 use App\Models\JobApplication;
 use App\Models\JobApplicationActivity;
@@ -36,7 +37,7 @@ class JobApplicationController extends Controller
      */
     private const LIST_COLUMNS = [
         'id', 'name', 'email', 'phone', 'job_opening_id', 'job_title', 'designation_name', 'location',
-        'experience', 'status', 'assigned_to', 'is_read', 'archived_at', 'created_at',
+        'experience', 'status', 'assigned_to', 'is_read', 'archived_at', 'notification_failed_at', 'created_at',
     ];
 
     public function index(JobApplicationFilterRequest $request): View
@@ -113,6 +114,24 @@ class JobApplicationController extends Controller
         $jobApplication->update(['status' => $status, 'assigned_to' => $assigneeId]);
 
         return back()->with('status', 'Application updated.');
+    }
+
+    /**
+     * Send the HR notification email again, e.g. after a mail outage.
+     */
+    public function resendNotification(JobApplication $jobApplication): RedirectResponse
+    {
+        Gate::authorize('update', $jobApplication);
+
+        JobApplicationNotificationMail::notify($jobApplication);
+
+        if (config('mail.queue_lead_emails')) {
+            return back()->with('status', 'Notification email queued.');
+        }
+
+        return $jobApplication->refresh()->notificationFailed()
+            ? back()->withErrors(['notification' => 'The notification email could not be sent: '.$jobApplication->notification_error])
+            : back()->with('status', 'Notification email sent.');
     }
 
     /**

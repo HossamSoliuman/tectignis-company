@@ -47,6 +47,8 @@ class DashboardController extends Controller
             'leadsTotal' => Lead::count(),
             'leadSegments' => $this->leadSegments(),
             'recentLeads' => Lead::latest()->limit(4)->get(),
+            'failedLeadNotifications' => Lead::whereNotificationFailed()->count(),
+            'failedApplicationNotifications' => JobApplication::whereNotificationFailed()->count(),
         ]);
     }
 

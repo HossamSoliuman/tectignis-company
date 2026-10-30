@@ -40,6 +40,7 @@ class LeadFilterRequest extends FormRequest
             'assigned_to' => ['nullable', 'regex:/^(unassigned|\d+)$/'],
             'source' => ['nullable', Rule::enum(LeadSource::class)],
             'landing_page' => ['nullable', 'string', 'max:255'],
+            'notification' => ['nullable', 'in:failed'],
             'date_from' => ['nullable', 'date'],
             'date_to' => ['nullable', 'date', 'after_or_equal:date_from'],
             'sort' => ['nullable', Rule::in(self::SORTABLE)],
@@ -57,7 +58,7 @@ class LeadFilterRequest extends FormRequest
     public function filters(): array
     {
         return collect($this->validated())
-            ->only(['q', 'status', 'service', 'country', 'assigned_to', 'source', 'landing_page', 'date_from', 'date_to'])
+            ->only(['q', 'status', 'service', 'country', 'assigned_to', 'source', 'landing_page', 'notification', 'date_from', 'date_to'])
             ->all();
     }
 

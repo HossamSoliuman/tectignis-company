@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\LeadSource;
 use App\Enums\LeadStatus;
+use App\Models\Concerns\TracksNotificationDelivery;
 use App\Support\Locales;
 use App\Support\PhoneNumbers;
 use Database\Factories\LeadFactory;
@@ -18,7 +19,7 @@ use Illuminate\Support\Carbon;
 class Lead extends Model
 {
     /** @use HasFactory<LeadFactory> */
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, TracksNotificationDelivery;
 
     /**
      * UTM parameters captured from the visitor's landing URL.
@@ -186,6 +187,10 @@ class Lead extends Model
             if (filled($filters[$column] ?? null)) {
                 $query->where($column, $filters[$column]);
             }
+        }
+
+        if (($filters['notification'] ?? null) === 'failed') {
+            $query->whereNotNull('notification_failed_at');
         }
 
         $assignee = $filters['assigned_to'] ?? null;

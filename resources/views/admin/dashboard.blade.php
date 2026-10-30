@@ -14,6 +14,22 @@
         ];
     @endphp
 
+    @if ($failedLeadNotifications || $failedApplicationNotifications)
+        <div class="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+            <x-admin.icon name="envelope" class="h-5 w-5 shrink-0" />
+            @if ($failedLeadNotifications)
+                <a href="{{ route('admin.leads.index', ['notification' => 'failed']) }}" class="font-medium underline">
+                    {{ trans_choice('{1} 1 lead notification email failed|[2,*] :count lead notification emails failed', $failedLeadNotifications) }}
+                </a>
+            @endif
+            @if ($failedApplicationNotifications)
+                <a href="{{ route('admin.job-applications.index', ['notification' => 'failed']) }}" class="font-medium underline">
+                    {{ trans_choice('{1} 1 job application email failed|[2,*] :count job application emails failed', $failedApplicationNotifications) }}
+                </a>
+            @endif
+        </div>
+    @endif
+
     {{-- Stat cards --}}
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6">
         @foreach ($cards as $label => $card)

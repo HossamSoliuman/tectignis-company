@@ -29,13 +29,26 @@ class LeadNotificationMail extends Mailable
      */
     public static function dispatchFor(Lead $lead): void
     {
-        $recipient = self::recipientFor($lead->source);
-
-        if ($recipient) {
-            (new self($lead))->deliverTo($recipient);
-        }
+        self::notify($lead);
 
         LeadAcknowledgementMail::dispatchFor($lead);
+    }
+
+    /**
+     * Send (or resend) only the internal notification. A missing mailbox is
+     * recorded as a failure so it shows in the admin.
+     */
+    public static function notify(Lead $lead): void
+    {
+        $recipient = self::recipientFor($lead->source);
+
+        if (! $recipient) {
+            $lead->recordNotificationDelivery('No notification mailbox is configured.');
+
+            return;
+        }
+
+        (new self($lead))->deliverTo($recipient);
     }
 
     /**
@@ -70,6 +83,11 @@ class LeadNotificationMail extends Mailable
         }
 
         return 'New '.$this->lead->sourceLabel().': '.($this->lead->subject ?: $this->lead->name);
+    }
+
+    protected function recordDelivery(?string $error): void
+    {
+        $this->lead->recordNotificationDelivery($error);
     }
 
     public function content(): Content

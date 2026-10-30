@@ -72,6 +72,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');
         Route::patch('leads/{lead}/restore', [LeadController::class, 'restore'])->withTrashed()->name('leads.restore');
         Route::post('leads/{lead}/notes', [LeadNoteController::class, 'store'])->name('leads.notes.store');
+        Route::post('leads/{lead}/notification', [LeadController::class, 'resendNotification'])->name('leads.notification.resend');
     });
 
     // Careers (spec §26.8, §28.10): job openings, designations and candidate
@@ -88,6 +89,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('job-applications/{jobApplication}/unarchive', [JobApplicationController::class, 'unarchive'])->name('job-applications.unarchive');
         Route::get('job-applications/{jobApplication}/resume', [JobApplicationController::class, 'resume'])->name('job-applications.resume');
         Route::post('job-applications/{jobApplication}/notes', [JobApplicationNoteController::class, 'store'])->name('job-applications.notes.store');
+        Route::post('job-applications/{jobApplication}/notification', [JobApplicationController::class, 'resendNotification'])->name('job-applications.notification.resend');
 
         Route::resource('job-openings', JobOpeningController::class)->except(['show'])->parameters(['job-openings' => 'jobOpening']);
         Route::patch('designations/{designation}/toggle', [DesignationController::class, 'toggle'])->name('designations.toggle');

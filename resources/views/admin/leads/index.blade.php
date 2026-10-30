@@ -12,7 +12,7 @@
             ->map(fn ($status): array => [$status->value, $status->label(), $statusCounts[$status->value] ?? 0])
             ->prepend([null, 'All', $statusCounts->sum()]);
         $hasFilters = collect(request()->except(['page', 'per_page', 'sort', 'direction', 'status', 'trashed']))->filter(fn ($v) => filled($v))->isNotEmpty();
-        $activeFilterCount = collect(request()->only(['service', 'country', 'assigned_to', 'source', 'landing_page', 'date_from', 'date_to']))->filter(fn ($v) => filled($v))->count();
+        $activeFilterCount = collect(request()->only(['service', 'country', 'assigned_to', 'source', 'landing_page', 'notification', 'date_from', 'date_to']))->filter(fn ($v) => filled($v))->count();
         $initials = fn (string $name): string => Str::of($name)->squish()->explode(' ')->take(2)->map(fn (string $part): string => Str::upper(Str::substr($part, 0, 1)))->implode('');
 
         // Sorting links keep every other parameter (spec §28.4).
@@ -120,6 +120,13 @@
                 </select>
             </div>
             <div>
+                <label for="f-notification" class="mb-1 block text-xs font-medium text-slate-500">Notification email</label>
+                <select id="f-notification" name="notification" class="{{ $input }}">
+                    <option value="">Any</option>
+                    <option value="failed" @selected(($filters['notification'] ?? null) === 'failed')>Failed</option>
+                </select>
+            </div>
+            <div>
                 <label for="f-landing-page" class="mb-1 block text-xs font-medium text-slate-500">Landing page</label>
                 <select id="f-landing-page" name="landing_page" class="{{ $input }}">
                     <option value="">Any page</option>
@@ -212,6 +219,11 @@
                                         </div>
                                         @if ($lead->company)
                                             <div class="truncate text-xs text-slate-500 @4xl:hidden">{{ $lead->company }}</div>
+                                        @endif
+                                        @if ($lead->notificationFailed())
+                                            <span class="mt-1 inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700">
+                                                <x-admin.icon name="envelope" class="h-3 w-3" /> Email failed
+                                            </span>
                                         @endif
                                         <div class="mt-1 flex flex-wrap items-center gap-2 @2xl:hidden">
                                             <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium {{ $lead->status->badgeClasses() }}">

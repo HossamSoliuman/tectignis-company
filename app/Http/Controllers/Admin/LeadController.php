@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BulkDestroyLeadsRequest;
 use App\Http\Requests\Admin\LeadFilterRequest;
 use App\Http\Requests\Admin\UpdateLeadRequest;
+use App\Mail\LeadNotificationMail;
 use App\Models\LandingPage;
 use App\Models\Lead;
 use App\Models\LeadActivity;
@@ -35,7 +36,7 @@ class LeadController extends Controller
      */
     private const LIST_COLUMNS = [
         'id', 'name', 'email', 'phone', 'company', 'country', 'service', 'source',
-        'status', 'assigned_to', 'is_read', 'created_at', 'deleted_at',
+        'status', 'assigned_to', 'is_read', 'notification_failed_at', 'created_at', 'deleted_at',
     ];
 
     public function index(LeadFilterRequest $request): View
@@ -115,6 +116,24 @@ class LeadController extends Controller
         $lead->update(['status' => $status, 'assigned_to' => $assigneeId]);
 
         return back()->with('status', 'Lead updated.');
+    }
+
+    /**
+     * Send the internal notification email again, e.g. after a mail outage.
+     */
+    public function resendNotification(Lead $lead): RedirectResponse
+    {
+        Gate::authorize('update', $lead);
+
+        LeadNotificationMail::notify($lead);
+
+        if (config('mail.queue_lead_emails')) {
+            return back()->with('status', 'Notification email queued.');
+        }
+
+        return $lead->refresh()->notificationFailed()
+            ? back()->withErrors(['notification' => 'The notification email could not be sent: '.$lead->notification_error])
+            : back()->with('status', 'Notification email sent.');
     }
 
     public function destroy(Lead $lead): RedirectResponse

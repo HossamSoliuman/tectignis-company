@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\CandidateExperience;
 use App\Enums\JobApplicationStatus;
+use App\Models\Concerns\TracksNotificationDelivery;
 use Database\Factories\JobApplicationFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,7 +22,7 @@ use Illuminate\Support\Str;
 class JobApplication extends Model
 {
     /** @use HasFactory<JobApplicationFactory> */
-    use HasFactory;
+    use HasFactory, TracksNotificationDelivery;
 
     /**
      * Private disk holding candidate CVs (spec §26.13).
@@ -199,6 +200,10 @@ class JobApplication extends Model
                     $query->orWhere('id', (int) $id);
                 }
             });
+        }
+
+        if (($filters['notification'] ?? null) === 'failed') {
+            $query->whereNotNull('notification_failed_at');
         }
 
         foreach (['status', 'experience', 'designation_id'] as $column) {
