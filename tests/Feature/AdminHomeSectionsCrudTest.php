@@ -109,8 +109,9 @@ it('stores case-study features from a newline-separated textarea', function () {
             'theme' => 'blue',
             'short_description' => 'Streamlined operations.',
             'features' => "40% increase in efficiency\nReal-time visibility\n",
-            'is_active' => '1',
-        ])->assertRedirect(route('admin.case-studies.index'));
+            'status' => 'published',
+            'project_status' => 'completed',
+        ])->assertRedirect();
 
     $caseStudy = CaseStudy::firstWhere('slug', 'erp-manufacturing');
 
@@ -164,7 +165,6 @@ it('home page renders home-section content from the database', function () {
     GlobalAdvantage::factory()->create(['title' => 'Agile Delivery']);
     ProcessStep::factory()->create(['title' => 'Strategize']);
     CaseStudy::factory()->create([
-        'is_active' => true,
         'title' => 'Cloud Migration Project',
         'features' => ['99.9% uptime'],
     ]);

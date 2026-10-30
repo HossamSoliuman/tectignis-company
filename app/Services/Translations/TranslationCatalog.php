@@ -189,7 +189,8 @@ class TranslationCatalog
         $items = [];
 
         foreach ($sources as [$model, $label]) {
-            $records = $model::query()->where('is_active', true)->orderBy('sort_order')->orderBy('id')->get();
+            $query = $model === CaseStudy::class ? $model::query()->published() : $model::query()->where('is_active', true);
+            $records = $query->orderBy('sort_order')->orderBy('id')->get();
 
             foreach ($records as $record) {
                 $items = [...$items, ...$this->recordItems($record, self::AREA_HOMEPAGE, $label.' #'.$record->getKey())];

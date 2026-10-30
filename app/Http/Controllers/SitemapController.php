@@ -27,7 +27,7 @@ class SitemapController extends Controller
         $pages = Page::active()->ordered()->get();
         $posts = BlogPost::published()->latest('published_at')->get();
         $insights = Insight::published()->latest('published_at')->get();
-        $caseStudies = CaseStudy::active()->ordered()->get();
+        $caseStudies = CaseStudy::published()->ordered()->get();
         $jobOpenings = JobOpening::open()->ordered()->get(['id', 'slug', 'updated_at']);
 
         $staticPages = [

@@ -3,7 +3,7 @@
 @php
     $section = $industry->content['case_studies'] ?? [];
     // Section shows the three most recent active case studies globally.
-    $caseStudies = \App\Models\CaseStudy::with('category')->active()->latest()->limit(3)->get();
+    $caseStudies = \App\Models\CaseStudy::with('category')->published()->latest()->limit(3)->get();
     $heading = $section['heading'] ?? 'Real Results. Real Impact.';
     $subtitle = $section['subtitle'] ?? 'Success Stories';
 @endphp
@@ -27,7 +27,7 @@
                         <div class="ind-case-card">
                             <div class="ind-case-card__media">
                                 @if ($caseStudy->image)
-                                    <img src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->title }}" loading="lazy">
+                                    <img src="{{ asset('uploads/'.$caseStudy->image) }}" alt="{{ $caseStudy->coverAlt() }}" loading="lazy">
                                 @else
                                     <span class="ind-case-card__placeholder"><i class="fas fa-briefcase"></i></span>
                                 @endif

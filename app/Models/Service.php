@@ -104,7 +104,7 @@ class Service extends Model
     public function selectedCaseStudies(): Collection
     {
         $ids = array_map('intval', (array) ($this->content['case_studies']['ids'] ?? []));
-        $query = CaseStudy::with('category')->active();
+        $query = CaseStudy::with('category')->published();
 
         if ($ids === []) {
             return $query->latest()->limit(3)->get();

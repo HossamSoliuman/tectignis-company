@@ -1,4 +1,4 @@
-﻿@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('title', 'Create Case Study')
 
@@ -6,7 +6,7 @@
     <div class="mb-4">
         <a href="{{ route('admin.case-studies.index') }}" class="inline-flex items-center gap-1.5 text-sm font-medium text-fuchsia-600 hover:underline"><x-admin.icon name="arrow-left" class="h-4 w-4" /> Back</a>
     </div>
-    <form action="{{ route('admin.case-studies.store') }}" method="POST" enctype="multipart/form-data" class="max-w-2xl space-y-6">
+    <form action="{{ route('admin.case-studies.store') }}" method="POST" enctype="multipart/form-data" class="max-w-3xl space-y-6">
         @csrf
         @include('admin.case-studies._form')
         <div class="flex justify-end">

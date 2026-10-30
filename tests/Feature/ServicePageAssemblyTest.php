@@ -32,7 +32,7 @@ function fullyPopulatedService(array $overrides = []): Service
 
     $service->techStacks()->sync(TechStack::factory()->create(['name' => 'AttachedTech', 'is_active' => true])->id);
     $service->industries()->sync(Industry::factory()->create(['name' => 'AttachedIndustry', 'is_active' => true])->id);
-    CaseStudy::factory()->create(['title' => 'Recent Case Study', 'is_active' => true]);
+    CaseStudy::factory()->create(['title' => 'Recent Case Study']);
 
     return $service;
 }

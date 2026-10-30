@@ -30,7 +30,7 @@ class HomeController extends Controller
             'brands' => Brand::active()->ordered()->get(),
             'coreServices' => Service::active()->featured()->ordered()->get(),
             'whyChooseFeatures' => WhyChooseFeature::active()->ordered()->get(),
-            'caseStudies' => CaseStudy::with('category')->active()->ordered()->limit(6)->get(),
+            'caseStudies' => CaseStudy::with('category')->published()->orderByDesc('is_featured')->ordered()->limit(6)->get(),
             'industries' => Industry::active()->ordered()->get(),
             'processSteps' => ProcessStep::active()->ordered()->get(),
             'techGroups' => TechStack::active()->shownOnHome()->ordered()->get()

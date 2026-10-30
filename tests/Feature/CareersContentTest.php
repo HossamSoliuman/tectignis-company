@@ -54,8 +54,8 @@ it('renders admin-managed careers content on the public page', function () {
 });
 
 it('shows a case study detail page and 404s on unknown or inactive slugs', function () {
-    $active = CaseStudy::factory()->create(['is_active' => true, 'slug' => 'live-study', 'title' => 'Live Study']);
-    $inactive = CaseStudy::factory()->create(['is_active' => false, 'slug' => 'hidden-study']);
+    $active = CaseStudy::factory()->create(['slug' => 'live-study', 'title' => 'Live Study']);
+    $inactive = CaseStudy::factory()->draft()->create(['slug' => 'hidden-study']);
 
     $this->get(route('case-studies.show', $active->slug))
         ->assertOk()
