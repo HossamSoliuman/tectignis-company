@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\UserRole;
+use App\Models\CaseStudyCategory;
 use App\Models\GlossaryTerm;
 use App\Models\Service;
 use App\Models\Setting;
@@ -14,6 +15,10 @@ use Illuminate\Http\UploadedFile;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    // Migrations seed the portfolio categories, which would fill the first
+    // export batch ahead of the service these tests translate.
+    CaseStudyCategory::query()->delete();
+
     $this->editor = User::factory()->role(UserRole::Editor)->create();
 
     $this->service = Service::factory()->create([
