@@ -14,8 +14,8 @@ class PhoneNumber implements ValidationRule
     public function __construct(private ?string $isoCode) {}
 
     /**
-     * Check the number against the picked country's numbering plan. A number
-     * typed with its own "+" code is checked against that code instead.
+     * Check the number's length against the picked country's numbering plan.
+     * A number typed with its own "+" code is checked against that code instead.
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

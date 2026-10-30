@@ -6,6 +6,7 @@ use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumber;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
+use libphonenumber\ValidationResult;
 
 /**
  * Phone numbers from the enquiry form, validated against the calling code
@@ -15,14 +16,19 @@ use libphonenumber\PhoneNumberUtil;
 final class PhoneNumbers
 {
     /**
-     * Whether the number is a real number for the picked country, or for the
-     * country of its own "+" code when typed in international form.
+     * Whether the number has the right length for the picked country, or for
+     * the country of its own "+" code when typed in international form.
+     *
+     * Only the length is checked, not whether the area code or range is
+     * assigned: rejecting a real lead because of outdated numbering data costs
+     * more than storing a mistyped number.
      */
     public static function isValid(string $phone, ?string $isoCode): bool
     {
         $number = self::parse($phone, $isoCode);
 
-        return $number !== null && PhoneNumberUtil::getInstance()->isValidNumber($number);
+        return $number !== null
+            && PhoneNumberUtil::getInstance()->isPossibleNumberWithReason($number) === ValidationResult::IS_POSSIBLE;
     }
 
     /**

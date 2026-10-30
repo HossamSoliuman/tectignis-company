@@ -80,12 +80,13 @@ it('stores the phone number in E.164 form with the dialling code picked beside i
     'trunk zero dropped' => ['GB', '07400 123456', '+447400123456'],
     'italian leading zero kept' => ['IT', '06 1234 5678', '+390612345678'],
     'punctuation removed' => ['US', '(201) 555-0123', '+12015550123'],
+    'unassigned area code' => ['US', '(545) 399-9349', '+15453999349'],
     'already international' => ['IN', '+971 50 123 4567', '+971501234567'],
     '00 international prefix' => ['IN', '00971 50 123 4567', '+971501234567'],
 ]);
 
-it('rejects a number that is not valid for the calling code picked beside it', function () {
-    $this->post(route('contact.submit'), validEnquiry(['phone_country' => 'GB', 'phone' => '50 123 4567']))
+it('rejects a number with the wrong length for the calling code picked beside it', function () {
+    $this->post(route('contact.submit'), validEnquiry(['phone_country' => 'US', 'phone' => '50 123 4567']))
         ->assertSessionHasErrors(['phone' => 'Please enter a valid phone number for the selected country code.']);
 
     expect(Lead::count())->toBe(0);
