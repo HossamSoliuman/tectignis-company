@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Models\Stat;
+use App\Support\CompanyProfile;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,8 +20,9 @@ class CareersContentController extends Controller
     public function edit(): View
     {
         return view('admin.careers.edit', [
-            'stats' => Setting::json('careers_stats', $this->defaultStats()),
+            'stats' => Setting::json('careers_stats', CompanyProfile::DEFAULT_CAREER_STATS),
             'benefits' => Setting::json('careers_benefits', $this->defaultBenefits()),
+            'companyStats' => Stat::ordered()->whereNotNull('key')->get(['key', 'label', 'value', 'is_active']),
         ]);
     }
 
@@ -28,6 +31,7 @@ class CareersContentController extends Controller
         $data = $request->validate([
             'stats' => ['nullable', 'array'],
             'stats.*.icon' => ['nullable', 'string', 'max:100'],
+            'stats.*.stat' => ['nullable', 'string', 'exists:stats,key'],
             'stats.*.value' => ['nullable', 'string', 'max:60'],
             'stats.*.label' => ['nullable', 'string', 'max:120'],
             'benefits' => ['nullable', 'array'],
@@ -36,7 +40,12 @@ class CareersContentController extends Controller
             'benefits.*.text' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $stats = $this->cleanRows($data['stats'] ?? [], ['value', 'label']);
+        $stats = array_map(
+            fn (array $row): array => filled($row['stat'] ?? null)
+                ? array_filter(array_intersect_key($row, array_flip(['icon', 'stat', 'label'])), fn (mixed $value): bool => filled($value))
+                : array_diff_key($row, ['stat' => true]),
+            $this->cleanRows($data['stats'] ?? [], ['stat', 'value', 'label']),
+        );
         $benefits = $this->cleanRows($data['benefits'] ?? [], ['title', 'text']);
 
         Setting::set('careers_stats', json_encode($stats), 'careers');
@@ -70,21 +79,6 @@ class CareersContentController extends Controller
         }
 
         return $clean;
-    }
-
-    /**
-     * @return array<int, array<string, string>>
-     */
-    private function defaultStats(): array
-    {
-        return [
-            ['icon' => 'fas fa-users', 'value' => '200+', 'label' => 'Team Members'],
-            ['icon' => 'fas fa-user-tie', 'value' => '50+', 'label' => 'Hiring Experts'],
-            ['icon' => 'fas fa-award', 'value' => '10+', 'label' => 'Years of Excellence'],
-            ['icon' => 'fas fa-smile', 'value' => '95%', 'label' => 'Employee Satisfaction'],
-            ['icon' => 'fas fa-book-open', 'value' => 'Continuous', 'label' => 'Learning'],
-            ['icon' => 'fas fa-balance-scale', 'value' => 'Work-Life', 'label' => 'Balance'],
-        ];
     }
 
     /**

@@ -199,10 +199,12 @@
                 <div class="about-global__media wow move-up">
                     <div class="about-global__map" role="img" aria-label="World map highlighting Tectignis global delivery from India.">
                         <img src="assets/images/bg/aboutus-tectignis-worldwide.png" alt="Tectignis Global Presence" class="img-fluid about-global__image">
-                        <div class="about-global__card">
-                            <span class="about-global__card-num">{{ $company->statValue('countries', '25+') }}</span>
-                            <span class="about-global__card-label">Serving Clients Across India & Worldwide</span>
-                        </div>
+                        @if ($company->statValue('countries'))
+                            <div class="about-global__card">
+                                <span class="about-global__card-num">{{ $company->statValue('countries') }}</span>
+                                <span class="about-global__card-label">Serving Clients Across India & Worldwide</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

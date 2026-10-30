@@ -9,14 +9,7 @@
 
 @php
     $careersHeroImage = \App\Models\Setting::get('careers_hero_image');
-    $careerStats = \App\Models\Setting::json('careers_stats', [
-        ['icon' => 'fas fa-users', 'value' => '200+', 'label' => 'Team Members'],
-        ['icon' => 'fas fa-user-tie', 'value' => '50+', 'label' => 'Hiring Experts'],
-        ['icon' => 'fas fa-award', 'value' => '10+', 'label' => 'Years of Excellence'],
-        ['icon' => 'fas fa-smile', 'value' => '95%', 'label' => 'Employee Satisfaction'],
-        ['icon' => 'fas fa-book-open', 'value' => 'Continuous', 'label' => 'Learning'],
-        ['icon' => 'fas fa-balance-scale', 'value' => 'Work-Life', 'label' => 'Balance'],
-    ]);
+    $careerStats = $company->careerStats();
     $careerBenefits = \App\Models\Setting::json('careers_benefits', [
         ['icon' => 'fas fa-chart-line', 'title' => 'Growth', 'text' => 'Continuous learning opportunities and career advancement.'],
         ['icon' => 'fas fa-lightbulb', 'title' => 'Innovation', 'text' => 'Work on cutting-edge technologies and solve real-world challenges.'],
@@ -59,19 +52,21 @@
     </section>
 
     <!--=========== Stats Strip ===========-->
-    <div class="car-stats">
-        <div class="container">
-            <div class="car-stats__grid">
-                @foreach ($careerStats as $stat)
-                    <div class="car-stat">
-                        <div class="car-stat__icon"><i class="{{ $stat['icon'] }}" aria-hidden="true"></i></div>
-                        <div class="car-stat__value">{{ $stat['value'] }}</div>
-                        <div class="car-stat__label">{{ $stat['label'] }}</div>
-                    </div>
-                @endforeach
+    @if ($careerStats !== [])
+        <div class="car-stats">
+            <div class="container">
+                <div class="car-stats__grid">
+                    @foreach ($careerStats as $stat)
+                        <div class="car-stat">
+                            <div class="car-stat__icon"><i class="{{ $stat['icon'] }}" aria-hidden="true"></i></div>
+                            <div class="car-stat__value">{{ $stat['value'] }}</div>
+                            <div class="car-stat__label">{{ $stat['label'] }}</div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <!--=========== Why Join ===========-->
     <div class="car-benefits" id="why-join">

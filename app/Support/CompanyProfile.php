@@ -22,6 +22,21 @@ class CompanyProfile
      */
     private const MARKETS = ['us', 'ae', 'gb', 'ca', 'eu', 'in'];
 
+    /**
+     * The careers stats strip before an admin edits it: company figures are
+     * linked to the approved statistics rather than typed in.
+     *
+     * @var list<array<string, string>>
+     */
+    public const DEFAULT_CAREER_STATS = [
+        ['icon' => 'fas fa-briefcase', 'stat' => 'projects'],
+        ['icon' => 'fas fa-handshake', 'stat' => 'clients'],
+        ['icon' => 'fas fa-industry', 'stat' => 'industries'],
+        ['icon' => 'fas fa-globe', 'stat' => 'countries'],
+        ['icon' => 'fas fa-book-open', 'value' => 'Continuous', 'label' => 'Learning'],
+        ['icon' => 'fas fa-balance-scale', 'value' => 'Work-Life', 'label' => 'Balance'],
+    ];
+
     public function name(): string
     {
         return $this->setting('site_name', 'Tectignis IT Solutions');
@@ -181,6 +196,59 @@ class CompanyProfile
     public function statValue(string $key, ?string $default = null): ?string
     {
         return $this->stat($key)?->value ?? $default;
+    }
+
+    /**
+     * The careers page stats strip, with linked rows reading their figure
+     * from the approved company statistics.
+     *
+     * @return list<array{icon: string, value: string, label: string}>
+     */
+    public function careerStats(): array
+    {
+        return $this->resolveStatRows(Setting::json('careers_stats', self::DEFAULT_CAREER_STATS));
+    }
+
+    /**
+     * Resolve admin-entered stat rows. A row with a `stat` key takes its value
+     * (and, unless overridden, its label) from that company statistic, and is
+     * dropped when the statistic is missing or switched off, so a figure that
+     * is no longer approved never lingers on another page.
+     *
+     * @param  array<int, mixed>  $rows
+     * @return list<array{icon: string, value: string, label: string}>
+     */
+    public function resolveStatRows(array $rows): array
+    {
+        $resolved = [];
+
+        foreach ($rows as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+
+            $value = $row['value'] ?? null;
+            $label = $row['label'] ?? null;
+
+            if (filled($row['stat'] ?? null)) {
+                $stat = $this->stat($row['stat']);
+
+                if (! $stat) {
+                    continue;
+                }
+
+                $value = $stat->value;
+                $label = filled($label) ? $label : $stat->label;
+            }
+
+            if (blank($value) && blank($label)) {
+                continue;
+            }
+
+            $resolved[] = ['icon' => (string) ($row['icon'] ?? ''), 'value' => (string) $value, 'label' => (string) $label];
+        }
+
+        return $resolved;
     }
 
     private function setting(string $key, ?string $default = null): ?string

@@ -29,6 +29,7 @@
                 'prefix' => 'stats',
                 'rows' => $stats,
                 'rowView' => 'admin.careers.partials._stat-row',
+                'extra' => ['companyStats' => $companyStats],
                 'addLabel' => 'Add stat',
             ])
         </x-admin.service-panel>
