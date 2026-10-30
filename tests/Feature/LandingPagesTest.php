@@ -7,6 +7,7 @@ use App\Models\Lead;
 use App\Models\Service;
 use App\Models\Translation;
 use App\Models\User;
+use App\Support\EnquiryServices;
 use Database\Seeders\LandingPageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -231,14 +232,14 @@ it('closes with its own heading instead of repeating the headline', function () 
         ->assertSee('<h2 class="lp-cta__title">Let us build your website</h2>', false);
 });
 
-it('seeds both priority landing pages linked to their services', function () {
+it('seeds the landing pages once, linked to their services', function () {
     Service::factory()->create(['slug' => 'custom-software-development']);
     Service::factory()->create(['slug' => 'website-design-development']);
 
     (new LandingPageSeeder)->run();
     (new LandingPageSeeder)->run();
 
-    expect(LandingPage::count())->toBe(2);
+    expect(LandingPage::count())->toBe(6);
 
     $software = LandingPage::where('slug', 'custom-software-development')->sole();
     $website = LandingPage::where('slug', 'website-development')->sole();
@@ -333,4 +334,19 @@ it('filters leads by landing page and shows it on the lead', function () {
         ->assertOk()
         ->assertSee('Ads landing page')
         ->assertSee('Website Development');
+});
+
+it('seeds a landing page for each advertised service with a valid preset service', function () {
+    $slugs = ['custom-software-development', 'website-development', 'erp-crm-development', 'saas-development', 'ai-automation', 'it-infrastructure'];
+
+    (new LandingPageSeeder)->run();
+
+    $pages = LandingPage::whereIn('slug', $slugs)->get();
+
+    expect($pages)->toHaveCount(6);
+
+    foreach ($pages as $page) {
+        expect(EnquiryServices::all())->toContain($page->enquiry_service);
+        $this->get(route('landing-pages.show', $page->slug))->assertOk()->assertSee($page->headline);
+    }
 });
