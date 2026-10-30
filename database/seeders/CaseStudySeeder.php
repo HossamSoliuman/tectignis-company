@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\CaseStudy;
 use App\Models\CaseStudyCategory;
+use App\Support\PortfolioCategories;
 use Illuminate\Database\Seeder;
 
 class CaseStudySeeder extends Seeder
@@ -14,7 +15,7 @@ class CaseStudySeeder extends Seeder
             [
                 'slug' => 'perfect-packaging-solution',
                 'title' => 'Perfect Packaging Solution',
-                'category' => 'Modern Website Redesign',
+                'category' => 'Website',
                 'theme' => 'blue',
                 'short_description' => "Tectignis IT Solutions revamped Perfect Packer's website, ensuring a modern and visually appealing design. We crafted a fresh logo and social media assets, aligning with the latest color psychology and web design trends.",
                 'image' => 'case-studies/website-designing-case-study.webp',
@@ -25,12 +26,12 @@ class CaseStudySeeder extends Seeder
                     'Improved user experience & engagement',
                 ],
                 'sort_order' => 1,
-                'is_active' => true,
+                'status' => 'published',
             ],
             [
                 'slug' => 'shree-vakratunda-saree',
                 'title' => 'Shree Vakratunda Saree Collection',
-                'category' => 'Seamless E-Commerce Solution',
+                'category' => 'E-commerce',
                 'theme' => 'red',
                 'short_description' => 'Shree Vakratunda needed a robust online platform to showcase and sell their products effectively. Tectignis designed a user-friendly e-commerce website with an intuitive interface ensuring smooth navigation and seamless transactions.',
                 'image' => 'case-studies/e-commerce-development-case-study.webp',
@@ -41,12 +42,12 @@ class CaseStudySeeder extends Seeder
                     'Intuitive navigation across devices',
                 ],
                 'sort_order' => 2,
-                'is_active' => true,
+                'status' => 'published',
             ],
             [
                 'slug' => 'mangosteen-homestays',
                 'title' => 'Mangosteen Homestays',
-                'category' => 'A Digital Success Story',
+                'category' => 'Website',
                 'theme' => 'purple',
                 'short_description' => 'Mangosteen Homestays needed a strong online presence to attract travelers and streamline bookings. Tectignis built their website from scratch with a modern design, intuitive admin panel, and SEO-optimized content.',
                 'image' => 'case-studies/website-development-case-study.webp',
@@ -57,15 +58,16 @@ class CaseStudySeeder extends Seeder
                     'SEO-optimized content for visibility',
                 ],
                 'sort_order' => 3,
-                'is_active' => true,
+                'status' => 'published',
             ],
         ];
 
-        foreach ($caseStudies as $index => $caseStudy) {
-            $category = CaseStudyCategory::updateOrCreate(
-                ['name' => $caseStudy['category']],
-                ['sort_order' => $index, 'is_active' => true],
-            );
+        foreach (PortfolioCategories::NAMES as $index => $name) {
+            CaseStudyCategory::updateOrCreate(['name' => $name], ['sort_order' => $index + 1, 'is_active' => true]);
+        }
+
+        foreach ($caseStudies as $caseStudy) {
+            $category = CaseStudyCategory::firstWhere('name', $caseStudy['category']);
 
             unset($caseStudy['category']);
             $caseStudy['case_study_category_id'] = $category->id;
