@@ -67,6 +67,7 @@
                 <nav class="lp-footer__links" aria-label="{{ __('footer.legal') }}">
                     <a href="{{ localized_route('legal.show', 'privacy-policy') }}" target="_blank" rel="noopener">{{ __('footer.privacy') }}</a>
                     <a href="{{ localized_route('legal.show', 'terms-and-conditions') }}" target="_blank" rel="noopener">{{ __('footer.terms') }}</a>
+                    <button type="button" class="tx-footer__link-button" data-consent-open>{{ __('consent.settings') }}</button>
                     @if ($showIpGeolocationCredit)
                         <a href="https://db-ip.com" target="_blank" rel="noopener">{{ __('footer.ip_geolocation') }}</a>
                     @endif

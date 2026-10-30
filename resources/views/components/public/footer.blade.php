@@ -125,6 +125,7 @@
                 <a href="{{ localized_route('legal.show', 'privacy-policy') }}">{{ __('footer.privacy') }}</a>
                 <a href="{{ localized_route('legal.show', 'terms-and-conditions') }}">{{ __('footer.terms') }}</a>
                 <a href="{{ localized_route('legal.show', 'cookie-policy') }}">{{ __('footer.cookies') }}</a>
+                <button type="button" class="tx-footer__link-button" data-consent-open>{{ __('consent.settings') }}</button>
                 <a href="{{ route('sitemap') }}">{{ __('footer.sitemap') }}</a>
                 @if ($showIpGeolocationCredit)
                     <a href="https://db-ip.com" target="_blank" rel="noopener">{{ __('footer.ip_geolocation') }}</a>

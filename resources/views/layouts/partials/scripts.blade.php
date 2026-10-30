@@ -1,3 +1,5 @@
+@include('layouts.partials.cookie-consent')
+
 {{-- JS --}}
 <script src="{{ asset('assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-3.5.1.min.js') }}"></script>

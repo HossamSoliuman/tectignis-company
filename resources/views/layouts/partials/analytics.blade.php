@@ -7,7 +7,29 @@
     $gtmId = $siteSettings['site_gtm_id'] ?? null;
     $ga4Id = $gtmId ? null : ($siteSettings['site_ga_id'] ?? null);
 @endphp
-<script>window.dataLayer = window.dataLayer || [];</script>
+{{-- Consent Mode v2: denied by default in the EEA, UK and Switzerland until
+     the visitor accepts, granted elsewhere; a saved choice applies before any
+     tag loads (App\Support\Consent, layouts.partials.cookie-consent). --}}
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function () {
+        var states = function (value) {
+            return { ad_storage: value, ad_user_data: value, ad_personalization: value, analytics_storage: value };
+        };
+        var saved = document.cookie.match(/(?:^|; ){{ \App\Support\Consent::COOKIE }}=(granted|denied)/);
+
+        window.txConsentRequired = @js(\App\Support\Consent::requiredFor(request()));
+        window.txConsent = saved ? saved[1] : null;
+
+        gtag('consent', 'default', Object.assign(states('denied'), { region: @js(\App\Support\Consent::REGIONS), wait_for_update: 500 }));
+        gtag('consent', 'default', states('granted'));
+
+        if (window.txConsent) {
+            gtag('consent', 'update', states(window.txConsent));
+        }
+    })();
+</script>
 @if ($gtmId)
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -17,7 +39,6 @@
 @elseif ($ga4Id)
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga4Id }}"></script>
     <script>
-        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', @js($ga4Id));
     </script>
