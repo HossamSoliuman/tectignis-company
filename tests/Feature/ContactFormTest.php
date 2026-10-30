@@ -36,6 +36,13 @@ it('the thank-you page acknowledges the submission', function () {
         ->assertSee('about Cloud Migration');
 });
 
+it('the thank-you page counts down to the homepage', function () {
+    $this->followingRedirects()
+        ->post(route('contact.submit'), validEnquiry())
+        ->assertSee('data-redirect-to="'.route('home').'"', false)
+        ->assertSee('Taking you to the homepage in <span data-redirect-seconds>10</span> seconds.', false);
+});
+
 it('the thank-you page is only reachable straight after a submission', function () {
     $this->get(route('contact.thank-you'))->assertRedirect(route('contact'));
 });

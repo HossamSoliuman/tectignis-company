@@ -100,5 +100,6 @@ return [
         'received_service' => 'Hemos recibido su consulta sobre :service.',
         'next' => 'Nuestro equipo revisará la información que nos ha enviado y se pondrá en contacto con usted.',
         'back_home' => 'Volver al inicio',
+        'redirecting' => 'Le llevaremos a la página de inicio en :seconds segundos.',
     ],
 ];

@@ -25,9 +25,28 @@
                     <a href="{{ route('case-studies.index') }}" class="about-btn about-btn--primary">{{ __('nav.view_our_work') }} <span class="tx-flip-rtl" aria-hidden="true">→</span></a>
                     <a href="{{ localized_route('home') }}" class="about-btn about-btn--ghost">{{ __('forms.thank_you.back_home') }}</a>
                 </div>
+                <p class="thank-you__redirect" aria-live="off" data-redirect-to="{{ localized_route('home') }}">
+                    {!! __('forms.thank_you.redirecting', ['seconds' => '<span data-redirect-seconds>10</span>']) !!}
+                </p>
             </div>
         </div>
     </section>
+
+    <script>
+        (function () {
+            var notice = document.querySelector('[data-redirect-to]');
+            var counter = notice.querySelector('[data-redirect-seconds]');
+            var secondsLeft = 10;
+            var timer = setInterval(function () {
+                secondsLeft -= 1;
+                counter.textContent = secondsLeft;
+                if (secondsLeft <= 0) {
+                    clearInterval(timer);
+                    window.location.replace(notice.dataset.redirectTo);
+                }
+            }, 1000);
+        })();
+    </script>
 
     {{-- The site's only conversion: a stored enquiry. Sent once per submission,
          even if this page is restored from history. --}}

@@ -100,5 +100,6 @@ return [
         'received_service' => 'We have received your enquiry about :service.',
         'next' => 'Our team will review the details you shared and get in touch with you.',
         'back_home' => 'Back to Home',
+        'redirecting' => 'Taking you to the homepage in :seconds seconds.',
     ],
 ];
