@@ -423,3 +423,25 @@ it('limits a landing page to six project examples and rejects unknown ones', fun
         ->put(route('admin.landing-pages.update', $page), $payload([999999]))
         ->assertSessionHasErrors('content.case_studies.ids.0');
 });
+
+it('picks projects for each landing page on deploy and keeps the picks an admin made', function () {
+    // The portfolio deploy migration seeds these projects; start from none.
+    CaseStudy::query()->delete();
+    $tenderset = CaseStudy::factory()->create(['slug' => 'tenderset-government-tender-platform']);
+    $society = CaseStudy::factory()->create(['slug' => 'society-management-saas-platform']);
+    $qr = CaseStudy::factory()->create(['slug' => 'tectignis-qr-code-generator']);
+    $alignocare = CaseStudy::factory()->draft()->create(['slug' => 'alignocare-dental-clinic-website']);
+    $ilccpl = CaseStudy::factory()->create(['slug' => 'ilccpl-liquid-bulk-chartering-website']);
+    $picked = CaseStudy::factory()->create();
+
+    $saas = LandingPage::factory()->create(['slug' => 'saas-development']);
+    $website = LandingPage::factory()->create(['slug' => 'website-development']);
+    $software = LandingPage::factory()->create(['slug' => 'custom-software-development', 'content' => ['case_studies' => ['ids' => [$picked->id]]]]);
+
+    (require database_path('migrations/2026_10_31_154525_pick_case_studies_for_each_landing_page.php'))->up();
+
+    expect($saas->fresh()->caseStudyIds())->toBe([$tenderset->id, $society->id, $qr->id])
+        ->and($website->fresh()->caseStudyIds())->toBe([$ilccpl->id])
+        ->and($software->fresh()->caseStudyIds())->toBe([$picked->id])
+        ->and($alignocare->id)->not->toBeIn($website->fresh()->caseStudyIds());
+});
