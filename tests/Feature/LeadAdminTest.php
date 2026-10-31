@@ -47,6 +47,21 @@ it('sales can change the status and the change is audited', function () {
     ]);
 });
 
+it('sales can record why a lead never reached the pipeline', function (LeadStatus $status) {
+    $lead = Lead::factory()->create();
+
+    $this->actingAs(leadUser())
+        ->patch(route('admin.leads.update', $lead), ['status' => $status->value])
+        ->assertRedirect();
+
+    expect($lead->fresh()->status)->toBe($status);
+
+    $this->actingAs(leadUser())
+        ->get(route('admin.leads.index', ['status' => $status->value]))
+        ->assertOk()
+        ->assertSee($lead->name);
+})->with([LeadStatus::Unreachable, LeadStatus::NotRelevant, LeadStatus::Duplicate]);
+
 it('sales can assign and reassign a lead', function () {
     $user = leadUser();
     $first = leadUser();
