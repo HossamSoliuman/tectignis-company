@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreLandingPageRequest;
 use App\Http\Requests\Admin\UpdateLandingPageRequest;
+use App\Models\CaseStudy;
 use App\Models\LandingPage;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;
@@ -26,7 +27,10 @@ class LandingPageController extends Controller
 
     public function create(): View
     {
-        return view('admin.landing-pages.create', ['serviceOptions' => $this->serviceOptions()]);
+        return view('admin.landing-pages.create', [
+            'serviceOptions' => $this->serviceOptions(),
+            'caseStudyOptions' => $this->caseStudyOptions(),
+        ]);
     }
 
     public function store(StoreLandingPageRequest $request): RedirectResponse
@@ -41,6 +45,7 @@ class LandingPageController extends Controller
         return view('admin.landing-pages.edit', [
             'landingPage' => $landingPage,
             'serviceOptions' => $this->serviceOptions(),
+            'caseStudyOptions' => $this->caseStudyOptions(),
         ]);
     }
 
@@ -59,7 +64,8 @@ class LandingPageController extends Controller
     }
 
     /**
-     * Drop empty bullets and FAQ rows so the stored JSON stays clean.
+     * Drop empty bullets and FAQ rows and store the picked case study IDs as
+     * integers, so the stored JSON stays clean.
      *
      * @param  array<string, mixed>  $data
      * @return array<string, mixed>
@@ -78,6 +84,8 @@ class LandingPageController extends Controller
             fn (mixed $item): bool => is_array($item) && filled($item['question'] ?? null),
         ));
 
+        $content['case_studies']['ids'] = array_values(array_map('intval', $content['case_studies']['ids'] ?? []));
+
         $data['content'] = $content;
         $data['sort_order'] ??= 0;
 
@@ -90,5 +98,13 @@ class LandingPageController extends Controller
     private function serviceOptions(): Collection
     {
         return Service::ordered()->get(['id', 'title']);
+    }
+
+    /**
+     * @return Collection<int, CaseStudy>
+     */
+    private function caseStudyOptions(): Collection
+    {
+        return CaseStudy::published()->ordered()->get(['id', 'title']);
     }
 }

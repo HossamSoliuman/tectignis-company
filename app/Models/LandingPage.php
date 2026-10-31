@@ -21,6 +21,11 @@ class LandingPage extends Model
     use HasContentScopes, HasFactory, HasTranslations;
 
     /**
+     * Most case studies a page can pick for its project examples.
+     */
+    public const MAX_CASE_STUDIES = 6;
+
+    /**
      * Text served in the visitor's language (HasTranslations).
      *
      * @var list<string>
@@ -99,21 +104,41 @@ class LandingPage extends Model
     }
 
     /**
-     * Project examples: only the case studies picked for the linked service.
-     * The service page's fallback to the latest projects is skipped, so an ad
-     * page never shows work unrelated to what it sells.
+     * Project examples: the published case studies picked for this page, in
+     * the order picked, or else the first three picked for the linked
+     * service. The service page's fallback to the latest projects is skipped,
+     * so an ad page never shows work unrelated to what it sells.
      *
      * @return Collection<int, CaseStudy>
      */
-    public function caseStudies(int $limit = 3): Collection
+    public function caseStudies(): Collection
     {
+        $ids = $this->caseStudyIds();
+
+        if ($ids !== []) {
+            return CaseStudy::with('category')->published()->whereKey($ids)->get()
+                ->sortBy(fn (CaseStudy $caseStudy): int => array_search($caseStudy->id, $ids, true))
+                ->take(self::MAX_CASE_STUDIES)
+                ->values();
+        }
+
         $section = $this->service?->content['case_studies'] ?? [];
 
         if (! $this->service || ! ($section['enabled'] ?? true) || empty($section['ids'])) {
             return new Collection;
         }
 
-        return $this->service->selectedCaseStudies()->take($limit)->values();
+        return $this->service->selectedCaseStudies()->take(3)->values();
+    }
+
+    /**
+     * IDs of the case studies picked for this page, in the order picked.
+     *
+     * @return list<int>
+     */
+    public function caseStudyIds(): array
+    {
+        return array_values(array_unique(array_map('intval', (array) ($this->content['case_studies']['ids'] ?? []))));
     }
 
     /**

@@ -102,6 +102,29 @@
     </div>
 </x-admin.service-panel>
 
+{{-- Project examples --}}
+<x-admin.service-panel title="Project Examples">
+    <div>
+        <label for="lp-projects-heading" class="mb-1 block text-sm font-medium text-slate-700">Heading</label>
+        <input id="lp-projects-heading" type="text" name="content[case_studies][heading]" value="{{ $cat('case_studies.heading') }}" placeholder="{{ __('landing.projects_heading') }}" class="{{ $inputClass }}">
+    </div>
+    @if ($caseStudyOptions->isEmpty())
+        <p class="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">No published case studies yet — add them under Case Studies.</p>
+    @else
+        <div>
+            <label class="mb-2 block text-sm font-medium text-slate-700">Case studies (up to {{ \App\Models\LandingPage::MAX_CASE_STUDIES }})</label>
+            @include('admin.services.partials._repeater', [
+                'prefix' => 'content[case_studies][ids]',
+                'rows' => $cat('case_studies.ids', []),
+                'rowView' => 'admin.landing-pages._case-study-row',
+                'empty' => '',
+                'extra' => ['options' => $caseStudyOptions],
+                'addLabel' => 'Add case study',
+            ])
+        </div>
+    @endif
+</x-admin.service-panel>
+
 {{-- FAQ --}}
 <x-admin.service-panel title="FAQ">
     <div>

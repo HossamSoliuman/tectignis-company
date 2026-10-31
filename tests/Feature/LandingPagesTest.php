@@ -350,3 +350,76 @@ it('seeds a landing page for each advertised service with a valid preset service
         $this->get(route('landing-pages.show', $page->slug))->assertOk()->assertSee($page->headline);
     }
 });
+
+it('shows the projects picked for the page in the order picked instead of the service picks', function () {
+    $servicePick = CaseStudy::factory()->create(['title' => 'Service Pick Project']);
+    $first = CaseStudy::factory()->create(['title' => 'First Page Project']);
+    $second = CaseStudy::factory()->create(['title' => 'Second Page Project']);
+    $draft = CaseStudy::factory()->draft()->create(['title' => 'Draft Page Project']);
+    $service = landingService();
+    $service->update(['content' => [...$service->content, 'case_studies' => ['enabled' => true, 'ids' => [$servicePick->id]]]]);
+
+    $page = LandingPage::factory()->for($service)->create([
+        'content' => ['case_studies' => ['heading' => 'Software We Have Shipped', 'ids' => [$second->id, $draft->id, $first->id]]],
+    ]);
+
+    $this->get(route('landing-pages.show', $page->slug))
+        ->assertOk()
+        ->assertSeeInOrder(['Software We Have Shipped', 'Second Page Project', 'First Page Project'])
+        ->assertDontSee('Project Examples')
+        ->assertDontSee('Service Pick Project')
+        ->assertDontSee('Draft Page Project');
+});
+
+it('lets admins pick and order the project examples for a landing page', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $first = CaseStudy::factory()->create(['title' => 'Picked Portal']);
+    $second = CaseStudy::factory()->create(['title' => 'Picked Platform']);
+    CaseStudy::factory()->draft()->create(['title' => 'Unpublished Project']);
+    $page = LandingPage::factory()->create();
+
+    $this->actingAs($admin)->get(route('admin.landing-pages.edit', $page))
+        ->assertOk()
+        ->assertSee('Project Examples')
+        ->assertSee('Picked Portal')
+        ->assertDontSee('Unpublished Project');
+
+    $this->actingAs($admin)->put(route('admin.landing-pages.update', $page), [
+        'title' => $page->title,
+        'slug' => $page->slug,
+        'enquiry_service' => $page->enquiry_service,
+        'headline' => $page->headline,
+        'primary_cta_label' => $page->primary_cta_label,
+        'secondary_cta_label' => $page->secondary_cta_label,
+        'content' => ['case_studies' => ['heading' => 'Our Work', 'ids' => ['100001' => (string) $second->id, '0' => '', '100002' => (string) $first->id]]],
+        'is_active' => '1',
+    ])->assertRedirect(route('admin.landing-pages.edit', $page))->assertSessionHasNoErrors();
+
+    expect($page->fresh()->content['case_studies'])->toBe(['heading' => 'Our Work', 'ids' => [$second->id, $first->id]]);
+
+    $this->actingAs($admin)->get(route('admin.landing-pages.edit', $page))
+        ->assertOk()
+        ->assertSee('<option value="'.$second->id.'" selected>', false);
+});
+
+it('limits a landing page to six project examples and rejects unknown ones', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $page = LandingPage::factory()->create();
+    $payload = fn (array $ids): array => [
+        'title' => $page->title,
+        'slug' => $page->slug,
+        'enquiry_service' => $page->enquiry_service,
+        'headline' => $page->headline,
+        'primary_cta_label' => $page->primary_cta_label,
+        'secondary_cta_label' => $page->secondary_cta_label,
+        'content' => ['case_studies' => ['ids' => $ids]],
+    ];
+
+    $this->actingAs($admin)
+        ->put(route('admin.landing-pages.update', $page), $payload(CaseStudy::factory()->count(7)->create()->modelKeys()))
+        ->assertSessionHasErrors('content.case_studies.ids');
+
+    $this->actingAs($admin)
+        ->put(route('admin.landing-pages.update', $page), $payload([999999]))
+        ->assertSessionHasErrors('content.case_studies.ids.0');
+});

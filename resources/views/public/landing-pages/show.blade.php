@@ -137,7 +137,7 @@
         <section class="svc-section lp-section lp-section--soft">
             <div class="container">
                 <div class="svc-section-head text-center">
-                    <h2 class="svc-section-title" id="lp-projects-heading">{{ __('landing.projects_heading') }}</h2>
+                    <h2 class="svc-section-title" id="lp-projects-heading">{{ $landingPage->contentValue('case_studies.heading', __('landing.projects_heading')) }}</h2>
                 </div>
                 {{-- A swipeable row on phones; focusable so the row scrolls by keyboard too. --}}
                 <div class="lp-grid lp-grid--3 lp-grid--swipe" role="region" aria-labelledby="lp-projects-heading" tabindex="0">
