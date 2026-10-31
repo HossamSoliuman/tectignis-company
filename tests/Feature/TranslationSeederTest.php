@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\LandingPage;
 use App\Models\Setting;
 use App\Models\Stat;
 use App\Models\Translation;
 use App\Services\Translations\TranslationImporter;
 use App\Services\Translations\TranslationItem;
 use App\Support\Locales;
+use Database\Seeders\LandingPageSeeder;
 use Database\Seeders\TranslationSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -121,5 +123,19 @@ it('follows the prompt rules for punctuation and digits', function () {
 
     foreach ($round['ar'] as $id => $item) {
         expect($item['translation'])->not->toMatch('/[\x{0660}-\x{0669}\x{06F0}-\x{06F9}]/u', "ar {$id}: native digits");
+    }
+});
+
+it('translates the newer landing pages', function () {
+    LandingPage::query()->delete();
+    (new LandingPageSeeder)->run();
+
+    $this->seed(TranslationSeeder::class);
+
+    $ecommerce = LandingPage::where('slug', 'ecommerce-development')->sole();
+
+    foreach (Locales::prefixed() as $locale) {
+        expect($ecommerce->translations()->where('field', 'headline')->where('locale', $locale)->value('value'))
+            ->toBe(roundTranslation($locale, 'landing_page.7.headline'));
     }
 });
