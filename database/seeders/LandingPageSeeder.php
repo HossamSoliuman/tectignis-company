@@ -90,6 +90,42 @@ class LandingPageSeeder extends Seeder
             ],
         ],
         [
+            'slug' => 'ecommerce-development',
+            'service_slug' => 'ecommerce-development',
+            'title' => 'E-commerce Development',
+            'enquiry_service' => 'E-commerce',
+            'headline' => 'Custom E-commerce Website Development for Your Business',
+            'supporting_text' => 'Launch an online store or B2B catalogue with the products, payments, shipping and order management your business needs.',
+            'primary_cta_label' => 'Request an E-commerce Quote',
+            'secondary_cta_label' => 'Discuss Your Requirements',
+            'seo_title' => 'Custom E-commerce Website Development Company | Tectignis',
+            'seo_description' => 'Custom e-commerce websites and B2B catalogues with payments, shipping, inventory and order management, built on Laravel, Shopify or WooCommerce by the Tectignis team.',
+            'sort_order' => 7,
+            'content' => [
+                'bullets' => [
+                    'Online stores and B2B catalogues with product search, filters and quote requests',
+                    'Payment gateway, UPI, cash on delivery and shipping integrations',
+                    'Inventory, order and customer management in an easy admin panel',
+                    'Custom builds on Laravel, or Shopify and WooCommerce where they fit better',
+                ],
+                'form' => [
+                    'heading' => 'Tell Us About Your Store',
+                    'text' => 'Share what you sell and how you want to sell it, and our team will get back to you within one business day.',
+                ],
+                'faq' => [
+                    'heading' => 'Frequently Asked Questions',
+                    'items' => [
+                        ['question' => 'Should we build a custom store or use Shopify or WooCommerce?', 'answer' => 'It depends on your catalogue, order volume, integrations and budget. Shopify and WooCommerce suit standard stores, while a custom Laravel build suits B2B pricing, complex catalogues or workflows the platforms do not support. We recommend one after understanding your requirements.'],
+                        ['question' => 'How much does an e-commerce website cost?', 'answer' => 'It depends on the platform, number of products, design, payment and shipping integrations and any custom features. We send a detailed quotation after understanding your requirements.'],
+                        ['question' => 'Which payment gateways can you integrate?', 'answer' => 'We integrate gateways such as Razorpay, PayU, CCAvenue, Stripe and PayPal, along with UPI and cash on delivery, based on the markets you sell in.'],
+                        ['question' => 'Can the store connect to our inventory or accounting software?', 'answer' => 'Yes. We connect stores to inventory, ERP, accounting, courier and messaging systems through their APIs, so orders and stock stay in sync.'],
+                        ['question' => 'Will our store be mobile-friendly?', 'answer' => 'Yes. Every store we build is responsive and tested on desktops, tablets and smartphones, including the checkout.'],
+                        ['question' => 'Do you provide support after launch?', 'answer' => 'Yes. We offer maintenance, security updates, backups and new features after the store goes live.'],
+                    ],
+                ],
+            ],
+        ],
+        [
             'slug' => 'erp-crm-development',
             'service_slug' => 'erp-development',
             'title' => 'ERP & CRM Development',

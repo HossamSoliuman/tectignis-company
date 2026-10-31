@@ -239,7 +239,7 @@ it('seeds the landing pages once, linked to their services', function () {
     (new LandingPageSeeder)->run();
     (new LandingPageSeeder)->run();
 
-    expect(LandingPage::count())->toBe(6);
+    expect(LandingPage::count())->toBe(7);
 
     $software = LandingPage::where('slug', 'custom-software-development')->sole();
     $website = LandingPage::where('slug', 'website-development')->sole();
@@ -337,13 +337,13 @@ it('filters leads by landing page and shows it on the lead', function () {
 });
 
 it('seeds a landing page for each advertised service with a valid preset service', function () {
-    $slugs = ['custom-software-development', 'website-development', 'erp-crm-development', 'saas-development', 'ai-automation', 'it-infrastructure'];
+    $slugs = ['custom-software-development', 'website-development', 'ecommerce-development', 'erp-crm-development', 'saas-development', 'ai-automation', 'it-infrastructure'];
 
     (new LandingPageSeeder)->run();
 
     $pages = LandingPage::whereIn('slug', $slugs)->get();
 
-    expect($pages)->toHaveCount(6);
+    expect($pages)->toHaveCount(7);
 
     foreach ($pages as $page) {
         expect(EnquiryServices::all())->toContain($page->enquiry_service);
@@ -444,4 +444,30 @@ it('picks projects for each landing page on deploy and keeps the picks an admin 
         ->and($website->fresh()->caseStudyIds())->toBe([$ilccpl->id])
         ->and($software->fresh()->caseStudyIds())->toBe([$picked->id])
         ->and($alignocare->id)->not->toBeIn($website->fresh()->caseStudyIds());
+});
+
+it('adds the e-commerce landing page on deploy with its projects and keeps the picks an admin made', function () {
+    CaseStudy::query()->delete();
+    $vakratunda = CaseStudy::factory()->create(['slug' => 'shree-vakratunda-saree']);
+    $velo = CaseStudy::factory()->create(['slug' => 'velo-corporate-gifting-catalogue']);
+    CaseStudy::factory()->draft()->create(['slug' => 'diva-junction-big-billion-days-microsite']);
+    $service = Service::factory()->create(['slug' => 'ecommerce-development']);
+
+    $migration = require database_path('migrations/2026_10_31_164854_seed_ecommerce_landing_page.php');
+    $migration->up();
+
+    $page = LandingPage::where('slug', 'ecommerce-development')->sole();
+
+    expect($page->caseStudyIds())->toBe([$vakratunda->id, $velo->id])
+        ->and($page->service_id)->toBe($service->id)
+        ->and($page->enquiry_service)->toBe('E-commerce');
+
+    $page->update(['content' => [...$page->content, 'case_studies' => ['ids' => [$velo->id]]]]);
+    $migration->up();
+
+    expect($page->fresh()->caseStudyIds())->toBe([$velo->id]);
+
+    $this->get(route('landing-pages.show', 'ecommerce-development'))
+        ->assertOk()
+        ->assertSee('Custom E-commerce Website Development for Your Business');
 });
