@@ -171,6 +171,20 @@ it('ignores gallery paths that do not belong to the project', function () {
     expect($project->refresh()->gallery)->toBe([]);
 });
 
+it('renders every field on the project create and edit forms', function () {
+    $project = CaseStudy::factory()->create();
+    $fields = ['title', 'client_name', 'status', 'project_status', 'project_date', 'case_study_category_id', 'service_id', 'industry_id', 'location', 'slug', 'sort_order', 'is_featured', 'short_description', 'challenge', 'solution', 'modules', 'technologies', 'features', 'outcome', 'testimonial_id', 'content', 'image', 'image_alt', 'gallery_uploads[]', 'seo_title', 'seo_description', 'theme', 'icon'];
+    $admin = portfolioAdmin();
+
+    foreach ([route('admin.case-studies.create'), route('admin.case-studies.edit', $project)] as $url) {
+        $response = $this->actingAs($admin)->get($url)->assertOk();
+
+        foreach ($fields as $field) {
+            $response->assertSee('name="'.$field.'"', false);
+        }
+    }
+});
+
 it('filters the admin project list by status', function () {
     CaseStudy::factory()->create(['title' => 'Live One']);
     CaseStudy::factory()->draft()->create(['title' => 'Draft One']);
