@@ -141,6 +141,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('faq-categories', FaqCategoryController::class)->parameters(['faq-categories' => 'faqCategory']);
         Route::resource('faqs', FaqController::class);
         Route::resource('downloads', DownloadController::class);
+        Route::post('case-studies/reorder', [CaseStudyController::class, 'reorder'])->name('case-studies.reorder');
         Route::resource('case-studies', CaseStudyController::class);
         Route::resource('case-study-categories', CaseStudyCategoryController::class)->parameters(['case-study-categories' => 'caseStudyCategory']);
         Route::resource('testimonials', TestimonialController::class);

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Concerns\PaginatesTables;
 use App\Http\Controllers\Admin\Concerns\UploadsFiles;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Public\CaseStudyController as PublicCaseStudyController;
+use App\Http\Requests\Admin\ReorderCaseStudiesRequest;
 use App\Http\Requests\Admin\StoreCaseStudyRequest;
 use App\Http\Requests\Admin\UpdateCaseStudyRequest;
 use App\Models\CaseStudy;
@@ -17,8 +18,10 @@ use App\Models\Service;
 use App\Models\Testimonial;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
@@ -102,6 +105,39 @@ class CaseStudyController extends Controller
         $caseStudy->delete();
 
         return redirect()->route('admin.case-studies.index')->with('status', 'Case study deleted.');
+    }
+
+    /**
+     * Save a dragged order. The submitted rows may be a filtered or paginated
+     * subset, so they only swap among the positions they already held and
+     * every other project stays where it is. The whole list is renumbered so
+     * projects sharing a display order still sort as dragged.
+     */
+    public function reorder(ReorderCaseStudiesRequest $request): JsonResponse
+    {
+        $submitted = array_map(intval(...), $request->validated('ids'));
+
+        $positions = DB::transaction(function () use ($submitted): array {
+            $current = CaseStudy::query()->ordered()->lockForUpdate()->pluck('sort_order', 'id');
+            $queue = $submitted;
+            $positions = [];
+            $position = 0;
+
+            foreach ($current->keys() as $id) {
+                $placedId = in_array($id, $submitted, true) ? array_shift($queue) : $id;
+                $positions[$placedId] = ++$position;
+
+                if ((int) $current[$placedId] !== $position) {
+                    CaseStudy::whereKey($placedId)->toBase()->update(['sort_order' => $position]);
+                }
+            }
+
+            return $positions;
+        });
+
+        CaseStudy::flushSiteCache();
+
+        return response()->json(['order' => array_intersect_key($positions, array_flip($submitted))]);
     }
 
     /**
