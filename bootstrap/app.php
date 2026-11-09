@@ -4,6 +4,7 @@ use App\Http\Middleware\CaptureLeadAttribution;
 use App\Http\Middleware\EnsurePortalAccess;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\HandleRedirects;
+use App\Http\Middleware\RedirectFrontControllerPaths;
 use App\Http\Middleware\RedirectToCanonicalHost;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLocale;
@@ -26,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => EnsureUserIsAdmin::class,
             'portal' => EnsurePortalAccess::class,
         ]);
+        $middleware->prepend(RedirectFrontControllerPaths::class);
         $middleware->prepend(RedirectToCanonicalHost::class);
         // HandleRedirects must run before SubstituteBindings so that paths now
         // served only by the catch-all CMS route (e.g. the removed /services
