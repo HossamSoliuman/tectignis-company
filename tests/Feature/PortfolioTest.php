@@ -185,6 +185,55 @@ it('renders every field on the project create and edit forms', function () {
     }
 });
 
+it('saves a dragged project order', function () {
+    CaseStudy::query()->delete();
+
+    [$first, $second, $third] = CaseStudy::factory()->count(3)->create(['sort_order' => 0]);
+
+    $this->actingAs(portfolioAdmin())
+        ->postJson(route('admin.case-studies.reorder'), ['ids' => [$third->id, $first->id, $second->id]])
+        ->assertOk()
+        ->assertJson(['order' => [$third->id => 1, $first->id => 2, $second->id => 3]]);
+
+    expect(CaseStudy::ordered()->pluck('id')->all())->toBe([$third->id, $first->id, $second->id]);
+});
+
+it('keeps projects outside a filtered drag in their positions', function () {
+    CaseStudy::query()->delete();
+
+    $projects = collect([1, 2, 3, 4])->map(fn (int $order) => CaseStudy::factory()->create(['sort_order' => $order]));
+    [$first, $second, $third, $fourth] = $projects;
+
+    $this->actingAs(portfolioAdmin())
+        ->postJson(route('admin.case-studies.reorder'), ['ids' => [$fourth->id, $second->id]])
+        ->assertOk();
+
+    expect(CaseStudy::ordered()->pluck('id')->all())->toBe([$first->id, $fourth->id, $third->id, $second->id]);
+});
+
+it('rejects an invalid project order', function (array $ids) {
+    $this->actingAs(portfolioAdmin())
+        ->postJson(route('admin.case-studies.reorder'), ['ids' => $ids])
+        ->assertUnprocessable();
+})->with([
+    'unknown project' => [[999999]],
+    'nothing submitted' => [[]],
+]);
+
+it('requires sign-in to reorder projects', function () {
+    $this->postJson(route('admin.case-studies.reorder'), ['ids' => [1]])->assertUnauthorized();
+});
+
+it('offers a drag handle for each project in the admin list', function () {
+    $project = CaseStudy::factory()->create();
+
+    $this->actingAs(portfolioAdmin())
+        ->get(route('admin.case-studies.index'))
+        ->assertOk()
+        ->assertSee('data-reorder-id="'.$project->id.'"', false)
+        ->assertSee('data-reorder-handle', false);
+});
+
 it('filters the admin project list by status', function () {
     CaseStudy::factory()->create(['title' => 'Live One']);
     CaseStudy::factory()->draft()->create(['title' => 'Draft One']);

@@ -276,3 +276,157 @@ document.addEventListener('click', (e) => {
     // Browsers may restore checkbox state on back navigation.
     window.addEventListener('pageshow', sync);
 })();
+
+// Drag-and-drop table rows: grab a [data-reorder-handle] (or focus it and use
+// the arrow keys) and the new order is posted to the list's data-reorder-url.
+// Neighbouring rows move around the dragged one, so it never leaves the DOM
+// and keeps its pointer capture.
+(function initRowReorder() {
+    const DRAGGING_CLASSES = ['bg-fuchsia-50!', 'shadow-md'];
+    const SCROLL_EDGE = 90;
+    const SCROLL_STEP = 14;
+
+    const confirmedOrder = new WeakMap();
+    let drag = null;
+    let saves = Promise.resolve();
+    let toastTimer = null;
+
+    const rowsOf = (list) => [...list.querySelectorAll('[data-reorder-id]')];
+    const idsOf = (rows) => rows.map((row) => Number(row.dataset.reorderId));
+    const midpointOf = (row) => {
+        const box = row.getBoundingClientRect();
+        return box.top + box.height / 2;
+    };
+
+    const rememberOrder = (list) => {
+        if (!confirmedOrder.has(list)) {
+            confirmedOrder.set(list, rowsOf(list));
+        }
+    };
+
+    const showToast = (message, failed = false) => {
+        const toast = document.querySelector('[data-reorder-toast]');
+        if (!toast) {
+            return;
+        }
+        toast.textContent = message;
+        toast.classList.remove('hidden');
+        toast.classList.toggle('bg-rose-600', failed);
+        toast.classList.toggle('bg-slate-900', !failed);
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.add('hidden'), 2500);
+    };
+
+    const persist = (list) => {
+        const rows = rowsOf(list);
+
+        saves = saves
+            .then(() =>
+                fetch(list.dataset.reorderUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                    body: JSON.stringify({ ids: idsOf(rows) }),
+                }),
+            )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Reorder failed with status ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(({ order }) => {
+                rows.forEach((row) => {
+                    row.querySelector('[data-reorder-position]').textContent = order[row.dataset.reorderId];
+                });
+                confirmedOrder.set(list, rows);
+                showToast('Order saved');
+            })
+            .catch(() => {
+                confirmedOrder.get(list).forEach((row) => list.appendChild(row));
+                showToast('The order could not be saved. Please try again.', true);
+            });
+    };
+
+    const followPointer = (row, list, pointerY) => {
+        let sibling = row.previousElementSibling;
+        while (sibling && pointerY < midpointOf(sibling)) {
+            list.insertBefore(sibling, row.nextElementSibling);
+            sibling = row.previousElementSibling;
+        }
+
+        sibling = row.nextElementSibling;
+        while (sibling && pointerY > midpointOf(sibling)) {
+            list.insertBefore(sibling, row);
+            sibling = row.nextElementSibling;
+        }
+    };
+
+    document.addEventListener('pointerdown', (e) => {
+        const handle = e.target.closest('[data-reorder-handle]');
+        if (!handle || e.button !== 0) {
+            return;
+        }
+
+        const row = handle.closest('[data-reorder-id]');
+        const list = row.closest('[data-reorder]');
+        e.preventDefault();
+        rememberOrder(list);
+        handle.setPointerCapture(e.pointerId);
+        row.classList.add(...DRAGGING_CLASSES);
+        drag = { row, list, startOrder: idsOf(rowsOf(list)).join() };
+    });
+
+    document.addEventListener('pointermove', (e) => {
+        if (!drag) {
+            return;
+        }
+
+        followPointer(drag.row, drag.list, e.clientY);
+
+        if (e.clientY < SCROLL_EDGE) {
+            window.scrollBy(0, -SCROLL_STEP);
+        } else if (e.clientY > window.innerHeight - SCROLL_EDGE) {
+            window.scrollBy(0, SCROLL_STEP);
+        }
+    });
+
+    const finishDrag = () => {
+        if (!drag) {
+            return;
+        }
+
+        const { row, list, startOrder } = drag;
+        drag = null;
+        row.classList.remove(...DRAGGING_CLASSES);
+
+        if (idsOf(rowsOf(list)).join() !== startOrder) {
+            persist(list);
+        }
+    };
+
+    document.addEventListener('pointerup', finishDrag);
+    document.addEventListener('pointercancel', finishDrag);
+
+    document.addEventListener('keydown', (e) => {
+        const handle = e.target.closest?.('[data-reorder-handle]');
+        if (!handle || !['ArrowUp', 'ArrowDown'].includes(e.key)) {
+            return;
+        }
+
+        e.preventDefault();
+        const row = handle.closest('[data-reorder-id]');
+        const list = row.closest('[data-reorder]');
+        const sibling = e.key === 'ArrowUp' ? row.previousElementSibling : row.nextElementSibling;
+        if (!sibling) {
+            return;
+        }
+
+        rememberOrder(list);
+        list.insertBefore(sibling, e.key === 'ArrowUp' ? row.nextElementSibling : row);
+        persist(list);
+    });
+})();
