@@ -19,7 +19,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd public_html
-            git pull origin main
+            git status --short
+            git pull origin main || exit 1
             composer install --no-dev --optimize-autoloader
             npm install
             npm run build
