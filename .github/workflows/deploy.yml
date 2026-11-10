@@ -20,6 +20,7 @@ jobs:
           script: |
             cd public_html
             git status --short
+            git ls-files -d -z public/uploads | xargs -0 -r git checkout --
             git pull origin main || exit 1
             composer install --no-dev --optimize-autoloader
             npm install
