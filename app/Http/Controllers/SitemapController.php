@@ -41,6 +41,7 @@ class SitemapController extends Controller
             ['url' => route('downloads'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['url' => route('faqs'), 'changefreq' => 'monthly', 'priority' => '0.6'],
             ['url' => route('case-studies.index'), 'changefreq' => 'monthly', 'priority' => '0.7'],
+            ['url' => route('products.index'), 'changefreq' => 'monthly', 'priority' => '0.7', 'alternates' => Locales::alternatesFor('products.index')],
             ['url' => route('contact'), 'changefreq' => 'yearly', 'priority' => '0.6', 'alternates' => Locales::alternatesFor('contact')],
             ['url' => route('careers'), 'changefreq' => 'monthly', 'priority' => '0.6'],
         ];
@@ -66,6 +67,7 @@ class SitemapController extends Controller
     {
         $routes = [
             ['home', [], 'weekly', '1.0'],
+            ['products.index', [], 'monthly', '0.7'],
             ['contact', [], 'yearly', '0.6'],
         ];
 
