@@ -45,12 +45,13 @@ class SecurityHeaders
     /**
      * A permissive report-only policy covering the third-party origins already
      * used by the site (Google Analytics/Tag Manager, reCAPTCHA, Google Fonts,
-     * Meta Pixel and flag CDN imagery).
+     * Meta Pixel, flag CDN imagery and the YouTube and Vimeo players).
      */
     private function contentSecurityPolicy(): string
     {
         $google = 'https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://ssl.google-analytics.com';
         $meta = 'https://connect.facebook.net https://www.facebook.com';
+        $video = 'https://www.youtube-nocookie.com https://player.vimeo.com';
 
         return implode('; ', [
             "default-src 'self'",
@@ -58,7 +59,7 @@ class SecurityHeaders
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             'font-src \'self\' https://fonts.gstatic.com data:',
             "img-src 'self' data: https:",
-            "frame-src 'self' {$google}",
+            "frame-src 'self' {$google} {$video}",
             "connect-src 'self' {$google} {$meta}",
             "object-src 'none'",
             "base-uri 'self'",
