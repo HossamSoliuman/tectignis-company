@@ -14,6 +14,7 @@ return [
     'industries' => 'القطاعات',
     'industries_we_serve' => 'القطاعات التي نخدمها',
     'our_work' => 'أعمالنا',
+    'products' => 'المنتجات',
     'resources' => 'الموارد',
     'company' => 'الشركة',
     'contact' => 'تواصل معنا',

@@ -14,6 +14,7 @@ return [
     'industries' => 'Industries',
     'industries_we_serve' => 'Industries We Serve',
     'our_work' => 'Our Work',
+    'products' => 'Products',
     'resources' => 'Resources',
     'company' => 'Company',
     'contact' => 'Contact',

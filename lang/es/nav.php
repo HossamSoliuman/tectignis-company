@@ -14,6 +14,7 @@ return [
     'industries' => 'Sectores',
     'industries_we_serve' => 'Sectores en los que trabajamos',
     'our_work' => 'Nuestros proyectos',
+    'products' => 'Productos',
     'resources' => 'Recursos',
     'company' => 'Empresa',
     'contact' => 'Contacto',

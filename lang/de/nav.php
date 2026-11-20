@@ -14,6 +14,7 @@ return [
     'industries' => 'Branchen',
     'industries_we_serve' => 'Unsere Branchen',
     'our_work' => 'Referenzen',
+    'products' => 'Produkte',
     'resources' => 'Ressourcen',
     'company' => 'Unternehmen',
     'contact' => 'Kontakt',

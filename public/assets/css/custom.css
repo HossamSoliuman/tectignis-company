@@ -8056,10 +8056,22 @@ button.mobile-navigation-icon:focus-visible { outline: 3px solid rgba(25, 88, 12
     .header-bottom-left-wrap .navigation-menu > ul > li:first-child { margin: 0 10px 0 0; }
     .navigation-menu > ul > li > a { font-size: 15px; }
 }
+@media (min-width: 1600px) {
+    .navigation-menu > ul > li { margin: 0 20px; }
+}
 /* Both CTAs open the same modal, so drop the secondary one where space runs out. */
-@media (min-width: 1200px) and (max-width: 1299px) {
+@media (min-width: 1200px) and (max-width: 1599px) {
     .tx-header-actions .tx-btn--outline { display: none !important; }
 }
+/* Narrowest desktop: the logo already links home, so the Home item gives way. */
+@media (min-width: 1200px) and (max-width: 1299px) {
+    .header__logo > a img { width: 180px; }
+    .navigation-menu > ul > li { margin: 0 8px; }
+    .navigation-menu > ul > li.tx-nav-home { display: none; }
+    .header-bottom-left-wrap .navigation-menu > ul > li:nth-child(2) { margin-left: 0; }
+}
+/* Products open their live websites in a new tab. */
+.tx-nav-external { margin-left: 4px; font-size: 10px; opacity: 0.55; }
 .tx-mega__icon i { color: #fff; font-size: 15px; }
 .tx-mega__message {
     margin: 10px 0 6px;
@@ -10007,6 +10019,7 @@ p.section-sub-title {
 /* =========================================================
    Homepage Our Products: Tectignis's own SaaS on the dark band
    ========================================================= */
+#products { scroll-margin-top: 72px; }
 .tx-product-card {
     display: flex;
     flex-direction: column;
