@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\File;
 /**
  * The SaaS products Tectignis builds and runs itself. A product is only
  * created when its name is missing, so admin edits are never overwritten.
- * Each new product starts with its case study's cover and screenshots.
+ * Their screenshots start from their case studies, copied by the
+ * seed_product_screenshots migration once products have a gallery.
  */
 class ProductSeeder extends Seeder
 {
@@ -21,12 +22,9 @@ class ProductSeeder extends Seeder
                 continue;
             }
 
-            $caseStudy = $product['case_study'] ? CaseStudy::where('slug', $product['case_study'])->first() : null;
-
             Product::create([
                 ...collect($product)->except('case_study')->all(),
-                'case_study_id' => $caseStudy?->id,
-                'gallery' => $caseStudy ? $this->screenshotsFrom($caseStudy) : [],
+                'case_study_id' => $product['case_study'] ? CaseStudy::where('slug', $product['case_study'])->value('id') : null,
                 'sort_order' => $index + 1,
                 'is_active' => true,
             ]);
