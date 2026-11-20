@@ -7,7 +7,7 @@
         <a href="{{ route('admin.products.index') }}" class="inline-flex items-center gap-1.5 text-sm font-medium text-fuchsia-600 hover:underline"><x-admin.icon name="arrow-left" class="h-4 w-4" /> Back to Products</a>
     </div>
 
-    <form action="{{ route('admin.products.update', $product) }}" method="POST" class="max-w-2xl space-y-6">
+    <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" class="max-w-3xl space-y-5">
         @csrf
         @method('PUT')
         @include('admin.products._form')
