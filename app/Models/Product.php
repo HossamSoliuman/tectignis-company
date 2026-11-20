@@ -100,7 +100,7 @@ class Product extends Model
                 continue;
             }
 
-            $title = ($video['title'] ?? null) ?: $this->name.' video';
+            $title = ($video['title'] ?? null) ?: __('products.tour', ['name' => $this->name]);
             $item = self::embedFor($source);
 
             if ($item === null && ! Str::startsWith($source, ['http://', 'https://'])) {

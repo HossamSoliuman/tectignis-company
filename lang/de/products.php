@@ -6,6 +6,7 @@ return [
     'empty' => 'Unsere Produkte werden hier in Kürze vorgestellt.',
     'watch_video' => 'Video ansehen',
     'videos' => 'Videos',
+    'tour' => ':name im Überblick',
     'screenshots' => 'Screenshots von :name',
     'view_screenshot' => 'Screenshot :number von :total anzeigen',
     'enlarge' => 'Screenshot im Vollbild ansehen',

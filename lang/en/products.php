@@ -6,6 +6,7 @@ return [
     'empty' => 'Our products will be listed here soon.',
     'watch_video' => 'Watch the video',
     'videos' => 'Videos',
+    'tour' => ':name product tour',
     'screenshots' => ':name screenshots',
     'view_screenshot' => 'Show screenshot :number of :total',
     'enlarge' => 'View the screenshot full screen',

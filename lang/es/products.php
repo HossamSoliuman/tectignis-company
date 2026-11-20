@@ -6,6 +6,7 @@ return [
     'empty' => 'Pronto encontrará aquí nuestros productos.',
     'watch_video' => 'Ver el vídeo',
     'videos' => 'Vídeos',
+    'tour' => 'Recorrido por :name',
     'screenshots' => 'Capturas de :name',
     'view_screenshot' => 'Mostrar la captura :number de :total',
     'enlarge' => 'Ver la captura a pantalla completa',
