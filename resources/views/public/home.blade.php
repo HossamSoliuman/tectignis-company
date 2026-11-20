@@ -166,6 +166,25 @@
         </section>
     @endif
 
+    {{-- Our Products: the SaaS Tectignis builds and runs itself --}}
+    @if ($products->isNotEmpty())
+        <section class="tx-section tx-section--dark" id="products">
+            <div class="container">
+                <x-public.section-heading
+                    tone="dark"
+                    :pretitle="__('home.products_pretitle')"
+                    :title="__('home.products_heading')"
+                    :highlight="__('home.products_highlight')"
+                />
+                <div class="tx-grid tx-grid--3">
+                    @foreach ($products as $product)
+                        <x-public.product-card :product="$product" />
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
     {{-- 06 Industries --}}
     @if ($industries->isNotEmpty())
         <section class="tx-section tx-section--muted">

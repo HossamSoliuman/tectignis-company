@@ -34,6 +34,11 @@ return [
     'cs_pretitle' => 'Aktuelle Projekte',
     'cs_heading' => 'Echte Projekte. Echte Wirkung.',
 
+    'products_pretitle' => 'Unsere Produkte',
+    'products_heading' => 'Software, die wir entwickeln',
+    'products_highlight' => 'und selbst betreiben',
+    'product_visit' => ':name besuchen',
+
     'ind_pretitle' => 'Unsere Branchen',
     'ind_heading' => 'Intelligente Lösungen',
     'ind_highlight' => 'für jede Branche',

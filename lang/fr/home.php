@@ -34,6 +34,11 @@ return [
     'cs_pretitle' => 'Projets récents',
     'cs_heading' => 'Des histoires réelles. Un impact réel.',
 
+    'products_pretitle' => 'Nos produits',
+    'products_heading' => 'Des logiciels que nous créons',
+    'products_highlight' => 'et exploitons nous-mêmes',
+    'product_visit' => 'Découvrir :name',
+
     'ind_pretitle' => 'Nos secteurs d’activité',
     'ind_heading' => 'Accompagner chaque secteur',
     'ind_highlight' => 'avec des solutions intelligentes',

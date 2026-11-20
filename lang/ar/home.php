@@ -34,6 +34,11 @@ return [
     'cs_pretitle' => 'مشاريع حديثة',
     'cs_heading' => 'قصص حقيقية. أثر حقيقي.',
 
+    'products_pretitle' => 'منتجاتنا',
+    'products_heading' => 'برمجيات نبنيها',
+    'products_highlight' => 'وندير تشغيلها بأنفسنا',
+    'product_visit' => 'زيارة :name',
+
     'ind_pretitle' => 'القطاعات التي نخدمها',
     'ind_heading' => 'نمكّن كل قطاع',
     'ind_highlight' => 'بحلول ذكية',

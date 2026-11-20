@@ -10,6 +10,7 @@ use App\Models\CaseStudy;
 use App\Models\GlobalAdvantage;
 use App\Models\Industry;
 use App\Models\ProcessStep;
+use App\Models\Product;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\TechStack;
@@ -31,6 +32,7 @@ class HomeController extends Controller
             'coreServices' => Service::active()->featured()->ordered()->get(),
             'whyChooseFeatures' => WhyChooseFeature::active()->ordered()->get(),
             'caseStudies' => CaseStudy::with('category')->published()->orderByDesc('is_featured')->ordered()->limit(6)->get(),
+            'products' => Product::with(['caseStudy' => fn ($query) => $query->published()])->active()->ordered()->get(),
             'industries' => Industry::active()->ordered()->get(),
             'processSteps' => ProcessStep::active()->ordered()->get(),
             'techGroups' => TechStack::active()->shownOnHome()->ordered()->get()

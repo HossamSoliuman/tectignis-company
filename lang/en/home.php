@@ -34,6 +34,11 @@ return [
     'cs_pretitle' => 'Recent Projects',
     'cs_heading' => 'Real Stories. Real Impact.',
 
+    'products_pretitle' => 'Our Products',
+    'products_heading' => 'Software We Build',
+    'products_highlight' => 'and Run Ourselves',
+    'product_visit' => 'Visit :name',
+
     'ind_pretitle' => 'Industries We Serve',
     'ind_heading' => 'Empowering Every Industry',
     'ind_highlight' => 'with Intelligent Solutions',
