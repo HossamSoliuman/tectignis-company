@@ -4306,6 +4306,78 @@
             "max_length": 160,
             "source": "Custom e-commerce websites and B2B catalogues with payments, shipping, inventory and order management, built on Laravel, Shopify or WooCommerce by the Tectignis team.",
             "translation": "مواقع تجارة إلكترونية وكتالوجات B2B مخصّصة مع المدفوعات والشحن وإدارة المخزون والطلبات، يبنيها فريق Tectignis على Laravel أو Shopify أو WooCommerce."
+        },
+        {
+            "id": "product.1.description",
+            "context": "Product #1, description",
+            "source": "TenderSet gathers open government tenders from GeM, CPPP and state e-procurement portals into one search, matches them to what your company sells and tracks every bid from shortlist to submission.",
+            "translation": "تجمع TenderSet المناقصات الحكومية المفتوحة من بوابات GeM وCPPP وبوابات المشتريات الإلكترونية في الولايات ضمن بحث واحد، وتطابقها مع ما تبيعه شركتك، وتتابع كل عطاء من القائمة المختصرة حتى التقديم."
+        },
+        {
+            "id": "product.1.features.0",
+            "context": "Product #1, features #1",
+            "source": "Tenders from GeM, CPPP and state portals",
+            "translation": "مناقصات من GeM وCPPP وبوابات الولايات"
+        },
+        {
+            "id": "product.1.features.1",
+            "context": "Product #1, features #2",
+            "source": "Email and WhatsApp alerts for matched tenders",
+            "translation": "تنبيهات بالمناقصات المطابقة عبر البريد الإلكتروني وواتساب"
+        },
+        {
+            "id": "product.1.features.2",
+            "context": "Product #1, features #3",
+            "source": "Bid pipeline with approvals and AI eligibility checks",
+            "translation": "مسار للعطاءات مع موافقات وفحوصات أهلية بالذكاء الاصطناعي"
+        },
+        {
+            "id": "product.2.description",
+            "context": "Product #2, description",
+            "source": "Accounting for Indian businesses that sell, install and service equipment. It takes a quotation through to the invoice and GSTR-1, keeps stock with serial numbers, jobs and AMC contracts, and posts everything to a double-entry ledger.",
+            "translation": "نظام محاسبة للشركات الهندية التي تبيع المعدات وتركّبها وتقدّم صيانتها. يأخذ عرض السعر حتى الفاتورة وتقرير GSTR-1، ويدير المخزون بالأرقام التسلسلية والأعمال وعقود AMC، ويرحّل كل العمليات إلى دفتر أستاذ بالقيد المزدوج."
+        },
+        {
+            "id": "product.2.features.0",
+            "context": "Product #2, features #1",
+            "source": "Quotations, invoices, bills and GST reports",
+            "translation": "عروض أسعار وفواتير مبيعات وفواتير مشتريات وتقارير GST"
+        },
+        {
+            "id": "product.2.features.1",
+            "context": "Product #2, features #2",
+            "source": "Stock with serial numbers, jobs and AMC contracts",
+            "translation": "مخزون بالأرقام التسلسلية وأعمال وعقود AMC"
+        },
+        {
+            "id": "product.2.features.2",
+            "context": "Product #2, features #3",
+            "source": "Bank reconciliation and Tally export for your CA",
+            "translation": "تسوية بنكية وتصدير إلى Tally لمحاسبك القانوني"
+        },
+        {
+            "id": "product.3.description",
+            "context": "Product #3, description",
+            "source": "Create QR codes for links, WiFi, contacts, menus, PDFs and more, add your colours and logo, and download PNG, SVG or PDF. Free without sign-up or watermark, with a Pro plan for dynamic codes and scan statistics.",
+            "translation": "أنشئ رموز QR للروابط وشبكات WiFi وجهات الاتصال وقوائم الطعام وملفات PDF وغيرها، وأضف ألوانك وشعارك، ونزّلها بصيغة PNG أو SVG أو PDF. مجاني دون تسجيل أو علامة مائية، مع خطة Pro للرموز الديناميكية وإحصاءات المسح."
+        },
+        {
+            "id": "product.3.features.0",
+            "context": "Product #3, features #1",
+            "source": "More than 20 QR types and hosted pages",
+            "translation": "أكثر من 20 نوعًا من رموز QR وصفحات مستضافة"
+        },
+        {
+            "id": "product.3.features.1",
+            "context": "Product #3, features #2",
+            "source": "Custom colours, logo and frames",
+            "translation": "ألوان وشعار وإطارات مخصّصة"
+        },
+        {
+            "id": "product.3.features.2",
+            "context": "Product #3, features #3",
+            "source": "Dynamic codes and scan statistics on Pro",
+            "translation": "رموز ديناميكية وإحصاءات المسح في خطة Pro"
         }
     ]
 }

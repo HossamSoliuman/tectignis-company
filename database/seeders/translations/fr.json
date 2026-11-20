@@ -4306,6 +4306,78 @@
             "max_length": 160,
             "source": "Custom e-commerce websites and B2B catalogues with payments, shipping, inventory and order management, built on Laravel, Shopify or WooCommerce by the Tectignis team.",
             "translation": "Sites e-commerce et catalogues B2B sur mesure avec paiement, livraison, stocks et commandes, développés par Tectignis sur Laravel, Shopify ou WooCommerce."
+        },
+        {
+            "id": "product.1.description",
+            "context": "Product #1, description",
+            "source": "TenderSet gathers open government tenders from GeM, CPPP and state e-procurement portals into one search, matches them to what your company sells and tracks every bid from shortlist to submission.",
+            "translation": "TenderSet réunit dans une seule recherche les appels d’offres publics ouverts de GeM, du CPPP et des portails d’achats publics des États, les associe à ce que vend votre entreprise et suit chaque offre de la présélection jusqu’au dépôt."
+        },
+        {
+            "id": "product.1.features.0",
+            "context": "Product #1, features #1",
+            "source": "Tenders from GeM, CPPP and state portals",
+            "translation": "Appels d’offres de GeM, du CPPP et des portails des États"
+        },
+        {
+            "id": "product.1.features.1",
+            "context": "Product #1, features #2",
+            "source": "Email and WhatsApp alerts for matched tenders",
+            "translation": "Alertes par e-mail et WhatsApp pour les appels d’offres pertinents"
+        },
+        {
+            "id": "product.1.features.2",
+            "context": "Product #1, features #3",
+            "source": "Bid pipeline with approvals and AI eligibility checks",
+            "translation": "Suivi des offres avec validations et contrôles d’éligibilité par IA"
+        },
+        {
+            "id": "product.2.description",
+            "context": "Product #2, description",
+            "source": "Accounting for Indian businesses that sell, install and service equipment. It takes a quotation through to the invoice and GSTR-1, keeps stock with serial numbers, jobs and AMC contracts, and posts everything to a double-entry ledger.",
+            "translation": "Une comptabilité pour les entreprises indiennes qui vendent, installent et entretiennent des équipements. Elle mène chaque devis jusqu’à la facture et au GSTR-1, suit le stock avec numéros de série, les interventions et les contrats AMC, et passe toutes les écritures dans un grand livre en partie double."
+        },
+        {
+            "id": "product.2.features.0",
+            "context": "Product #2, features #1",
+            "source": "Quotations, invoices, bills and GST reports",
+            "translation": "Devis, factures clients, factures fournisseurs et rapports GST"
+        },
+        {
+            "id": "product.2.features.1",
+            "context": "Product #2, features #2",
+            "source": "Stock with serial numbers, jobs and AMC contracts",
+            "translation": "Stock avec numéros de série, interventions et contrats AMC"
+        },
+        {
+            "id": "product.2.features.2",
+            "context": "Product #2, features #3",
+            "source": "Bank reconciliation and Tally export for your CA",
+            "translation": "Rapprochement bancaire et export Tally pour votre expert-comptable"
+        },
+        {
+            "id": "product.3.description",
+            "context": "Product #3, description",
+            "source": "Create QR codes for links, WiFi, contacts, menus, PDFs and more, add your colours and logo, and download PNG, SVG or PDF. Free without sign-up or watermark, with a Pro plan for dynamic codes and scan statistics.",
+            "translation": "Créez des QR codes pour des liens, le WiFi, des contacts, des menus, des PDF et plus encore, ajoutez vos couleurs et votre logo, puis téléchargez-les en PNG, SVG ou PDF. Gratuit, sans inscription ni filigrane, avec une offre Pro pour les codes dynamiques et les statistiques de scan."
+        },
+        {
+            "id": "product.3.features.0",
+            "context": "Product #3, features #1",
+            "source": "More than 20 QR types and hosted pages",
+            "translation": "Plus de 20 types de QR et des pages hébergées"
+        },
+        {
+            "id": "product.3.features.1",
+            "context": "Product #3, features #2",
+            "source": "Custom colours, logo and frames",
+            "translation": "Couleurs, logo et cadres personnalisés"
+        },
+        {
+            "id": "product.3.features.2",
+            "context": "Product #3, features #3",
+            "source": "Dynamic codes and scan statistics on Pro",
+            "translation": "Codes dynamiques et statistiques de scan avec Pro"
         }
     ]
 }
