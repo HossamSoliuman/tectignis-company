@@ -12,6 +12,7 @@ use App\Http\Controllers\Public\InsightController;
 use App\Http\Controllers\Public\LandingPageController;
 use App\Http\Controllers\Public\NewsletterController;
 use App\Http\Controllers\Public\PageController;
+use App\Http\Controllers\Public\ProductController;
 use App\Http\Controllers\Public\ServiceController;
 use App\Http\Controllers\Public\SolutionController;
 use App\Http\Controllers\SitemapController;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 $translatedRoutes = function (): void {
     Route::get('/', HomeController::class)->name('home');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
     Route::get('/lp/{slug}', [LandingPageController::class, 'show'])->name('landing-pages.show');
     Route::get('/contact', [ContactController::class, 'show'])->name('contact');
