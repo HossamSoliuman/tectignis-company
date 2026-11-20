@@ -38,6 +38,7 @@ return [
     'products_heading' => 'Software We Build',
     'products_highlight' => 'and Run Ourselves',
     'product_visit' => 'Visit :name',
+    'products_all' => 'Explore our products',
 
     'ind_pretitle' => 'Industries We Serve',
     'ind_heading' => 'Empowering Every Industry',

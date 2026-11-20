@@ -38,6 +38,7 @@ return [
     'products_heading' => 'برمجيات نبنيها',
     'products_highlight' => 'وندير تشغيلها بأنفسنا',
     'product_visit' => 'زيارة :name',
+    'products_all' => 'استكشف منتجاتنا',
 
     'ind_pretitle' => 'القطاعات التي نخدمها',
     'ind_heading' => 'نمكّن كل قطاع',

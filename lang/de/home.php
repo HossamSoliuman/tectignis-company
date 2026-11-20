@@ -38,6 +38,7 @@ return [
     'products_heading' => 'Software, die wir entwickeln',
     'products_highlight' => 'und selbst betreiben',
     'product_visit' => ':name besuchen',
+    'products_all' => 'Unsere Produkte entdecken',
 
     'ind_pretitle' => 'Unsere Branchen',
     'ind_heading' => 'Intelligente Lösungen',

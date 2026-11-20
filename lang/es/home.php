@@ -38,6 +38,7 @@ return [
     'products_heading' => 'Software que creamos',
     'products_highlight' => 'y operamos nosotros mismos',
     'product_visit' => 'Visitar :name',
+    'products_all' => 'Descubra nuestros productos',
 
     'ind_pretitle' => 'Sectores en los que trabajamos',
     'ind_heading' => 'Impulsamos cada sector',
