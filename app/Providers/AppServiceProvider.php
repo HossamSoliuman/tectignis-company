@@ -10,6 +10,7 @@ use App\Models\GlobalAdvantage;
 use App\Models\Industry;
 use App\Models\LandingPage;
 use App\Models\ProcessStep;
+use App\Models\Product;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Stat;
@@ -80,6 +81,7 @@ class AppServiceProvider extends ServiceProvider
             'testimonial' => Testimonial::class,
             'case_study' => CaseStudy::class,
             'case_study_category' => CaseStudyCategory::class,
+            'product' => Product::class,
             'setting' => Setting::class,
         ]);
     }
