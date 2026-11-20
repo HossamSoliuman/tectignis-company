@@ -38,6 +38,8 @@ class DatabaseSeeder extends Seeder
             BlogPostSeeder::class,
             CaseStudySeeder::class,
             PortfolioProjectSeeder::class,
+            // Links products to their case studies, so it runs after them.
+            ProductSeeder::class,
             TestimonialSeeder::class,
             BrandSeeder::class,
             WhyChooseFeatureSeeder::class,

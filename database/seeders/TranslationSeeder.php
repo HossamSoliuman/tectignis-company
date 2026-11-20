@@ -16,12 +16,19 @@ use Illuminate\Database\Seeder;
  */
 class TranslationSeeder extends Seeder
 {
-    public function run(TranslationCatalog $catalog, TranslationImporter $importer): void
+    /**
+     * @param  string|null  $idPrefix  Only items whose ID starts with this (e.g. `product.`), for data migrations.
+     */
+    public function run(TranslationCatalog $catalog, TranslationImporter $importer, ?string $idPrefix = null): void
     {
         $memory = $this->memory();
         $entries = [];
 
         foreach ($catalog->pending() as ['item' => $item, 'languages' => $languages]) {
+            if ($idPrefix !== null && ! str_starts_with($item->id, $idPrefix)) {
+                continue;
+            }
+
             foreach ($languages as $locale) {
                 $value = $memory[$locale][$item->id.'|'.$item->sourceHash()] ?? $memory[$locale][$item->sourceHash()] ?? null;
 
