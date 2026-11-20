@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\OfficeLocationController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProcessStepController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RedirectController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -149,6 +150,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('why-choose-features', WhyChooseFeatureController::class);
         Route::resource('office-locations', OfficeLocationController::class);
         Route::resource('global-advantages', GlobalAdvantageController::class);
+        Route::resource('products', ProductController::class)->except(['show']);
         Route::resource('process-steps', ProcessStepController::class);
         Route::resource('redirects', RedirectController::class);
 

@@ -67,6 +67,7 @@
                             ['admin.stats.index', 'Stats'],
                             ['admin.why-choose-features.index', 'Why Choose Us'],
                             ['admin.process-steps.index', 'Process Steps'],
+                            ['admin.products.index', 'Products'],
                             ['admin.global-advantages.index', 'Global Advantages'],
                             ['admin.office-locations.index', 'Office Locations'],
                             ['admin.testimonials.index', 'Testimonials'],
