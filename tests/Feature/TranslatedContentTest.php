@@ -82,7 +82,7 @@ it('removes a record\'s translations when the record is deleted', function () {
 
     $service->delete();
 
-    expect(Translation::count())->toBe(0);
+    expect($service->translations()->count())->toBe(0);
 });
 
 it('serves the translatable settings in the current language', function () {
