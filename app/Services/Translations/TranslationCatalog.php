@@ -8,6 +8,7 @@ use App\Models\GlobalAdvantage;
 use App\Models\Industry;
 use App\Models\LandingPage;
 use App\Models\ProcessStep;
+use App\Models\Product;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Stat;
@@ -183,6 +184,7 @@ class TranslationCatalog
             [Testimonial::class, 'Testimonial'],
             [CaseStudyCategory::class, 'Case study category'],
             [CaseStudy::class, 'Case study'],
+            [Product::class, 'Product'],
             [GlobalAdvantage::class, 'Global advantage'],
         ];
 
