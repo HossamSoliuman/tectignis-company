@@ -5,10 +5,12 @@ namespace Database\Seeders;
 use App\Models\CaseStudy;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 /**
  * The SaaS products Tectignis builds and runs itself. A product is only
  * created when its name is missing, so admin edits are never overwritten.
+ * Each new product starts with its case study's cover and screenshots.
  */
 class ProductSeeder extends Seeder
 {
@@ -19,13 +21,47 @@ class ProductSeeder extends Seeder
                 continue;
             }
 
+            $caseStudy = $product['case_study'] ? CaseStudy::where('slug', $product['case_study'])->first() : null;
+
             Product::create([
                 ...collect($product)->except('case_study')->all(),
-                'case_study_id' => $product['case_study'] ? CaseStudy::where('slug', $product['case_study'])->value('id') : null,
+                'case_study_id' => $caseStudy?->id,
+                'gallery' => $caseStudy ? $this->screenshotsFrom($caseStudy) : [],
                 'sort_order' => $index + 1,
                 'is_active' => true,
             ]);
         }
+    }
+
+    /**
+     * Copies of a case study's cover and screenshots in uploads/products, so
+     * removing one from the product never deletes the case study's file.
+     *
+     * @return list<array{image: string, alt: string}>
+     */
+    public function screenshotsFrom(CaseStudy $caseStudy): array
+    {
+        $images = $caseStudy->image ? [['image' => $caseStudy->image, 'alt' => $caseStudy->coverAlt()]] : [];
+        $screenshots = [];
+
+        foreach ([...$images, ...$caseStudy->galleryImages()] as $item) {
+            $source = public_path('uploads/'.$item['image']);
+
+            if (! is_file($source)) {
+                continue;
+            }
+
+            $copy = 'products/'.basename($item['image']);
+            File::ensureDirectoryExists(public_path('uploads/products'));
+
+            if (! is_file(public_path('uploads/'.$copy))) {
+                File::copy($source, public_path('uploads/'.$copy));
+            }
+
+            $screenshots[] = ['image' => $copy, 'alt' => $item['alt']];
+        }
+
+        return $screenshots;
     }
 
     /**
