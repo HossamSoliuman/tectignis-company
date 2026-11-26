@@ -181,9 +181,6 @@
                         <x-public.product-card :product="$product" />
                     @endforeach
                 </div>
-                <div class="tx-section__footer">
-                    <a href="{{ localized_route('products.index') }}" class="tx-btn tx-btn--light">{{ __('home.products_all') }} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-                </div>
             </div>
         </section>
     @endif

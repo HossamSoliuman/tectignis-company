@@ -133,7 +133,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Feed the public header with the four business pillars (spec §3), each holding
      * the live, admin-managed services of the capabilities mapped onto it, plus the
-     * active industries and the active products that have a live website.
+     * active industries.
      *
      * Only capabilities flagged `show_in_menu` contribute services, so the admin can
      * keep a capability live on the site while removing it from the mega-menu.
@@ -144,12 +144,10 @@ class AppServiceProvider extends ServiceProvider
             $nav = Cache::rememberForever(Locales::cacheKey('site.nav'), fn (): array => [
                 'pillars' => $this->groupCapabilitiesByPillar(),
                 'industries' => Industry::active()->ordered()->get(['id', 'slug', 'name']),
-                'products' => Product::active()->ordered()->whereNotNull('url')->get(['id', 'name', 'url']),
             ]);
 
             $view->with('navPillars', $nav['pillars']);
             $view->with('navIndustries', $nav['industries']);
-            $view->with('navProducts', $nav['products']);
         });
     }
 

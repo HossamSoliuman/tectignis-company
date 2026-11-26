@@ -1,9 +1,8 @@
 {{--
-    Site header (spec §4.1): Home | Solutions | Industries | Our Work | Products |
-    Resources | Company | Contact, with the four business pillars in the Solutions
-    mega-menu, the products page and their live websites under Products and the primary
-    "Book a Technical Consultation" CTA.
-    $navPillars / $navIndustries / $navProducts come from the composer in AppServiceProvider.
+    Site header (spec §4.1): Home | Solutions | Industries | Our Work | Resources |
+    Company | Contact, with the four business pillars in the Solutions mega-menu and
+    the primary "Book a Technical Consultation" CTA.
+    $navPillars / $navIndustries come from the composer in AppServiceProvider.
 --}}
 @php
     $resourceLinks = [
@@ -130,21 +129,6 @@
                                                     <li>
                                                         <a href="{{ route('case-studies.index') }}"><span>{{ __('nav.our_work') }}</span></a>
                                                     </li>
-                                                    @if ($navProducts->isNotEmpty())
-                                                        <li class="has-children">
-                                                            <a href="{{ localized_route('products.index') }}"><span>{{ __('nav.products') }}</span></a>
-                                                            <ul class="megamenu megamenu--mega">
-                                                                <li>
-                                                                    <h2 class="page-list-title">{{ __('nav.products') }}</h2>
-                                                                    <ul>
-                                                                        @foreach ($navProducts as $product)
-                                                                            <li><a href="{{ $product->url }}" target="_blank" rel="noopener"><span>{{ $product->name }}</span> <i class="fas fa-external-link-alt tx-nav-external" aria-hidden="true"></i></a></li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    @endif
                                                     <li class="has-children">
                                                         <a href="{{ route('blog.index') }}"><span>{{ __('nav.resources') }}</span></a>
                                                         <ul class="megamenu megamenu--mega">
@@ -243,16 +227,6 @@
                     <li>
                         <a href="{{ route('case-studies.index') }}">{{ __('nav.our_work') }}</a>
                     </li>
-                    @if ($navProducts->isNotEmpty())
-                        <li class="has-children">
-                            <a href="{{ localized_route('products.index') }}">{{ __('nav.products') }}</a>
-                            <ul class="sub-menu">
-                                @foreach ($navProducts as $product)
-                                    <li><a href="{{ $product->url }}" target="_blank" rel="noopener"><span>{{ $product->name }}</span> <i class="fas fa-external-link-alt tx-nav-external" aria-hidden="true"></i></a></li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    @endif
                     <li class="has-children">
                         <a href="{{ route('blog.index') }}">{{ __('nav.resources') }}</a>
                         <ul class="sub-menu">

@@ -38,7 +38,6 @@ return [
 
     'translated_pages' => [
         'home' => null,
-        'products.index' => null,
         'landing-pages.show' => null,
         'contact' => null,
         'contact.submit' => null,
